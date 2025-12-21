@@ -14,29 +14,24 @@ export function MainNav() {
 
   const routes = [
     {
-      href: "/",
-      label: "Home",
-      active: pathname === "/",
+      href: "#features",
+      label: "Mission",
+      active: false,
     },
     {
-      href: "/auth/login",
-      label: "Login",
-      active: pathname === "/auth/login",
+      href: "#community",
+      label: "Community",
+      active: false,
     },
     {
-      href: "/auth/signup",
-      label: "Sign Up",
-      active: pathname === "/auth/signup",
-    },
-    {
-      href: "/admin/dashboard",
-      label: "Admin",
-      active: pathname.startsWith("/admin"),
+      href: "#start",
+      label: "Free Courses",
+      active: false,
     },
   ]
 
   return (
-    <header className="border-b border-slate-800 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/60 sticky top-0 z-50 transition-colors duration-300">
+    <header className="border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50 transition-all duration-300">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
@@ -87,15 +82,15 @@ export function MainNav() {
             </Button>
 
             {/* Quick access buttons for desktop */}
-            <div className="hidden md:flex items-center space-x-2">
-              <Button asChild variant="ghost">
-                <Link href="/test-email">Test Email</Link>
+            <div className="hidden md:flex items-center space-x-4">
+              <Button asChild variant="ghost" className="text-slate-300 hover:text-white">
+                <Link href="/auth/login">Log In</Link>
               </Button>
               <Button
                 asChild
-                className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600"
+                className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0 shadow-lg shadow-cyan-500/20"
               >
-                <Link href="/admin/dashboard">Dashboard</Link>
+                <Link href="#start">Join Free</Link>
               </Button>
             </div>
           </div>
@@ -120,15 +115,15 @@ export function MainNav() {
               ))}
 
               {/* Mobile quick access */}
-              <div className="pt-4 border-t border-slate-800 space-y-2">
-                <Button asChild variant="ghost" className="w-full justify-start">
-                  <Link href="/test-email" onClick={() => setMobileMenuOpen(false)}>
-                    Test Email
+              <div className="pt-4 border-t border-slate-800 space-y-3">
+                <Button asChild variant="outline" className="w-full justify-center border-slate-700 text-slate-300">
+                  <Link href="/auth/login" onClick={() => setMobileMenuOpen(false)}>
+                    Log In
                   </Link>
                 </Button>
-                <Button asChild className="w-full justify-start bg-gradient-to-r from-cyan-500 to-teal-500">
-                  <Link href="/admin/dashboard" onClick={() => setMobileMenuOpen(false)}>
-                    Admin Dashboard
+                <Button asChild className="w-full justify-center bg-gradient-to-r from-cyan-500 to-teal-500 border-0">
+                  <Link href="#start" onClick={() => setMobileMenuOpen(false)}>
+                    Join Academy Free
                   </Link>
                 </Button>
               </div>
