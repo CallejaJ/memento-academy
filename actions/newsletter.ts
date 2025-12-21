@@ -1,6 +1,6 @@
 "use server"
 
-import { supabase } from "@/lib/supabase"
+import prisma from "@/lib/prisma"
 import { Resend } from "resend"
 
 // Initialize Resend with your API key
@@ -17,8 +17,10 @@ export async function subscribeToNewsletter(formData: FormData) {
   console.log("Newsletter subscription attempt for:", email)
 
   try {
-    // Check if email already exists
-    const { data: existing } = await supabase.from("newsletter_subscribers").select("id").eq("email", email).single()
+    // Check if email already exists using Prisma
+    const existing = await prisma.newsletter_subscribers.findUnique({
+      where: { email },
+    })
 
     if (existing) {
       console.log("Email already exists:", email)
@@ -28,23 +30,20 @@ export async function subscribeToNewsletter(formData: FormData) {
       }
     }
 
-    // Insert new subscriber
-    const { error: insertError } = await supabase.from("newsletter_subscribers").insert({
-      email,
-      full_name: fullName || null,
-      subscription_preferences: {
-        crypto_news: cryptoNews,
-        nft_updates: nftUpdates,
-        course_announcements: courseAnnouncements,
-        trading_signals: tradingSignals,
+    // Insert new subscriber using Prisma
+    await prisma.newsletter_subscribers.create({
+      data: {
+        email,
+        full_name: fullName || null,
+        subscription_preferences: {
+          crypto_news: cryptoNews,
+          nft_updates: nftUpdates,
+          course_announcements: courseAnnouncements,
+          trading_signals: tradingSignals,
+        },
+        confirmed_at: new Date(),
       },
-      confirmed_at: new Date().toISOString(),
     })
-
-    if (insertError) {
-      console.error("Database insert error:", insertError)
-      throw insertError
-    }
 
     console.log("Subscriber added to database successfully")
 
