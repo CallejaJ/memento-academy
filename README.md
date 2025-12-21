@@ -1,8 +1,19 @@
-# 🎓 Memento Academy
+# Memento Academy
 
-A premium educational platform dedicated to Cryptocurrencies, NFTs, and Trading. This platform is engineered for high performance and visual excellence, leveraging modern full-stack technologies to deliver a seamless user experience.
+<div align="center">
+    <img src="https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js" alt="Next.js" />
+    <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+    <img src="https://img.shields.io/badge/Prisma-7-2D3748?style=for-the-badge&logo=prisma" alt="Prisma" />
+    <img src="https://img.shields.io/badge/Supabase-Database-3ECF8E?style=for-the-badge&logo=supabase" alt="Supabase" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS" />
+    <img src="https://img.shields.io/badge/Resend-Email-black?style=for-the-badge" alt="Resend" />
+</div>
 
-## 🏗️ System Architecture
+<p align="center">
+    <i>Premium educational platform centered on Cryptocurrencies, NFTs, and Advanced Trading education</i>
+</p>
+
+## System Architecture
 
 The application follows a modern serverless architecture with a focus on type safety and automated background processes.
 
@@ -25,7 +36,7 @@ graph TD
     GHA -- "Daily Ping (Keep-Alive)" --> Supabase
 ```
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Frontend**: [Next.js 15](https://nextjs.org/) (App Router), [React 19](https://react.dev/), [Tailwind CSS](https://tailwindcss.com/)
 - **Interactions**: [Radix UI](https://www.radix-ui.com/), [Lucide React](https://lucide.dev/), [Framer Motion](https://www.framer.com/motion/)
@@ -33,7 +44,7 @@ graph TD
 - **Communications**: [Resend](https://resend.com/)
 - **DevOps**: [GitHub Actions](https://github.com/features/actions) for DB health maintenance
 
-## 🚀 Key Features
+## Key Features
 
 ### 1. High-Performance Newsletter System
 Built with **Next.js Server Actions** for secure, low-latency processing.
@@ -49,7 +60,7 @@ Fully responsive interface designed with a focus on dark-mode aesthetics and flu
 ### 3. Automated Database Health
 Custom **GitHub Actions** workflows ensure the Supabase tier remains active by performing periodic health checks, preventing service pauses during inactivity.
 
-## ⚙️ Project Setup
+## Project Setup
 
 ### Environment Configuration
 Create a `.env.local` file with the following parameters:
