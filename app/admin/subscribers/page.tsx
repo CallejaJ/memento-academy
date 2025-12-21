@@ -21,7 +21,8 @@ export default async function SubscribersPage() {
   const { data: profile } = await supabase.from("profiles").select("*").eq("id", session.user.id).single()
 
   // Simple admin check - in production you'd have a proper admin role
-  const isAdmin = profile?.email === "admin@example.com" // Replace with your admin email
+  const profileWithEmail = profile as { email: string } | null
+  const isAdmin = profileWithEmail?.email === "posicionadoenlaweb@gmail.com"
 
   if (!isAdmin) {
     redirect("/dashboard")
@@ -65,7 +66,7 @@ export default async function SubscribersPage() {
                 </thead>
                 <tbody>
                   {subscribers && subscribers.length > 0 ? (
-                    subscribers.map((subscriber) => (
+                    subscribers.map((subscriber: any) => (
                       <tr key={subscriber.id} className="border-b hover:bg-gray-50 dark:hover:bg-slate-800/50">
                         <td className="py-3 px-4">{subscriber.email}</td>
                         <td className="py-3 px-4">{subscriber.full_name || "-"}</td>

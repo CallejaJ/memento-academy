@@ -78,7 +78,7 @@ export function NewsletterForm({
     })
   }
 
-  const FormContent = () => (
+  const formContent = (
     <div className={`space-y-4 ${className}`}>
       {response && (
         <Alert
@@ -210,7 +210,7 @@ export function NewsletterForm({
             </DialogTitle>
             <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
-          <FormContent />
+          {formContent}
         </DialogContent>
       </Dialog>
     )
@@ -223,7 +223,7 @@ export function NewsletterForm({
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
           <p className="text-gray-600 dark:text-slate-300 text-sm">{description}</p>
         </div>
-        <FormContent />
+        {formContent}
       </div>
     )
   }
@@ -238,7 +238,7 @@ export function NewsletterForm({
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <FormContent />
+        {formContent}
       </CardContent>
     </Card>
   )

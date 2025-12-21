@@ -1,13 +1,19 @@
 import { createClient } from "@supabase/supabase-js"
 import type { Database } from "@/types/supabase"
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// Provide hardcoded fallbacks in case environment variables aren't loaded correctly in the browser
+const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL || "https://jmmmxgnakjefsjkhqaat.supabase.co").trim()
+const supabaseAnonKey = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImptbW14Z25ha2plZnNqa2hxYWF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzMjEzMzYsImV4cCI6MjA4MTg5NzMzNn0.We5meT7wgivkXeFLsbdfjqu00vvTFS-JxuH8jigZqLY").trim()
 
 // Create a singleton instance to prevent multiple clients
 let supabaseInstance: ReturnType<typeof createClient<Database>> | null = null
 
 function createSupabaseClient() {
+  if (typeof window !== "undefined") {
+    console.log("🛠️ Initializing Supabase client with:")
+    console.log("🔗 URL:", supabaseUrl)
+    console.log("🔑 Key:", supabaseAnonKey.substring(0, 10) + "..." + supabaseAnonKey.substring(supabaseAnonKey.length - 10))
+  }
   return createClient<Database>(supabaseUrl, supabaseAnonKey, {
     auth: {
       persistSession: true,
