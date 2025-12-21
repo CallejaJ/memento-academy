@@ -10,7 +10,7 @@
 </div>
 
 <p align="center">
-    <i>Premium educational platform centered on Cryptocurrencies, NFTs, and Advanced Trading education</i>
+    <i>Free educational platform designed for Web3 newcomers. We simplify Cryptocurrencies, CBDCs, and Blockchain technology with zero costs for the community.</i>
 </p>
 
 ## System Architecture

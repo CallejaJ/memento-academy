@@ -32,17 +32,17 @@ interface NewsletterFormProps {
 export function NewsletterForm({
   variant = "inline",
   buttonText = "Join Academy",
-  title = "Stay Updated with Web3 News",
-  description = "Get the latest crypto news, NFT drops, and trading insights delivered to your inbox.",
+  title = "Start Your Web3 Journey",
+  description = "Learn the basics of Cryptocurrencies, Blockchain, and CBDCs with our free beginner-friendly courses.",
   className = "",
 }: NewsletterFormProps) {
   const [email, setEmail] = useState("")
   const [fullName, setFullName] = useState("")
   const [preferences, setPreferences] = useState({
-    crypto_news: true,
-    nft_updates: true,
-    course_announcements: true,
-    trading_signals: false,
+    web3_basics: true,
+    cbdc_education: true,
+    free_courses: true,
+    community_events: false,
   })
   const [response, setResponse] = useState<{ success: boolean; message: string } | null>(null)
   const [isPending, startTransition] = useTransition()
@@ -129,48 +129,48 @@ export function NewsletterForm({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="crypto_news"
-                  name="crypto_news"
-                  checked={preferences.crypto_news}
-                  onCheckedChange={(checked) => setPreferences((prev) => ({ ...prev, crypto_news: !!checked }))}
+                  id="web3_basics"
+                  name="web3_basics"
+                  checked={preferences.web3_basics}
+                  onCheckedChange={(checked) => setPreferences((prev) => ({ ...prev, web3_basics: !!checked }))}
                 />
-                <Label htmlFor="crypto_news" className="text-sm">
-                  Crypto News
+                <Label htmlFor="web3_basics" className="text-sm">
+                  Web3 Basics
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="nft_updates"
-                  name="nft_updates"
-                  checked={preferences.nft_updates}
-                  onCheckedChange={(checked) => setPreferences((prev) => ({ ...prev, nft_updates: !!checked }))}
+                  id="cbdc_education"
+                  name="cbdc_education"
+                  checked={preferences.cbdc_education}
+                  onCheckedChange={(checked) => setPreferences((prev) => ({ ...prev, cbdc_education: !!checked }))}
                 />
-                <Label htmlFor="nft_updates" className="text-sm">
-                  NFT Updates
+                <Label htmlFor="cbdc_education" className="text-sm">
+                  CBDC Education
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="course_announcements"
-                  name="course_announcements"
-                  checked={preferences.course_announcements}
+                  id="free_courses"
+                  name="free_courses"
+                  checked={preferences.free_courses}
                   onCheckedChange={(checked) =>
-                    setPreferences((prev) => ({ ...prev, course_announcements: !!checked }))
+                    setPreferences((prev) => ({ ...prev, free_courses: !!checked }))
                   }
                 />
-                <Label htmlFor="course_announcements" className="text-sm">
-                  Course Announcements
+                <Label htmlFor="free_courses" className="text-sm">
+                  Free Courses
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="trading_signals"
-                  name="trading_signals"
-                  checked={preferences.trading_signals}
-                  onCheckedChange={(checked) => setPreferences((prev) => ({ ...prev, trading_signals: !!checked }))}
+                  id="community_events"
+                  name="community_events"
+                  checked={preferences.community_events}
+                  onCheckedChange={(checked) => setPreferences((prev) => ({ ...prev, community_events: !!checked }))}
                 />
-                <Label htmlFor="trading_signals" className="text-sm">
-                  Trading Signals
+                <Label htmlFor="community_events" className="text-sm">
+                  Community Events
                 </Label>
               </div>
             </div>

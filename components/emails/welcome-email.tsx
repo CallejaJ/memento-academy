@@ -12,10 +12,10 @@ interface WelcomeEmailProps {
   name?: string
   email: string
   preferences: {
-    crypto_news: boolean
-    nft_updates: boolean
-    course_announcements: boolean
-    trading_signals: boolean
+    web3_basics: boolean
+    cbdc_education: boolean
+    free_courses: boolean
+    community_events: boolean
   }
 }
 
@@ -37,12 +37,11 @@ export const WelcomeEmail: React.FC<WelcomeEmailProps> = ({ name = "", email, pr
           crypto enthusiasts.
         </Text>
 
-        <Text>Here's what you can expect:</Text>
         <ul>
-          {preferences.crypto_news && <li>Daily crypto news and market analysis</li>}
-          {preferences.nft_updates && <li>Exclusive NFT drop alerts</li>}
-          {preferences.course_announcements && <li>Course announcements and special offers</li>}
-          {preferences.trading_signals && <li>Trading signals and insights</li>}
+          {preferences.web3_basics && <li>Introduction to Web3 and Blockchain</li>}
+          {preferences.cbdc_education && <li>Updates and guides on Digital Currencies (CBDCs)</li>}
+          {preferences.free_courses && <li>New free course releases and study materials</li>}
+          {preferences.community_events && <li>Live Q&A and community events</li>}
         </ul>
 
         <Text>Stay tuned for our next update!</Text>

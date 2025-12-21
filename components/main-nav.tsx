@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
 import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
@@ -37,7 +36,7 @@ export function MainNav() {
   ]
 
   return (
-    <header className="border-b border-gray-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-slate-900/60 sticky top-0 z-50 transition-colors duration-300">
+    <header className="border-b border-slate-800 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/60 sticky top-0 z-50 transition-colors duration-300">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
@@ -52,7 +51,7 @@ export function MainNav() {
                   className="transition-transform duration-300 hover:scale-105"
                 />
               </div>
-              <span className="text-xl font-bold text-gray-900 dark:text-white transition-colors duration-300">
+              <span className="text-xl font-bold text-white transition-colors duration-300">
                 Memento Academy
               </span>
             </Link>
@@ -65,8 +64,8 @@ export function MainNav() {
                 key={route.href}
                 href={route.href}
                 className={cn(
-                  "text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-cyan-400 transition-colors duration-300 font-medium",
-                  route.active && "text-cyan-600 dark:text-cyan-400",
+                  "text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium",
+                  route.active && "text-cyan-400",
                 )}
               >
                 {route.label}
@@ -76,7 +75,6 @@ export function MainNav() {
 
           {/* Right side buttons */}
           <div className="flex items-center space-x-4">
-            <ThemeToggle />
 
             {/* Mobile menu button */}
             <Button
@@ -105,15 +103,15 @@ export function MainNav() {
 
         {/* Mobile menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200 dark:border-slate-800">
+          <div className="md:hidden py-4 border-t border-slate-800">
             <nav className="flex flex-col space-y-4">
               {routes.map((route) => (
                 <Link
                   key={route.href}
                   href={route.href}
                   className={cn(
-                    "text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-cyan-400 transition-colors duration-300 font-medium px-2 py-1",
-                    route.active && "text-cyan-600 dark:text-cyan-400",
+                    "text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium px-2 py-1",
+                    route.active && "text-cyan-400",
                   )}
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -122,7 +120,7 @@ export function MainNav() {
               ))}
 
               {/* Mobile quick access */}
-              <div className="pt-4 border-t border-gray-200 dark:border-slate-800 space-y-2">
+              <div className="pt-4 border-t border-slate-800 space-y-2">
                 <Button asChild variant="ghost" className="w-full justify-start">
                   <Link href="/test-email" onClick={() => setMobileMenuOpen(false)}>
                     Test Email

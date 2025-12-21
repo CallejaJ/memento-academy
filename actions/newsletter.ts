@@ -9,10 +9,10 @@ const resend = new Resend("re_7TNLCsuj_EYn9ka9AUgBi9ixB9LGgCefo")
 export async function subscribeToNewsletter(formData: FormData) {
   const email = formData.get("email") as string
   const fullName = (formData.get("fullName") as string) || ""
-  const cryptoNews = formData.get("crypto_news") === "on"
-  const nftUpdates = formData.get("nft_updates") === "on"
-  const courseAnnouncements = formData.get("course_announcements") === "on"
-  const tradingSignals = formData.get("trading_signals") === "on"
+  const web3Basics = formData.get("web3_basics") === "on"
+  const cbdcEducation = formData.get("cbdc_education") === "on"
+  const freeCourses = formData.get("free_courses") === "on"
+  const communityEvents = formData.get("community_events") === "on"
 
   console.log("Newsletter subscription attempt for:", email)
 
@@ -36,10 +36,10 @@ export async function subscribeToNewsletter(formData: FormData) {
         email,
         full_name: fullName || null,
         subscription_preferences: {
-          crypto_news: cryptoNews,
-          nft_updates: nftUpdates,
-          course_announcements: courseAnnouncements,
-          trading_signals: tradingSignals,
+          web3_basics: web3Basics,
+          cbdc_education: cbdcEducation,
+          free_courses: freeCourses,
+          community_events: communityEvents,
         },
         confirmed_at: new Date(),
       },
@@ -68,10 +68,10 @@ export async function subscribeToNewsletter(formData: FormData) {
               <p>Thank you for subscribing to the Memento Academy newsletter! You're now part of our community of 50,000+ crypto enthusiasts.</p>
               <p>Here's what you can expect:</p>
               <ul>
-                ${cryptoNews ? "<li>Daily crypto news and market analysis</li>" : ""}
-                ${nftUpdates ? "<li>Exclusive NFT drop alerts</li>" : ""}
-                ${courseAnnouncements ? "<li>Course announcements and special offers</li>" : ""}
-                ${tradingSignals ? "<li>Trading signals and insights</li>" : ""}
+                ${web3Basics ? "<li>Introduction to Web3 and Blockchain</li>" : ""}
+                ${cbdcEducation ? "<li>Understanding Digital Currencies (CBDCs)</li>" : ""}
+                ${freeCourses ? "<li>New free course releases</li>" : ""}
+                ${communityEvents ? "<li>Community events and live Q&A</li>" : ""}
               </ul>
               <p>Stay tuned for our next update!</p>
               <div style="text-align: center; margin-top: 30px;">
