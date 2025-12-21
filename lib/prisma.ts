@@ -1,13 +1,12 @@
 import { PrismaClient } from "@prisma/client"
+import { PrismaPg } from "@prisma/adapter-pg"
+import { Pool } from "pg"
 
 const prismaClientSingleton = () => {
-  // Try to get from process.env first
-  const fallbackUrl = "postgresql://postgres.jmmmxgnakjefsjkhqaat:Y%40somos4@aws-1-eu-west-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
-  const url = process.env.DATABASE_URL || process.env.DIRECT_URL || fallbackUrl
-
-  return new PrismaClient({
-    datasourceUrl: url,
-  })
+  const connectionString = process.env.DATABASE_URL || ""
+  const pool = new Pool({ connectionString })
+  const adapter = new PrismaPg(pool)
+  return new PrismaClient({ adapter })
 }
 
 declare global {

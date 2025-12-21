@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
 import { useAuth } from "@/contexts/auth-context"
 import { Button } from "@/components/ui/button"
@@ -10,21 +10,53 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { AlertCircle, CheckCircle } from "lucide-react"
-import { useRouter } from "next/navigation"
+import { AlertCircle, CheckCircle, Loader2 } from "lucide-react"
 
 interface ProfileFormProps {
-  initialProfile: any
+  initialProfile?: any
 }
 
 export function ProfileForm({ initialProfile }: ProfileFormProps) {
-  const [fullName, setFullName] = useState(initialProfile?.full_name || "")
-  const [avatarUrl, setAvatarUrl] = useState(initialProfile?.avatar_url || "")
+  const [fullName, setFullName] = useState("")
+  const [avatarUrl, setAvatarUrl] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [isFetching, setIsFetching] = useState(true)
   const { user } = useAuth()
-  const router = useRouter()
+
+  // Fetch profile data on mount
+  useEffect(() => {
+    async function fetchProfile() {
+      if (!user) {
+        setIsFetching(false)
+        return
+      }
+
+      try {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", user.id)
+          .single()
+
+        if (error && error.code !== "PGRST116") {
+          console.error("Error fetching profile:", error)
+        }
+
+        if (data) {
+          setFullName((data as any).full_name || "")
+          setAvatarUrl((data as any).avatar_url || "")
+        }
+      } catch (err) {
+        console.error("Error:", err)
+      } finally {
+        setIsFetching(false)
+      }
+    }
+
+    fetchProfile()
+  }, [user])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -32,25 +64,62 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
     setSuccess(null)
     setIsLoading(true)
 
-    try {
-      const { error } = await supabase
-        .from("profiles")
-        .update({
-          full_name: fullName,
-          avatar_url: avatarUrl,
-          updated_at: new Date().toISOString(),
-        })
-        .eq("id", user?.id)
+    if (!user?.id) {
+      setError("No user found")
+      setIsLoading(false)
+      return
+    }
 
-      if (error) throw error
+    try {
+      // First try to update
+      const { data: existingProfile } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("id", user.id)
+        .single()
+
+      if (existingProfile) {
+        // Update existing profile
+        const { error } = await supabase
+          .from("profiles")
+          .update({
+            full_name: fullName || null,
+            avatar_url: avatarUrl || null,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("id", user.id)
+
+        if (error) throw error
+      } else {
+        // Insert new profile
+        const { error } = await supabase
+          .from("profiles")
+          .insert({
+            id: user.id,
+            email: user.email ?? null,
+            full_name: fullName || null,
+            avatar_url: avatarUrl || null,
+          })
+
+        if (error) throw error
+      }
 
       setSuccess("Profile updated successfully")
-      router.refresh()
     } catch (err: any) {
       setError(err.message || "Failed to update profile")
     } finally {
       setIsLoading(false)
     }
+  }
+
+  if (isFetching) {
+    return (
+      <Card className="bg-slate-800/50 border-slate-700">
+        <CardContent className="flex items-center justify-center py-12">
+          <Loader2 className="h-8 w-8 animate-spin text-cyan-500" />
+        </CardContent>
+      </Card>
+    )
   }
 
   return (
@@ -73,6 +142,30 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
             <AlertDescription>{success}</AlertDescription>
           </Alert>
         )}
+
+        {/* Avatar Preview */}
+        <div className="flex items-center gap-6 mb-6 pb-6 border-b border-slate-700">
+          <div className="relative">
+            {avatarUrl ? (
+              <img
+                src={avatarUrl}
+                alt="Avatar preview"
+                className="w-24 h-24 rounded-full object-cover border-2 border-cyan-500"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none'
+                }}
+              />
+            ) : (
+              <div className="w-24 h-24 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 flex items-center justify-center text-white text-2xl font-bold">
+                {fullName ? fullName.charAt(0).toUpperCase() : user?.email?.charAt(0).toUpperCase() || "?"}
+              </div>
+            )}
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-white">{fullName || "Your Name"}</h3>
+            <p className="text-sm text-slate-400">{user?.email}</p>
+          </div>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">

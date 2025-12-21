@@ -31,6 +31,49 @@ export interface Database {
           avatar_url?: string | null
           membership_tier?: string
         }
+        Relationships: []
+      }
+      newsletter_subscribers: {
+        Row: {
+          id: string
+          created_at: string
+          email: string
+          full_name: string | null
+          is_active: boolean
+          subscription_preferences: {
+            crypto_news?: boolean
+            nft_updates?: boolean
+            course_announcements?: boolean
+            trading_signals?: boolean
+          } | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          email: string
+          full_name?: string | null
+          is_active?: boolean
+          subscription_preferences?: {
+            crypto_news?: boolean
+            nft_updates?: boolean
+            course_announcements?: boolean
+            trading_signals?: boolean
+          } | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          is_active?: boolean
+          subscription_preferences?: {
+            crypto_news?: boolean
+            nft_updates?: boolean
+            course_announcements?: boolean
+            trading_signals?: boolean
+          } | null
+        }
+        Relationships: []
       }
     }
     Views: {
