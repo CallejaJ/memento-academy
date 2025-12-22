@@ -363,20 +363,20 @@ export default function LandingPage() {
             <div>
               <h3 className="font-semibold text-lg mb-4">Learn</h3>
               <ul className="space-y-3">
-                <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Web3 Basics</a></li>
-                <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Crypto 101</a></li>
-                <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Understanding CBDCs</a></li>
-                <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Safety Guide</a></li>
+                <li><a href="/learn/web3-basics" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Web3 Basics</a></li>
+                <li><a href="/learn/crypto-101" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Crypto 101</a></li>
+                <li><a href="/learn/cbdc" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Understanding CBDCs</a></li>
+                <li><a href="/learn/safety" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Safety Guide</a></li>
               </ul>
             </div>
 
             <div>
               <h3 className="font-semibold text-lg mb-4">Academy</h3>
               <ul className="space-y-3">
-                <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Our Mission</a></li>
-                <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Free Courses</a></li>
-                <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Knowledge Base</a></li>
-                <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Contribute</a></li>
+                <li><a href="/about" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Our Mission</a></li>
+                <li><a href="/courses" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Free Courses</a></li>
+                <li><a href="/knowledge-base" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Knowledge Base</a></li>
+                <li><a href="/contribute" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Contribute</a></li>
               </ul>
             </div>
 
@@ -386,7 +386,7 @@ export default function LandingPage() {
                 <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Discord</a></li>
                 <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">X (Twitter)</a></li>
                 <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">LinkedIn</a></li>
-                <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Contact Support</a></li>
+                <li><a href="/contact" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Contact Support</a></li>
               </ul>
             </div>
           </div>
@@ -396,8 +396,8 @@ export default function LandingPage() {
               © {new Date().getFullYear()} Memento Academy. All knowledge free to use.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Privacy</a>
-              <a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Terms</a>
+              <a href="/privacy" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Privacy</a>
+              <a href="/terms" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Terms</a>
             </div>
           </div>
         </div>

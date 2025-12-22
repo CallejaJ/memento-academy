@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabase"
 import { useAuth } from "@/contexts/auth-context"
 import { Button } from "@/components/ui/button"
@@ -17,6 +18,7 @@ interface ProfileFormProps {
 }
 
 export function ProfileForm({ initialProfile }: ProfileFormProps) {
+  const router = useRouter()
   const [fullName, setFullName] = useState("")
   const [avatarUrl, setAvatarUrl] = useState("")
   const [error, setError] = useState<string | null>(null)
@@ -104,7 +106,12 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
         if (error) throw error
       }
 
-      setSuccess("Profile updated successfully")
+      setSuccess("Profile updated successfully! Redirecting...")
+      
+      // Redirect to dashboard after 1.5 seconds
+      setTimeout(() => {
+        router.push("/dashboard")
+      }, 1500)
     } catch (err: any) {
       setError(err.message || "Failed to update profile")
     } finally {

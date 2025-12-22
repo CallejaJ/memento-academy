@@ -6,7 +6,7 @@
     <img src="https://img.shields.io/badge/Prisma-7-2D3748?style=for-the-badge&logo=prisma" alt="Prisma" />
     <img src="https://img.shields.io/badge/Supabase-Database-3ECF8E?style=for-the-badge&logo=supabase" alt="Supabase" />
     <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS" />
-    <img src="https://img.shields.io/badge/Resend-Email-black?style=for-the-badge" alt="Resend" />
+    <img src="https://img.shields.io/badge/Brevo-Email-0077B5?style=for-the-badge" alt="Brevo" />
 </div>
 
 <p align="center">
@@ -21,18 +21,21 @@ The application follows a modern serverless architecture with a focus on type sa
 graph TD
     User([User])
     NextJS[Next.js App Router]
+    AuthContext[Auth Context]
     ServerAction[Server Actions]
     Prisma[Prisma ORM 7]
     Supabase[(Supabase PostgreSQL)]
-    Resend[Resend Email API]
+    Brevo[Brevo Email API]
     GHA[GitHub Actions]
 
-    User -- "Schedules/Subscribes" --> NextJS
+    User -- "Authenticates" --> NextJS
+    NextJS -- "Manages State" --> AuthContext
+    AuthContext -- "SSR Auth" --> Supabase
     NextJS -- "Process Data" --> ServerAction
     ServerAction -- "Persistence" --> Prisma
     Prisma -- "Query/Update" --> Supabase
-    ServerAction -- "Trigger Email" --> Resend
-    Resend -- "Welcome Email" --> User
+    ServerAction -- "Trigger Email" --> Brevo
+    Brevo -- "Welcome Email" --> User
     GHA -- "Daily Ping (Keep-Alive)" --> Supabase
 ```
 
@@ -41,23 +44,29 @@ graph TD
 - **Frontend**: [Next.js 15](https://nextjs.org/) (App Router), [React 19](https://react.dev/), [Tailwind CSS](https://tailwindcss.com/)
 - **Interactions**: [Radix UI](https://www.radix-ui.com/), [Lucide React](https://lucide.dev/), [Framer Motion](https://www.framer.com/motion/)
 - **Data & Persistence**: [Supabase](https://supabase.com/) (PostgreSQL), [Prisma 7](https://www.prisma.io/)
-- **Communications**: [Resend](https://resend.com/)
+- **Communications**: [Brevo](https://www.brevo.com/) (Email API)
 - **DevOps**: [GitHub Actions](https://github.com/features/actions) for DB health maintenance
 
 ## Key Features
 
-### 1. High-Performance Newsletter System
+### 1. Authentication Context
+Centralized authentication state management using React Context and Supabase Auth.
+- **Server-Side Rendering**: Seamless SSR authentication with `@supabase/ssr`.
+- **Auth Modal**: Unified login/signup modal with OAuth and email/password support.
+- **Session Persistence**: Automatic token refresh and session management.
+
+### 2. High-Performance Newsletter System
 Built with **Next.js Server Actions** for secure, low-latency processing.
 - **Data Validation**: Real-time email validation and duplicate checking.
 - **Preference Engine**: Personalized content delivery based on user interests.
-- **Automated Onboarding**: Instant welcome sequences triggered via the Resend API.
+- **Automated Onboarding**: Instant welcome sequences triggered via the Brevo API.
 
-### 2. Premium Design System
+### 3. Premium Design System
 Fully responsive interface designed with a focus on dark-mode aesthetics and fluid micro-interactions.
 - **Adaptive Theming**: Seamless switching between Dark and Light modes.
 - **Dynamic Feedback**: Real-time status updates for user interactions.
 
-### 3. Automated Database Health
+### 4. Automated Database Health
 Custom **GitHub Actions** workflows ensure the Supabase tier remains active by performing periodic health checks, preventing service pauses during inactivity.
 
 ## Project Setup
@@ -71,7 +80,7 @@ DATABASE_URL="your_supabase_pooler_url"
 DIRECT_URL="your_supabase_direct_url"
 
 # Service Keys
-RESEND_API_KEY="re_..."
+BREVO_API_KEY="xkeysib-..."
 NEXT_PUBLIC_SUPABASE_URL="https://..."
 NEXT_PUBLIC_SUPABASE_ANON_KEY="..."
 ```
