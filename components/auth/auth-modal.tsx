@@ -18,6 +18,7 @@ import { Github, AlertCircle, CheckCircle2, Mail } from "lucide-react"
 import { FaDiscord } from "react-icons/fa"
 import { FcGoogle } from "react-icons/fc"
 import Link from "next/link"
+import Image from "next/image"
 
 type AuthMode = "login" | "signup" | "forgot-password"
 type SuccessState = "none" | "signup-success" | "reset-success"
@@ -150,7 +151,14 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md bg-slate-900 border-slate-700">
-        <DialogHeader>
+        <DialogHeader className="flex flex-col items-center text-center">
+          <Image 
+            src="/memento-academy-logo.png" 
+            alt="Memento Academy" 
+            width={48} 
+            height={48} 
+            className="mb-2"
+          />
           <DialogTitle className="text-2xl text-white">
             {mode === "login" && "Sign In"}
             {mode === "signup" && "Create an Account"}
@@ -230,6 +238,7 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
           </Button>
         </form>
 
+        {/* OAuth providers - disabled for now
         {mode !== "forgot-password" && (
           <>
             <div className="relative my-6">
@@ -266,6 +275,7 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
             </div>
           </>
         )}
+        */}
 
         <div className="text-center mt-6">
           {mode === "login" && (
