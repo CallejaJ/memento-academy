@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/contexts/auth-context"
 import { AuthModalProvider } from "@/contexts/auth-modal-context"
 
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
@@ -38,6 +40,7 @@ export default function RootLayout({
           <AuthProvider>
             <AuthModalProvider>
               {children}
+              <SpeedInsights />
             </AuthModalProvider>
           </AuthProvider>
         </ThemeProvider>
