@@ -170,9 +170,7 @@ export default function DashboardPage() {
           </div>
           </div>
         </div>
-      </div>
-    </div>
-  )
+      </div>  )
 }
 
 function AchievementsPreview() {
@@ -189,12 +187,8 @@ function AchievementsPreview() {
     return (
       <div className="text-center py-8">
         <div className="text-6xl mb-3">🎓</div>
-        <p className="text-slate-400 mb-4">No badges earned yet</p>
-        <Link href="/profile">
-          <Button variant="outline" className="border-slate-600 text-slate-300 hover:text-white">
-            View All Achievements
-          </Button>
-        </Link>
+        <p className="text-slate-400">No badges earned yet</p>
+        <p className="text-slate-500 text-sm mt-2">Complete course sections to unlock achievements!</p>
       </div>
     )
   }
@@ -217,7 +211,7 @@ function AchievementsPreview() {
           return (
             <div
               key={userAch.id}
-              className="aspect-square bg-gradient-to-br from-cyan-500/10 to-teal-500/10 border border-cyan-500/20 rounded-lg flex items-center justify-center text-3xl hover:scale-110 transition-transform"
+              className="aspect-square bg-gradient-to-br from-cyan-500/10 to-teal-500/10 border border-cyan-500/20 rounded-lg flex items-center justify-center text-3xl hover:scale-110 transition-transform cursor-pointer"
               title={achievement.name}
             >
               {achievement.icon}
@@ -225,12 +219,6 @@ function AchievementsPreview() {
           )
         })}
       </div>
-
-      <Link href="/profile">
-        <Button className="w-full mt-4 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600">
-          View All →
-        </Button>
-      </Link>
     </div>
   )
 }
