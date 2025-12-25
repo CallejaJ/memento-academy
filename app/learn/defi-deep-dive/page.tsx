@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { TrendingUp, Lock, Droplets, AlertTriangle, BarChart3, PieChart, Shield, CheckCircle, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { SectionCompleteButton } from "@/components/progress/section-complete-button"
 
 export default function DefiDeepDivePage() {
   const [expandedSections, setExpandedSections] = useState<number[]>([0])
@@ -132,6 +133,14 @@ export default function DefiDeepDivePage() {
                             <h5 className="text-purple-400 font-semibold text-sm mb-1">Trading</h5>
                             <p className="text-slate-400 text-xs">Swap tokens directly</p>
                           </div>
+                        </div>
+                        
+                        <div className="mt-6 flex justify-center">
+                          <SectionCompleteButton 
+                            courseId="defi-deep-dive"
+                            sectionId="section-1"
+                            totalSections={6}
+                          />
                         </div>
                       </div>
                     </div>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
 import { useAuth } from "@/contexts/auth-context"
+import { useAchievements } from "@/hooks/use-achievements"
 
 export interface CourseProgress {
   id: string
@@ -114,8 +115,83 @@ export function useCourseProgress(courseId: string) {
       if (error) {
         console.error("Error updating progress:", error)
         // Revert local state? (Skipping for simplicity for now)
+      } else {
+        // Check and award achievements
+        await checkAchievements(newCompleted.length, isCompleted)
       }
     }
+  }
+
+  // Check and award achievements based on progress
+  const checkAchievements = async (sectionsCompleted: number, courseCompleted: boolean) => {
+    if (!user) return
+
+    try {
+      // Fetch all user's course progress to calculate stats
+      const { data: allProgress, error } = await supabase
+        .from("course_progress")
+        .select("*")
+        .eq("user_id", user.id)
+
+      if (error || !allProgress) return
+
+      const coursesCompleted = allProgress.filter(p => p.progress_percentage === 100).length
+      const totalSectionsCompleted = allProgress.reduce((sum, p) => sum + p.completed_sections.length, 0)
+
+      // Import and use checkAndAwardAchievements from useAchievements
+      // Note: We'll need to make this work without the hook
+      // For now, we'll call awardAchievement directly via supabase
+      
+      // Award "First Steps" on first section
+      if (totalSectionsCompleted === 1) {
+        await awardAchievementDirect("first-steps")
+      }
+
+      // Award "Course Graduate" on first course
+      if (courseCompleted && coursesCompleted === 1) {
+        await awardAchievementDirect("first-course")
+      }
+
+      // Award "Dedicated Student" on 5 courses
+      if (coursesCompleted === 5) {
+        await awardAchievementDirect("dedicated-student")
+      }
+
+      // Award "Crypto Expert" on 10 courses
+      if (coursesCompleted === 10) {
+        await awardAchievementDirect("crypto-expert")
+      }
+
+      // Award "Knowledge Seeker" on 50 sections
+      if (totalSectionsCompleted === 50) {
+        await awardAchievementDirect("knowledge-seeker")
+      }
+
+    } catch (error) {
+      console.error("Error checking achievements:", error)
+    }
+  }
+
+  const awardAchievementDirect = async (achievementId: string) => {
+    if (!user) return
+
+    // Check if already has it
+    const { data: existing } = await supabase
+      .from("user_achievements" as any)
+      .select("*")
+      .eq("user_id", user.id)
+      .eq("achievement_id", achievementId)
+      .single()
+
+    if (existing) return // Already has it
+
+    // Award it
+    await supabase
+      .from("user_achievements" as any)
+      .insert({
+        user_id: user.id,
+        achievement_id: achievementId
+      })
   }
 
   return {
