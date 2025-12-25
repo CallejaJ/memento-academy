@@ -10,6 +10,8 @@ import { useAuthModal } from "@/contexts/auth-modal-context"
 import { User } from "lucide-react"
 import { useEffect, useState } from "react"
 import { supabase } from "@/lib/supabase"
+import { useAchievements } from "@/hooks/use-achievements"
+import { ACHIEVEMENTS } from "@/lib/achievements-data"
 
 interface Profile {
   full_name: string | null
@@ -162,15 +164,73 @@ export default function DashboardPage() {
             </div>
 
             <div className="bg-slate-800/50 border border-slate-700 rounded-lg shadow-lg p-6">
-              <h2 className="text-xl font-semibold text-white mb-4">NFT Collection</h2>
-              <p className="text-slate-400">You haven't added any NFTs to your collection.</p>
-              <Button className="mt-4 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600">
-                Explore NFTs
-              </Button>
+              <h2 className="text-xl font-semibold text-white mb-4">Achievements</h2>
+              <AchievementsPreview />
             </div>
+          </div>
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+function AchievementsPreview() {
+  const { achievements, loading } = useAchievements()
+
+  if (loading) {
+    return <div className="text-slate-400">Loading achievements...</div>
+  }
+
+  const totalBadges = Object.keys(ACHIEVEMENTS).length
+  const unlockedCount = achievements.length
+
+  if (achievements.length === 0) {
+    return (
+      <div className="text-center py-8">
+        <div className="text-6xl mb-3">🎓</div>
+        <p className="text-slate-400 mb-4">No badges earned yet</p>
+        <Link href="/profile">
+          <Button variant="outline" className="border-slate-600 text-slate-300 hover:text-white">
+            View All Achievements
+          </Button>
+        </Link>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <span className="text-slate-300">Unlocked</span>
+        <span className="text-cyan-400 font-bold">{unlockedCount}/{totalBadges}</span>
+      </div>
+
+      {/* Show recent badges */}
+      <div className="grid grid-cols-4 gap-2">
+        {achievements.slice(0, 4).map((userAch) => {
+          const achievement = Object.values(ACHIEVEMENTS).find(
+            a => a.id === userAch.achievement_id
+          )
+          if (!achievement) return null
+
+          return (
+            <div
+              key={userAch.id}
+              className="aspect-square bg-gradient-to-br from-cyan-500/10 to-teal-500/10 border border-cyan-500/20 rounded-lg flex items-center justify-center text-3xl hover:scale-110 transition-transform"
+              title={achievement.name}
+            >
+              {achievement.icon}
+            </div>
+          )
+        })}
+      </div>
+
+      <Link href="/profile">
+        <Button className="w-full mt-4 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600">
+          View All →
+        </Button>
+      </Link>
     </div>
   )
 }
