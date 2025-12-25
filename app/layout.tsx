@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/auth-context"
 import { AuthModalProvider } from "@/contexts/auth-modal-context"
 
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -41,6 +42,7 @@ export default function RootLayout({
             <AuthModalProvider>
               {children}
               <SpeedInsights />
+              <Toaster />
             </AuthModalProvider>
           </AuthProvider>
         </ThemeProvider>

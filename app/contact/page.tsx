@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Mail, MessageCircle, Github, Twitter } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ContactForm } from "@/components/contact/contact-form"
 
 export const metadata: Metadata = {
   title: "Contact Us | Memento Academy",
@@ -38,58 +39,76 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             
-            <div className="grid md:grid-cols-2 gap-6 mb-12">
-              <Card className="bg-slate-800/50 border-slate-700 hover:border-indigo-500/30 transition-all">
+            <div className="grid lg:grid-cols-3 gap-8 mb-12">
+              {/* Discord Card - Takes up 1 column */}
+              <Card className="bg-slate-800/50 border-slate-700 h-fit">
                 <CardContent className="pt-6">
-                  <div className="text-center space-y-4">
+                  <div className="text-center space-y-6">
                     <div className="w-16 h-16 bg-indigo-500/10 rounded-2xl flex items-center justify-center mx-auto border border-indigo-500/20">
                       <MessageCircle className="w-8 h-8 text-indigo-400" />
                     </div>
-                    <h3 className="text-xl font-semibold text-white">Discord Community</h3>
-                    <p className="text-slate-400">
-                      Join our Discord for real-time support, discussions, and community events.
-                    </p>
-                    <Button className="bg-indigo-600 hover:bg-indigo-700">
-                      Join Discord
-                    </Button>
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-2">Discord Community</h3>
+                      <p className="text-slate-400 text-sm">
+                        Join our Discord for real-time support, discussions, and community events.
+                      </p>
+                    </div>
+                    <a href="https://discord.gg/MWfHKfjYS7" target="_blank" rel="noopener noreferrer" className="block">
+                      <Button className="w-full bg-indigo-600 hover:bg-indigo-700">
+                        Join Discord
+                      </Button>
+                    </a>
+                    
+                    <div className="pt-6 border-t border-slate-700">
+                       <div className="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto border border-cyan-500/20 mb-4">
+                        <Mail className="w-8 h-8 text-cyan-400" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-white mb-2">Direct Email</h3>
+                      <p className="text-slate-400 text-sm mb-4">
+                        Prefer email? Click below to open your mail client.
+                      </p>
+                      <a href="mailto:posicionadoenlaweb@gmail.com" className="block">
+                        <Button variant="outline" className="w-full border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10">
+                          Send Email
+                        </Button>
+                      </a>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-slate-800/50 border-slate-700 hover:border-cyan-500/30 transition-all">
-                <CardContent className="pt-6">
-                  <div className="text-center space-y-4">
-                    <div className="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto border border-cyan-500/20">
-                      <Mail className="w-8 h-8 text-cyan-400" />
+              {/* Contact Form - Takes up 2 columns */}
+              <div className="lg:col-span-2">
+                <Card className="bg-slate-900/50 border-slate-800">
+                  <CardContent className="p-6 sm:p-8">
+                    <div className="mb-6">
+                      <h3 className="text-2xl font-bold text-white mb-2">Send us a Message</h3>
+                      <p className="text-slate-400">
+                        Fill out the form below and we'll get back to you directly to your email.
+                      </p>
                     </div>
-                    <h3 className="text-xl font-semibold text-white">Email</h3>
-                    <p className="text-slate-400">
-                      For partnerships, press inquiries, or formal communication.
-                    </p>
-                    <Button variant="outline" className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10">
-                      hello@memento.academy
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                    <ContactForm />
+                  </CardContent>
+                </Card>
+              </div>
             </div>
 
             <h2 className="text-2xl font-bold text-white mb-6 text-center">Follow Us</h2>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-              <a href="#" className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500/30 transition-all">
+              <a href="https://twitter.com/memento_academy" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500/30 transition-all">
                 <Twitter className="w-5 h-5 text-cyan-400" />
                 <span className="text-white">Twitter</span>
               </a>
-              <a href="#" className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500/30 transition-all">
+              <a href="https://discord.gg/MWfHKfjYS7" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500/30 transition-all">
                 <MessageCircle className="w-5 h-5 text-indigo-400" />
                 <span className="text-white">Discord</span>
               </a>
-              <a href="#" className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500/30 transition-all">
+              <a href="https://github.com/Memento-Academy" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500/30 transition-all">
                 <Github className="w-5 h-5 text-slate-400" />
                 <span className="text-white">GitHub</span>
               </a>
-              <a href="#" className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500/30 transition-all">
+              <a href="https://www.linkedin.com/company/memento-academy/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500/30 transition-all">
                 <svg className="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>

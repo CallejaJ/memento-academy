@@ -386,9 +386,10 @@ export default function LandingPage() {
             <div>
               <h3 className="font-semibold text-lg mb-4">Connect</h3>
               <ul className="space-y-3">
-                <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Discord</a></li>
-                <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">X (Twitter)</a></li>
-                <li><a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">LinkedIn</a></li>
+                <li><a href="https://discord.gg/MWfHKfjYS7" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Discord</a></li>
+                <li><a href="https://twitter.com/mementoacademyweb3" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">X (Twitter)</a></li>
+                <li><a href="https://www.linkedin.com/company/memento-academy/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">LinkedIn</a></li>
+                <li><a href="https://github.com/Memento-Academy" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">GitHub</a></li>
                 <li><a href="/contact" className="text-slate-400 hover:text-cyan-400 transition-colors duration-300">Contact Support</a></li>
               </ul>
             </div>
