@@ -200,21 +200,27 @@ function AchievementsPreview() {
         <span className="text-cyan-400 font-bold">{unlockedCount}/{totalBadges}</span>
       </div>
 
-      {/* Show recent badges */}
+      {/* Show all badges (unlocked and locked) */}
       <div className="grid grid-cols-4 gap-2">
-        {achievements.slice(0, 4).map((userAch) => {
-          const achievement = Object.values(ACHIEVEMENTS).find(
-            a => a.id === userAch.achievement_id
-          )
-          if (!achievement) return null
+        {Object.values(ACHIEVEMENTS).slice(0, 8).map((achievement) => {
+          const isUnlocked = achievements.some(a => a.achievement_id === achievement.id)
 
           return (
             <div
-              key={userAch.id}
-              className="aspect-square bg-gradient-to-br from-cyan-500/10 to-teal-500/10 border border-cyan-500/20 rounded-lg flex items-center justify-center text-3xl hover:scale-110 transition-transform cursor-pointer"
-              title={achievement.name}
+              key={achievement.id}
+              className={`relative aspect-square rounded-lg flex items-center justify-center text-3xl transition-all ${
+                isUnlocked
+                  ? 'bg-gradient-to-br from-cyan-500/10 to-teal-500/10 border border-cyan-500/20 hover:scale-110 cursor-pointer'
+                  : 'bg-slate-800/30 border border-slate-700/30 opacity-40 grayscale'
+              }`}
+              title={isUnlocked ? achievement.name : `🔒 ${achievement.name} (Locked)`}
             >
               {achievement.icon}
+              {!isUnlocked && (
+                <div className="absolute inset-0 flex items-center justify-center bg-slate-950/50 rounded-lg">
+                  <span className="text-slate-600 text-2xl">🔒</span>
+                </div>
+              )}
             </div>
           )
         })}
