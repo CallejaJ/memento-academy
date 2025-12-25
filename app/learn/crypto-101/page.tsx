@@ -136,7 +136,7 @@ export default function Crypto101Page() {
               </ul>
             </div>
 
-            <h2 className="text-2xl font-bold text-white mb-6">Recommended First Steps</h2>
+            <h2 className="text-2xl font-bold text-white mt-8 mb-6">Recommended First Steps</h2>
             <ol className="space-y-4">
               <li className="flex items-start gap-4 bg-slate-800/30 border border-slate-700 rounded-xl p-4">
                 <span className="bg-cyan-500/20 text-cyan-400 font-bold rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">1</span>

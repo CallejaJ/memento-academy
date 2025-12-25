@@ -61,7 +61,7 @@ export default function Web3BasicsPage() {
               </div>
             </div>
 
-            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-4">
               <Blocks className="w-8 h-8 text-cyan-400" />
               What is Blockchain?
             </h2>
@@ -83,7 +83,7 @@ export default function Web3BasicsPage() {
               </p>
             </div>
 
-            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+            <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-4">
               <Globe className="w-8 h-8 text-teal-400" />
               Web3 Applications
             </h2>
@@ -114,8 +114,8 @@ export default function Web3BasicsPage() {
               </Card>
             </div>
 
-            <h2 className="text-2xl font-bold text-white">Why Should You Care?</h2>
-            <ul className="space-y-3">
+            <h2 className="text-2xl font-bold text-white mt-12">Why Should You Care?</h2>
+            <ul className="space-y-3 mt-4">
               <li className="flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-teal-400 mt-1 flex-shrink-0" />
                 <span className="text-slate-300"><strong className="text-white">Control your data:</strong> You decide who accesses your personal information.</span>

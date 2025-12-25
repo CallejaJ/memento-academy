@@ -60,6 +60,7 @@ export function MainNav() {
                     width={40}
                     height={40}
                     className="transition-transform duration-300 hover:scale-105"
+                    style={{ height: "auto" }}
                   />
                 </div>
                 <span className="text-xl font-bold text-white transition-colors duration-300">
