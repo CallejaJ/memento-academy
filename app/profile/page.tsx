@@ -5,6 +5,7 @@ import { useAuthModal } from "@/contexts/auth-modal-context"
 import { Button } from "@/components/ui/button"
 import { MainNav } from "@/components/main-nav"
 import { ProfileForm } from "@/components/profile/profile-form"
+import { EnrolledCourses } from "@/components/dashboard/enrolled-courses"
 
 export default function ProfilePage() {
   const { user, isLoading } = useAuth()
@@ -57,6 +58,11 @@ export default function ProfilePage() {
         <div className="max-w-2xl mx-auto">
           <h1 className="text-3xl font-bold text-white mb-8">Edit Your Profile</h1>
           <ProfileForm initialProfile={null} />
+          
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold text-white mb-6">Your Learning Progress</h2>
+            <EnrolledCourses />
+          </div>
         </div>
       </div>
     </div>

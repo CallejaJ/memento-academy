@@ -75,6 +75,39 @@ export interface Database {
         }
         Relationships: []
       }
+      course_progress: {
+        Row: {
+          id: string
+          user_id: string
+          course_id: string
+          progress_percentage: number
+          completed_sections: string[]
+          started_at: string
+          completed_at: string | null
+          last_accessed_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          course_id: string
+          progress_percentage?: number
+          completed_sections?: string[]
+          started_at?: string
+          completed_at?: string | null
+          last_accessed_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          course_id?: string
+          progress_percentage?: number
+          completed_sections?: string[]
+          started_at?: string
+          completed_at?: string | null
+          last_accessed_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

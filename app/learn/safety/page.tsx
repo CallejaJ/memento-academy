@@ -3,7 +3,7 @@ import Link from "next/link"
 import { MainNav } from "@/components/main-nav"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Shield, AlertTriangle, Lock, Eye, Phone, Mail, CheckCircle, XCircle } from "lucide-react"
+import { Shield, AlertTriangle, Lock, Eye, Phone, Mail, CheckCircle, XCircle, LifeBuoy, ShieldCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { NewsletterForm } from "@/components/newsletter/newsletter-form"
 
@@ -164,6 +164,58 @@ export default function SafetyPage() {
                   </div>
                 </CardContent>
               </Card>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-12">
+              <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
+                <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                  <LifeBuoy className="w-6 h-6 text-orange-400" />
+                  What to do if hacked?
+                </h2>
+                <ol className="space-y-3 text-sm text-slate-300">
+                  <li className="flex gap-2">
+                    <span className="font-bold text-orange-400">1.</span>
+                    <span><strong>Disconnect immediately:</strong> Revoke all permissions and disconnect your wallet from all sites.</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-bold text-orange-400">2.</span>
+                    <span><strong>Move remaining funds:</strong> If you still have access, send remaining assets to a secure device/wallet.</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-bold text-orange-400">3.</span>
+                    <span><strong>Scan for malware:</strong> Do not use the compromised device until it has been cleaned or formatted.</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-bold text-orange-400">4.</span>
+                    <span><strong>Report:</strong> Contact the platform (if CEX) or report to databases like Chainabuse.</span>
+                  </li>
+                </ol>
+              </div>
+
+              <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
+                <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                  <ShieldCheck className="w-6 h-6 text-emerald-400" />
+                  Protection Tools
+                </h2>
+                <ul className="space-y-3 text-sm text-slate-300">
+                  <li className="flex gap-2">
+                    <span className="font-bold text-emerald-400">•</span>
+                    <span><strong>Hardware Wallets:</strong> Ledger, Trezor (Physical protection).</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-bold text-emerald-400">•</span>
+                    <span><strong>Revoke.cash:</strong> Tool to revoke permissions you gave to smart contracts.</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-bold text-emerald-400">•</span>
+                    <span><strong>Pocket Universe / Fire:</strong> Browser extensions that simulate transactions before you sign.</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-bold text-emerald-400">•</span>
+                    <span><strong>DeFi Insurance:</strong> Protocols like Nexus Mutual that cover smart contract bugs.</span>
+                  </li>
+                </ul>
+              </div>
             </div>
 
             <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">

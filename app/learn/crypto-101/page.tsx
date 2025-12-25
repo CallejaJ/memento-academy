@@ -3,7 +3,7 @@ import Link from "next/link"
 import { MainNav } from "@/components/main-nav"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Wallet, AlertTriangle, Coins } from "lucide-react"
+import { ArrowRight, Wallet, AlertTriangle, Coins, CreditCard, LineChart, PieChart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { NewsletterForm } from "@/components/newsletter/newsletter-form"
 
@@ -160,6 +160,97 @@ export default function Crypto101Page() {
                 </div>
               </li>
             </ol>
+          </div>
+        </div>
+
+      </section>
+
+      {/* Extended Content */}
+      <section className="py-16 bg-slate-900/30 border-t border-slate-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+              <CreditCard className="w-8 h-8 text-emerald-400" />
+              How to Buy Cryptocurrency
+            </h2>
+            <div className="grid md:grid-cols-2 gap-6 mb-12">
+              <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                <h3 className="text-white font-semibold mb-3">Centralized Exchanges (CEX)</h3>
+                <p className="text-slate-400 text-sm mb-4">Companies that act as intermediaries (like a bank). Easiest for beginners.</p>
+                <ul className="text-slate-300 text-sm space-y-2">
+                  <li>✅ Easy to use (Card/Bank Transfer)</li>
+                  <li>✅ Customer support</li>
+                  <li>❌ You don't control private keys</li>
+                  <li>Examples: Coinbase, Binance, Kraken</li>
+                </ul>
+              </div>
+              <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                <h3 className="text-white font-semibold mb-3">Decentralized Exchanges (DEX)</h3>
+                <p className="text-slate-400 text-sm mb-4">Peer-to-peer trading without intermediaries. Advanced usage.</p>
+                <ul className="text-slate-300 text-sm space-y-2">
+                  <li>✅ 100% control of funds</li>
+                  <li>✅ No ID verification (KYC) required</li>
+                  <li>❌ Complex to use, higher risk</li>
+                  <li>Examples: Uniswap, PancakeSwap</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-12 mb-12">
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                  <LineChart className="w-8 h-8 text-blue-400" />
+                  Trading Basics
+                </h2>
+                <div className="space-y-4">
+                  <div className="bg-slate-800/30 p-4 rounded-lg border-l-4 border-blue-500">
+                    <h4 className="text-white font-semibold">Market Order</h4>
+                    <p className="text-slate-400 text-sm">Buy/Sell immediately at the current best price.</p>
+                  </div>
+                  <div className="bg-slate-800/30 p-4 rounded-lg border-l-4 border-purple-500">
+                    <h4 className="text-white font-semibold">Limit Order</h4>
+                    <p className="text-slate-400 text-sm">Set a specific price you want to buy/sell at. Executes only if that price is reached.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                  <PieChart className="w-8 h-8 text-pink-400" />
+                  Portfolio Building
+                </h2>
+                <p className="text-slate-300 mb-4">
+                  The most common mistake beginners make is putting "all their eggs in one basket".
+                </p>
+                <div className="bg-slate-800/50 p-5 rounded-xl border border-slate-700">
+                  <h4 className="text-white font-semibold mb-3">Sample Beginner Portfolio</h4>
+                  <ul className="space-y-3">
+                    <li className="flex justify-between items-center text-sm">
+                      <span className="text-slate-300">Bitcoin (Low Risk)</span>
+                      <span className="font-mono text-cyan-400">50%</span>
+                    </li>
+                    <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
+                      <div className="h-full bg-cyan-500 w-1/2"></div>
+                    </div>
+                    <li className="flex justify-between items-center text-sm">
+                      <span className="text-slate-300">Ethereum (Medium Risk)</span>
+                      <span className="font-mono text-teal-400">30%</span>
+                    </li>
+                    <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
+                      <div className="h-full bg-teal-500 w-[30%]"></div>
+                    </div>
+                    <li className="flex justify-between items-center text-sm">
+                      <span className="text-slate-300">Altcoins (High Risk)</span>
+                      <span className="font-mono text-purple-400">20%</span>
+                    </li>
+                    <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
+                      <div className="h-full bg-purple-500 w-[20%]"></div>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>

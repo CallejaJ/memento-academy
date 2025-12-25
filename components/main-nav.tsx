@@ -19,19 +19,19 @@ export function MainNav() {
 
   const routes = [
     {
-      href: "#features",
+      href: "/#features",
       label: "Mission",
       active: false,
     },
     {
-      href: "#community",
+      href: "/#community",
       label: "Community",
       active: false,
     },
     {
-      href: "#start",
+      href: "/courses",
       label: "Free Courses",
-      active: false,
+      active: pathname === "/courses",
     },
   ]
 

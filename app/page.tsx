@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle, BookOpen, Globe, Users, Star, GraduationCap, LayoutPanelLeft, ShieldCheck } from "lucide-react"
@@ -42,13 +43,15 @@ export default function LandingPage() {
                   title="Begin Your Journey"
                   description="Join our newsletter and get immediate access to our 'Web3 for Beginners' guide."
                 />
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white transition-colors duration-300"
-                >
-                  Explore Courses
-                </Button>
+                <Link href="/courses">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white transition-colors duration-300"
+                  >
+                    Explore Courses
+                  </Button>
+                </Link>
               </div>
 
               <div className="flex flex-col sm:flex-row sm:items-center gap-6 text-sm text-slate-400 transition-colors duration-300">

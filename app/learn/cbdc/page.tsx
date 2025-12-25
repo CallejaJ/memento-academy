@@ -3,7 +3,7 @@ import Link from "next/link"
 import { MainNav } from "@/components/main-nav"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Building2, Globe, Landmark, AlertTriangle, CheckCircle, Eye, Ban } from "lucide-react"
+import { ArrowRight, Building2, Globe, Landmark, AlertTriangle, CheckCircle, Eye, Ban, Fingerprint, Calendar, Lock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { NewsletterForm } from "@/components/newsletter/newsletter-form"
 
@@ -53,6 +53,37 @@ export default function CBDCPage() {
                 Unlike cryptocurrencies like Bitcoin, CBDCs are <strong className="text-white">controlled by the government</strong> 
                 and have the legal backing of the State.
               </p>
+            </div>
+
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+              <Fingerprint className="w-8 h-8 text-red-400" />
+              Privacy Deep Dive: The Real Concern
+            </h2>
+            <div className="bg-slate-800/30 border-l-4 border-red-500 rounded-r-xl p-6 mb-12 space-y-4">
+              <p className="text-slate-300">
+                The biggest debate surrounding CBDCs is about <strong>programmability</strong>. 
+                Since CBDCs are code, the issuer (the Central Bank) can program rules into the money itself.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mt-4">
+                <div className="bg-slate-900/50 p-4 rounded-lg">
+                  <h4 className="text-white font-semibold flex items-center gap-2 mb-2">
+                    <Calendar className="w-4 h-4 text-orange-400" />
+                    Expiration Dates
+                  </h4>
+                  <p className="text-sm text-slate-400">
+                    Money that "expires" if not spent by a certain date, to stimulate the economy.
+                  </p>
+                </div>
+                <div className="bg-slate-900/50 p-4 rounded-lg">
+                  <h4 className="text-white font-semibold flex items-center gap-2 mb-2">
+                    <Lock className="w-4 h-4 text-orange-400" />
+                    Purchase Restrictions
+                  </h4>
+                  <p className="text-sm text-slate-400">
+                    Forbidding the purchase of certain goods (e.g., alcohol, travel) based on your social score or carbon footprint.
+                  </p>
+                </div>
+              </div>
             </div>
 
             <h2 className="text-2xl font-bold text-white mb-6">CBDCs vs Cryptocurrencies vs Current Money</h2>
@@ -187,6 +218,35 @@ export default function CBDCPage() {
                   </p>
                 </CardContent>
               </Card>
+            </div>
+
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <Calendar className="w-8 h-8 text-teal-400" />
+                Global Implementation Timeline
+              </h2>
+              <div className="relative border-l border-slate-700 ml-4 space-y-8 pl-8">
+                <div className="relative">
+                  <span className="absolute -left-[41px] bg-slate-800 border border-slate-600 rounded-full w-6 h-6 flex items-center justify-center text-xs text-slate-400">1</span>
+                  <h3 className="text-white font-bold ml-2">2020: The Start</h3>
+                  <p className="text-slate-400 text-sm ml-2">Bahamas launches the "Sand Dollar", the world's first nationwide CBDC.</p>
+                </div>
+                <div className="relative">
+                  <span className="absolute -left-[41px] bg-slate-800 border border-slate-600 rounded-full w-6 h-6 flex items-center justify-center text-xs text-slate-400">2</span>
+                  <h3 className="text-white font-bold ml-2">2022: Major Pilots</h3>
+                  <p className="text-slate-400 text-sm ml-2">China expands digital yuan pilot to major cities. India launches digital rupee wholesale pilot.</p>
+                </div>
+                <div className="relative">
+                  <span className="absolute -left-[41px] bg-cyan-900/50 border border-cyan-500/50 rounded-full w-6 h-6 flex items-center justify-center text-xs text-cyan-400">3</span>
+                  <h3 className="text-cyan-400 font-bold ml-2">2024-2025: Regulation</h3>
+                  <p className="text-slate-300 text-sm ml-2">EU finalizes legal framework for Digital Euro. UK advances "Britcoin" design.</p>
+                </div>
+                <div className="relative">
+                  <span className="absolute -left-[41px] bg-slate-800 border border-slate-600 rounded-full w-6 h-6 flex items-center justify-center text-xs text-slate-400">4</span>
+                  <h3 className="text-white font-bold ml-2">2027+: Launch</h3>
+                  <p className="text-slate-400 text-sm ml-2">Expected launch of Digital Euro and potential US Digital Dollar.</p>
+                </div>
+              </div>
             </div>
 
             <div className="bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-cyan-500/20 rounded-xl p-6">

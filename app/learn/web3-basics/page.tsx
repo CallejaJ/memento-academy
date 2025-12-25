@@ -3,7 +3,7 @@ import Link from "next/link"
 import { MainNav } from "@/components/main-nav"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, BookOpen, Blocks, Globe, Wallet, Code, CheckCircle } from "lucide-react"
+import { ArrowRight, BookOpen, Blocks, Globe, Wallet, Code, CheckCircle, History, Briefcase, TrendingUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { NewsletterForm } from "@/components/newsletter/newsletter-form"
 
@@ -62,6 +62,29 @@ export default function Web3BasicsPage() {
             </div>
 
             <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-4">
+              <History className="w-8 h-8 text-purple-400" />
+              A Brief History
+            </h2>
+            <div className="space-y-4 mb-12">
+              <div className="flex gap-4">
+                <div className="flex-none w-20 text-right font-bold text-cyan-400">2008</div>
+                <div className="text-slate-300">Bitcoin whitepaper published by Satoshi Nakamoto, introducing blockchain.</div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-none w-20 text-right font-bold text-cyan-400">2015</div>
+                <div className="text-slate-300">Ethereum launches, enabling smart contracts and programmable money.</div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-none w-20 text-right font-bold text-cyan-400">2020</div>
+                <div className="text-slate-300">DeFi Summer. Decentralized Finance explodes in popularity.</div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-none w-20 text-right font-bold text-cyan-400">2021</div>
+                <div className="text-slate-300">NFTs go mainstream. Digital ownership becomes a cultural phenomenon.</div>
+              </div>
+            </div>
+
+            <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-4">
               <Blocks className="w-8 h-8 text-cyan-400" />
               What is Blockchain?
             </h2>
@@ -112,6 +135,53 @@ export default function Web3BasicsPage() {
                   Unique digital certificates that prove ownership of art, music, virtual land, and more.
                 </CardContent>
               </Card>
+            </div>
+
+            <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-4">
+              <Briefcase className="w-8 h-8 text-orange-400" />
+              Real-World Use Cases
+            </h2>
+            <div className="grid md:grid-cols-3 gap-6 mb-12">
+              <div className="bg-slate-800/30 p-4 rounded-xl border border-slate-700">
+                <h3 className="font-semibold text-white mb-2">🗳️ Voting</h3>
+                <p className="text-sm text-slate-400">Transparent, tamper-proof voting systems for governments and organizations.</p>
+              </div>
+              <div className="bg-slate-800/30 p-4 rounded-xl border border-slate-700">
+                <h3 className="font-semibold text-white mb-2">📦 Supply Chain</h3>
+                <p className="text-sm text-slate-400">Tracking products from origin to consumer to verify authenticity.</p>
+              </div>
+              <div className="bg-slate-800/30 p-4 rounded-xl border border-slate-700">
+                <h3 className="font-semibold text-white mb-2">🆔 Digital Identity</h3>
+                <p className="text-sm text-slate-400">Owning your digital ID without relying on Google or Facebook login.</p>
+              </div>
+            </div>
+
+            <div className="bg-indigo-500/10 border border-indigo-500/20 rounded-2xl p-8 mb-12">
+              <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-4 mt-0">
+                <TrendingUp className="w-8 h-8 text-indigo-400" />
+                Future Trends
+              </h2>
+              <p className="text-slate-300 mb-4">
+                Web3 is still in its early stages. Here's what experts predict for the next decade:
+              </p>
+              <ul className="grid md:grid-cols-2 gap-4">
+                <li className="flex items-start gap-2 text-slate-300">
+                  <span className="text-indigo-400 font-bold">•</span>
+                  Mass adoption via easier-to-use wallets
+                </li>
+                <li className="flex items-start gap-2 text-slate-300">
+                  <span className="text-indigo-400 font-bold">•</span>
+                  Integration with AI agents
+                </li>
+                <li className="flex items-start gap-2 text-slate-300">
+                  <span className="text-indigo-400 font-bold">•</span>
+                  Tokenization of real-world assets (real estate, stocks)
+                </li>
+                <li className="flex items-start gap-2 text-slate-300">
+                  <span className="text-indigo-400 font-bold">•</span>
+                  Decentralized social media platforms
+                </li>
+              </ul>
             </div>
 
             <h2 className="text-2xl font-bold text-white mt-12">Why Should You Care?</h2>

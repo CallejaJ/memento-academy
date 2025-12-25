@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/contexts/auth-context"
 import { Button } from "@/components/ui/button"
+import { EnrolledCourses } from "@/components/dashboard/enrolled-courses"
 import Link from "next/link"
 import Image from "next/image"
 import { MainNav } from "@/components/main-nav"
@@ -157,10 +158,7 @@ export default function DashboardPage() {
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-slate-800/50 border border-slate-700 rounded-lg shadow-lg p-6">
               <h2 className="text-xl font-semibold text-white mb-4">Your Courses</h2>
-              <p className="text-slate-400">You haven't enrolled in any courses yet.</p>
-              <Button className="mt-4 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600">
-                Browse Courses
-              </Button>
+              <EnrolledCourses />
             </div>
 
             <div className="bg-slate-800/50 border border-slate-700 rounded-lg shadow-lg p-6">
