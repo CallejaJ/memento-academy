@@ -64,7 +64,7 @@ export default function SmartContracts101Page() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="mb-8">
-              <Link href="/">
+              <Link href="/courses">
                 <Button variant="outline" className="border-slate-700 text-slate-300 hover:text-white">
                   ← Back to Courses
                 </Button>
