@@ -583,7 +583,7 @@ export default function DefiDeepDivePage() {
                     Remember: Start small, learn continuously, and never invest more than you can afford to lose.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Link href="/courses">
+                    <Link href="/">
                       <Button variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800">
                         ← Back to Courses
                       </Button>
