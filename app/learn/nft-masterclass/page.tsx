@@ -72,7 +72,7 @@ export default function NFTMasterclassPage() {
             </div>
 
             {/* Course Progress Track */}
-            <div className="relative pl-8">
+            <div className="relative pl-8 space-y-4">
               
               {/* Section 1: NFT Fundamentals */}
               <div className="relative group">
