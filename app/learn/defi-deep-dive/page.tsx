@@ -139,6 +139,7 @@ export default function DefiDeepDivePage() {
                           <SectionCompleteButton 
                             courseId="defi-deep-dive"
                             sectionId="section-1"
+                            sectionNumber={1}
                             totalSections={6}
                           />
                         </div>
@@ -228,6 +229,7 @@ export default function DefiDeepDivePage() {
                           <SectionCompleteButton 
                             courseId="defi-deep-dive"
                             sectionId="section-2"
+                            sectionNumber={2}
                             totalSections={6}
                           />
                         </div>
@@ -310,6 +312,7 @@ export default function DefiDeepDivePage() {
                           <SectionCompleteButton 
                             courseId="defi-deep-dive"
                             sectionId="section-3"
+                            sectionNumber={3}
                             totalSections={6}
                           />
                         </div>
@@ -377,6 +380,15 @@ export default function DefiDeepDivePage() {
                             When price ratio changes significantly, you'd have more by just holding. 
                             The loss is "impermanent" because it disappears if prices return to original.
                           </p>
+                        </div>
+                        
+                        <div className="mt-6 flex justify-center">
+                          <SectionCompleteButton 
+                            courseId="defi-deep-dive"
+                            sectionId="section-4"
+                            sectionNumber={4}
+                            totalSections={6}
+                          />
                         </div>
                       </div>
                     </div>
@@ -448,6 +460,15 @@ export default function DefiDeepDivePage() {
                             <li>• Use hardware wallets</li>
                             <li>• Double-check addresses</li>
                           </ul>
+                        </div>
+                        
+                        <div className="mt-6 flex justify-center">
+                          <SectionCompleteButton 
+                            courseId="defi-deep-dive"
+                            sectionId="section-5"
+                            sectionNumber={5}
+                            totalSections={6}
+                          />
                         </div>
                       </div>
                     </div>
@@ -538,6 +559,15 @@ export default function DefiDeepDivePage() {
                             <li>• Rebalance quarterly</li>
                             <li>• Keep detailed tax records</li>
                           </ul>
+                        </div>
+                        
+                        <div className="mt-6 flex justify-center">
+                          <SectionCompleteButton 
+                            courseId="defi-deep-dive"
+                            sectionId="section-6"
+                            sectionNumber={6}
+                            totalSections={6}
+                          />
                         </div>
                       </div>
                     </div>
