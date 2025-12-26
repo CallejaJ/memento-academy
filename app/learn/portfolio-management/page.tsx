@@ -267,7 +267,7 @@ export default function PortfolioManagementPage() {
         </div>
       </section>
 
-      <Card className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border-indigo-500/20 mt-8 max-w-4xl mx-auto">
+      <Card className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border-indigo-500/20 mt-8 mb-16 max-w-4xl mx-auto">
         <CardContent className="p-8 text-center">
           <h3 className="text-2xl font-bold text-white mb-4">Build Your Wealth Portfolio</h3>
           <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
