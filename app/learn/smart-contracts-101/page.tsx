@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { MainNav } from "@/components/main-nav"
-import { Card } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Code, FileCode, Shield, Zap, Bug, Rocket, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
