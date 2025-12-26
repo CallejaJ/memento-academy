@@ -167,6 +167,7 @@ export default function NFTMasterclassPage() {
                           <SectionCompleteButton 
                             courseId="nft-masterclass"
                             sectionId="section-1"
+                            sectionNumber={1}
                             totalSections={6}
                           />
                         </div>
@@ -288,6 +289,7 @@ export default function NFTMasterclassPage() {
                           <SectionCompleteButton 
                             courseId="nft-masterclass"
                             sectionId="section-2"
+                            sectionNumber={2}
                             totalSections={6}
                           />
                         </div>
@@ -298,6 +300,566 @@ export default function NFTMasterclassPage() {
               </div>
 
               {/* Continue with remaining sections... I'll create a condensed version to save tokens */}
+              
+              {/* Section 3: NFT Marketplaces & Trading */}
+              <div className="relative group">
+                <div className={`absolute -left-[19px] top-6 w-3 h-3 rounded-full border z-10 transition-all ${
+                  expandedSections.includes(2) 
+                    ? 'bg-cyan-400 border-cyan-400 shadow-lg shadow-cyan-400/50' 
+                    : 'bg-slate-700 border-slate-600'
+                }`} />
+                <div className="absolute -left-[14px] top-9 w-0.5 h-full bg-slate-800" />
+                
+                <Card className="bg-slate-900/50 border-slate-800 hover:border-slate-700 transition-all ml-4">
+                  <div 
+                    className="p-4 flex items-center justify-between cursor-pointer"
+                    onClick={() => toggleSection(2)}
+                  >
+                    <div className="flex items-center gap-3">
+                      <TrendingUp className="w-5 h-5 text-blue-400" />
+                      <div>
+                        <h3 className="text-lg font-semibold text-white">3. NFT Marketplaces & Trading</h3>
+                        <p className="text-sm text-slate-400">Buying, selling, and trading NFTs</p>
+                      </div>
+                    </div>
+                    <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${
+                      expandedSections.includes(2) ? 'rotate-180' : ''
+                    }`} />
+                  </div>
+
+                  {expandedSections.includes(2) && (
+                    <div className="px-6 pb-6">
+                      <div className="space-y-4 text-slate-300">
+                        <p className="text-lg">
+                          <strong className="text-white">NFT Marketplaces</strong> are platforms where you can discover, buy, sell, and trade NFTs. 
+                          Each marketplace has its own fees, curation standards, and community.
+                        </p>
+
+                        <div className="grid md:grid-cols-2 gap-4">
+                          <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+                            <h5 className="text-blue-400 font-semibold mb-2 flex items-center gap-2">
+                              🌊 OpenSea
+                            </h5>
+                            <p className="text-sm mb-2">Largest NFT marketplace with 80M+ items</p>
+                            <ul className="text-xs text-slate-400 space-y-1">
+                              <li>• 2.5% platform fee</li>
+                              <li>• Supports Ethereum, Polygon, Solana</li>
+                              <li>• Easy for beginners</li>
+                              <li>• Offers for collections & bundles</li>
+                            </ul>
+                          </div>
+                          <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4">
+                            <h5 className="text-purple-400 font-semibold mb-2 flex items-center gap-2">
+                              💎 Blur
+                            </h5>
+                            <p className="text-sm mb-2">Pro trader platform with zero fees</p>
+                            <ul className="text-xs text-slate-400 space-y-1">
+                              <li>• 0% platform fee during beta</li>
+                              <li>• Advanced trading tools</li>
+                              <li>• Portfolio analytics</li>
+                              <li>• Airdrop rewards for activity</li>
+                            </ul>
+                          </div>
+                          <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                            <h5 className="text-green-400 font-semibold mb-2 flex items-center gap-2">
+                              🎨 Foundation
+                            </h5>
+                            <p className="text-sm mb-2">Curated platform for digital artists</p>
+                            <ul className="text-xs text-slate-400 space-y-1">
+                              <li>• 15% commission on primary sales</li>
+                              <li>• Invite-only or application</li>
+                              <li>• High-quality curation</li>
+                              <li>• Artist-focused community</li>
+                            </ul>
+                          </div>
+                          <div className="bg-pink-500/10 border border-pink-500/20 rounded-lg p-4">
+                            <h5 className="text-pink-400 font-semibold mb-2 flex items-center gap-2">
+                              ⚡ Magic Eden
+                            </h5>
+                            <p className="text-sm mb-2">Solana's leading NFT marketplace</p>
+                            <ul className="text-xs text-slate-400 space-y-1">
+                              <li>• 2% platform fee</li>
+                              <li>• Low transaction costs on Solana</li>
+                              <li>• Launchpad for new projects</li>
+                              <li>• Fast transactions</li>
+                            </ul>
+                          </div>
+                        </div>
+
+                        <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-xl p-5 mt-4">
+                          <h4 className="text-cyan-400 font-semibold mb-3">💡 Trading Best Practices</h4>
+                          <div className="grid md:grid-cols-2 gap-3">
+                            <div>
+                              <p className="text-white font-semibold text-sm mb-1">Research Before Buying</p>
+                              <ul className="text-xs text-slate-400 space-y-0.5">
+                                <li>• Check contract address</li>
+                                <li>• Verify creator/collection</li>
+                                <li>• Review trading volume & floor price</li>
+                                <li>• Check rarity tools (for collections)</li>
+                              </ul>
+                            </div>
+                            <div>
+                              <p className="text-white font-semibold text-sm mb-1">Safe Trading Tips</p>
+                              <ul className="text-xs text-slate-400 space-y-0.5">
+                                <li>• Never share seed phrases</li>
+                                <li>• Use hardware wallets for valuable NFTs</li>
+                                <li>• Be wary of too-good offers (phishing)</li>
+                                <li>• Double-check URLs before connecting wallet</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                          <h5 className="text-white font-semibold mb-2">Understanding NFT Pricing</h5>
+                          <div className="space-y-2 text-sm">
+                            <div>
+                              <strong className="text-cyan-400">Floor Price:</strong> Lowest listed price in a collection. 
+                              Good entry point but may lack rare traits.
+                            </div>
+                            <div>
+                              <strong className="text-green-400">Average Price:</strong> Mean sale price over recent transactions. 
+                              Better indicator of true market value.
+                            </div>
+                            <div>
+                              <strong className="text-purple-400">Ceiling Price:</strong> Highest recent sale. 
+                              Often for rare items or exceptional pieces.
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-6 flex justify-center">
+                          <SectionCompleteButton 
+                            courseId="nft-masterclass"
+                            sectionId="section-3"
+                            sectionNumber={3}
+                            totalSections={6}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </Card>
+              </div>
+
+              {/* Section 4: NFT Investment Strategies */}
+              <div className="relative group">
+                <div className={`absolute -left-[19px] top-6 w-3 h-3 rounded-full border z-10 transition-all ${
+                  expandedSections.includes(3) 
+                    ? 'bg-cyan-400 border-cyan-400 shadow-lg shadow-cyan-400/50' 
+                    : 'bg-slate-700 border-slate-600'
+                }`} />
+                <div className="absolute -left-[14px] top-9 w-0.5 h-full bg-slate-800" />
+                
+                <Card className="bg-slate-900/50 border-slate-800 hover:border-slate-700 transition-all ml-4">
+                  <div 
+                    className="p-4 flex items-center justify-between cursor-pointer"
+                    onClick={() => toggleSection(3)}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Shield className="w-5 h-5 text-green-400" />
+                      <div>
+                        <h3 className="text-lg font-semibold text-white">4. NFT Investment Strategies</h3>
+                        <p className="text-sm text-slate-400">Building a valuable NFT portfolio</p>
+                      </div>
+                    </div>
+                    <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${
+                      expandedSections.includes(3) ? 'rotate-180' : ''
+                    }`} />
+                  </div>
+
+                  {expandedSections.includes(3) && (
+                    <div className="px-6 pb-6">
+                      <div className="space-y-4 text-slate-300">
+                        <p className="text-lg">
+                          <strong className="text-white">NFT investing</strong> requires a strategic approach. 
+                          Unlike traditional assets, NFTs blend art appreciation, community dynamics, and speculation.
+                        </p>
+
+                        <div className="grid md:grid-cols-3 gap-3">
+                          <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+                            <h5 className="text-blue-400 font-semibold mb-2">🎯 Blue-Chip Strategy</h5>
+                            <p className="text-xs text-slate-400 mb-2">
+                              Invest in established collections with proven track records
+                            </p>
+                            <ul className="text-xs text-slate-400 space-y-1">
+                              <li>• CryptoPunks, BAYC, Azuki</li>
+                              <li>• Lower risk, stable floor prices</li>
+                              <li>• Strong community & utility</li>
+                              <li>• Higher entry cost</li>
+                            </ul>
+                          </div>
+                          <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                            <h5 className="text-green-400 font-semibold mb-2">🚀 Early Adoption</h5>
+                            <p className="text-xs text-slate-400 mb-2">
+                              Get in early on promising new projects
+                            </p>
+                            <ul className="text-xs text-slate-400 space-y-1">
+                              <li>• Research team & roadmap</li>
+                              <li>• Higher risk, higher potential returns</li>
+                              <li>• Whitelist opportunities</li>
+                              <li>• Community engagement crucial</li>
+                            </ul>
+                          </div>
+                          <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4">
+                            <h5 className="text-purple-400 font-semibold mb-2">💎 Rarity Play</h5>
+                            <p className="text-xs text-slate-400 mb-2">
+                              Target undervalued rare items in collections
+                            </p>
+                            <ul className="text-xs text-slate-400 space-y-1">
+                              <li>• Study rarity rankings</li>
+                              <li>• Look for mispricings</li>
+                              <li>• Hold for appreciation</li>
+                              <li>• Requires deep knowledge</li>
+                            </ul>
+                          </div>
+                        </div>
+
+                        <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-5">
+                          <h4 className="text-green-400 font-semibold mb-3">📊 Portfolio Diversification</h4>
+                          <div className="space-y-2 text-sm">
+                            <div className="flex justify-between items-center">
+                              <span className="text-white">Blue-Chips (30-40%)</span>
+                              <span className="text-slate-400">Stable value, low risk</span>
+                            </div>
+                            <div className="w-full bg-slate-800 rounded-full h-2">
+                              <div className="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full" style={{width: '35%'}}></div>
+                            </div>
+
+                            <div className="flex justify-between items-center mt-3">
+                              <span className="text-white">Mid-Caps (30-40%)</span>
+                              <span className="text-slate-400">Growth potential</span>
+                            </div>
+                            <div className="w-full bg-slate-800 rounded-full h-2">
+                              <div className="bg-gradient-to-r from-green-500 to-teal-500 h-2 rounded-full" style={{width: '35%'}}></div>
+                            </div>
+
+                            <div className="flex justify-between items-center mt-3">
+                              <span className="text-white">Speculative (20-30%)</span>
+                              <span className="text-slate-400">High risk/reward</span>
+                            </div>
+                            <div className="w-full bg-slate-800 rounded-full h-2">
+                              <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full" style={{width: '25%'}}></div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
+                          <h5 className="text-yellow-400 font-semibold mb-2 flex items-center gap-2">
+                            ⚠️ Red Flags to Avoid
+                          </h5>
+                          <ul className="text-sm space-y-1">
+                            <li>• Anonymous team with no track record</li>
+                            <li>• Unrealistic promises or guaranteed returns</li>
+                            <li>• Lack of utility or roadmap</li>
+                            <li>• Suspicious social media activity (bots, fake engagement)</li>
+                            <li>• Derivative art with no unique value proposition</li>
+                          </ul>
+                        </div>
+                        
+                        <div className="mt-6 flex justify-center">
+                          <SectionCompleteButton 
+                            courseId="nft-masterclass"
+                            sectionId="section-4"
+                            sectionNumber={4}
+                            totalSections={6}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </Card>
+              </div>
+
+              {/* Section 5: Legal & IP Considerations */}
+              <div className="relative group">
+                <div className={`absolute -left-[19px] top-6 w-3 h-3 rounded-full border z-10 transition-all ${
+                  expandedSections.includes(4) 
+                    ? 'bg-cyan-400 border-cyan-400 shadow-lg shadow-cyan-400/50' 
+                    : 'bg-slate-700 border-slate-600'
+                }`} />
+                <div className="absolute -left-[14px] top-9 w-0.5 h-full bg-slate-800" />
+                
+                <Card className="bg-slate-900/50 border-slate-800 hover:border-slate-700 transition-all ml-4">
+                  <div 
+                    className="p-4 flex items-center justify-between cursor-pointer"
+                    onClick={() => toggleSection(4)}
+                  >
+                    <div className="flex items-center gap-3">
+                      <FileText className="w-5 h-5 text-yellow-400" />
+                      <div>
+                        <h3 className="text-lg font-semibold text-white">5. Legal & IP Considerations</h3>
+                        <p className="text-sm text-slate-400">Copyright, licensing, and regulations</p>
+                      </div>
+                    </div>
+                    <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${
+                      expandedSections.includes(4) ? 'rotate-180' : ''
+                    }`} />
+                  </div>
+
+                  {expandedSections.includes(4) && (
+                    <div className="px-6 pb-6">
+                      <div className="space-y-4 text-slate-300">
+                        <p className="text-lg">
+                          Understanding <strong className="text-white">intellectual property rights</strong> is crucial in the NFT space. 
+                          Owning an NFT does NOT automatically grant you copyright or commercial rights to the underlying artwork.
+                        </p>
+
+                        <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-5">
+                          <h4 className="text-red-400 font-semibold mb-3 flex items-center gap-2">
+                            ⚖️ Copyright Basics
+                          </h4>
+                          <div className="grid md:grid-cols-2 gap-4 text-sm">
+                            <div>
+                              <p className="text-white font-semibold mb-2">What You OWN</p>
+                              <ul className="text-xs text-slate-400 space-y-1">
+                                <li>✅ The NFT token itself</li>
+                                <li>✅ Right to sell/transfer the NFT</li>
+                                <li>✅ Bragging rights & provenance</li>
+                                <li>✅ Access to holder-only benefits</li>
+                              </ul>
+                            </div>
+                            <div>
+                              <p className="text-white font-semibold mb-2">What You DON'T Own (Usually)</p>
+                              <ul className="text-xs text-slate-400 space-y-1">
+                                <li>❌ Copyright to the artwork</li>
+                                <li>❌ Right to reproduce commercially</li>
+                                <li>❌ Right to create derivatives</li>
+                                <li>❌ Intellectual property rights</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-3">
+                          <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+                            <h5 className="text-blue-400 font-semibold mb-2">📜 CC0 NFTs</h5>
+                            <p className="text-xs text-slate-400">
+                              <strong className="text-white">Creative Commons Zero:</strong> Creator waives all rights. 
+                              Holders can use however they want - commercially, derivatives, etc. 
+                              Examples: CrypToadz, Nouns.
+                            </p>
+                          </div>
+                          <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                            <h5 className="text-green-400 font-semibold mb-2">🎯 Commercial Rights</h5>
+                            <p className="text-xs text-slate-400">
+                              Some projects grant holders commercial rights. 
+                              BAYC holders can create products using their ape. 
+                              Always read the license terms!
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
+                          <h5 className="text-yellow-400 font-semibold mb-2">💼 Tax Implications</h5>
+                          <p className="text-sm mb-2">
+                            NFTs are treated as property/collectibles for tax purposes in most jurisdictions:
+                          </p>
+                          <ul className="text-sm space-y-1">
+                            <li>• <strong>Capital Gains:</strong> Profit from selling NFTs is taxable (often 28% collectibles rate in US)</li>
+                            <li>• <strong>Record Keeping:</strong> Track purchase price, sale price, dates, gas fees</li>
+                            <li>• <strong>Airdrops:</strong> May be taxable as income at fair market value when received</li>
+                            <li>• <strong>Minting:</strong> Gas fees may be deductible as cost basis</li>
+                          </ul>
+                          <p className="text-xs text-slate-500 mt-2 italic">
+                            *Consult a tax professional for your specific situation. Laws vary by country.
+                          </p>
+                        </div>
+
+                        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                          <h5 className="text-white font-semibold mb-2">🌍 Regulatory Landscape</h5>
+                          <p className="text-sm mb-3">
+                            NFT regulations are evolving. Key considerations:
+                          </p>
+                          <div className="space-y-2 text-sm">
+                            <div>
+                              <strong className="text-cyan-400">Securities Law:</strong> Fractionalized NFTs or those promising returns may be securities
+                            </div>
+                            <div>
+                              <strong className="text-green-400">AML/KYC:</strong> Major marketplaces implementing identity verification for large transactions
+                            </div>
+                            <div>
+                              <strong className="text-purple-400">Consumer Protection:</strong> EU and other regions adding NFT-specific consumer rights
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-6 flex justify-center">
+                          <SectionCompleteButton 
+                            courseId="nft-masterclass"
+                            sectionId="section-5"
+                            sectionNumber={5}
+                            totalSections={6}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </Card>
+              </div>
+
+              {/* Section 6: Future of NFTs */}
+              <div className="relative group">
+                <div className={`absolute -left-[19px] top-6 w-3 h-3 rounded-full border z-10 transition-all ${
+                  expandedSections.includes(5) 
+                    ? 'bg-cyan-400 border-cyan-400 shadow-lg shadow-cyan-400/50' 
+                    : 'bg-slate-700 border-slate-600'
+                }`} />
+                
+                <Card className="bg-slate-900/50 border-slate-800 hover:border-slate-700 transition-all ml-4">
+                  <div 
+                    className="p-4 flex items-center justify-between cursor-pointer"
+                    onClick={() => toggleSection(5)}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Sparkles className="w-5 h-5 text-purple-400" />
+                      <div>
+                        <h3 className="text-lg font-semibold text-white">6. Future of NFTs</h3>
+                        <p className="text-sm text-slate-400">Emerging trends and innovations</p>
+                      </div>
+                    </div>
+                    <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${
+                      expandedSections.includes(5) ? 'rotate-180' : ''
+                    }`} />
+                  </div>
+
+                  {expandedSections.includes(5) && (
+                    <div className="px-6 pb-6">
+                      <div className="space-y-4 text-slate-300">
+                        <p className="text-lg">
+                          The <strong className="text-white">future of NFTs</strong> extends far beyond digital art. 
+                          Emerging use cases are transforming how we think about ownership, identity, and digital experiences.
+                        </p>
+
+                        <div className="grid md:grid-cols-2 gap-4">
+                          <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+                            <h5 className="text-blue-400 font-semibold mb-2">🎮 Gaming & Metaverse</h5>
+                            <p className="text-xs text-slate-400 mb-2">
+                              Play-to-earn economies where your in-game assets have real value
+                            </p>
+                            <ul className="text-xs text-slate-400 space-y-1">
+                              <li>• Interoperable items across games</li>
+                              <li>• Virtual land ownership (Decentraland, Sandbox)</li>
+                              <li>• Cross-platform identities & avatars</li>
+                              <li>• NFT-gated gaming experiences</li>
+                            </ul>
+                          </div>
+                          <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                            <h5 className="text-green-400 font-semibold mb-2">🎵 Music & Entertainment</h5>
+                            <p className="text-xs text-slate-400 mb-2">
+                              Artists monetizing directly, fans owning a piece of culture
+                            </p>
+                            <ul className="text-xs text-slate-400 space-y-1">
+                              <li>• Royalty-sharing music NFTs</li>
+                              <li>• Exclusive concert access & backstage passes</li>
+                              <li>• Fan club memberships as NFTs</li>
+                              <li>• Collaborative songs with holders</li>
+                            </ul>
+                          </div>
+                          <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4">
+                            <h5 className="text-purple-400 font-semibold mb-2">🏠 Real World Assets (RWAs)</h5>
+                            <p className="text-xs text-slate-400 mb-2">
+                              Tokenizing physical assets for fractional ownership
+                            </p>
+                            <ul className="text-xs text-slate-400 space-y-1">
+                              <li>• Real estate fractional ownership</li>
+                              <li>• Luxury goods authentication (watches, bags)</li>
+                              <li>• Equipment leasing & rental NFTs</li>
+                              <li>• Supply chain tracking</li>
+                            </ul>
+                          </div>
+                          <div className="bg-pink-500/10 border border-pink-500/20 rounded-lg p-4">
+                            <h5 className="text-pink-400 font-semibold mb-2">🆔 Identity & Credentials</h5>
+                            <p className="text-xs text-slate-400 mb-2">
+                              Verifiable credentials and decentralized identity
+                            </p>
+                            <ul className="text-xs text-slate-400 space-y-1">
+                              <li>• Education diplomas as NFTs</li>
+                              <li>• Professional certifications</li>
+                              <li>• Medical records & prescriptions</li>
+                              <li>• Soulbound tokens (non-transferable identity)</li>
+                            </ul>
+                          </div>
+                        </div>
+
+                        <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-xl p-5">
+                          <h4 className="text-cyan-400 font-semibold mb-3">🚀 Technological Innovations</h4>
+                          <div className="space-y-3">
+                            <div>
+                              <p className="text-white font-semibold text-sm">Dynamic NFTs</p>
+                              <p className="text-xs text-slate-400">
+                                NFTs that change based on external data (weather, time, real-world events). 
+                                Example: A soccer player card that updates stats in real-time.
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-white font-semibold text-sm">AI-Generated NFTs</p>
+                              <p className="text-xs text-slate-400">
+                                AI art tools integrated into minting platforms. Prompt-to-NFT in seconds. 
+                                Questions about originality and value.
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-white font-semibold text-sm">Layer 2 Scaling</p>
+                              <p className="text-xs text-slate-400">
+                                Cheaper, faster NFT transactions on L2s like Arbitrum, Optimism, zkSync. 
+                                Bridging between mainnets becoming seamless.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-lg p-5">
+                          <h5 className="text-white font-semibold mb-2 text-center">🔮 Bold Predictions for 2025-2030</h5>
+                          <div className="grid md:grid-cols-2 gap-3 text-sm mt-3">
+                            <div className="flex items-start gap-2">
+                              <span className="text-purple-400 text-xl">💼</span>
+                              <p className="text-xs">
+                                <strong>Mainstream Adoption:</strong> Fortune 500 companies will have NFT loyalty programs
+                              </p>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <span className="text-pink-400 text-xl">🏛️</span>
+                              <p className="text-xs">
+                                <strong>Regulation Clarity:</strong> Clear legal frameworks in major markets
+                              </p>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <span className="text-blue-400 text-xl">🌉</span>
+                              <p className="text-xs">
+                                <strong>Cross-Chain NFTs:</strong> Seamless movement of NFTs across all blockchains
+                              </p>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <span className="text-green-400 text-xl">🎓</span>
+                              <p className="text-xs">
+                                <strong>Education Evolution:</strong> Academic credentials issued as NFTs globally
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4 text-center">
+                          <p className="text-white font-semibold mb-2">🎯 Your NFT Journey Starts Now</p>
+                          <p className="text-sm text-slate-400">
+                            Whether you're an artist, collector, investor, or builder - the NFT space offers endless opportunities. 
+                            Stay curious, keep learning, and always DYOR (Do Your Own Research).
+                          </p>
+                        </div>
+                        
+                        <div className="mt-6 flex justify-center">
+                          <SectionCompleteButton 
+                            courseId="nft-masterclass"
+                            sectionId="section-6"
+                            sectionNumber={6}
+                            totalSections={6}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </Card>
+              </div>
               
             </div>
           </div>
