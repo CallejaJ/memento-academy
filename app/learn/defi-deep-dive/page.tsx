@@ -223,6 +223,14 @@ export default function DefiDeepDivePage() {
                             </li>
                           </ol>
                         </div>
+                        
+                        <div className="mt-6 flex justify-center">
+                          <SectionCompleteButton 
+                            courseId="defi-deep-dive"
+                            sectionId="section-2"
+                            totalSections={6}
+                          />
+                        </div>
                       </div>
                     </div>
                   )}
@@ -296,6 +304,14 @@ export default function DefiDeepDivePage() {
                           <p className="text-xs text-slate-400">
                             APY includes compound interest, APR doesn't. A 100% APY doubles your money in a year if compounded.
                           </p>
+                        </div>
+                        
+                        <div className="mt-6 flex justify-center">
+                          <SectionCompleteButton 
+                            courseId="defi-deep-dive"
+                            sectionId="section-3"
+                            totalSections={6}
+                          />
                         </div>
                       </div>
                     </div>
