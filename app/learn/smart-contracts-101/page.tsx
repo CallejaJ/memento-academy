@@ -520,8 +520,8 @@ export default function SmartContracts101Page() {
                               <h5 className="text-white font-semibold text-sm mb-2">Hardhat Testing</h5>
                               <p className="text-xs text-slate-400 mb-2">JavaScript/TypeScript with Mocha & Chai</p>
                               <div className="bg-slate-900 rounded p-2 font-mono text-xs">
-                                <div className="text-green-400">describe("Token", () =&gt; {`{`}</div>
-                                <div className="ml-2 text-cyan-400">it("should transfer", ...</div>
+                                <div className="text-green-400">describe(&quot;Token&quot;, () =&gt; {`{`}</div>
+                                <div className="ml-2 text-cyan-400">it(&quot;should transfer&quot;, ...</div>
                                 <div className="text-green-400">{`}`});</div>
                               </div>
                             </div>
