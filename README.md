@@ -13,6 +13,55 @@
     <i>Free educational platform designed for Web3 newcomers. We simplify Cryptocurrencies, CBDCs, and Blockchain technology with zero costs for the community.</i>
 </p>
 
+## 🎓 Educational Model
+
+Memento Academy offers a structured learning path designed to take users from novices to Web3 experts.
+
+### Premium Course Library
+We currently offer **6 specialized premium courses**, each designed with a specific focus:
+
+| Course | Level | Focus | Dependencies |
+|--------|-------|-------|--------------|
+| **DeFi Deep Dive** | Intermediate | Lending, Yield Farming, Liquidity Pools | None |
+| **NFT Masterclass** | Advanced | Minting, Trading, Digital Art, Security | None |
+| **Smart Contracts 101** | Beginner | Solidity, Deployment, Security | None |
+| **Technical Analysis** | Advanced | Charts, Indicators, Patterns, Strategy | None |
+| **Portfolio Management** | Intermediate | Asset Allocation, Risk Mgmt, Rebalancing | None |
+| **Blockchain Development** | Advanced | Architecture, Consensus, dApps | Smart Contracts 101 |
+
+### Learning Structure
+- **Modular Design**: Each course consists of **6 progressive sections**.
+- **Sequential Unlocking**: Users must complete sections in order (1 → 6) to ensure foundational knowledge is built correctly.
+- **Interactive Completion**: Each section requires active confirmation of understanding via the "Mark as Complete" action.
+- **Progress Tracking**: The specific progress of every user is persisted in Supabase, allowing seamless cross-device learning.
+
+---
+
+## 🏆 Achievements & Badges
+
+The platform features a gamified progression system to encourage consistent learning. Badges are displayed on the User Dashboard.
+
+### Badge Collection
+There are currently **8 unique badges** available across 4 rarity tiers:
+
+#### Common (Entry Level)
+- 🎓 **First Steps**: Complete your very first course section.
+- 🏆 **Course Graduate**: Complete any full course (100%).
+
+#### Rare (Consistent Effort)
+- ⚡ **Speed Learner**: Complete a full course in under 24 hours.
+- 📚 **Dedicated Student**: Complete 5 different courses.
+
+#### Epic (Mastery)
+- 💎 **DeFi Master**: Complete all DeFi-related courses.
+- ✨ **Perfect Score**: Achieve 100% on a course final assessment.
+- 🧠 **Knowledge Seeker**: Complete a total of 50 sections across the platform.
+
+#### Legendary (Elite)
+- 🚀 **Crypto Expert**: Complete 10 courses to prove ultimate mastery.
+
+---
+
 ## System Architecture
 
 The application follows a modern serverless architecture with a focus on type safety and automated background processes.
