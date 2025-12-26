@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, Loader2 } from "lucide-react"
+import { CheckCircle, Loader2, Lock } from "lucide-react"
 import { useCourseProgress } from "@/hooks/use-course-progress"
 import { useToast } from "@/hooks/use-toast"
 import confetti from "canvas-confetti"
@@ -11,6 +11,7 @@ interface SectionCompleteButtonProps {
   courseId: string
   sectionId: string
   totalSections: number
+  sectionNumber: number // e.g., 1, 2, 3...
   isCompleted?: boolean
 }
 
@@ -18,6 +19,7 @@ export function SectionCompleteButton({
   courseId, 
   sectionId, 
   totalSections,
+  sectionNumber,
   isCompleted = false
 }: SectionCompleteButtonProps) {
   const { markSectionComplete, progress } = useCourseProgress(courseId)
@@ -25,9 +27,17 @@ export function SectionCompleteButton({
   const [loading, setLoading] = useState(false)
 
   const alreadyCompleted = progress?.completed_sections?.includes(sectionId) || isCompleted
+  
+  // Check if all previous sections are completed
+  const completedSections = progress?.completed_sections || []
+  const previousSectionsCompleted = Array.from({ length: sectionNumber - 1 }, (_, i) => 
+    `section-${i + 1}`
+  ).every(prevSection => completedSections.includes(prevSection))
+
+  const canComplete = previousSectionsCompleted || sectionNumber === 1
 
   const handleComplete = async () => {
-    if (alreadyCompleted) return
+    if (alreadyCompleted || !canComplete) return
 
     setLoading(true)
     try {
@@ -66,6 +76,21 @@ export function SectionCompleteButton({
       >
         <CheckCircle className="w-4 h-4 mr-2" />
         Completed
+      </Button>
+    )
+  }
+
+  // If previous sections not completed, show locked state
+  if (!canComplete) {
+    return (
+      <Button
+        disabled
+        className="bg-slate-700/20 border-slate-700/30 text-slate-500 cursor-not-allowed"
+        variant="outline"
+        title={`Complete section ${sectionNumber - 1} first`}
+      >
+        <Lock className="w-4 h-4 mr-2" />
+        Locked
       </Button>
     )
   }
