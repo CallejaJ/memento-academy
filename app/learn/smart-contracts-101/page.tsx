@@ -682,6 +682,28 @@ export default function SmartContracts101Page() {
           </div>
         </div>
       </section>
+
+      {/* CTA Section */}
+      <Card className="bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border-blue-500/20 mt-8 mb-16 max-w-4xl mx-auto">
+        <CardContent className="p-8 text-center">
+          <h3 className="text-2xl font-bold text-white mb-4">Start Building Smart Contracts</h3>
+          <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
+            You now have the foundation to build secure smart contracts. Practice on testnets, study open-source code, and always prioritize security.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/courses">
+              <Button variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800">
+                ← Back to Courses
+              </Button>
+            </Link>
+            <Link href="/dashboard">
+              <Button className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600">
+                Track Your Progress →
+              </Button>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
