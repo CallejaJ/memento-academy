@@ -91,7 +91,7 @@ export function CourseCard({ course, progress = 0, showProgress = false }: Cours
   
   return (
     <Link href={course.href}>
-      <Card className="h-full bg-slate-800/50 border-slate-700 hover:border-slate-600 transition-colors flex flex-col">
+      <Card className="h-full min-h-[360px] bg-slate-800/50 border-slate-700 hover:border-slate-600 transition-colors flex flex-col">
         <CardHeader>
           <div className="flex items-start justify-between">
             <div className={cn("p-2 rounded-lg bg-slate-800", iconColors[course.color])}>

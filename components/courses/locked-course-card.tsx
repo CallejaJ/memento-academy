@@ -88,7 +88,7 @@ export function LockedCourseCard({ course }: LockedCourseCardProps) {
   const { openSignup } = useAuthModal()
   
   return (
-    <div className="relative h-full">
+    <div className="relative h-full min-h-[360px]">
       {/* Blurred background card */}
       <Card className={cn(
         "h-full bg-gradient-to-br border opacity-60 blur-[2px]",
