@@ -256,7 +256,7 @@ export default function SmartContracts101Page() {
                           <h5 className="text-white font-semibold mb-2">Functions & Modifiers</h5>
                           <div className="bg-slate-900/50 rounded p-3 font-mono text-xs overflow-x-auto mb-3">
                             <div className="text-blue-400">function transfer(address to, uint amount) public {`{`}</div>
-                            <div className="ml-4 text-slate-300">require(balance[msg.sender] >= amount, "Insufficient balance");</div>
+                            <div className="ml-4 text-slate-300">require(balance[msg.sender] &gt;= amount, "Insufficient balance");</div>
                             <div className="ml-4 text-slate-300">balance[msg.sender] -= amount;</div>
                             <div className="ml-4 text-slate-300">balance[to] += amount;</div>
                             <div className="text-blue-400">{`}`}</div>
