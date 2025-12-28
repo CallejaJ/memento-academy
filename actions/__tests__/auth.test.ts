@@ -58,7 +58,7 @@ describe('Auth Action: Password Reset (Resend + Custom HTML)', () => {
     // Verify correct redirection URL in Supabase call
     expect(mockGenerateLink).toHaveBeenCalledWith(expect.objectContaining({
       options: {
-        redirectTo: 'https://localhost:3000/auth/reset-password'
+        redirectTo: 'https://localhost:3000/auth/callback?next=/auth/reset-password'
       }
     }))
 

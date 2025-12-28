@@ -30,7 +30,7 @@ export async function sendPasswordResetEmail(email: string) {
       type: "recovery",
       email: validEmail,
       options: {
-        redirectTo: `${baseUrl}/auth/reset-password`,
+        redirectTo: `${baseUrl}/auth/callback?next=/auth/reset-password`,
       },
     })
 
