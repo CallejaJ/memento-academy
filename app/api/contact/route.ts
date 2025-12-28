@@ -1,14 +1,29 @@
 import { type NextRequest, NextResponse } from "next/server"
 import * as brevo from "@getbrevo/brevo"
+import { z } from "zod"
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, subject, message } = await request.json()
+    const body = await request.json()
 
-    // Validate required fields
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    // Schema validation using Zod
+    const contactSchema = z.object({
+      name: z.string().min(2, "Name must be at least 2 characters"),
+      email: z.string().email("Please provide a valid email address"),
+      subject: z.string().min(5, "Subject must be at least 5 characters"),
+      message: z.string().min(10, "Message must be at least 10 characters"),
+    })
+
+    const result = contactSchema.safeParse(body)
+
+    if (!result.success) {
+      return NextResponse.json(
+        { error: "Validation failed", details: result.error.errors },
+        { status: 400 }
+      )
     }
+
+    const { name, email, subject, message } = result.data
 
     // Configure Brevo API
     const apiInstance = new brevo.TransactionalEmailsApi()

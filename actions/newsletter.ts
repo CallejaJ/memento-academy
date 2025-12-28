@@ -3,13 +3,34 @@
 import prisma from "@/lib/prisma"
 import * as brevo from "@getbrevo/brevo"
 
+import { z } from "zod"
+
 // Initialize Brevo API
 const apiInstance = new brevo.TransactionalEmailsApi()
 apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY || "")
 
+const subscribeSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  fullName: z.string().optional(),
+})
+
 export async function subscribeToNewsletter(formData: FormData) {
-  const email = formData.get("email") as string
-  const fullName = (formData.get("fullName") as string) || ""
+  const rawData = {
+    email: formData.get("email") as string,
+    fullName: (formData.get("fullName") as string) || undefined,
+  }
+
+  // Validate input with Zod
+  const validationResult = subscribeSchema.safeParse(rawData)
+
+  if (!validationResult.success) {
+    return {
+      success: false,
+      message: validationResult.error.errors[0].message,
+    }
+  }
+
+  const { email, fullName } = validationResult.data
   const web3Basics = formData.get("web3_basics") === "on"
   const cbdcEducation = formData.get("cbdc_education") === "on"
   const freeCourses = formData.get("free_courses") === "on"
