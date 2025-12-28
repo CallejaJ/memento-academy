@@ -118,6 +118,33 @@ Fully responsive interface designed with a focus on dark-mode aesthetics and flu
 ### 4. Automated Database Health
 Custom **GitHub Actions** workflows ensure the Supabase tier remains active by performing periodic health checks, preventing service pauses during inactivity.
 
+## 🛡️ Testing Strategy
+
+The project implements a robust automated testing strategy using **Jest** and **React Testing Library**, ensuring quality and security across both Frontend and Backend layers.
+
+### ✅ Test Coverage (15 Passing Tests)
+
+#### 1. Frontend Unit Tests (Components)
+Located in `components/__tests__/`:
+- **AuthModal**: Verifies login/signup form rendering, mode switching, error handling, and password validation.
+- **BadgeGrid**: Validates loading states, statistic calculations, and visual distinction between earned/locked badges.
+
+#### 2. Backend Integration Tests (Server Actions & APIs)
+Located in `actions/__tests__/` and `app/api/contact/__tests__/`:
+- **Newsletter Action**: Simulates DB interactions (Prisma mocks) to verify duplicate handling and subscriber creation.
+- **Contact API**: Tests the full API route flow, ensuring emails are sent only when inputs are valid.
+
+### 🔒 Security & Validation Tests
+We employ **Zod** for strict input validation, verified by dedicated test suites:
+- **Email Injection Protection**: Rejects invalid email formats before they reach the database or external APIs.
+- **Input Sanitization**: Enforces minimum length requirements on contact forms to prevent spam/abuse.
+- **Database Safety**: Tests verify that invalid requests **never** trigger database queries, protecting resources.
+
+Run the full suite with:
+```bash
+npm run test
+```
+
 ## Project Setup
 
 ### Environment Configuration
