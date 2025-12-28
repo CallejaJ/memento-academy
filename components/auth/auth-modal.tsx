@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { useAuth } from "@/contexts/auth-context"
+import { sendPasswordResetEmail } from "@/actions/auth"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -70,7 +71,10 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
         await signUp(email, password)
         setSuccessState("signup-success")
       } else if (mode === "forgot-password") {
-        await resetPassword(email)
+        const result = await sendPasswordResetEmail(email)
+        if (!result.success) {
+          throw new Error(result.message)
+        }
         setSuccessState("reset-success")
       }
     } catch (err: any) {
