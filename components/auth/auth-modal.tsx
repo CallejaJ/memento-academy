@@ -7,7 +7,6 @@ import { sendPasswordResetEmail } from "@/actions/auth"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Alert, AlertDescription } from "@/components/ui/alert"
 import {
   Dialog,
   DialogContent,
@@ -176,10 +175,10 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
         </DialogHeader>
 
         {error && (
-          <Alert variant="destructive" className="mt-4">
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
+          <div className="mt-4 p-4 rounded-lg bg-red-500/10 border border-red-500/20 flex items-start gap-3 text-red-200 animate-in fade-in slide-in-from-top-2">
+            <AlertCircle className="h-5 w-5 text-red-400 shrink-0 mt-0.5" />
+            <div className="text-sm font-medium">{error}</div>
+          </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
