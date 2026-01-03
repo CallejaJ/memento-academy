@@ -13,6 +13,32 @@ interface SectionCompleteButtonProps {
   totalSections: number
   sectionNumber: number // e.g., 1, 2, 3...
   isCompleted?: boolean
+  lng?: string
+}
+
+const translations = {
+  en: {
+    completed: "Completed",
+    locked: "Locked",
+    locked_tooltip: "Complete previous section first",
+    completing: "Completing...",
+    mark_complete: "Mark as Complete",
+    success_title: "🎉 Section Complete!",
+    success_desc: "Great job! Keep learning to unlock more achievements.",
+    error_title: "Error",
+    error_desc: "Failed to mark section as complete. Please try again."
+  },
+  es: {
+    completed: "Completado",
+    locked: "Bloqueado",
+    locked_tooltip: "Completa la sección anterior primero",
+    completing: "Completando...",
+    mark_complete: "Marcar como Completado",
+    success_title: "🎉 ¡Sección Completada!",
+    success_desc: "¡Gran trabajo! Sigue aprendiendo para ganar más logros.",
+    error_title: "Error",
+    error_desc: "Error al marcar la sección como completa. Inténtalo de nuevo."
+  }
 }
 
 export function SectionCompleteButton({ 
@@ -20,11 +46,13 @@ export function SectionCompleteButton({
   sectionId, 
   totalSections,
   sectionNumber,
-  isCompleted = false
+  isCompleted = false,
+  lng = 'en'
 }: SectionCompleteButtonProps) {
   const { markSectionComplete, progress } = useCourseProgress(courseId)
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
+  const t = translations[lng as keyof typeof translations] || translations.en
 
   const alreadyCompleted = progress?.completed_sections?.includes(sectionId) || isCompleted
   
@@ -51,15 +79,15 @@ export function SectionCompleteButton({
       })
 
       toast({
-        title: "🎉 Section Complete!",
-        description: "Great job! Keep learning to unlock more achievements.",
+        title: t.success_title,
+        description: t.success_desc,
         duration: 3000
       })
     } catch (error) {
       console.error("Error marking section complete:", error)
       toast({
-        title: "Error",
-        description: "Failed to mark section as complete. Please try again.",
+        title: t.error_title,
+        description: t.error_desc,
         variant: "destructive"
       })
     } finally {
@@ -75,7 +103,7 @@ export function SectionCompleteButton({
         variant="outline"
       >
         <CheckCircle className="w-4 h-4 mr-2" />
-        Completed
+        {t.completed}
       </Button>
     )
   }
@@ -87,10 +115,10 @@ export function SectionCompleteButton({
         disabled
         className="bg-slate-700/20 border-slate-700/30 text-slate-500 cursor-not-allowed"
         variant="outline"
-        title={`Complete section ${sectionNumber - 1} first`}
+        title={t.locked_tooltip}
       >
         <Lock className="w-4 h-4 mr-2" />
-        Locked
+        {t.locked}
       </Button>
     )
   }
@@ -104,12 +132,12 @@ export function SectionCompleteButton({
       {loading ? (
         <>
           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-          Completing...
+          {t.completing}
         </>
       ) : (
         <>
           <CheckCircle className="w-4 h-4 mr-2" />
-          Mark as Complete
+          {t.mark_complete}
         </>
       )}
     </Button>

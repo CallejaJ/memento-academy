@@ -1,0 +1,150 @@
+{
+  "greeting": "Welcome to Memento Academy",
+  "hero": {
+    "title_start": "Unlock the",
+    "title_end": "Digital Future",
+    "description": "The simplest onboarding to Web3 and Blockchain. We break down complex concepts like CBDCs and Cripto for absolute beginners. Best of all? It's 100% free.",
+    "new_badge": "🚀 New: CBDC & Digital Future Guide",
+    "start_learning": "Start Learning Free",
+    "explore_courses": "Explore Courses",
+    "no_fees": "No hidden fees",
+    "expert_guides": "Expert-led CBDC guides"
+  },
+  "nav": {
+    "mission": "Mission",
+    "community": "Community",
+    "courses": "Free Courses",
+    "dashboard": "Dashboard",
+    "login": "Log In",
+    "signout": "Sign Out",
+    "join": "Join Free",
+    "join_academy": "Join Academy Free"
+  },
+  "mission": {
+    "title": "Web3 Education for Everyone",
+    "subtitle": "Starting from zero? You're in the right place. Our mission is to democratize blockchain knowledge.",
+    "foundations": {
+      "title": "Web3 Foundations",
+      "desc": "Learn what blockchain is and why it matters, explained in plain English. No technical background required."
+    },
+    "cbdc": {
+      "title": "CBDC Decoding",
+      "desc": "Understand Central Bank Digital Currencies and how they will change the way you use money."
+    },
+    "security": {
+      "title": "Security Basics",
+      "desc": "Protect yourself in the digital age. Learn how to identify scams and keep your assets safe."
+    },
+    "community": {
+      "title": "Supportive Community",
+      "desc": "Join thousands of others starting their journey. Ask questions freely in our beginner-first Discord."
+    }
+  },
+  "community_section": {
+    "title": "A Growing Global Community",
+    "subtitle": "Thousands are learning to navigate the digital era with us.",
+    "testimonials": {
+      "1": {
+        "quote": "\"I was terrified of losing money or getting scammed. Memento Academy explained everything so simply that I finally feel confident using my first wallet.\"",
+        "role": "Newcomer"
+      },
+      "2": {
+        "quote": "\"The guide on CBDCs changed how I see the future of money. Essential reading for anyone who wants to stay ahead of government digital currencies.\"",
+        "role": "Student"
+      },
+      "3": {
+        "quote": "\"Finally, a place that doesn't try to sell me a trading bot. Pure education and real support. Highly recommended for beginners.\"",
+        "role": "Professional"
+      }
+    }
+  },
+  "access": {
+    "title": "100% Free Knowledge",
+    "description": "No credit cards, no subscriptions, no tricks. Just free education for the community.",
+    "cards": {
+      "library": {
+        "title": "Course Library",
+        "desc": "Complete Web3 and Blockchain foundations courses at no cost."
+      },
+      "newsletter": {
+        "title": "Weekly Newsletter",
+        "desc": "Curated news and insights delivered to your inbox every week."
+      },
+      "cbdc": {
+        "title": "CBDC Research",
+        "desc": "Public documents and analysis on Digital Government Currencies."
+      },
+      "support": {
+        "title": "Community Support",
+        "desc": "Interactive help from tutors and peers in our Discord server."
+      },
+      "security": {
+        "title": "Security Guides",
+        "desc": "Practical tips to stay safe and avoid scams in the digital world."
+      },
+      "open": {
+        "title": "Open Knowledge",
+        "desc": "All our educational materials are open source and free to share."
+      }
+    }
+  },
+  "newsletter_section": {
+    "title": "Never Miss a Web3 Beat",
+    "subtitle": "Get the latest beginner guides, CBDC updates, and community news delivered to your inbox.",
+    "stats": {
+      "learners": "Learners",
+      "weekly": "Insights"
+    },
+    "list": {
+      "1": "Curated Web3 news for newcomers",
+      "2": "Deep dives into Digital Currencies",
+      "3": "Early access to free study tools"
+    },
+    "form": {
+      "title": "Join the Global Community",
+      "desc": "Become part of the 50,000+ enthusiasts mastering the future of finance."
+    }
+  },
+  "footer": {
+    "desc": "Empowering newcomers to navigate the digital financial landscape through free, accessible education.",
+    "cols": {
+      "learn": "Learn",
+      "academy": "Academy",
+      "connect": "Connect"
+    },
+    "links": {
+      "web3": "Web3 Basics",
+      "crypto": "Crypto 101",
+      "cbdc": "Understanding CBDCs",
+      "safety": "Safety Guide",
+      "mission": "Our Mission",
+      "courses": "Free Courses",
+      "kb": "Knowledge Base",
+      "contribute": "Contribute",
+      "contact": "Contact Support"
+    },
+    "copyright": "© {{year}} Memento Academy. All knowledge free to use.",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
+  "courses_page": {
+    "badge": "📚 Academy",
+    "title_start": "Explore Our",
+    "title_end": "Courses",
+    "subtitle": "Master Web3, blockchain, and digital finance. From beginner basics to advanced professional skills.",
+    "all_courses": "All Courses",
+    "available": "courses available",
+    "subscribe_title": "Want to Be Notified of New Courses?",
+    "subscribe_desc": "Subscribe to our newsletter and be the first to know when we launch new content.",
+    "subscribe_btn": "Subscribe for Updates",
+    "path_title": "Recommended Learning Path",
+    "path_1_title": "Start Here",
+    "path_1_desc": "Web3 Basics",
+    "path_2_title": "Then Learn",
+    "path_2_desc": "Crypto 101",
+    "path_3_title": "Go Deeper",
+    "path_3_desc": "DeFi & NFTs (Premium)",
+    "path_4_title": "Become a Pro",
+    "path_4_desc": "Blockchain Development"
+  }
+}

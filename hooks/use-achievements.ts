@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
 import { useAuth } from "@/contexts/auth-context"
-import { ACHIEVEMENTS, UserStats } from "@/lib/achievements-data"
+import { ACHIEVEMENTS, UserStats, getAchievements } from "@/lib/achievements-data"
 import { useToast } from "@/hooks/use-toast"
+import { useParams } from "next/navigation"
 
 export interface UserAchievement {
   id: string
@@ -96,14 +97,25 @@ export function useAchievements() {
     setAchievements(prev => [data as any, ...prev])
 
     // Show notification
-    const achievement = ACHIEVEMENTS[achievementId.toUpperCase().replace(/-/g, '_')]
+
+    // Show notification
+    const { lng } = useParams<{ lng: string }>()
+    const achievementsData = getAchievements(lng)
+    
+    // Convert achievementId (e.g., 'first-course') to key (e.g., 'FIRST_COURSE')
+    // Note: The keys in ACHIEVEMENTS match the IDs usually, but let's be safe.
+    // The keys in data file are UPPERCASE_UNDERSCORE. IDs are kebab-case.
+    // Let's look up by ID since both dictionaries have the same structure.
+    const achievement = Object.values(achievementsData).find(a => a.id === achievementId)
+
     if (achievement) {
       toast({
-        title: "🎉 Achievement Unlocked!",
+        title: lng === 'es' ? "🎉 ¡Logro Desbloqueado!" : "🎉 Achievement Unlocked!",
         description: `${achievement.icon} ${achievement.name} - ${achievement.description}`,
         duration: 5000
       })
     }
+
   }
 
   const hasAchievement = (achievementId: string) => {

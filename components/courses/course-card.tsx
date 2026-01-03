@@ -52,6 +52,7 @@ interface CourseCardProps {
   course: Course
   progress?: number // 0-100
   showProgress?: boolean
+  lng: string
 }
 
 const difficultyColors = {
@@ -86,11 +87,11 @@ const iconColors: Record<string, string> = {
   indigo: "text-indigo-400",
 }
 
-export function CourseCard({ course, progress = 0, showProgress = false }: CourseCardProps) {
+export function CourseCard({ course, progress = 0, showProgress = false, lng }: CourseCardProps) {
   const Icon = iconMap[course.icon] || Blocks
   
   return (
-    <Link href={course.href}>
+    <Link href={`/${lng}${course.href}`}>
       <Card className="h-full min-h-[360px] bg-slate-800/50 border-slate-700 hover:border-slate-600 transition-colors flex flex-col">
         <CardHeader>
           <div className="flex items-start justify-between">

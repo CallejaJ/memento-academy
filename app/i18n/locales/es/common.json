@@ -1,0 +1,150 @@
+{
+  "greeting": "Bienvenido a Memento Academy",
+  "hero": {
+    "title_start": "Desbloquea el",
+    "title_end": "Futuro Digital",
+    "description": "La forma más sencilla de entrar en Web3 y Blockchain. Desglosamos conceptos complejos como CBDCs y Cripto para principiantes absolutos. ¿Lo mejor? Es 100% gratis.",
+    "new_badge": "🚀 Nuevo: Guía de CBDC y Futuro Digital",
+    "start_learning": "Empieza Gratis",
+    "explore_courses": "Explorar Cursos",
+    "no_fees": "Sin costos ocultos",
+    "expert_guides": "Guías de CBDC por expertos"
+  },
+  "nav": {
+    "mission": "Misión",
+    "community": "Comunidad",
+    "courses": "Cursos Gratis",
+    "dashboard": "Panel",
+    "login": "Iniciar Sesión",
+    "signout": "Cerrar Sesión",
+    "join": "Únete Gratis",
+    "join_academy": "Únete a la Academia"
+  },
+  "mission": {
+    "title": "Educación Web3 para Todos",
+    "subtitle": "¿Empezando desde cero? Estás en el lugar correcto. Nuestra misión es democratizar el conocimiento blockchain.",
+    "foundations": {
+      "title": "Fundamentos Web3",
+      "desc": "Aprende qué es blockchain y por qué importa, explicado en español sencillo. Sin tecnicismos."
+    },
+    "cbdc": {
+      "title": "Decodificando CBDC",
+      "desc": "Entiende las Monedas Digitales de Bancos Centrales y cómo cambiarán tu forma de usar el dinero."
+    },
+    "security": {
+      "title": "Conceptos de Seguridad",
+      "desc": "Protégete en la era digital. Aprende a identificar estafas y mantener tus activos seguros."
+    },
+    "community": {
+      "title": "Comunidad de Apoyo",
+      "desc": "Únete a miles de personas comenzando su viaje. Pregunta libremente en nuestro Discord para principiantes."
+    }
+  },
+  "community_section": {
+    "title": "Una Comunidad Global Creciente",
+    "subtitle": "Miles están aprendiendo a navegar la era digital con nosotros.",
+    "testimonials": {
+      "1": {
+        "quote": "\"Me aterraba perder dinero o ser estafado. Memento Academy explicó todo tan simplemente que finalmente me siento confiado usando mi primera wallet.\"",
+        "role": "Principiante"
+      },
+      "2": {
+        "quote": "\"La guía sobre CBDCs cambió mi visión del futuro del dinero. Lectura esencial para cualquiera que quiera adelantarse a las monedas digitales gubernamentales.\"",
+        "role": "Estudiante"
+      },
+      "3": {
+        "quote": "\"Finalmente, un lugar que no intenta venderme un bot de trading. Pura educación y apoyo real. Altamente recomendado para novatos.\"",
+        "role": "Profesional"
+      }
+    }
+  },
+  "access": {
+    "title": "Conocimiento 100% Gratuito",
+    "description": "Sin tarjetas de crédito, sin suscripciones, sin trucos. Solo educación gratuita para la comunidad.",
+    "cards": {
+      "library": {
+        "title": "Biblioteca de Cursos",
+        "desc": "Cursos completos de fundamentos Web3 y Blockchain sin costo."
+      },
+      "newsletter": {
+        "title": "Boletín Semanal",
+        "desc": "Noticias y conocimientos seleccionados directamente a tu bandeja de entrada cada semana."
+      },
+      "cbdc": {
+        "title": "Investigación CBDC",
+        "desc": "Documentos públicos y análisis sobre Monedas Gubernamentales Digitales."
+      },
+      "support": {
+        "title": "Soporte Comunitario",
+        "desc": "Ayuda interactiva de tutores y compañeros en nuestro servidor de Discord."
+      },
+      "security": {
+        "title": "Guías de Seguridad",
+        "desc": "Consejos prácticos para mantenerte seguro y evitar estafas en el mundo digital."
+      },
+      "open": {
+        "title": "Conocimiento Abierto",
+        "desc": "Todos nuestros materiales educativos son de código abierto y libres para compartir."
+      }
+    }
+  },
+  "newsletter_section": {
+    "title": "Nunca Pierdas el Ritmo Web3",
+    "subtitle": "Recibe las últimas guías para principiantes, actualizaciones de CBDC y noticias de la comunidad en tu correo.",
+    "stats": {
+      "learners": "Aprendices",
+      "weekly": "Insights Semanales"
+    },
+    "list": {
+      "1": "Noticias Web3 seleccionadas para recién llegados",
+      "2": "Análisis profundos sobre Monedas Digitales",
+      "3": "Acceso temprano a herramientas de estudio gratuitas"
+    },
+    "form": {
+      "title": "Únete a la Comunidad Global",
+      "desc": "Sé parte de los mas de 50,000 entusiastas dominando el futuro de las finanzas."
+    }
+  },
+  "footer": {
+    "desc": "Empoderando a los recién llegados para navegar el paisaje financiero digital a través de educación gratuita y accesible.",
+    "cols": {
+      "learn": "Aprender",
+      "academy": "Academia",
+      "connect": "Conectar"
+    },
+    "links": {
+      "web3": "Fundamentos Web3",
+      "crypto": "Cripto 101",
+      "cbdc": "Entendiendo CBDCs",
+      "safety": "Guía de Seguridad",
+      "mission": "Nuestra Misión",
+      "courses": "Cursos Gratis",
+      "kb": "Base de Conocimiento",
+      "contribute": "Contribuir",
+      "contact": "Contactar Soporte"
+    },
+    "copyright": "© {{year}} Memento Academy. Todo el conocimiento es libre de uso.",
+    "privacy": "Privacidad",
+    "terms": "Términos"
+  },
+  "courses_page": {
+    "badge": "📚 Academia",
+    "title_start": "Explora Nuestros",
+    "title_end": "Cursos",
+    "subtitle": "Domina Web3, blockchain y finanzas digitales. Desde conceptos básicos para principiantes hasta habilidades profesionales avanzadas.",
+    "all_courses": "Todos los Cursos",
+    "available": "cursos disponibles",
+    "subscribe_title": "¿Quieres que te avisemos de nuevos cursos?",
+    "subscribe_desc": "Suscríbete a nuestro boletín y sé el primero en saber cuando lancemos nuevo contenido.",
+    "subscribe_btn": "Suscribirse para Actualizaciones",
+    "path_title": "Ruta de Aprendizaje Recomendada",
+    "path_1_title": "Empieza Aquí",
+    "path_1_desc": "Fundamentos Web3",
+    "path_2_title": "Luego Aprende",
+    "path_2_desc": "Cripto 101",
+    "path_3_title": "Profundiza",
+    "path_3_desc": "DeFi y NFTs (Premium)",
+    "path_4_title": "Conviértete en Pro",
+    "path_4_desc": "Desarrollo Blockchain"
+  }
+}

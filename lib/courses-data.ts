@@ -10,7 +10,6 @@ import {
   PieChart, 
   Layers,
   LucideIcon,
-  // Add other icons needed for the mapping
   Activity,
   CreditCard,
   Building,
@@ -20,28 +19,9 @@ import {
   ArrowRightLeft,
   Briefcase
 } from "lucide-react"
+import { Course, CourseSection } from "./course-types"
 
-export interface CourseSection {
-  id: string
-  title: string
-  description: string
-}
-
-export interface Course {
-  id: string
-  title: string
-  slug: string
-  description: string
-  longDescription: string
-  duration: string
-  difficulty: 'beginner' | 'intermediate' | 'advanced'
-  isPremium: boolean
-  icon: string
-  color: string
-  href: string
-  sections: CourseSection[]
-  learningOutcomes: string[]
-}
+export type { Course, CourseSection }
 
 // Free courses - Open for SEO indexing
 export const freeCourses: Course[] = [
@@ -228,7 +208,7 @@ export const premiumCourses: Course[] = [
     isPremium: true,
     icon: 'Code',
     color: "blue",
-    href: "/learn/smart-contracts",
+    href: "/learn/smart-contracts-101",
     sections: [
       { id: "what-are-sc", title: "What are Smart Contracts?", description: "Self-executing code" },
       { id: "solidity-basics", title: "Solidity Basics", description: "Language fundamentals" },
@@ -330,19 +310,29 @@ export const premiumCourses: Course[] = [
 // All courses combined
 export const allCourses: Course[] = [...freeCourses, ...premiumCourses]
 
-// Helper functions
-export function getCourseById(id: string): Course | undefined {
-  return allCourses.find(course => course.id === id)
+import { coursesEs } from './courses-data-es'
+
+// Helper functions with localization
+export function getCourseById(id: string, lng: string = 'en'): Course | undefined {
+  const courses = lng === 'es' ? coursesEs : allCourses
+  return courses.find(course => course.id === id)
 }
 
-export function getCourseBySlug(slug: string): Course | undefined {
-  return allCourses.find(course => course.slug === slug)
+export function getCourseBySlug(slug: string, lng: string = 'en'): Course | undefined {
+  const courses = lng === 'es' ? coursesEs : allCourses
+  return courses.find(course => course.slug === slug)
 }
 
-export function getFreeCourses(): Course[] {
-  return freeCourses
+export function getFreeCourses(lng: string = 'en'): Course[] {
+  const courses = lng === 'es' ? coursesEs : allCourses
+  return courses.filter(c => !c.isPremium)
 }
 
-export function getPremiumCourses(): Course[] {
-  return premiumCourses
+export function getPremiumCourses(lng: string = 'en'): Course[] {
+  const courses = lng === 'es' ? coursesEs : allCourses
+  return courses.filter(c => c.isPremium)
+}
+
+export function getAllCourses(lng: string = 'en'): Course[] {
+  return lng === 'es' ? coursesEs : allCourses
 }

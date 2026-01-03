@@ -47,8 +47,32 @@ const iconMap: Record<string, LucideIcon> = {
   Wallet
 }
 
+const translations = {
+  en: {
+    createAccount: "Create a free account to unlock this premium course",
+    unlock: "Unlock Course",
+    sections: "sections",
+    difficulty: {
+      beginner: "Beginner",
+      intermediate: "Intermediate",
+      advanced: "Advanced"
+    }
+  },
+  es: {
+    createAccount: "Crea una cuenta gratuita para desbloquear este curso premium",
+    unlock: "Desbloquear Curso",
+    sections: "secciones",
+    difficulty: {
+      beginner: "Principiante",
+      intermediate: "Intermedio",
+      advanced: "Avanzado"
+    }
+  }
+}
+
 interface LockedCourseCardProps {
   course: Course
+  lng: string
 }
 
 const difficultyColors = {
@@ -83,9 +107,10 @@ const iconColors: Record<string, string> = {
   indigo: "text-indigo-400",
 }
 
-export function LockedCourseCard({ course }: LockedCourseCardProps) {
+export function LockedCourseCard({ course, lng }: LockedCourseCardProps) {
   const Icon = iconMap[course.icon] || Blocks
   const { openSignup } = useAuthModal()
+  const t = translations[lng as keyof typeof translations] || translations.en
   
   return (
     <div className="relative h-full min-h-[360px]">
@@ -101,7 +126,7 @@ export function LockedCourseCard({ course }: LockedCourseCardProps) {
             </div>
             <div className="flex gap-2">
               <Badge className={difficultyColors[course.difficulty]}>
-                {course.difficulty}
+                {t.difficulty[course.difficulty]}
               </Badge>
               <Badge className="bg-purple-500/10 text-purple-400 border-purple-500/20">
                 Premium
@@ -120,7 +145,7 @@ export function LockedCourseCard({ course }: LockedCourseCardProps) {
             </div>
             <div className="flex items-center gap-1">
               <BarChart3 className="w-4 h-4" />
-              {course.sections.length} sections
+              {course.sections.length} {t.sections}
             </div>
           </div>
         </CardContent>
@@ -133,14 +158,14 @@ export function LockedCourseCard({ course }: LockedCourseCardProps) {
         </div>
         <h3 className="text-white font-semibold text-lg mb-2">{course.title}</h3>
         <p className="text-slate-400 text-sm text-center px-4 mb-4">
-          Create a free account to unlock this premium course
+          {t.createAccount}
         </p>
         <Button 
           onClick={openSignup}
           className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
         >
           <Lock className="w-4 h-4 mr-2" />
-          Unlock Course
+          {t.unlock}
         </Button>
       </div>
     </div>

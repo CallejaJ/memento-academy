@@ -108,3 +108,9 @@ export const RARITY_COLORS = {
     glow: 'shadow-yellow-500/50'
   }
 }
+
+import { ACHIEVEMENTS_ES } from './achievements-data-es'
+
+export function getAchievements(lng: string = 'en'): Record<string, Achievement> {
+  return lng === 'es' ? ACHIEVEMENTS_ES : ACHIEVEMENTS
+}

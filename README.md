@@ -13,7 +13,7 @@
     <i>Free educational platform designed for Web3 newcomers. We simplify Cryptocurrencies, CBDCs, and Blockchain technology with zero costs for the community.</i>
 </p>
 
-## 🎓 Educational Model
+## Educational Model
 
 Memento Academy offers a structured learning path designed to take users from novices to Web3 experts.
 
@@ -144,6 +144,23 @@ Run the full suite with:
 ```bash
 npm run test
 ```
+
+## 🌍 Localization Workflow
+
+The platform supports full internationalization (i18n) for **English** and **Spanish**, using a hybrid approach of static dictionaries and dynamic routing.
+
+### Structure
+- **Routing**: Creating a directory structure `app/[lng]/` where `lng` can be `en` or `es`.
+- **Content**:
+  - **Component UI**: Uses `translations` objects directly within components for small UI text.
+  - **Static Data**: Large content (courses, achievements) is split into separate files (e.g., `courses-data.ts` vs `courses-data-es.ts`).
+  - **Client-Side**: Hooks like `useParams` detect the language and serve the correct content instantly.
+
+### Adding New Content
+1. **Create the component**: Build the UI structure.
+2. **Define translations**: Create an internal `translations` object with `en` and `es` keys.
+3. **Propagate `lng`**: Ensure the `lng` prop is passed down from the page level to all child components.
+4. **Data Files**: If adding a new course, update both `lib/courses-data.ts` and `lib/courses-data-es.ts`.
 
 ## Project Setup
 

@@ -4,10 +4,10 @@ import { useEffect, useState } from "react"
 import { useAuth } from "@/contexts/auth-context"
 import { CourseCard } from "@/components/courses/course-card"
 import { LockedCourseCard } from "@/components/courses/locked-course-card"
-import { allCourses } from "@/lib/courses-data"
+import { getAllCourses } from "@/lib/courses-data"
 import { supabase } from "@/lib/supabase"
 
-export function CoursesGrid() {
+export function CoursesGrid({ lng = 'en' }: { lng?: string }) {
   const { user } = useAuth()
   const [progressMap, setProgressMap] = useState<Record<string, number>>({})
 
@@ -37,12 +37,14 @@ export function CoursesGrid() {
     }
   }
 
+  const courses = getAllCourses(lng)
+
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      {allCourses.map((course) => {
+      {courses.map((course) => {
         // If course is premium and user is not logged in, show locked card
         if (course.isPremium && !user) {
-          return <LockedCourseCard key={course.id} course={course} />
+          return <LockedCourseCard key={course.id} course={course} lng={lng} />
         }
         
         // Otherwise show standard card with progress if available
@@ -52,6 +54,7 @@ export function CoursesGrid() {
             course={course} 
             progress={progressMap[course.id] || 0}
             showProgress={!!user}
+            lng={lng}
           />
         )
       })}

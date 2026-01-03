@@ -11,27 +11,31 @@ import { useAuthModal } from "@/contexts/auth-modal-context"
 import { useAuth } from "@/contexts/auth-context"
 import { AuthModal } from "@/components/auth/auth-modal"
 
-export function MainNav() {
+import { LanguageSwitcher } from "./language-switcher"
+import { useTranslation } from "@/app/i18n/client"
+
+export function MainNav({ lng }: { lng: string }) {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { isOpen, mode, openLogin, openSignup, close } = useAuthModal()
   const { user, signOut } = useAuth()
+  const { t } = useTranslation(lng, "common")
 
   const routes = [
     {
-      href: "/#features",
-      label: "Mission",
+      href: `/${lng}#features`,
+      label: t("nav.mission"),
       active: false,
     },
     {
-      href: "/#community",
-      label: "Community",
+      href: `/${lng}#community`,
+      label: t("nav.community"),
       active: false,
     },
     {
-      href: "/courses",
-      label: "Free Courses",
-      active: pathname === "/courses",
+      href: `/${lng}/courses`,
+      label: t("nav.courses"),
+      active: pathname === `/${lng}/courses`,
     },
   ]
 
@@ -52,7 +56,7 @@ export function MainNav() {
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <Link href="/" className="flex items-center space-x-3">
+              <Link href={`/${lng}`} className="flex items-center space-x-3">
                 <div className="relative">
                   <Image
                     src="/memento-academy-logo.png"
@@ -63,14 +67,14 @@ export function MainNav() {
                     style={{ height: "auto" }}
                   />
                 </div>
-                <span className="text-xl font-bold text-white transition-colors duration-300">
+                <span className="text-base sm:text-xl font-bold text-white transition-colors duration-300 whitespace-nowrap">
                   Memento Academy
                 </span>
               </Link>
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden lg:flex items-center space-x-8">
               {routes.map((route) => (
                 <Link
                   key={route.href}
@@ -87,30 +91,33 @@ export function MainNav() {
 
             {/* Right side buttons */}
             <div className="flex items-center space-x-4">
+              <div className="hidden lg:block">
+                <LanguageSwitcher lng={lng} />
+              </div>
 
               {/* Mobile menu button */}
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden"
+                className="lg:hidden"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </Button>
 
               {/* Quick access buttons for desktop */}
-              <div className="hidden md:flex items-center space-x-4">
+              <div className="hidden lg:flex items-center space-x-4">
                 {user ? (
                   <>
                     <Button asChild variant="ghost" className="text-slate-300 hover:text-white">
-                      <Link href="/dashboard">Dashboard</Link>
+                      <Link href={`/${lng}/dashboard`}>{t("nav.dashboard")}</Link>
                     </Button>
                     <Button
                       variant="outline"
                       className="border-slate-700 text-slate-300 hover:text-white"
                       onClick={() => signOut()}
                     >
-                      Sign Out
+                      {t("nav.signout")}
                     </Button>
                   </>
                 ) : (
@@ -120,13 +127,13 @@ export function MainNav() {
                       className="text-slate-300 hover:text-white"
                       onClick={handleLoginClick}
                     >
-                      Log In
+                      {t("nav.login")}
                     </Button>
                     <Button
                       className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0 shadow-lg shadow-cyan-500/20"
                       onClick={handleSignupClick}
                     >
-                      Join Free
+                      {t("nav.join")}
                     </Button>
                   </>
                 )}
@@ -136,7 +143,7 @@ export function MainNav() {
 
           {/* Mobile menu */}
           {mobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-slate-800">
+            <div className="lg:hidden py-4 border-t border-slate-800">
               <nav className="flex flex-col space-y-4">
                 {routes.map((route) => (
                   <Link
@@ -151,6 +158,10 @@ export function MainNav() {
                     {route.label}
                   </Link>
                 ))}
+
+                <div className="px-2 py-1 flex justify-start">
+                   <LanguageSwitcher lng={lng} />
+                </div>
 
                 {/* Mobile quick access */}
                 <div className="pt-4 border-t border-slate-800 space-y-3">
