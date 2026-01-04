@@ -1,97 +1,103 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { useAuth } from "@/contexts/auth-context"
-import { sendPasswordResetEmail } from "@/actions/auth"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import type React from "react";
+import { useState } from "react";
+import { useAuth } from "@/contexts/auth-context";
+import { sendPasswordResetEmail } from "@/actions/auth";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Github, AlertCircle, CheckCircle2, Mail } from "lucide-react"
-import { FaDiscord } from "react-icons/fa"
-import { FcGoogle } from "react-icons/fc"
-import Link from "next/link"
-import Image from "next/image"
+} from "@/components/ui/dialog";
+import { Github, AlertCircle, CheckCircle2, Mail } from "lucide-react";
+import { FaDiscord } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import Link from "next/link";
+import Image from "next/image";
 
-type AuthMode = "login" | "signup" | "forgot-password"
-type SuccessState = "none" | "signup-success" | "reset-success"
+type AuthMode = "login" | "signup" | "forgot-password";
+type SuccessState = "none" | "signup-success" | "reset-success";
 
 interface AuthModalProps {
-  isOpen: boolean
-  onClose: () => void
-  defaultMode?: AuthMode
+  isOpen: boolean;
+  onClose: () => void;
+  defaultMode?: AuthMode;
 }
 
-export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalProps) {
-  const [mode, setMode] = useState<AuthMode>(defaultMode)
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [successState, setSuccessState] = useState<SuccessState>("none")
-  const { signUp, signIn, signInWithProvider, resetPassword } = useAuth()
+export function AuthModal({
+  isOpen,
+  onClose,
+  defaultMode = "login",
+}: AuthModalProps) {
+  const [mode, setMode] = useState<AuthMode>(defaultMode);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [successState, setSuccessState] = useState<SuccessState>("none");
+  const { signUp, signIn, signInWithProvider, resetPassword } = useAuth();
 
   const resetForm = () => {
-    setEmail("")
-    setPassword("")
-    setError(null)
-    setSuccessState("none")
-  }
+    setEmail("");
+    setPassword("");
+    setError(null);
+    setSuccessState("none");
+  };
 
   const switchMode = (newMode: AuthMode) => {
-    resetForm()
-    setMode(newMode)
-  }
+    resetForm();
+    setMode(newMode);
+  };
 
   const handleClose = () => {
-    resetForm()
-    setMode(defaultMode)
-    onClose()
-  }
+    resetForm();
+    setMode(defaultMode);
+    onClose();
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
-    setIsLoading(true)
+    e.preventDefault();
+    setError(null);
+    setIsLoading(true);
 
     try {
       if (mode === "login") {
-        await signIn(email, password)
-        handleClose()
+        await signIn(email, password);
+        handleClose();
         // The AuthContext's onAuthStateChange will handle the refresh
       } else if (mode === "signup") {
-        await signUp(email, password)
-        setSuccessState("signup-success")
+        await signUp(email, password);
+        setSuccessState("signup-success");
       } else if (mode === "forgot-password") {
-        const result = await sendPasswordResetEmail(email)
+        const result = await sendPasswordResetEmail(email);
         if (!result.success) {
-          throw new Error(result.message)
+          throw new Error(result.message);
         }
-        setSuccessState("reset-success")
+        setSuccessState("reset-success");
       }
     } catch (err: any) {
-      setError(err.message || "An error occurred")
+      setError(err.message || "An error occurred");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
-  const handleProviderSignIn = async (provider: "google" | "github" | "discord") => {
-    setError(null)
+  const handleProviderSignIn = async (
+    provider: "google" | "github" | "discord"
+  ) => {
+    setError(null);
     try {
-      await signInWithProvider(provider)
-      handleClose()
+      await signInWithProvider(provider);
+      handleClose();
     } catch (err: any) {
-      setError(err.message || `Failed to sign in with ${provider}`)
+      setError(err.message || `Failed to sign in with ${provider}`);
     }
-  }
+  };
 
   // Success states
   if (successState === "signup-success") {
@@ -102,14 +108,18 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
             <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-full flex items-center justify-center mb-4">
               <Mail className="w-8 h-8 text-white" />
             </div>
-            <DialogHeader>
-              <DialogTitle className="text-2xl text-white">Check your email</DialogTitle>
+            <DialogHeader className="sm:text-center">
+              <DialogTitle className="text-2xl text-white">
+                Check your email
+              </DialogTitle>
               <DialogDescription className="text-slate-400 mt-2">
-                We've sent a confirmation link to <span className="text-cyan-400">{email}</span>
+                We've sent a confirmation link to{" "}
+                <span className="text-cyan-400">{email}</span>
               </DialogDescription>
             </DialogHeader>
             <p className="text-slate-400 text-sm mt-4">
-              Please check your email and click the confirmation link to complete your registration.
+              Please check your email and click the confirmation link to
+              complete your registration.
             </p>
             <Button
               variant="link"
@@ -121,7 +131,7 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
           </div>
         </DialogContent>
       </Dialog>
-    )
+    );
   }
 
   if (successState === "reset-success") {
@@ -133,9 +143,12 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
               <CheckCircle2 className="w-8 h-8 text-white" />
             </div>
             <DialogHeader>
-              <DialogTitle className="text-2xl text-white">Email sent</DialogTitle>
+              <DialogTitle className="text-2xl text-white">
+                Email sent
+              </DialogTitle>
               <DialogDescription className="text-slate-400 mt-2">
-                We've sent password reset instructions to <span className="text-cyan-400">{email}</span>
+                We've sent password reset instructions to{" "}
+                <span className="text-cyan-400">{email}</span>
               </DialogDescription>
             </DialogHeader>
             <Button
@@ -148,18 +161,18 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
           </div>
         </DialogContent>
       </Dialog>
-    )
+    );
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md bg-slate-900 border-slate-700">
         <DialogHeader className="flex flex-col items-center text-center">
-          <Image 
-            src="/memento-academy-logo.png" 
-            alt="Memento Academy" 
-            width={48} 
-            height={48} 
+          <Image
+            src="/memento-academy-logo.png"
+            alt="Memento Academy"
+            width={48}
+            height={48}
             className="mb-2"
           />
           <DialogTitle className="text-2xl text-white">
@@ -169,8 +182,10 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
           </DialogTitle>
           <DialogDescription className="text-slate-400">
             {mode === "login" && "Sign in to your Memento Academy account"}
-            {mode === "signup" && "Join Memento Academy to start your Web3 journey"}
-            {mode === "forgot-password" && "Enter your email to receive reset instructions"}
+            {mode === "signup" &&
+              "Join Memento Academy to start your Web3 journey"}
+            {mode === "forgot-password" &&
+              "Enter your email to receive reset instructions"}
           </DialogDescription>
         </DialogHeader>
 
@@ -183,7 +198,9 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-slate-200">Email</Label>
+            <Label htmlFor="email" className="text-slate-200">
+              Email
+            </Label>
             <Input
               id="email"
               type="email"
@@ -198,7 +215,9 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
           {mode !== "forgot-password" && (
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-slate-200">Password</Label>
+                <Label htmlFor="password" className="text-slate-200">
+                  Password
+                </Label>
                 {mode === "login" && (
                   <button
                     type="button"
@@ -219,7 +238,9 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
                 className="bg-slate-800 border-slate-600 text-white"
               />
               {mode === "signup" && (
-                <p className="text-xs text-slate-500">Password must be at least 6 characters long</p>
+                <p className="text-xs text-slate-500">
+                  Password must be at least 6 characters long
+                </p>
               )}
             </div>
           )}
@@ -229,15 +250,13 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
             className="w-full bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600"
             disabled={isLoading}
           >
-            {isLoading ? (
-              "Loading..."
-            ) : mode === "login" ? (
-              "Sign In"
-            ) : mode === "signup" ? (
-              "Create Account"
-            ) : (
-              "Send Reset Link"
-            )}
+            {isLoading
+              ? "Loading..."
+              : mode === "login"
+                ? "Sign In"
+                : mode === "signup"
+                  ? "Create Account"
+                  : "Send Reset Link"}
           </Button>
         </form>
 
@@ -317,5 +336,5 @@ export function AuthModal({ isOpen, onClose, defaultMode = "login" }: AuthModalP
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

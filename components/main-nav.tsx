@@ -1,25 +1,30 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import Image from "next/image"
-import { Menu, X } from "lucide-react"
-import { useState } from "react"
-import { cn } from "@/lib/utils"
-import { useAuthModal } from "@/contexts/auth-modal-context"
-import { useAuth } from "@/contexts/auth-context"
-import { AuthModal } from "@/components/auth/auth-modal"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
+import { useAuthModal } from "@/contexts/auth-modal-context";
+import { useAuth } from "@/contexts/auth-context";
+import { AuthModal } from "@/components/auth/auth-modal";
 
-import { LanguageSwitcher } from "./language-switcher"
-import { useTranslation } from "@/app/i18n/client"
+import { LanguageSwitcher } from "./language-switcher";
+import { useTranslation } from "@/app/i18n/client";
 
 export function MainNav({ lng }: { lng: string }) {
-  const pathname = usePathname()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { isOpen, mode, openLogin, openSignup, close } = useAuthModal()
-  const { user, signOut } = useAuth()
-  const { t } = useTranslation(lng, "common")
+  const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isOpen, mode, openLogin, openSignup, close } = useAuthModal();
+  const { user, signOut } = useAuth();
+  const { t } = useTranslation(lng, "common");
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const routes = [
     {
@@ -37,17 +42,17 @@ export function MainNav({ lng }: { lng: string }) {
       label: t("nav.courses"),
       active: pathname === `/${lng}/courses`,
     },
-  ]
+  ];
 
   const handleLoginClick = () => {
-    setMobileMenuOpen(false)
-    openLogin()
-  }
+    setMobileMenuOpen(false);
+    openLogin();
+  };
 
   const handleSignupClick = () => {
-    setMobileMenuOpen(false)
-    openSignup()
-  }
+    setMobileMenuOpen(false);
+    openSignup();
+  };
 
   return (
     <>
@@ -81,7 +86,7 @@ export function MainNav({ lng }: { lng: string }) {
                   href={route.href}
                   className={cn(
                     "text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium",
-                    route.active && "text-cyan-400",
+                    route.active && "text-cyan-400"
                   )}
                 >
                   {route.label}
@@ -102,15 +107,25 @@ export function MainNav({ lng }: { lng: string }) {
                 className="lg:hidden"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobileMenuOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
               </Button>
 
               {/* Quick access buttons for desktop */}
               <div className="hidden lg:flex items-center space-x-4">
-                {user ? (
+                {isMounted && user ? (
                   <>
-                    <Button asChild variant="ghost" className="text-slate-300 hover:text-white">
-                      <Link href={`/${lng}/dashboard`}>{t("nav.dashboard")}</Link>
+                    <Button
+                      asChild
+                      variant="ghost"
+                      className="text-slate-300 hover:text-white"
+                    >
+                      <Link href={`/${lng}/dashboard`}>
+                        {t("nav.dashboard")}
+                      </Link>
                     </Button>
                     <Button
                       variant="outline"
@@ -151,7 +166,7 @@ export function MainNav({ lng }: { lng: string }) {
                     href={route.href}
                     className={cn(
                       "text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium px-2 py-1",
-                      route.active && "text-cyan-400",
+                      route.active && "text-cyan-400"
                     )}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -160,15 +175,22 @@ export function MainNav({ lng }: { lng: string }) {
                 ))}
 
                 <div className="px-2 py-1 flex justify-start">
-                   <LanguageSwitcher lng={lng} />
+                  <LanguageSwitcher lng={lng} />
                 </div>
 
                 {/* Mobile quick access */}
                 <div className="pt-4 border-t border-slate-800 space-y-3">
-                  {user ? (
+                  {isMounted && user ? (
                     <>
-                      <Button asChild variant="outline" className="w-full justify-center border-slate-700 text-slate-300">
-                        <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)}>
+                      <Button
+                        asChild
+                        variant="outline"
+                        className="w-full justify-center border-slate-700 text-slate-300"
+                      >
+                        <Link
+                          href="/dashboard"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
                           Dashboard
                         </Link>
                       </Button>
@@ -176,8 +198,8 @@ export function MainNav({ lng }: { lng: string }) {
                         variant="ghost"
                         className="w-full justify-center text-slate-300"
                         onClick={() => {
-                          signOut()
-                          setMobileMenuOpen(false)
+                          signOut();
+                          setMobileMenuOpen(false);
                         }}
                       >
                         Sign Out
@@ -210,5 +232,5 @@ export function MainNav({ lng }: { lng: string }) {
       {/* Auth Modal */}
       <AuthModal isOpen={isOpen} onClose={close} defaultMode={mode} />
     </>
-  )
+  );
 }
