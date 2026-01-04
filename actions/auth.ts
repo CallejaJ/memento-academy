@@ -1,55 +1,58 @@
-"use server"
+"use server";
 
-import { z } from "zod"
-import { supabaseAdmin } from "@/lib/supabase-admin"
-import { Resend } from "resend"
+import { z } from "zod";
+import { supabaseAdmin } from "@/lib/supabase-admin";
+import { Resend } from "resend";
 
 // Validation schema
 const resetPasswordSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
-})
+});
 
 export async function sendPasswordResetEmail(email: string) {
   // 1. Initial validation
-  const validationResult = resetPasswordSchema.safeParse({ email })
+  const validationResult = resetPasswordSchema.safeParse({ email });
   if (!validationResult.success) {
     return {
       success: false,
       message: validationResult.error.errors[0].message,
-    }
+    };
   }
 
-  const validEmail = validationResult.data.email
-  console.log(`🔐 Password reset requested for: ${validEmail}`)
+  const validEmail = validationResult.data.email;
+  console.log(`🔐 Password reset requested for: ${validEmail}`);
 
   try {
     // 2. Generate Recovery Link using Supabase Admin
-    const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"
-    
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
+
     const { data, error } = await supabaseAdmin.auth.admin.generateLink({
       type: "recovery",
       email: validEmail,
       options: {
         redirectTo: `${baseUrl}/auth/callback?next=/auth/reset-password`,
       },
-    })
+    });
 
     if (error) {
-      console.error("❌ Error generating recovery link:", error)
+      console.error("❌ Error generating recovery link:", error);
       return {
         success: false,
-        message: "If an account exists with this email, we sent a recovery link. Please check your inbox.",
-      }
+        message:
+          "If an account exists with this email, we sent a recovery link. Please check your inbox.",
+      };
     }
 
-    const recoveryLink = data.properties.action_link
-    console.log("🔗 Recovery link generated successfully")
+    const recoveryLink = data.properties.action_link;
+    console.log("🔗 Recovery link generated successfully");
 
     // 3. Send Email via Resend
-    const resend = new Resend(process.env.RESEND_API_KEY)
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const { data: emailData, error: emailError } = await resend.emails.send({
-      from: "Memento Academy <onboarding@resend.dev>", // Using default verified domain
+      from: "Memento Academy <noreply@memento-academy.com>", // Using verified domain
       to: [validEmail],
       subject: "Reset your Memento Academy password 🔐",
       html: `<!DOCTYPE html>
@@ -114,28 +117,27 @@ export async function sendPasswordResetEmail(email: string) {
   </table>
 </body>
 </html>`,
-    })
+    });
 
     if (emailError) {
-      console.error("❌ Resend API Error:", emailError)
+      console.error("❌ Resend API Error:", emailError);
       return {
         success: false,
         message: "Failed to send email. Please try again.",
-      }
+      };
     }
 
-    console.log("✅ Password reset email sent via Resend:", emailData?.id)
+    console.log("✅ Password reset email sent via Resend:", emailData?.id);
 
     return {
       success: true,
       message: "We've sent password reset instructions to your email.",
-    }
-
+    };
   } catch (err: any) {
-    console.error("🔥 Error in sendPasswordResetEmail:", err)
+    console.error("🔥 Error in sendPasswordResetEmail:", err);
     return {
       success: false,
       message: "An unexpected error occurred. Please try again later.",
-    }
+    };
   }
 }
