@@ -1,0 +1,3 @@
+# Git Rules
+
+- Always use `git add -A` when creating a commit to ensure all file changes, including deletions, are staged.
