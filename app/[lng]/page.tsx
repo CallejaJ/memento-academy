@@ -458,8 +458,8 @@ export default async function LandingPage({
         className="bg-slate-950 text-white py-16 transition-colors duration-300 border-t border-slate-900"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 lg:grid-cols-5 gap-8">
-            <div className="space-y-4 lg:col-span-2">
+          <div className="grid md:grid-cols-4 lg:grid-cols-6 gap-8">
+            <div className="space-y-4 lg:col-span-3">
               <div className="flex items-center space-x-3">
                 <Image
                   src="/memento-academy-logo.png"
