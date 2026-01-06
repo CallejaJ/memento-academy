@@ -17,23 +17,31 @@
 
 Memento Academy offers a structured learning path designed to take users from novices to Web3 experts.
 
-### Premium Course Library
-We currently offer **6 specialized premium courses**, each designed with a specific focus:
+### Course Types
 
-| Course | Level | Focus | Dependencies |
-|--------|-------|-------|--------------|
-| **DeFi Deep Dive** | Intermediate | Lending, Yield Farming, Liquidity Pools | None |
-| **NFT Masterclass** | Advanced | Minting, Trading, Digital Art, Security | None |
-| **Smart Contracts 101** | Beginner | Solidity, Deployment, Security | None |
-| **Technical Analysis** | Advanced | Charts, Indicators, Patterns, Strategy | None |
-| **Portfolio Management** | Intermediate | Asset Allocation, Risk Mgmt, Rebalancing | None |
-| **Blockchain Development** | Advanced | Architecture, Consensus, dApps | Smart Contracts 101 |
+#### 1. Free Courses (Foundation)
+
+Designed for maximum accessibility and SEO.
+
+- **Access**: Open to everyone (no login required to view).
+- **Structure**: Fully dynamic content loaded from Supabase.
+- **Progress**: Users who log in can track their progress and earn badges. Non-logged users see all content unlocked.
+- **Current Courses**: `web3-basics`, `crypto-101`, `blockchain-dev`, `cbdc`.
+
+#### 2. Premium Courses (Specialized)
+
+Advanced content with strict progression.
+
+- **Access**: Requires login (and future subscription).
+- **Locking**: content is strictly sequential; you must complete Section 1 to unlock Section 2.
+- **Deep Dives**: `defi-deep-dive`, `nft-masterclass`, `smart-contracts-101`.
 
 ### Learning Structure
-- **Modular Design**: Each course consists of **6 progressive sections**.
-- **Sequential Unlocking**: Users must complete sections in order (1 → 6) to ensure foundational knowledge is built correctly.
-- **Interactive Completion**: Each section requires active confirmation of understanding via the "Mark as Complete" action.
-- **Progress Tracking**: The specific progress of every user is persisted in Supabase, allowing seamless cross-device learning.
+
+- **Modular Design**: Each course consists of **6-9 sections**.
+- **Dynamic Engine**: Content is stored in SQL/JSON, allowing instant updates without redeploying the app.
+- **Interactive Quizzes**: Embedded quizzes with instant feedback at the end of each section.
+- **Progress Persistence**: synchronized across devices via Supabase.
 
 ---
 
@@ -42,22 +50,27 @@ We currently offer **6 specialized premium courses**, each designed with a speci
 The platform features a gamified progression system to encourage consistent learning. Badges are displayed on the User Dashboard.
 
 ### Badge Collection
+
 There are currently **8 unique badges** available across 4 rarity tiers:
 
 #### Common (Entry Level)
+
 - 🎓 **First Steps**: Complete your very first course section.
 - 🏆 **Course Graduate**: Complete any full course (100%).
 
 #### Rare (Consistent Effort)
+
 - ⚡ **Speed Learner**: Complete a full course in under 24 hours.
 - 📚 **Dedicated Student**: Complete 5 different courses.
 
 #### Epic (Mastery)
+
 - 💎 **DeFi Master**: Complete all DeFi-related courses.
 - ✨ **Perfect Score**: Achieve 100% on a course final assessment.
 - 🧠 **Knowledge Seeker**: Complete a total of 50 sections across the platform.
 
 #### Legendary (Elite)
+
 - 🚀 **Crypto Expert**: Complete 10 courses to prove ultimate mastery.
 
 ---
@@ -79,7 +92,7 @@ graph TD
 
     User -- "Authenticates" --> NextJS
     NextJS -- "Manages State" --> AuthContext
-    AuthContext -- "SSR Auth" --> Supabase
+    AuthContext -- "SSR Cookies" --> Supabase
     NextJS -- "Process Data" --> ServerAction
     ServerAction -- "Persistence" --> Prisma
     Prisma -- "Query/Update" --> Supabase
@@ -98,49 +111,60 @@ graph TD
 
 ## Key Features
 
-### 1. Authentication Context
-Centralized authentication state management using React Context and Supabase Auth.
-- **Server-Side Rendering**: Seamless SSR authentication with `@supabase/ssr`.
-- **Auth Modal**: Unified login/signup modal with OAuth and email/password support.
-- **Session Persistence**: Automatic token refresh and session management.
+### 1. Robust Authentication
 
-### 2. High-Performance Newsletter System
+- **Hybrid System**: Uses `@supabase/ssr` with **httpOnly cookies** for secure Server-Side Rendering (SSR) in Next.js 15.
+- **Client Sync**: `createBrowserClient` ensures the client-side state stays in sync with server sessions.
+- **Middleware**: Automatic session refreshing to prevent stale tokens.
+
+### 2. Dynamic Content Engine
+
+- **SQL-Driven**: Course content is decoupled from code, stored in `course_sections` table with JSONB for rich text and components.
+- **Localization**: Native JSON support for `en` and `es` content within the same database row.
+- **Performance**: Fetched via Server Components for optimal LCP.
+
+### 3. High-Performance Newsletter System
+
 Built with **Next.js Server Actions** for secure, low-latency processing.
+
 - **Data Validation**: Real-time email validation and duplicate checking.
 - **Preference Engine**: Personalized content delivery based on user interests.
-- **Automated Onboarding**: Instant welcome sequences triggered via the Brevo API.
 
-### 3. Premium Design System
-Fully responsive interface designed with a focus on dark-mode aesthetics and fluid micro-interactions.
+### 4. Premium Design System
+
+Fully responsive interface designed with a focus on dark-mode aesthetics.
+
 - **Adaptive Theming**: Seamless switching between Dark and Light modes.
-- **Dynamic Feedback**: Real-time status updates for user interactions.
+- **Glassmorphism**: Modern UI elements with blurred backdrops.
 
-### 4. Automated Database Health
-Custom **GitHub Actions** workflows ensure the Supabase tier remains active by performing periodic health checks, preventing service pauses during inactivity.
+### 5. Automated Database Health
 
-##  Testing Strategy
+Custom **GitHub Actions** workflows ensure the Supabase tier remains active.
 
-The project implements a robust automated testing strategy using **Jest** and **React Testing Library**, ensuring quality and security across both Frontend and Backend layers.
+## Testing Strategy
 
-###  Test Coverage (15 Passing Tests)
+The project implements a robust automated testing strategy using **Jest** and **React Testing Library**.
 
-#### 1. Frontend Unit Tests (Components)
-Located in `components/__tests__/`:
-- **AuthModal**: Verifies login/signup form rendering, mode switching, error handling, and password validation.
-- **BadgeGrid**: Validates loading states, statistic calculations, and visual distinction between earned/locked badges.
+### Test Coverage
 
-#### 2. Backend Integration Tests (Server Actions & APIs)
-Located in `actions/__tests__/` and `app/api/contact/__tests__/`:
-- **Newsletter Action**: Simulates DB interactions (Prisma mocks) to verify duplicate handling and subscriber creation.
-- **Contact API**: Tests the full API route flow, ensuring emails are sent only when inputs are valid.
+#### 1. Frontend Unit Tests
 
-###  Security & Validation Tests
-We employ **Zod** for strict input validation, verified by dedicated test suites:
-- **Email Injection Protection**: Rejects invalid email formats before they reach the database or external APIs.
-- **Input Sanitization**: Enforces minimum length requirements on contact forms to prevent spam/abuse.
-- **Database Safety**: Tests verify that invalid requests **never** trigger database queries, protecting resources.
+- **AuthModal**: Login/signup form rendering and validation.
+- **BadgeGrid**: Visual distinction between earned/locked badges.
+
+#### 2. Backend Integration Tests
+
+- **Newsletter Action**: Verify duplicate handling.
+- **Contact API**: Tests API route flow and rate limiting.
+
+### Security & Validation
+
+- **Zod**: Strict input validation for all forms and APIs.
+- **SQL Injection**: Prevented via ORM and parameterized queries.
+- **XSS**: Automatic escaping in React components.
 
 Run the full suite with:
+
 ```bash
 npm run test
 ```
@@ -150,6 +174,7 @@ npm run test
 The platform supports full internationalization (i18n) for **English** and **Spanish**, using a hybrid approach of static dictionaries and dynamic routing.
 
 ### Structure
+
 - **Routing**: Creating a directory structure `app/[lng]/` where `lng` can be `en` or `es`.
 - **Content**:
   - **Component UI**: Uses `translations` objects directly within components for small UI text.
@@ -157,6 +182,7 @@ The platform supports full internationalization (i18n) for **English** and **Spa
   - **Client-Side**: Hooks like `useParams` detect the language and serve the correct content instantly.
 
 ### Adding New Content
+
 1. **Create the component**: Build the UI structure.
 2. **Define translations**: Create an internal `translations` object with `en` and `es` keys.
 3. **Propagate `lng`**: Ensure the `lng` prop is passed down from the page level to all child components.
@@ -165,6 +191,7 @@ The platform supports full internationalization (i18n) for **English** and **Spa
 ## Project Setup
 
 ### Environment Configuration
+
 Create a `.env.local` file with the following parameters:
 
 ```env
@@ -195,4 +222,5 @@ npm run dev
 ```
 
 ---
+
 Built with precision for **Memento Academy**.
