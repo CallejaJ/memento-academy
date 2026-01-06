@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
 import type { Database } from "@/types/supabase";
 
 // Provide hardcoded fallbacks in case environment variables aren't loaded correctly in the browser
@@ -12,31 +12,26 @@ const supabaseAnonKey = (
 ).trim();
 
 // Create a singleton instance to prevent multiple clients
-let supabaseInstance: ReturnType<typeof createClient<Database>> | null = null;
+let supabaseInstance: ReturnType<typeof createBrowserClient<Database>> | null =
+  null;
 
-function createSupabaseClient() {
-  if (typeof window !== "undefined") {
-    // Client-side initialization
-  }
-  return createClient<Database>(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true,
-    },
-  });
+function createSupabaseInstance() {
+  // createBrowserClient from @supabase/ssr stores session in cookies
+  // This allows server-side access to the auth session
+  return createBrowserClient<Database>(supabaseUrl, supabaseAnonKey);
 }
 
 // Export a singleton instance
 export const supabase = (() => {
   if (typeof window === "undefined") {
-    // Server-side: always create a new instance
-    return createSupabaseClient();
+    // Server-side: browser client shouldn't be used on server
+    // but for compatibility, return a new instance
+    return createSupabaseInstance();
   }
 
   // Client-side: use singleton
   if (!supabaseInstance) {
-    supabaseInstance = createSupabaseClient();
+    supabaseInstance = createSupabaseInstance();
   }
 
   return supabaseInstance;

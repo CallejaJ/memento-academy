@@ -213,6 +213,7 @@ export function useCourseProgress(courseId: string) {
     loading,
     startCourse,
     markSectionComplete,
+    refresh: fetchProgress,
     isStarted: !!progress,
     isCompleted: progress?.progress_percentage === 100,
   };
