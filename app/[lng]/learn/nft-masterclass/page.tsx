@@ -84,7 +84,7 @@ export default async function NFTMasterclassPage({
       <section className="py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <Badge className="bg-pink-500/10 text-pink-400 border-pink-500/20">
+            <Badge className="bg-pink-600/80 text-white border-pink-500/50">
               {t.badge}
             </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">

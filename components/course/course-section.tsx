@@ -295,6 +295,611 @@ export function CourseSection({
                   </div>
                 )}
 
+                {/* special block (list with title) - NFT Masterclass */}
+                {content.special && (
+                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-5">
+                    <h4 className="text-blue-400 font-semibold mb-3">
+                      {content.special.title}
+                    </h4>
+                    <ul className="space-y-2 text-sm">
+                      {content.special.list?.map((item: string, i: number) => (
+                        <li
+                          key={i}
+                          dangerouslySetInnerHTML={{ __html: `• ${item}` }}
+                        />
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* types block (grid of cards) - NFT Masterclass */}
+                {content.types && (
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {Object.values(content.types).map(
+                      (type: any, i: number) => (
+                        <div
+                          key={i}
+                          className="bg-slate-800/40 p-4 rounded-lg border border-slate-700/50"
+                        >
+                          <h5 className="text-cyan-400 font-semibold mb-2">
+                            {type.title}
+                          </h5>
+                          <p className="text-sm text-slate-300">{type.desc}</p>
+                        </div>
+                      )
+                    )}
+                  </div>
+                )}
+
+                {/* tech block (title + desc + optional list) */}
+                {content.tech && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg">
+                    <h4 className="font-semibold text-white mb-2">
+                      {content.tech.title}
+                    </h4>
+                    {content.tech.desc && (
+                      <p className="text-sm mb-3">{content.tech.desc}</p>
+                    )}
+                    {content.tech.list && (
+                      <ul className="list-disc pl-5 space-y-1 text-sm">
+                        {content.tech.list.map((item: string, i: number) => (
+                          <li
+                            key={i}
+                            dangerouslySetInnerHTML={{ __html: item }}
+                          />
+                        ))}
+                      </ul>
+                    )}
+                    {content.tech.dynamic && (
+                      <div className="mt-3 bg-slate-900/50 p-3 rounded">
+                        <p className="font-semibold text-purple-400">
+                          {content.tech.dynamic.title}
+                        </p>
+                        <p className="text-xs">{content.tech.dynamic.desc}</p>
+                      </div>
+                    )}
+                    {content.tech.ai && (
+                      <div className="mt-2 bg-slate-900/50 p-3 rounded">
+                        <p className="font-semibold text-purple-400">
+                          {content.tech.ai.title}
+                        </p>
+                        <p className="text-xs">{content.tech.ai.desc}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* process block (title + steps) - NFT Minting */}
+                {content.process && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg">
+                    <h4 className="font-semibold text-white mb-3">
+                      {content.process.title}
+                    </h4>
+                    <div className="space-y-2">
+                      {content.process.steps?.map((step: any, i: number) => (
+                        <div key={i} className="flex gap-3 items-start">
+                          <span className="bg-cyan-500/20 text-cyan-400 text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">
+                            {i + 1}
+                          </span>
+                          <div>
+                            <span className="font-semibold text-white">
+                              {step.title}
+                            </span>{" "}
+                            <span className="text-sm text-slate-400">
+                              {step.desc}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* concepts block (cards) */}
+                {content.concepts && (
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {Object.values(content.concepts).map(
+                      (concept: any, i: number) => (
+                        <div
+                          key={i}
+                          className="bg-slate-800/40 p-4 rounded-lg border border-slate-700/50"
+                        >
+                          <p className="font-semibold text-cyan-400 mb-1">
+                            {concept.title}
+                          </p>
+                          <p className="text-xs text-slate-300">
+                            {concept.desc}
+                          </p>
+                        </div>
+                      )
+                    )}
+                  </div>
+                )}
+
+                {/* warn block (important considerations) */}
+                {content.warn && (
+                  <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
+                    <h4 className="font-semibold text-yellow-400 mb-3">
+                      {content.warn.title}
+                    </h4>
+                    <ul className="space-y-2 text-sm">
+                      {content.warn.list?.map((item: string, i: number) => (
+                        <li
+                          key={i}
+                          dangerouslySetInnerHTML={{ __html: `• ${item}` }}
+                        />
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* markets block (marketplace cards) */}
+                {content.markets && (
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {Object.values(content.markets).map(
+                      (market: any, i: number) => (
+                        <div key={i} className="bg-slate-800/40 p-4 rounded-lg">
+                          <h5 className="font-semibold text-cyan-400 mb-1">
+                            {market.title}
+                          </h5>
+                          <p className="text-xs text-slate-400 mb-2">
+                            {market.desc}
+                          </p>
+                          {market.list && (
+                            <ul className="text-xs space-y-1">
+                              {market.list.map((item: string, j: number) => (
+                                <li key={j}>• {item}</li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      )
+                    )}
+                  </div>
+                )}
+
+                {/* tips block (trading tips) */}
+                {content.tips && (
+                  <div className="space-y-4">
+                    <h4 className="font-semibold text-white">
+                      {content.tips.title}
+                    </h4>
+                    {content.tips.research && (
+                      <div className="bg-slate-800/40 p-4 rounded-lg">
+                        <p className="font-semibold text-green-400 mb-2">
+                          {content.tips.research.title}
+                        </p>
+                        <ul className="text-sm space-y-1">
+                          {content.tips.research.list?.map(
+                            (item: string, i: number) => (
+                              <li key={i}>• {item}</li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                    {content.tips.safe && (
+                      <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-lg">
+                        <p className="font-semibold text-red-400 mb-2">
+                          {content.tips.safe.title}
+                        </p>
+                        <ul className="text-sm space-y-1">
+                          {content.tips.safe.list?.map(
+                            (item: string, i: number) => (
+                              <li key={i}>• {item}</li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* pricing block */}
+                {content.pricing && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg">
+                    <h4 className="font-semibold text-white mb-3">
+                      {content.pricing.title}
+                    </h4>
+                    <div className="space-y-2 text-sm">
+                      {content.pricing.floor && (
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: content.pricing.floor,
+                          }}
+                        />
+                      )}
+                      {content.pricing.avg && (
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: content.pricing.avg,
+                          }}
+                        />
+                      )}
+                      {content.pricing.ceil && (
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: content.pricing.ceil,
+                          }}
+                        />
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* strats block (investment strategies) */}
+                {content.strats && (
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {Object.values(content.strats).map(
+                      (strat: any, i: number) => (
+                        <div key={i} className="bg-slate-800/40 p-4 rounded-lg">
+                          <h5 className="font-semibold text-cyan-400 mb-1">
+                            {strat.title}
+                          </h5>
+                          <p className="text-xs text-slate-400 mb-2">
+                            {strat.desc}
+                          </p>
+                          {strat.list && (
+                            <ul className="text-xs space-y-1">
+                              {strat.list.map((item: string, j: number) => (
+                                <li key={j}>• {item}</li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      )
+                    )}
+                  </div>
+                )}
+
+                {/* portfolio block */}
+                {content.portfolio && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg">
+                    <h4 className="font-semibold text-white mb-3">
+                      {content.portfolio.title}
+                    </h4>
+                    <div className="grid sm:grid-cols-3 gap-3">
+                      {content.portfolio.blue && (
+                        <div className="bg-blue-500/10 p-3 rounded border border-blue-500/20">
+                          <p className="font-semibold text-blue-400 text-sm">
+                            {content.portfolio.blue.title}
+                          </p>
+                          <p className="text-xs">
+                            {content.portfolio.blue.desc}
+                          </p>
+                        </div>
+                      )}
+                      {content.portfolio.mid && (
+                        <div className="bg-green-500/10 p-3 rounded border border-green-500/20">
+                          <p className="font-semibold text-green-400 text-sm">
+                            {content.portfolio.mid.title}
+                          </p>
+                          <p className="text-xs">
+                            {content.portfolio.mid.desc}
+                          </p>
+                        </div>
+                      )}
+                      {content.portfolio.spec && (
+                        <div className="bg-orange-500/10 p-3 rounded border border-orange-500/20">
+                          <p className="font-semibold text-orange-400 text-sm">
+                            {content.portfolio.spec.title}
+                          </p>
+                          <p className="text-xs">
+                            {content.portfolio.spec.desc}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* flags block (red flags) */}
+                {content.flags && (
+                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
+                    <h4 className="font-semibold text-red-400 mb-3">
+                      {content.flags.title}
+                    </h4>
+                    <ul className="space-y-1 text-sm">
+                      {content.flags.list?.map((item: string, i: number) => (
+                        <li key={i}>• {item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* copyright block */}
+                {content.copyright && (
+                  <div className="space-y-4">
+                    <h4 className="font-semibold text-white">
+                      {content.copyright.title}
+                    </h4>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      {content.copyright.own && (
+                        <div className="bg-green-500/10 border border-green-500/20 p-4 rounded-lg">
+                          <p className="font-semibold text-green-400 mb-2">
+                            {content.copyright.own.title}
+                          </p>
+                          <ul className="text-sm space-y-1">
+                            {content.copyright.own.list?.map(
+                              (item: string, i: number) => (
+                                <li key={i}>✓ {item}</li>
+                              )
+                            )}
+                          </ul>
+                        </div>
+                      )}
+                      {content.copyright.dont && (
+                        <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-lg">
+                          <p className="font-semibold text-red-400 mb-2">
+                            {content.copyright.dont.title}
+                          </p>
+                          <ul className="text-sm space-y-1">
+                            {content.copyright.dont.list?.map(
+                              (item: string, i: number) => (
+                                <li key={i}>✗ {item}</li>
+                              )
+                            )}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* rights block */}
+                {content.rights && (
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {content.rights.cc0 && (
+                      <div className="bg-slate-800/40 p-4 rounded-lg">
+                        <p className="font-semibold text-purple-400 mb-2">
+                          {content.rights.cc0.title}
+                        </p>
+                        <p
+                          className="text-sm"
+                          dangerouslySetInnerHTML={{
+                            __html: content.rights.cc0.desc,
+                          }}
+                        />
+                      </div>
+                    )}
+                    {content.rights.comm && (
+                      <div className="bg-slate-800/40 p-4 rounded-lg">
+                        <p className="font-semibold text-purple-400 mb-2">
+                          {content.rights.comm.title}
+                        </p>
+                        <p className="text-sm">{content.rights.comm.desc}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* tax block */}
+                {content.tax && (
+                  <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
+                    <h4 className="font-semibold text-yellow-400 mb-2">
+                      {content.tax.title}
+                    </h4>
+                    <p className="text-sm mb-3">{content.tax.desc}</p>
+                    {content.tax.list && (
+                      <ul className="space-y-1 text-sm">
+                        {content.tax.list.map((item: string, i: number) => (
+                          <li
+                            key={i}
+                            dangerouslySetInnerHTML={{ __html: `• ${item}` }}
+                          />
+                        ))}
+                      </ul>
+                    )}
+                    {content.tax.disclaimer && (
+                      <p className="text-xs text-slate-500 mt-3 italic">
+                        {content.tax.disclaimer}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* reg block (regulatory) */}
+                {content.reg && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg">
+                    <h4 className="font-semibold text-white mb-2">
+                      {content.reg.title}
+                    </h4>
+                    <p className="text-sm mb-3">{content.reg.desc}</p>
+                    <div className="space-y-2 text-sm">
+                      {content.reg.sec && (
+                        <p
+                          dangerouslySetInnerHTML={{ __html: content.reg.sec }}
+                        />
+                      )}
+                      {content.reg.aml && (
+                        <p
+                          dangerouslySetInnerHTML={{ __html: content.reg.aml }}
+                        />
+                      )}
+                      {content.reg.cons && (
+                        <p
+                          dangerouslySetInnerHTML={{ __html: content.reg.cons }}
+                        />
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* trends block (future trends) */}
+                {content.trends && (
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {Object.values(content.trends).map(
+                      (trend: any, i: number) => (
+                        <div key={i} className="bg-slate-800/40 p-4 rounded-lg">
+                          <h5 className="font-semibold text-cyan-400 mb-1">
+                            {trend.title}
+                          </h5>
+                          <p className="text-xs text-slate-400 mb-2">
+                            {trend.desc}
+                          </p>
+                          {trend.list && (
+                            <ul className="text-xs space-y-1">
+                              {trend.list.map((item: string, j: number) => (
+                                <li key={j}>• {item}</li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      )
+                    )}
+                  </div>
+                )}
+
+                {/* example block (list) */}
+                {content.example && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg">
+                    <h4 className="font-semibold text-white mb-3">
+                      {content.example.title}
+                    </h4>
+                    <ul className="space-y-2 text-sm">
+                      {content.example.list?.map((item: string, i: number) => (
+                        <li
+                          key={i}
+                          dangerouslySetInnerHTML={{ __html: `• ${item}` }}
+                        />
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* comparison block (table) - Smart Contracts */}
+                {content.comparison && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg overflow-x-auto">
+                    <h4 className="font-semibold text-white mb-3">
+                      {content.comparison.title}
+                    </h4>
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-slate-700">
+                          <th className="text-left py-2 text-slate-400">
+                            Aspect
+                          </th>
+                          <th className="text-left py-2 text-red-400">
+                            Traditional
+                          </th>
+                          <th className="text-left py-2 text-green-400">
+                            Smart Contract
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {content.comparison.table?.map(
+                          (row: any, i: number) => (
+                            <tr
+                              key={i}
+                              className="border-b border-slate-800/50"
+                            >
+                              <td className="py-2 text-white">{row.aspect}</td>
+                              <td className="py-2">{row.traditional}</td>
+                              <td className="py-2">{row.smart}</td>
+                            </tr>
+                          )
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+
+                {/* code block (code snippet) - Smart Contracts */}
+                {content.code && (
+                  <div className="bg-slate-900 rounded-lg p-4 overflow-x-auto">
+                    <h4 className="font-semibold text-white mb-3">
+                      {content.code.title}
+                    </h4>
+                    <pre className="text-xs font-mono text-slate-300 whitespace-pre-wrap">
+                      {content.code.snippet}
+                    </pre>
+                  </div>
+                )}
+
+                {/* networks block (table) - Smart Contracts Development */}
+                {content.networks && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg overflow-x-auto">
+                    <h4 className="font-semibold text-white mb-3">
+                      {content.networks.title}
+                    </h4>
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-slate-700">
+                          <th className="text-left py-2 text-slate-400">
+                            Network
+                          </th>
+                          <th className="text-left py-2 text-slate-400">
+                            Purpose
+                          </th>
+                          <th className="text-left py-2 text-slate-400">
+                            Cost
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {content.networks.table?.map((row: any, i: number) => (
+                          <tr key={i} className="border-b border-slate-800/50">
+                            <td className="py-2 text-cyan-400">
+                              {row.network}
+                            </td>
+                            <td className="py-2">{row.purpose}</td>
+                            <td className="py-2">{row.cost}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+
+                {/* tools block (security tools) */}
+                {content.tools && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg">
+                    <h4 className="font-semibold text-white mb-3">
+                      {content.tools.title}
+                    </h4>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                      {content.tools.items?.map((tool: any, i: number) => (
+                        <div
+                          key={i}
+                          className="bg-slate-900/50 p-3 rounded border border-slate-800"
+                        >
+                          <p className="font-semibold text-cyan-400 text-sm">
+                            {tool.name}
+                          </p>
+                          <p className="text-xs">{tool.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* deploy block (deployment steps) */}
+                {content.deploy && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg">
+                    <h4 className="font-semibold text-white mb-3">
+                      {content.deploy.title}
+                    </h4>
+                    <div className="space-y-2">
+                      {content.deploy.steps?.map((step: any, i: number) => (
+                        <div key={i} className="flex gap-3 items-start">
+                          <span className="bg-green-500/20 text-green-400 text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">
+                            {i + 1}
+                          </span>
+                          <div>
+                            <span className="font-semibold text-white">
+                              {step.step}
+                            </span>{" "}
+                            <span className="text-sm text-slate-400">
+                              {step.desc}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Fallback for unknown structures */}
                 {!content.p1 &&
                   !content.desc &&
