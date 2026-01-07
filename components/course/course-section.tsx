@@ -312,22 +312,31 @@ export function CourseSection({
                   </div>
                 )}
 
-                {/* types block (grid of cards) - NFT Masterclass */}
+                {/* types block (grid of cards with title) - NFT Masterclass / Technical Analysis */}
                 {content.types && (
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    {Object.values(content.types).map(
-                      (type: any, i: number) => (
-                        <div
-                          key={i}
-                          className="bg-slate-800/40 p-4 rounded-lg border border-slate-700/50"
-                        >
-                          <h5 className="text-cyan-400 font-semibold mb-2">
-                            {type.title}
-                          </h5>
-                          <p className="text-sm text-slate-300">{type.desc}</p>
-                        </div>
-                      )
+                  <div>
+                    {content.types.title && (
+                      <h4 className="font-semibold text-white mb-4">
+                        {content.types.title}
+                      </h4>
                     )}
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      {(content.types.items || []).map(
+                        (type: any, i: number) => (
+                          <div
+                            key={i}
+                            className="bg-slate-800/40 p-4 rounded-lg border border-slate-700/50"
+                          >
+                            <h5 className="text-cyan-400 font-semibold mb-2">
+                              {type.title}
+                            </h5>
+                            <p className="text-sm text-slate-300">
+                              {type.desc}
+                            </p>
+                          </div>
+                        )
+                      )}
+                    </div>
                   </div>
                 )}
 
