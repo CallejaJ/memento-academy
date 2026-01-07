@@ -17,6 +17,7 @@ VALUES
       "p1": "Welcome to this <strong class=\"text-white\">crypto technical analysis course</strong>! Technical Analysis is the study of historical price and volume data to predict future market movements. This technical analysis tutorial will teach you how to read charts like a professional. Unlike fundamental analysis, TA focuses solely on chart patterns, indicators, and price action. It's based on the idea that history tends to repeat itself and that prices move in trends. Whether you're trading Bitcoin, Ethereum, or altcoins, mastering these concepts is essential for success in the crypto markets.",
       "types": {
         "title": "Chart Types",
+        "image": "/images/courses/chart-types.png",
         "items": [
           {"title": "Line Charts", "desc": "Simple price over time. Connects closing prices with a line. Good for beginners and spotting overall trends."},
           {"title": "Candlestick Charts", "desc": "Shows OHLC (Open, High, Low, Close). Most popular for crypto trading. Rich information in each candle."},
@@ -57,6 +58,7 @@ VALUES
       "p1": "Bienvenido a este <strong class=\"text-white\">curso de análisis técnico crypto</strong>! El Análisis Técnico es el estudio de datos históricos de precio y volumen para predecir movimientos futuros. Este tutorial de análisis técnico te enseñará a leer gráficos como un profesional. A diferencia del análisis fundamental, el AT se enfoca únicamente en patrones de gráficos, indicadores y acción del precio. Se basa en que la historia tiende a repetirse y que los precios se mueven en tendencias. Ya sea que operes Bitcoin, Ethereum o altcoins, dominar estos conceptos es esencial para el éxito en los mercados crypto.",
       "types": {
         "title": "Tipos de Gráficos",
+        "image": "/images/courses/chart-types-es.png",
         "items": [
           {"title": "Gráficos de Línea", "desc": "Precio simple en el tiempo. Conecta precios de cierre. Bueno para principiantes y ver tendencias generales."},
           {"title": "Gráficos de Velas", "desc": "Muestra OHLC (Apertura, Alto, Bajo, Cierre). Más popular para crypto. Rica información en cada vela."},

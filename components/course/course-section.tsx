@@ -312,13 +312,22 @@ export function CourseSection({
                   </div>
                 )}
 
-                {/* types block (grid of cards with title) - NFT Masterclass / Technical Analysis */}
+                {/* types block (grid of cards with title + optional image) - Technical Analysis */}
                 {content.types && (
                   <div>
                     {content.types.title && (
                       <h4 className="font-semibold text-white mb-4">
                         {content.types.title}
                       </h4>
+                    )}
+                    {content.types.image && (
+                      <div className="mb-6 rounded-xl overflow-hidden border border-slate-700/50">
+                        <img
+                          src={content.types.image}
+                          alt={content.types.title || "Chart types"}
+                          className="w-full h-auto"
+                        />
+                      </div>
                     )}
                     <div className="grid sm:grid-cols-2 gap-4">
                       {(content.types.items || []).map(
