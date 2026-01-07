@@ -587,9 +587,14 @@ export function CourseSection({
                           <p className="font-semibold text-blue-400 text-sm">
                             {content.portfolio.blue.title}
                           </p>
-                          <p className="text-xs">
+                          <p className="text-xs text-slate-300 mb-2">
                             {content.portfolio.blue.desc}
                           </p>
+                          {content.portfolio.alloc?.blue && (
+                            <span className="text-xs font-bold bg-blue-500/20 px-2 py-0.5 rounded text-blue-300">
+                              {content.portfolio.alloc.blue}
+                            </span>
+                          )}
                         </div>
                       )}
                       {content.portfolio.mid && (
@@ -597,19 +602,29 @@ export function CourseSection({
                           <p className="font-semibold text-green-400 text-sm">
                             {content.portfolio.mid.title}
                           </p>
-                          <p className="text-xs">
+                          <p className="text-xs text-slate-300 mb-2">
                             {content.portfolio.mid.desc}
                           </p>
+                          {content.portfolio.alloc?.mid && (
+                            <span className="text-xs font-bold bg-green-500/20 px-2 py-0.5 rounded text-green-300">
+                              {content.portfolio.alloc.mid}
+                            </span>
+                          )}
                         </div>
                       )}
-                      {content.portfolio.spec && (
+                      {content.portfolio.small && (
                         <div className="bg-orange-500/10 p-3 rounded border border-orange-500/20">
                           <p className="font-semibold text-orange-400 text-sm">
-                            {content.portfolio.spec.title}
+                            {content.portfolio.small.title}
                           </p>
-                          <p className="text-xs">
-                            {content.portfolio.spec.desc}
+                          <p className="text-xs text-slate-300 mb-2">
+                            {content.portfolio.small.desc}
                           </p>
+                          {content.portfolio.alloc?.small && (
+                            <span className="text-xs font-bold bg-orange-500/20 px-2 py-0.5 rounded text-orange-300">
+                              {content.portfolio.alloc.small}
+                            </span>
+                          )}
                         </div>
                       )}
                     </div>
@@ -790,6 +805,117 @@ export function CourseSection({
                   </div>
                 )}
 
+                {/* goals block (Portfolio Basics) */}
+                {content.goals && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg">
+                    <h4 className="font-semibold text-white mb-3">
+                      {content.goals.title}
+                    </h4>
+                    <div className="grid sm:grid-cols-3 gap-3">
+                      {content.goals.items?.map((item: any, i: number) => (
+                        <div
+                          key={i}
+                          className="bg-indigo-500/10 border border-indigo-500/20 p-3 rounded-lg"
+                        >
+                          <p className="font-semibold text-indigo-400 text-sm mb-1">
+                            {item.title}
+                          </p>
+                          <p className="text-xs text-slate-300">{item.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* diversification block (Purple list) */}
+                {content.diversification && (
+                  <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4">
+                    <h4 className="font-semibold text-purple-400 mb-3">
+                      {content.diversification.title}
+                    </h4>
+                    <ul className="space-y-2 text-sm">
+                      {content.diversification.list?.map(
+                        (item: string, i: number) => (
+                          <li
+                            key={i}
+                            dangerouslySetInnerHTML={{ __html: `• ${item}` }}
+                          />
+                        )
+                      )}
+                    </ul>
+                  </div>
+                )}
+
+                {/* risk block (Red list) */}
+                {content.risk && (
+                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
+                    <h4 className="font-semibold text-red-400 mb-3">
+                      {content.risk.title}
+                    </h4>
+                    <ul className="space-y-2 text-sm">
+                      {content.risk.list?.map((item: string, i: number) => (
+                        <li
+                          key={i}
+                          dangerouslySetInnerHTML={{ __html: `• ${item}` }}
+                        />
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* rebalance block (Green grid) */}
+                {content.rebalance && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg">
+                    <h4 className="font-semibold text-white mb-3">
+                      {content.rebalance.title}
+                    </h4>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      {content.rebalance.grid?.map((item: any, i: number) => (
+                        <div
+                          key={i}
+                          className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-lg"
+                        >
+                          <p className="font-semibold text-emerald-400 mb-1">
+                            {item.title}
+                          </p>
+                          <p className="text-xs text-slate-300">{item.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* tracking block (Cyan list) */}
+                {content.tracking && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg">
+                    <h4 className="font-semibold text-white mb-3">
+                      {content.tracking.title}
+                    </h4>
+                    <ul className="space-y-3">
+                      {content.tracking.list?.map((item: any, i: number) => (
+                        <li key={i} className="flex gap-3 items-start">
+                          <CheckCircle className="w-4 h-4 text-cyan-500 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <span className="font-semibold text-white text-sm">
+                              {item.title}
+                            </span>
+                            <p className="text-xs text-slate-400">
+                              {item.desc}
+                            </p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                    {content.outro && (
+                      <div className="mt-6 p-4 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-lg text-center border border-cyan-500/30">
+                        <p className="text-cyan-100 font-medium">
+                          {content.outro}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {/* comparison block (table) - Smart Contracts */}
                 {content.comparison && (
                   <div className="bg-slate-800/40 p-4 rounded-lg overflow-x-auto">
@@ -923,18 +1049,7 @@ export function CourseSection({
                   </div>
                 )}
 
-                {/* Fallback for unknown structures */}
-                {!content.p1 &&
-                  !content.desc &&
-                  !content.components &&
-                  !content.crypto &&
-                  !content.pow &&
-                  !content.pos &&
-                  !content.faqs && (
-                    <div className="whitespace-pre-wrap">
-                      {JSON.stringify(content, null, 2)}
-                    </div>
-                  )}
+                {/* Fallback removed to prevent raw JSON dumps */}
               </div>
 
               {/* Action Area */}

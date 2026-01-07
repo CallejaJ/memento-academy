@@ -34,14 +34,16 @@ Advanced content with strict progression.
 
 - **Access**: Requires login (and future subscription).
 - **Locking**: content is strictly sequential; you must complete Section 1 to unlock Section 2.
-- **Deep Dives**: `defi-deep-dive`, `nft-masterclass`, `smart-contracts-101`.
+- **Deep Dives**: `defi-deep-dive`, `nft-masterclass`, `smart-contracts-101`, `portfolio-management`.
 
 ### Learning Structure
 
 - **Modular Design**: Each course consists of **6-9 sections**.
 - **Dynamic Engine**: Content is stored in SQL/JSON, allowing instant updates without redeploying the app.
 - **Interactive Quizzes**: Embedded quizzes with instant feedback at the end of each section.
-- **Progress Persistence**: synchronized across devices via Supabase.
+- **Progress Persistence**:
+  - **Logged Users**: Synchronized across devices via Supabase.
+  - **Guest Users**: Local progress saving via `localStorage` (device-specific).
 
 ---
 

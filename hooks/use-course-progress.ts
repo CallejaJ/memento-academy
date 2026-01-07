@@ -19,28 +19,39 @@ export function useCourseProgress(courseId: string) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!user || !courseId) return;
+    if (!courseId) return;
     fetchProgress();
   }, [user, courseId]);
 
   const fetchProgress = async () => {
-    if (!user) return;
+    setLoading(true);
     try {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from("course_progress")
-        .select("*")
-        .eq("user_id", user?.id)
-        .eq("course_id", courseId)
-        .maybeSingle();
+      if (user) {
+        // Logged in: Fetch from Supabase
+        const { data, error } = await supabase
+          .from("course_progress")
+          .select("*")
+          .eq("user_id", user.id)
+          .eq("course_id", courseId)
+          .maybeSingle();
 
-      if (error && error.code !== "PGRST116") {
-        // PGRST116 is "not found"
-        console.error("Error fetching progress:", error);
-      }
+        if (error && error.code !== "PGRST116") {
+          console.error("Error fetching progress:", error);
+        }
 
-      if (data) {
-        setProgress(data);
+        if (data) {
+          setProgress(data);
+        }
+      } else {
+        // Guest: Fetch from Local Storage
+        const stored = localStorage.getItem(`memento_progress_${courseId}`);
+        if (stored) {
+          try {
+            setProgress(JSON.parse(stored));
+          } catch (e) {
+            console.error("Error parsing local progress:", e);
+          }
+        }
       }
     } catch (error) {
       console.error("Error:", error);
@@ -50,42 +61,69 @@ export function useCourseProgress(courseId: string) {
   };
 
   const startCourse = async () => {
-    if (!user) return null;
-
     // Check if already started
     if (progress) return progress;
 
-    const newProgress = {
-      user_id: user.id,
+    const newProgress: CourseProgress = {
+      id: crypto.randomUUID(), // Generate a temp ID for local usage
+      user_id: user?.id || "guest",
       course_id: courseId,
       progress_percentage: 0,
       completed_sections: [],
-      started_at: new Date().toISOString(),
+      completed_at: null,
+      // started_at: new Date().toISOString(), // Type definition might need update if this field exists in DB but not in interface, checking interface... interface doesn't have started_at contextually from previous read, but let's be safe.
+      // Interface at top of file (lines 7-14) does NOT have started_at.
     };
 
-    const { data, error } = await supabase
-      .from("course_progress")
-      .insert(newProgress)
-      .select()
-      .single();
+    if (user) {
+      // Logged in: Insert to DB
+      const { data, error } = await supabase
+        .from("course_progress")
+        .insert({
+          user_id: user.id,
+          course_id: courseId,
+          progress_percentage: 0,
+          completed_sections: [],
+        })
+        .select()
+        .single();
 
-    if (error) {
-      console.error("Error starting course:", error);
-      return null;
+      if (error) {
+        console.error("Error starting course:", error);
+        return null;
+      }
+      setProgress(data);
+      return data;
+    } else {
+      // Guest: Save to Local Storage
+      try {
+        localStorage.setItem(
+          `memento_progress_${courseId}`,
+          JSON.stringify(newProgress)
+        );
+        setProgress(newProgress);
+        return newProgress;
+      } catch (e) {
+        console.error("Error saving local progress:", e);
+        return null;
+      }
     }
-
-    setProgress(data);
-    return data;
   };
 
   const markSectionComplete = async (
     sectionId: string,
     totalSections: number
   ) => {
-    if (!user || !progress) await startCourse();
+    let currentProgress = progress;
 
-    // Optimistic update
-    const currentCompleted = progress?.completed_sections || [];
+    if (!currentProgress) {
+      currentProgress = await startCourse();
+    }
+
+    if (!currentProgress) return; // Should not happen
+
+    // Optimistic update logic
+    const currentCompleted = currentProgress.completed_sections || [];
     if (currentCompleted.includes(sectionId)) return; // Already completed
 
     const newCompleted = [...currentCompleted, sectionId];
@@ -96,20 +134,18 @@ export function useCourseProgress(courseId: string) {
     const isCompleted = newPercentage === 100;
     const completedAt = isCompleted ? new Date().toISOString() : null;
 
-    // Update local state
-    setProgress((prev) =>
-      prev
-        ? {
-            ...prev,
-            completed_sections: newCompleted,
-            progress_percentage: newPercentage,
-            completed_at: inputCompletedAt(prev.completed_at, completedAt),
-          }
-        : null
-    );
+    const updatedProgress = {
+      ...currentProgress,
+      completed_sections: newCompleted,
+      progress_percentage: newPercentage,
+      completed_at: inputCompletedAt(currentProgress.completed_at, completedAt),
+    };
 
-    // Update DB
+    // Update State
+    setProgress(updatedProgress);
+
     if (user) {
+      // Logged in: Update DB
       const { error } = await supabase
         .from("course_progress")
         .update({
@@ -123,10 +159,18 @@ export function useCourseProgress(courseId: string) {
 
       if (error) {
         console.error("Error updating progress:", error);
-        // Revert local state? (Skipping for simplicity for now)
       } else {
-        // Check and award achievements
         await checkAchievements(newCompleted.length, isCompleted);
+      }
+    } else {
+      // Guest: Update Local Storage
+      try {
+        localStorage.setItem(
+          `memento_progress_${courseId}`,
+          JSON.stringify(updatedProgress)
+        );
+      } catch (e) {
+        console.error("Error updating local progress:", e);
       }
     }
   };
@@ -136,7 +180,7 @@ export function useCourseProgress(courseId: string) {
     sectionsCompleted: number,
     courseCompleted: boolean
   ) => {
-    if (!user) return;
+    if (!user) return; // Achievements are only for logged users
 
     try {
       // Fetch all user's course progress to calculate stats
@@ -157,7 +201,7 @@ export function useCourseProgress(courseId: string) {
 
       // Import and use checkAndAwardAchievements from useAchievements
       // Note: We'll need to make this work without the hook
-      // For now, we'll call awardAchievement directly via supabase
+      // For now, we'll call awardAchievementDirect via supabase
 
       // Award "First Steps" on first section
       if (totalSectionsCompleted === 1) {

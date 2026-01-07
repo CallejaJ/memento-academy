@@ -39,6 +39,8 @@ export const getCourseContent = cache(async (courseId: string) => {
   return sections as CourseSection[];
 });
 
+export const getCourseSections = getCourseContent;
+
 export const getQuizQuestions = async (sectionId: string, limit = 3) => {
   const supabase = await createServerSupabaseClient();
 
