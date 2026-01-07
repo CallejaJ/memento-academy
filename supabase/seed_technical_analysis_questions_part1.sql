@@ -226,7 +226,7 @@ SELECT id,
   '{"en": "To confirm a breakout, you should:", "es": "Para confirmar una ruptura, deberías:"}',
   '{"en": ["Enter immediately", "Wait for candle close above/below level", "Ignore volume", "Trade against the trend"], "es": ["Entrar inmediatamente", "Esperar cierre de vela sobre/bajo el nivel", "Ignorar el volumen", "Operar contra la tendencia"]}',
   1,
-  '{"en": "Wait for the candle to close beyond the level to confirm the breakout isn't false.", "es": "Espera a que la vela cierre más allá del nivel para confirmar que la ruptura no es falsa."}'
+  '{"en": "Wait for the candle to close beyond the level to confirm the breakout is not false.", "es": "Espera a que la vela cierre más allá del nivel para confirmar que la ruptura no es falsa."}'
 FROM course_sections WHERE course_id = 'technical-analysis' AND slug = 'support-resistance';
 
 INSERT INTO quiz_questions (section_id, question, options, correct_answer, explanation)
