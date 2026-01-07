@@ -11,12 +11,14 @@ interface CourseContentListProps {
   courseId: string;
   initialSections: SectionData[];
   isLoggedIn?: boolean;
+  isPremium?: boolean;
 }
 
 export function CourseContentList({
   courseId,
   initialSections,
   isLoggedIn = true,
+  isPremium = false,
 }: CourseContentListProps) {
   const { progress, loading, markSectionComplete, refresh } =
     useCourseProgress(courseId);
@@ -54,16 +56,26 @@ export function CourseContentList({
     <div className="space-y-4 relative pl-4 md:pl-0">
       {initialSections.map((section, idx) => {
         // For non-logged users (free courses): all content visible for SEO
+        // For premium courses: if not logged in, CONTENT IS BLOCKED.
         // For logged users: progressive locking based on completion
         const isCompleted = isLoggedIn
           ? completedIds.includes(section.id)
           : false;
 
-        // Locked logic: ONLY applies for logged-in users
-        // Non-logged users see everything unlocked (for SEO)
+        // Locked logic:
+        // 1. Premium + Not Logged In = ALL LOCKED
+        // 2. Logged In = Progressive locking
+        // 3. Free + Not Logged In = Unlocked (SEO)
         const prevSection = initialSections[idx - 1];
-        const isLocked =
-          isLoggedIn && idx > 0 && !completedIds.includes(prevSection?.id);
+        let isLocked = false;
+
+        if (isPremium && !isLoggedIn) {
+          isLocked = true;
+        } else if (isLoggedIn) {
+          isLocked = idx > 0 && !completedIds.includes(prevSection?.id);
+        } else {
+          isLocked = false;
+        }
 
         // Current: Unlocked but not completed (only relevant for logged users)
         const isCurrent = isLoggedIn ? !isLocked && !isCompleted : idx === 0;

@@ -6,6 +6,7 @@ import { CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { CourseContentList } from "@/components/course/course-content-list";
 import { getCourseContent } from "@/actions/course";
+import { getSession } from "@/lib/server-auth";
 
 export default async function SmartContractsPage({
   params,
@@ -15,8 +16,10 @@ export default async function SmartContractsPage({
   const { lng } = await params;
   const courseId = "smart-contracts";
 
-  // Fetch content
+  // Fetch content and auth
   const sections = await getCourseContent(courseId);
+  const session = await getSession();
+  const isLoggedIn = !!session?.user;
 
   const translations = {
     en: {
@@ -160,7 +163,12 @@ export default async function SmartContractsPage({
               {t.curriculum_title}
             </h2>
 
-            <CourseContentList courseId={courseId} initialSections={sections} />
+            <CourseContentList
+              courseId={courseId}
+              initialSections={sections}
+              isLoggedIn={isLoggedIn}
+              isPremium={true}
+            />
           </div>
         </div>
       </section>

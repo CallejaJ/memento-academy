@@ -64,7 +64,12 @@ export function CourseSection({
   const content = section.content[lang] || section.content["en"];
 
   const handleToggle = () => {
-    if (isLocked) return;
+    if (isLocked) {
+      if (!isLoggedIn) {
+        openLogin();
+      }
+      return;
+    }
     setExpanded(!expanded);
   };
 
@@ -120,7 +125,7 @@ export function CourseSection({
             <div className="flex items-center gap-3">
               {isCompleted ? (
                 <CheckCircle className="w-5 h-5 text-green-500" />
-              ) : isLocked && isLoggedIn ? (
+              ) : isLocked ? (
                 <Lock className="w-5 h-5 text-slate-500" />
               ) : (
                 <BookOpen className="w-5 h-5 text-cyan-400" />

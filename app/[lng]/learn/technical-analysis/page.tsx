@@ -6,6 +6,7 @@ import { CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { CourseContentList } from "@/components/course/course-content-list";
 import { getCourseContent } from "@/actions/course";
+import { getSession } from "@/lib/server-auth";
 
 export default async function TechnicalAnalysisPage({
   params,
@@ -15,8 +16,10 @@ export default async function TechnicalAnalysisPage({
   const { lng } = await params;
   const courseId = "technical-analysis";
 
-  // Fetch content
+  // Fetch content and auth status
   const sections = await getCourseContent(courseId);
+  const session = await getSession();
+  const isLoggedIn = !!session?.user;
 
   const translations = {
     en: {
@@ -164,7 +167,12 @@ export default async function TechnicalAnalysisPage({
               {t.curriculum_title}
             </h2>
 
-            <CourseContentList courseId={courseId} initialSections={sections} />
+            <CourseContentList
+              courseId={courseId}
+              initialSections={sections}
+              isLoggedIn={isLoggedIn}
+              isPremium={true}
+            />
           </div>
         </div>
       </section>
