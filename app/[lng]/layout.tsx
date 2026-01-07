@@ -90,7 +90,7 @@ export default async function RootLayout({
   return (
     <html lang={lng} suppressHydrationWarning>
       <body
-        className={`${inter.className} min-h-screen w-full overflow-x-hidden antialiased`}
+        className={`${inter.className} min-h-screen w-full overflow-x-hidden antialiased flex flex-col`}
         suppressHydrationWarning
       >
         <JsonLd lng={lng} url={`/${lng}`} />
@@ -102,7 +102,7 @@ export default async function RootLayout({
         >
           <AuthProvider>
             <AuthModalProvider>
-              {children}
+              <div className="flex-grow">{children}</div>
               <SpeedInsights />
               <Toaster />
             </AuthModalProvider>
