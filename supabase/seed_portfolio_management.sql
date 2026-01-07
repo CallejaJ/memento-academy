@@ -25,6 +25,14 @@ VALUES (
           { "title": "Active Trading", "desc": "Frequent buying/selling to capture market swings." },
           { "title": "Yield Farming", "desc": "Maximizing returns through DeFi protocols and staking." }
         ]
+      },
+      "pyramid": {
+        "title": "The Crypto Pyramid",
+        "levels": [
+          { "label": "Speculation / High Risk", "desc": "Memecoins, Small Caps", "color": "bg-red-500", "width": "w-1/3" },
+          { "label": "Growth / Mid Caps", "desc": "L1s, DeFi Blue Chips", "color": "bg-blue-500", "width": "w-2/3" },
+          { "label": "Foundation / Safety", "desc": "Bitcoin, Ethereum, Valid Stablecoins", "color": "bg-green-500", "width": "w-full" }
+        ]
       }
     },
     "es": {
@@ -42,6 +50,14 @@ VALUES (
           { "title": "HODL (Pasivo)", "desc": "Acumulación a largo plazo, ignorando la volatilidad a corto plazo." },
           { "title": "Trading Activo", "desc": "Compra/venta frecuente para capturar movimientos del mercado." },
           { "title": "Yield Farming", "desc": "Maximizar retornos mediante protocolos DeFi y staking." }
+        ]
+      },
+      "pyramid": {
+        "title": "La Pirámide Cripto",
+        "levels": [
+          { "label": "Especulación / Riesgo Alto", "desc": "Memecoins, Small Caps", "color": "bg-red-500", "width": "w-1/3" },
+          { "label": "Crecimiento / Mid Caps", "desc": "L1s, DeFi Blue Chips", "color": "bg-blue-500", "width": "w-2/3" },
+          { "label": "Fundación / Seguridad", "desc": "Bitcoin, Ethereum, Stablecoins", "color": "bg-green-500", "width": "w-full" }
         ]
       }
     }

@@ -827,6 +827,46 @@ export function CourseSection({
                   </div>
                 )}
 
+                {/* pyramid block (Portfolio Visual Scheme) */}
+                {content.pyramid && (
+                  <div className="bg-slate-900/50 p-6 rounded-lg border border-slate-800 flex flex-col items-center">
+                    <h4 className="font-semibold text-white mb-6">
+                      {content.pyramid.title}
+                    </h4>
+                    {/* Safelist for dynamic DB classes to prevent purging:
+                        bg-red-500 bg-blue-500 bg-green-500 
+                        w-1/3 w-2/3 w-full 
+                    */}
+                    <div className="w-full max-w-md flex flex-col gap-1 items-center">
+                      {content.pyramid.levels?.map((level: any, i: number) => {
+                        // Explicit map to ensure classes exist
+                        const colorClass =
+                          level.color === "bg-red-500"
+                            ? "bg-red-500"
+                            : level.color === "bg-blue-500"
+                              ? "bg-blue-500"
+                              : level.color === "bg-green-500"
+                                ? "bg-green-500"
+                                : level.color;
+
+                        return (
+                          <div
+                            key={i}
+                            className={`${level.width} ${colorClass} p-3 rounded text-center shadow-lg transition-transform hover:scale-105`}
+                          >
+                            <p className="font-bold text-white text-sm">
+                              {level.label}
+                            </p>
+                            <p className="text-xs text-white/80">
+                              {level.desc}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
                 {/* diversification block (Purple list) */}
                 {content.diversification && (
                   <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4">
