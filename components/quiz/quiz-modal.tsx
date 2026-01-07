@@ -113,17 +113,53 @@ export function QuizModal({
     return obj[lang] || obj["en"] || ""; // Fallback to EN
   };
 
+  // helper for UI text
+  const uiText = {
+    en: {
+      passedTitle: "🎉 Quiz Passed!",
+      checkTitle: "🧠 Knowledge Check",
+      passedDesc: "You successfully unlocked the next section.",
+      checkDesc: (count: number) =>
+        `Answer correctly to unlock the next section. (${count} questions)`,
+      correct: "Correct!",
+      incorrect: "Incorrect",
+      tryAgain: "Try Again",
+      submit: "Submit Answers",
+      continue: "Continue",
+      errorTitle: "Error",
+      errorDesc: "Failed to submit quiz. Please try again.",
+      answerAllTitle: "Answer all questions",
+      answerAllDesc: "Please select an answer for every question.",
+    },
+    es: {
+      passedTitle: "🎉 ¡Quiz Aprobado!",
+      checkTitle: "🧠 Comprobación de Conocimientos",
+      passedDesc: "Has desbloqueado exitosamente la siguiente sección.",
+      checkDesc: (count: number) =>
+        `Responde correctamente para desbloquear la siguiente sección. (${count} preguntas)`,
+      correct: "¡Correcto!",
+      incorrect: "Incorrecto",
+      tryAgain: "Intentar de nuevo",
+      submit: "Enviar Repuestas",
+      continue: "Continuar",
+      errorTitle: "Error",
+      errorDesc: "Error al enviar el quiz. Por favor intenta de nuevo.",
+      answerAllTitle: "Responde todas las preguntas",
+      answerAllDesc: "Por favor selecciona una respuesta para cada pregunta.",
+    },
+  };
+
+  const t = uiText[lang as keyof typeof uiText] || uiText.en;
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-xl bg-slate-900 border-slate-800 text-slate-100 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">
-            {result?.success ? "🎉 Quiz Passed!" : "🧠 Knowledge Check"}
+            {result?.success ? t.passedTitle : t.checkTitle}
           </DialogTitle>
           <DialogDescription className="text-slate-400">
-            {result?.success
-              ? "You successfully unlocked the next section."
-              : `Answer correctly to unlock the next section. (${questions.length} questions)`}
+            {result?.success ? t.passedDesc : t.checkDesc(questions.length)}
           </DialogDescription>
         </DialogHeader>
 
@@ -205,7 +241,7 @@ export function QuizModal({
                     )}
                     <div>
                       <p className="font-bold">
-                        {isCorrect ? "Correct!" : "Incorrect"}
+                        {isCorrect ? t.correct : t.incorrect}
                       </p>
                       {explanation && (
                         <p className="mt-1 opacity-90">{explanation}</p>
@@ -233,7 +269,7 @@ export function QuizModal({
               {(submitting || retrying) && (
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
               )}
-              {result ? "Try Again" : "Submit Answers"}
+              {result ? t.tryAgain : t.submit}
             </Button>
           )}
 
@@ -242,7 +278,7 @@ export function QuizModal({
               onClick={onClose}
               className="w-full sm:w-auto bg-green-600 hover:bg-green-500"
             >
-              Continue
+              {t.continue}
             </Button>
           )}
         </DialogFooter>
