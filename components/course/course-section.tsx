@@ -878,7 +878,12 @@ export function CourseSection({
                         (item: string, i: number) => (
                           <li
                             key={i}
-                            dangerouslySetInnerHTML={{ __html: `• ${item}` }}
+                            dangerouslySetInnerHTML={{
+                              __html: `• ${item.replace(
+                                /\*\*(.*?)\*\*/g,
+                                "<strong>$1</strong>"
+                              )}`,
+                            }}
                           />
                         )
                       )}
@@ -896,7 +901,12 @@ export function CourseSection({
                       {content.risk.list?.map((item: string, i: number) => (
                         <li
                           key={i}
-                          dangerouslySetInnerHTML={{ __html: `• ${item}` }}
+                          dangerouslySetInnerHTML={{
+                            __html: `• ${item.replace(
+                              /\*\*(.*?)\*\*/g,
+                              "<strong>$1</strong>"
+                            )}`,
+                          }}
                         />
                       ))}
                     </ul>
