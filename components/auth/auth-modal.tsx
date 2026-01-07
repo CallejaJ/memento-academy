@@ -23,16 +23,74 @@ import Image from "next/image";
 type AuthMode = "login" | "signup" | "forgot-password";
 type SuccessState = "none" | "signup-success" | "reset-success";
 
+const translations = {
+  en: {
+    signIn: "Sign In",
+    createAccount: "Create an Account",
+    resetPassword: "Reset Password",
+    signInDesc: "Sign in to your Memento Academy account",
+    signUpDesc: "Join Memento Academy to start your Web3 journey",
+    resetDesc: "Enter your email to receive reset instructions",
+    email: "Email",
+    password: "Password",
+    forgotPassword: "Forgot password?",
+    passwordHint: "Password must be at least 6 characters long",
+    loading: "Loading...",
+    signInBtn: "Sign In",
+    createAccountBtn: "Create Account",
+    sendResetLink: "Send Reset Link",
+    noAccount: "Don't have an account?",
+    signUp: "Sign up",
+    hasAccount: "Already have an account?",
+    backToLogin: "Back to login",
+    checkEmail: "Check your email",
+    emailSentTo: "We've sent a confirmation link to",
+    confirmEmail:
+      "Please check your email and click the confirmation link to complete your registration.",
+    emailSent: "Email sent",
+    resetSentTo: "We've sent password reset instructions to",
+  },
+  es: {
+    signIn: "Iniciar Sesión",
+    createAccount: "Crear Cuenta",
+    resetPassword: "Restablecer Contraseña",
+    signInDesc: "Inicia sesión en tu cuenta de Memento Academy",
+    signUpDesc: "Únete a Memento Academy para comenzar tu viaje Web3",
+    resetDesc:
+      "Ingresa tu email para recibir instrucciones de restablecimiento",
+    email: "Email",
+    password: "Contraseña",
+    forgotPassword: "¿Olvidaste tu contraseña?",
+    passwordHint: "La contraseña debe tener al menos 6 caracteres",
+    loading: "Cargando...",
+    signInBtn: "Iniciar Sesión",
+    createAccountBtn: "Crear Cuenta",
+    sendResetLink: "Enviar Enlace",
+    noAccount: "¿No tienes cuenta?",
+    signUp: "Regístrate",
+    hasAccount: "¿Ya tienes cuenta?",
+    backToLogin: "Volver al inicio de sesión",
+    checkEmail: "Revisa tu email",
+    emailSentTo: "Hemos enviado un enlace de confirmación a",
+    confirmEmail:
+      "Por favor revisa tu email y haz clic en el enlace de confirmación para completar tu registro.",
+    emailSent: "Email enviado",
+    resetSentTo: "Hemos enviado instrucciones de restablecimiento a",
+  },
+};
+
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   defaultMode?: AuthMode;
+  lng?: string;
 }
 
 export function AuthModal({
   isOpen,
   onClose,
   defaultMode = "login",
+  lng = "en",
 }: AuthModalProps) {
   const [mode, setMode] = useState<AuthMode>(defaultMode);
   const [email, setEmail] = useState("");
@@ -41,6 +99,8 @@ export function AuthModal({
   const [isLoading, setIsLoading] = useState(false);
   const [successState, setSuccessState] = useState<SuccessState>("none");
   const { signUp, signIn, signInWithProvider, resetPassword } = useAuth();
+
+  const t = translations[lng as keyof typeof translations] || translations.en;
 
   const resetForm = () => {
     setEmail("");
@@ -110,23 +170,19 @@ export function AuthModal({
             </div>
             <DialogHeader className="sm:text-center">
               <DialogTitle className="text-2xl text-white">
-                Check your email
+                {t.checkEmail}
               </DialogTitle>
               <DialogDescription className="text-slate-400 mt-2">
-                We've sent a confirmation link to{" "}
-                <span className="text-cyan-400">{email}</span>
+                {t.emailSentTo} <span className="text-cyan-400">{email}</span>
               </DialogDescription>
             </DialogHeader>
-            <p className="text-slate-400 text-sm mt-4">
-              Please check your email and click the confirmation link to
-              complete your registration.
-            </p>
+            <p className="text-slate-400 text-sm mt-4">{t.confirmEmail}</p>
             <Button
               variant="link"
               onClick={() => switchMode("login")}
               className="mt-6 text-cyan-400 hover:text-cyan-300"
             >
-              Back to login
+              {t.backToLogin}
             </Button>
           </div>
         </DialogContent>
@@ -144,11 +200,10 @@ export function AuthModal({
             </div>
             <DialogHeader>
               <DialogTitle className="text-2xl text-white">
-                Email sent
+                {t.emailSent}
               </DialogTitle>
               <DialogDescription className="text-slate-400 mt-2">
-                We've sent password reset instructions to{" "}
-                <span className="text-cyan-400">{email}</span>
+                {t.resetSentTo} <span className="text-cyan-400">{email}</span>
               </DialogDescription>
             </DialogHeader>
             <Button
@@ -156,7 +211,7 @@ export function AuthModal({
               onClick={() => switchMode("login")}
               className="mt-6 text-cyan-400 hover:text-cyan-300"
             >
-              Back to login
+              {t.backToLogin}
             </Button>
           </div>
         </DialogContent>
@@ -176,16 +231,14 @@ export function AuthModal({
             className="mb-2"
           />
           <DialogTitle className="text-2xl text-white">
-            {mode === "login" && "Sign In"}
-            {mode === "signup" && "Create an Account"}
-            {mode === "forgot-password" && "Reset Password"}
+            {mode === "login" && t.signIn}
+            {mode === "signup" && t.createAccount}
+            {mode === "forgot-password" && t.resetPassword}
           </DialogTitle>
           <DialogDescription className="text-slate-400">
-            {mode === "login" && "Sign in to your Memento Academy account"}
-            {mode === "signup" &&
-              "Join Memento Academy to start your Web3 journey"}
-            {mode === "forgot-password" &&
-              "Enter your email to receive reset instructions"}
+            {mode === "login" && t.signInDesc}
+            {mode === "signup" && t.signUpDesc}
+            {mode === "forgot-password" && t.resetDesc}
           </DialogDescription>
         </DialogHeader>
 
@@ -199,7 +252,7 @@ export function AuthModal({
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div className="space-y-2">
             <Label htmlFor="email" className="text-slate-200">
-              Email
+              {t.email}
             </Label>
             <Input
               id="email"
@@ -216,7 +269,7 @@ export function AuthModal({
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password" className="text-slate-200">
-                  Password
+                  {t.password}
                 </Label>
                 {mode === "login" && (
                   <button
@@ -224,7 +277,7 @@ export function AuthModal({
                     onClick={() => switchMode("forgot-password")}
                     className="text-sm text-cyan-400 hover:text-cyan-300 hover:underline"
                   >
-                    Forgot password?
+                    {t.forgotPassword}
                   </button>
                 )}
               </div>
@@ -238,9 +291,7 @@ export function AuthModal({
                 className="bg-slate-800 border-slate-600 text-white"
               />
               {mode === "signup" && (
-                <p className="text-xs text-slate-500">
-                  Password must be at least 6 characters long
-                </p>
+                <p className="text-xs text-slate-500">{t.passwordHint}</p>
               )}
             </div>
           )}
@@ -251,12 +302,12 @@ export function AuthModal({
             disabled={isLoading}
           >
             {isLoading
-              ? "Loading..."
+              ? t.loading
               : mode === "login"
-                ? "Sign In"
+                ? t.signInBtn
                 : mode === "signup"
-                  ? "Create Account"
-                  : "Send Reset Link"}
+                  ? t.createAccountBtn
+                  : t.sendResetLink}
           </Button>
         </form>
 
@@ -302,25 +353,25 @@ export function AuthModal({
         <div className="text-center mt-6">
           {mode === "login" && (
             <p className="text-sm text-slate-400">
-              Don't have an account?{" "}
+              {t.noAccount}{" "}
               <button
                 type="button"
                 onClick={() => switchMode("signup")}
                 className="text-cyan-400 hover:text-cyan-300 hover:underline"
               >
-                Sign up
+                {t.signUp}
               </button>
             </p>
           )}
           {mode === "signup" && (
             <p className="text-sm text-slate-400">
-              Already have an account?{" "}
+              {t.hasAccount}{" "}
               <button
                 type="button"
                 onClick={() => switchMode("login")}
                 className="text-cyan-400 hover:text-cyan-300 hover:underline"
               >
-                Sign in
+                {t.signIn}
               </button>
             </p>
           )}
@@ -330,7 +381,7 @@ export function AuthModal({
               onClick={() => switchMode("login")}
               className="text-sm text-cyan-400 hover:text-cyan-300 hover:underline"
             >
-              Back to login
+              {t.backToLogin}
             </button>
           )}
         </div>

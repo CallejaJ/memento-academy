@@ -230,7 +230,7 @@ export function MainNav({ lng }: { lng: string }) {
       </header>
 
       {/* Auth Modal */}
-      <AuthModal isOpen={isOpen} onClose={close} defaultMode={mode} />
+      <AuthModal isOpen={isOpen} onClose={close} defaultMode={mode} lng={lng} />
     </>
   );
 }
