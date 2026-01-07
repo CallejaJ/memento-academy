@@ -251,11 +251,11 @@ export function AuthModal({
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-slate-200">
+            <Label htmlFor="auth-email" className="text-slate-200">
               {t.email}
             </Label>
             <Input
-              id="email"
+              id="auth-email"
               type="email"
               placeholder="name@example.com"
               value={email}
@@ -268,7 +268,7 @@ export function AuthModal({
           {mode !== "forgot-password" && (
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-slate-200">
+                <Label htmlFor="auth-password" className="text-slate-200">
                   {t.password}
                 </Label>
                 {mode === "login" && (
@@ -282,7 +282,7 @@ export function AuthModal({
                 )}
               </div>
               <Input
-                id="password"
+                id="auth-password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
