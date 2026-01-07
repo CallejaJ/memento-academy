@@ -730,7 +730,7 @@ export default function SmartContracts101Page() {
 
                         <div className="mt-6 flex justify-center">
                           <SectionCompleteButton
-                            courseId="smart-contracts-101"
+                            courseId="smart-contracts"
                             sectionId="section-1"
                             sectionNumber={1}
                             totalSections={6}
@@ -852,7 +852,7 @@ export default function SmartContracts101Page() {
 
                         <div className="mt-6 flex justify-center">
                           <SectionCompleteButton
-                            courseId="smart-contracts-101"
+                            courseId="smart-contracts"
                             sectionId="section-2"
                             sectionNumber={2}
                             totalSections={6}
@@ -963,7 +963,7 @@ export default function SmartContracts101Page() {
 
                         <div className="mt-6 flex justify-center">
                           <SectionCompleteButton
-                            courseId="smart-contracts-101"
+                            courseId="smart-contracts"
                             sectionId="section-3"
                             sectionNumber={3}
                             totalSections={6}
@@ -1070,7 +1070,7 @@ export default function SmartContracts101Page() {
 
                         <div className="mt-6 flex justify-center">
                           <SectionCompleteButton
-                            courseId="smart-contracts-101"
+                            courseId="smart-contracts"
                             sectionId="section-4"
                             sectionNumber={4}
                             totalSections={6}
@@ -1186,7 +1186,7 @@ export default function SmartContracts101Page() {
 
                         <div className="mt-6 flex justify-center">
                           <SectionCompleteButton
-                            courseId="smart-contracts-101"
+                            courseId="smart-contracts"
                             sectionId="section-5"
                             sectionNumber={5}
                             totalSections={6}
@@ -1310,7 +1310,7 @@ export default function SmartContracts101Page() {
 
                         <div className="mt-6 flex justify-center">
                           <SectionCompleteButton
-                            courseId="smart-contracts-101"
+                            courseId="smart-contracts"
                             sectionId="section-6"
                             sectionNumber={6}
                             totalSections={6}
