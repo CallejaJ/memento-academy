@@ -339,7 +339,7 @@ SELECT id,
   '{"en": "Swing trading is best for people who:", "es": "El swing trading es mejor para personas que:"}',
   '{"en": ["Can watch charts all day", "Have regular jobs but want to trade", "Only trade for seconds", "Never use stop losses"], "es": ["Pueden ver gráficos todo el día", "Tienen trabajos regulares pero quieren operar", "Solo operan por segundos", "Nunca usan stop loss"]}',
   1,
-  '{"en": "Swing trading (days-weeks) doesn't require constant monitoring.", "es": "El swing trading (días-semanas) no requiere monitoreo constante."}'
+  '{"en": "Swing trading (days-weeks) does not require constant monitoring.", "es": "El swing trading (días-semanas) no requiere monitoreo constante."}'
 FROM course_sections WHERE course_id = 'technical-analysis' AND slug = 'strategies';
 
 INSERT INTO quiz_questions (section_id, question, options, correct_answer, explanation)
