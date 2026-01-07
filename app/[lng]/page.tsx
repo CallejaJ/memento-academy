@@ -66,7 +66,7 @@ export default async function LandingPage({
               <div className="space-y-4">
                 <Badge
                   variant="secondary"
-                  className="bg-cyan-500/10 text-cyan-400 dark:border dark:border-cyan-500/20 transition-colors duration-300"
+                  className="bg-cyan-500/10 text-cyan-400 dark:border dark:border-cyan-500/20 hover:bg-cyan-500/20 transition-colors duration-300"
                 >
                   {t("hero.new_badge")}
                 </Badge>
