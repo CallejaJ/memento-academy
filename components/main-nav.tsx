@@ -89,7 +89,7 @@ export function MainNav({ lng }: { lng: string }) {
                     route.active && "text-cyan-400"
                   )}
                 >
-                  {route.label}
+                  <span suppressHydrationWarning>{route.label}</span>
                 </Link>
               ))}
             </nav>
@@ -124,7 +124,9 @@ export function MainNav({ lng }: { lng: string }) {
                       className="text-slate-300 hover:text-white"
                     >
                       <Link href={`/${lng}/dashboard`}>
-                        {t("nav.dashboard")}
+                        <span suppressHydrationWarning>
+                          {t("nav.dashboard")}
+                        </span>
                       </Link>
                     </Button>
                     <Button
@@ -132,7 +134,7 @@ export function MainNav({ lng }: { lng: string }) {
                       className="border-slate-700 text-slate-300 hover:text-white"
                       onClick={() => signOut()}
                     >
-                      {t("nav.signout")}
+                      <span suppressHydrationWarning>{t("nav.signout")}</span>
                     </Button>
                   </>
                 ) : (
@@ -142,13 +144,13 @@ export function MainNav({ lng }: { lng: string }) {
                       className="text-slate-300 hover:text-white"
                       onClick={handleLoginClick}
                     >
-                      {t("nav.login")}
+                      <span suppressHydrationWarning>{t("nav.login")}</span>
                     </Button>
                     <Button
                       className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0 shadow-lg shadow-cyan-500/20"
                       onClick={handleSignupClick}
                     >
-                      {t("nav.join")}
+                      <span suppressHydrationWarning>{t("nav.join")}</span>
                     </Button>
                   </>
                 )}
@@ -170,7 +172,7 @@ export function MainNav({ lng }: { lng: string }) {
                     )}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {route.label}
+                    <span suppressHydrationWarning>{route.label}</span>
                   </Link>
                 ))}
 
