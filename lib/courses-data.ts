@@ -385,7 +385,7 @@ export const premiumCourses: Course[] = [
     isPremium: true,
     icon: "Code",
     color: "blue",
-    href: "/learn/smart-contracts-101",
+    href: "/learn/smart-contracts",
     sections: [
       {
         id: "what-are-sc",
