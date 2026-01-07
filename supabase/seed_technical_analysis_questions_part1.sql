@@ -202,7 +202,7 @@ SELECT id,
   '{"en": "Where should you NOT place your stop loss?", "es": "¿Dónde NO deberías colocar tu stop loss?"}',
   '{"en": ["Slightly beyond S/R level", "Exactly at S/R level", "Based on ATR", "Behind swing high/low"], "es": ["Ligeramente más allá del nivel S/R", "Exactamente en el nivel S/R", "Basado en ATR", "Detrás del swing high/low"]}',
   1,
-  '{"en": "Don't place stops exactly at S/R - they get hunted. Place slightly beyond.", "es": "No coloques stops exactamente en S/R - los cazan. Coloca ligeramente más allá."}'
+  '{"en": "Do not place stops exactly at S/R - they get hunted. Place slightly beyond.", "es": "No coloques stops exactamente en S/R - los cazan. Coloca ligeramente más allá."}'
 FROM course_sections WHERE course_id = 'technical-analysis' AND slug = 'support-resistance';
 
 INSERT INTO quiz_questions (section_id, question, options, correct_answer, explanation)
