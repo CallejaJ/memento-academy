@@ -86,7 +86,7 @@ VALUES
     "en": {
       "p1": "Phishing involves fake emails, messages, or websites that imitate legitimate platforms to steal your credentials.",
       "components": {
-        "title": "🎣 How to spot them",
+        "title": "How to Spot Phishing",
         "items": [
           {"title": "Fake URLs", "desc": "e.g. metamsk.io instead of metamask.io"},
           {"title": "Urgency", "desc": "Your account will be locked if you dont act NOW"},
@@ -98,7 +98,7 @@ VALUES
     "es": {
       "p1": "El phishing involucra correos, mensajes o sitios web falsos que imitan plataformas legítimas para robar tus credenciales.",
       "components": {
-        "title": "🎣 Cómo detectarlos",
+        "title": "Cómo Detectar Phishing",
         "items": [
           {"title": "URLs Falsas", "desc": "ej. metamsk.io en lugar de metamask.io"},
           {"title": "Urgencia", "desc": "Tu cuenta será bloqueada si no actúas AHORA"},
@@ -124,7 +124,7 @@ VALUES
     "en": {
       "p1": "Beware of support agents who contact you first. Legitimate support teams wait for you to open a ticket.",
       "components": {
-        "title": "🚨 Common Tactics",
+        "title": "Common Tactics",
         "items": [
           {"title": "Unsolicited DM", "desc": "They message you first on Discord/Telegram/Twitter"},
           {"title": "Remote Access", "desc": "Asking to install TeamViewer or share your screen"},
@@ -136,7 +136,7 @@ VALUES
     "es": {
       "p1": "Cuidado con agentes de soporte que te contactan primero. Los equipos legítimos esperan a que tú abras un ticket.",
       "components": {
-        "title": "🚨 Tácticas Comunes",
+        "title": "Tácticas Comunes",
         "items": [
           {"title": "DM No Solicitado", "desc": "Te escriben primero en Discord/Telegram/Twitter"},
           {"title": "Acceso Remoto", "desc": "Pidiendo instalar TeamViewer o compartir pantalla"},
@@ -163,7 +163,7 @@ VALUES
       "p1": "If you see a random token appear in your wallet worth thousands of dollars that you did not buy, **DO NOT TOUCH IT**.",
       "p2": "This is a common scam. When you try to sell (swap) the token on an exchange, the smart contract you approve will drain your other legitimate funds.",
       "components": {
-        "title": "🛡️ Protection Steps",
+        "title": "Protection Steps",
         "items": [
           {"title": "Ignore It", "desc": "Just let it sit there. Do not interact with it."},
           {"title": "Do Not Swap", "desc": "Approving the token gives it access to your wallet."},
@@ -176,7 +176,7 @@ VALUES
       "p1": "Si ves un token aleatorio aparecer en tu wallet valiendo miles de dólares que no compraste, **NO LO TOQUES**.",
       "p2": "Esta es una estafa común. Cuando intentas vender (intercambiar) el token en un exchange, el contrato inteligente que apruebas drenará tus otros fondos legítimos.",
       "components": {
-        "title": "🛡️ Pasos de Protección",
+        "title": "Pasos de Protección",
         "items": [
           {"title": "Ignóralo", "desc": "Solo déjalo ahí. No interactúes con él."},
           {"title": "No Intercambies", "desc": "Aprobar el token le da acceso a tu wallet."},
@@ -202,7 +202,7 @@ VALUES
     "en": {
       "p1": "If you suspect your wallet is compromised, act immediately.",
       "components": {
-        "title": "🚑 Emergency Steps",
+        "title": "Emergency Steps",
         "items": [
           {"title": "Disconnect", "desc": "Revoke permissions and disconnect from all sites immediately"},
           {"title": "Move Funds", "desc": "If possible, send remaining assets to a fresh, secure wallet"},
@@ -214,7 +214,7 @@ VALUES
     "es": {
       "p1": "Si sospechas que tu wallet está comprometida, actúa inmediatamente.",
       "components": {
-        "title": "🚑 Pasos de Emergencia",
+        "title": "Pasos de Emergencia",
         "items": [
           {"title": "Desconecta", "desc": "Revoca permisos y desconecta de todos los sitios inmediatamente"},
           {"title": "Mueve Fondos", "desc": "Si es posible, envía activos restantes a una wallet nueva y segura"},
@@ -240,7 +240,7 @@ VALUES
     "en": {
       "p1": "Use these tools to enhance your security layer.",
       "components": {
-        "title": "🛠️ Recommended Tools",
+        "title": "Recommended Tools",
         "items": [
           {"title": "Hardware Wallet", "desc": "Ledger or Trezor keeps keys offline (Cold Storage)"},
           {"title": "Revoke.cash", "desc": "Essential tool to check and revoke token approvals"},
@@ -252,7 +252,7 @@ VALUES
     "es": {
       "p1": "Usa estas herramientas para mejorar tu capa de seguridad.",
       "components": {
-        "title": "🛠️ Herramientas Recomendadas",
+        "title": "Herramientas Recomendadas",
         "items": [
           {"title": "Hardware Wallet", "desc": "Ledger o Trezor mantienen claves offline (Almacenamiento en Frío)"},
           {"title": "Revoke.cash", "desc": "Herramienta esencial para revisar y revocar aprobaciones de tokens"},
