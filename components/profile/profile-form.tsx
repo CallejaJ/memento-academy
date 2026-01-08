@@ -1,38 +1,44 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { supabase } from "@/lib/supabase"
-import { useAuth } from "@/contexts/auth-context"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { AlertCircle, CheckCircle, Loader2 } from "lucide-react"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/contexts/auth-context";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle, CheckCircle, Loader2 } from "lucide-react";
 
 interface ProfileFormProps {
-  initialProfile?: any
+  initialProfile?: any;
 }
 
 export function ProfileForm({ initialProfile }: ProfileFormProps) {
-  const router = useRouter()
-  const [fullName, setFullName] = useState("")
-  const [avatarUrl, setAvatarUrl] = useState("")
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isFetching, setIsFetching] = useState(true)
-  const { user } = useAuth()
+  const router = useRouter();
+  const [fullName, setFullName] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
+  const { user } = useAuth();
 
   // Fetch profile data on mount
   useEffect(() => {
     async function fetchProfile() {
       if (!user) {
-        setIsFetching(false)
-        return
+        setIsFetching(false);
+        return;
       }
 
       try {
@@ -40,36 +46,36 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
           .from("profiles")
           .select("*")
           .eq("id", user.id)
-          .single()
+          .single();
 
         if (error && error.code !== "PGRST116") {
-          console.error("Error fetching profile:", error)
+          console.error("Error fetching profile:", error);
         }
 
         if (data) {
-          setFullName((data as any).full_name || "")
-          setAvatarUrl((data as any).avatar_url || "")
+          setFullName((data as any).full_name || "");
+          setAvatarUrl((data as any).avatar_url || "");
         }
       } catch (err) {
-        console.error("Error:", err)
+        console.error("Error:", err);
       } finally {
-        setIsFetching(false)
+        setIsFetching(false);
       }
     }
 
-    fetchProfile()
-  }, [user])
+    fetchProfile();
+  }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
-    setSuccess(null)
-    setIsLoading(true)
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
+    setIsLoading(true);
 
     if (!user?.id) {
-      setError("No user found")
-      setIsLoading(false)
-      return
+      setError("No user found");
+      setIsLoading(false);
+      return;
     }
 
     try {
@@ -78,7 +84,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
         .from("profiles")
         .select("id")
         .eq("id", user.id)
-        .single()
+        .single();
 
       if (existingProfile) {
         // Update existing profile
@@ -89,35 +95,33 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
             avatar_url: avatarUrl || null,
             updated_at: new Date().toISOString(),
           })
-          .eq("id", user.id)
+          .eq("id", user.id);
 
-        if (error) throw error
+        if (error) throw error;
       } else {
         // Insert new profile
-        const { error } = await supabase
-          .from("profiles")
-          .insert({
-            id: user.id,
-            email: user.email ?? null,
-            full_name: fullName || null,
-            avatar_url: avatarUrl || null,
-          })
+        const { error } = await supabase.from("profiles").insert({
+          id: user.id,
+          email: user.email ?? null,
+          full_name: fullName || null,
+          avatar_url: avatarUrl || null,
+        });
 
-        if (error) throw error
+        if (error) throw error;
       }
 
-      setSuccess("Profile updated successfully! Redirecting...")
-      
+      setSuccess("Profile updated successfully! Redirecting...");
+
       // Redirect to dashboard after 1.5 seconds
       setTimeout(() => {
-        router.push("/dashboard")
-      }, 1500)
+        router.push("/dashboard");
+      }, 1500);
     } catch (err: any) {
-      setError(err.message || "Failed to update profile")
+      setError(err.message || "Failed to update profile");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   if (isFetching) {
     return (
@@ -126,14 +130,16 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
           <Loader2 className="h-8 w-8 animate-spin text-cyan-500" />
         </CardContent>
       </Card>
-    )
+    );
   }
 
   return (
-    <Card>
+    <Card className="bg-slate-800/50 border-slate-700">
       <CardHeader>
-        <CardTitle>Profile Information</CardTitle>
-        <CardDescription>Update your account profile information</CardDescription>
+        <CardTitle className="text-white">Profile Information</CardTitle>
+        <CardDescription className="text-slate-400">
+          Update your account profile information
+        </CardDescription>
       </CardHeader>
       <CardContent>
         {error && (
@@ -159,17 +165,21 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
                 alt="Avatar preview"
                 className="w-24 h-24 rounded-full object-cover border-2 border-cyan-500"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none'
+                  (e.target as HTMLImageElement).style.display = "none";
                 }}
               />
             ) : (
               <div className="w-24 h-24 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 flex items-center justify-center text-white text-2xl font-bold">
-                {fullName ? fullName.charAt(0).toUpperCase() : user?.email?.charAt(0).toUpperCase() || "?"}
+                {fullName
+                  ? fullName.charAt(0).toUpperCase()
+                  : user?.email?.charAt(0).toUpperCase() || "?"}
               </div>
             )}
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-white">{fullName || "Your Name"}</h3>
+            <h3 className="text-lg font-semibold text-white">
+              {fullName || "Your Name"}
+            </h3>
             <p className="text-sm text-slate-400">{user?.email}</p>
           </div>
         </div>
@@ -182,9 +192,11 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
               type="email"
               value={user?.email || ""}
               disabled
-              className="bg-gray-100 dark:bg-slate-800"
+              className="bg-slate-950/50 border-slate-700 text-slate-400"
             />
-            <p className="text-xs text-gray-500 dark:text-gray-400">Email cannot be changed</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Email cannot be changed
+            </p>
           </div>
 
           <div className="space-y-2">
@@ -195,6 +207,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="Your full name"
+              className="bg-slate-950/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:ring-cyan-500/20"
             />
           </div>
 
@@ -206,16 +219,28 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
               value={avatarUrl}
               onChange={(e) => setAvatarUrl(e.target.value)}
               placeholder="https://example.com/avatar.jpg"
+              className="bg-slate-950/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:ring-cyan-500/20"
             />
           </div>
 
           <div className="pt-4">
-            <Button type="submit" className="bg-gradient-to-r from-cyan-500 to-teal-500" disabled={isLoading}>
-              {isLoading ? "Saving..." : "Save Changes"}
+            <Button
+              type="submit"
+              className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white font-semibold w-full sm:w-auto"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                "Save Changes"
+              )}
             </Button>
           </div>
         </form>
       </CardContent>
     </Card>
-  )
+  );
 }

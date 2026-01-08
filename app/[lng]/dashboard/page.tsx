@@ -18,6 +18,7 @@ import { useAchievements } from "@/hooks/use-achievements";
 import { getAchievements } from "@/lib/achievements-data";
 import { useParams } from "next/navigation";
 import { getAllCourses } from "@/lib/courses-data";
+import { Settings } from "lucide-react";
 
 interface Profile {
   full_name: string | null;
@@ -44,6 +45,7 @@ const translations = {
     unlock_msg: "Complete course sections to unlock achievements!",
     unlocked: "Unlocked",
     locked: "Locked",
+    edit_profile: "Edit Profile",
   },
   es: {
     loading: "Cargando...",
@@ -58,6 +60,7 @@ const translations = {
     unlock_msg: "¡Completa secciones para desbloquear logros!",
     unlocked: "Desbloqueados",
     locked: "Bloqueado",
+    edit_profile: "Editar Perfil",
   },
 };
 
@@ -209,25 +212,42 @@ export default function DashboardPage() {
       <div className="container mx-auto px-4 pt-24 pb-12">
         <div className="max-w-6xl mx-auto space-y-8">
           {/* Welcome Header */}
-          <div className="flex items-center gap-4">
-            {profile?.avatar_url ? (
-              <img
-                src={profile.avatar_url}
-                alt="Profile"
-                className="w-14 h-14 rounded-full border-2 border-cyan-500/30 object-cover"
-              />
-            ) : (
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center border-2 border-cyan-500/30">
-                <span className="text-2xl font-bold text-white">
-                  {userName.charAt(0).toUpperCase()}
-                </span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Link href={`/${lng}/profile`} className="relative group">
+                {profile?.avatar_url ? (
+                  <img
+                    src={profile.avatar_url}
+                    alt="Profile"
+                    className="w-14 h-14 rounded-full border-2 border-cyan-500/30 object-cover group-hover:border-cyan-500 transition-colors"
+                  />
+                ) : (
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center border-2 border-cyan-500/30 group-hover:border-cyan-500 transition-colors">
+                    <span className="text-2xl font-bold text-white">
+                      {userName.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
+                )}
+                <div className="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                  <Settings className="w-5 h-5 text-white" />
+                </div>
+              </Link>
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold text-white">
+                  {t.welcome}, {userName}!
+                </h1>
               </div>
-            )}
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-white">
-                {t.welcome}, {userName}!
-              </h1>
             </div>
+            <Link href={`/${lng}/profile`}>
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-slate-600 text-slate-300 hover:text-white"
+              >
+                <Settings className="w-4 h-4 mr-2" />
+                {t.edit_profile}
+              </Button>
+            </Link>
           </div>
 
           {/* Hero: Continue Learning */}

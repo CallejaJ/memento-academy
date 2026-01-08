@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import { useAuth } from "@/contexts/auth-context"
-import { useAuthModal } from "@/contexts/auth-modal-context"
-import { Button } from "@/components/ui/button"
-import { MainNav } from "@/components/main-nav"
-import { ProfileForm } from "@/components/profile/profile-form"
-import { EnrolledCourses } from "@/components/dashboard/enrolled-courses"
-import { useParams } from "next/navigation"
+import { useAuth } from "@/contexts/auth-context";
+import { useAuthModal } from "@/contexts/auth-modal-context";
+import { Button } from "@/components/ui/button";
+import { MainNav } from "@/components/main-nav";
+import { ProfileForm } from "@/components/profile/profile-form";
+import { EnrolledCourses } from "@/components/dashboard/enrolled-courses";
+import { useParams } from "next/navigation";
 
 export default function ProfilePage() {
-  const { user, isLoading } = useAuth()
-  const { openLogin } = useAuthModal()
-  const { lng } = useParams<{ lng: string }>()
+  const { user, isLoading } = useAuth();
+  const { openLogin } = useAuthModal();
+  const { lng } = useParams<{ lng: string }>();
 
   // If still loading, show loading state
   if (isLoading) {
@@ -27,7 +27,7 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   // If not authenticated, show login prompt
@@ -37,7 +37,9 @@ export default function ProfilePage() {
         <MainNav lng={lng} />
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-md mx-auto text-center">
-            <h1 className="text-3xl font-bold text-white mb-4">Access Required</h1>
+            <h1 className="text-3xl font-bold text-white mb-4">
+              Access Required
+            </h1>
             <p className="text-slate-400 mb-8">
               Please log in to edit your profile.
             </p>
@@ -50,23 +52,32 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="min-h-screen bg-slate-950">
       <MainNav lng={lng} />
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-2xl mx-auto">
-          <h1 className="text-3xl font-bold text-white mb-8">Edit Your Profile</h1>
-          <ProfileForm initialProfile={null} />
-          
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold text-white mb-6">Your Learning Progress</h2>
-            <EnrolledCourses />
+      <div className="container mx-auto px-4 pt-32 pb-12">
+        <div className="max-w-3xl mx-auto">
+          {/* Header with Back Button */}
+          <div className="flex items-center gap-4 mb-8">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => (window.location.href = `/${lng}/dashboard`)}
+              className="text-slate-400 hover:text-white hover:bg-slate-800"
+            >
+              <ArrowLeft className="w-6 h-6" />
+            </Button>
+            <h1 className="text-3xl font-bold text-white">Edit Your Profile</h1>
           </div>
+
+          <ProfileForm initialProfile={null} />
         </div>
       </div>
     </div>
-  )
+  );
 }
+
+import { ArrowLeft } from "lucide-react";

@@ -77,6 +77,52 @@ There are currently **8 unique badges** available across 4 rarity tiers:
 
 ---
 
+## 📊 User Dashboard
+
+The dashboard provides a personalized learning hub with gamification elements to encourage consistent learning.
+
+### Dashboard Components
+
+```
+┌─────────────────────────────────────────────────────┐
+│  HERO: Continue Learning (Last accessed course)    │
+│  [Progress: Section 3/8 - 42%] [Continue Button]   │
+└─────────────────────────────────────────────────────┘
+
+┌───────────────┬───────────────┬───────────────┬───────────────┐
+│  📊 XP        │  🔥 Streak    │  📈 Level     │  ✅ Completed │
+│  1340         │  3 Days       │  2 (Learner)  │  34%          │
+└───────────────┴───────────────┴───────────────┴───────────────┘
+```
+
+### Gamification System
+
+#### XP (Experience Points)
+
+- **Calculation**: `progress_percentage × 10` per course
+- **Example**: A course at 50% = 500 XP, completed course (100%) = 1000 XP
+- Total XP is the sum across all enrolled courses
+
+#### Levels
+
+| Level | Name       | XP Required |
+| ----- | ---------- | ----------- |
+| 1     | Explorer   | 0 - 999     |
+| 2     | Learner    | 1,000+      |
+| 3     | Specialist | 2,000+      |
+| 4     | Expert     | 3,000+      |
+| 5     | Master     | 4,000+      |
+
+#### Streak
+
+- Tracks consecutive days with learning activity
+- Currently mocked at 3 days (real implementation requires activity log table)
+
+#### Completion Percentage
+
+- **Formula**: `(sum of all course progress) / (number of enrolled courses)`
+- Shows overall learning progress across enrolled courses only
+
 ## System Architecture
 
 The application follows a modern serverless architecture with a focus on type safety and automated background processes.
