@@ -19,6 +19,7 @@ import { getAchievements } from "@/lib/achievements-data";
 import { useParams } from "next/navigation";
 import { getAllCourses } from "@/lib/courses-data";
 import { Settings } from "lucide-react";
+import { AchievementsPreview } from "@/components/dashboard/achievements-preview";
 
 interface Profile {
   full_name: string | null;
@@ -296,77 +297,6 @@ export default function DashboardPage() {
             completedCourseIds={completedCourses.map((c) => c.course_id)}
           />
         </div>
-      </div>
-    </div>
-  );
-}
-
-function AchievementsPreview() {
-  const { achievements, loading } = useAchievements();
-  const { lng } = useParams<{ lng: string }>();
-  const t = translations[lng as keyof typeof translations] || translations.en;
-
-  const achievementsData = getAchievements(lng);
-
-  if (loading) {
-    return <div className="text-slate-400">{t.loading_achievements}</div>;
-  }
-
-  const totalBadges = Object.keys(achievementsData).length;
-  const unlockedCount = achievements.length;
-
-  if (achievements.length === 0) {
-    return (
-      <div className="text-center py-8">
-        <div className="w-16 h-16 rounded-2xl bg-slate-700/50 mx-auto mb-4 flex items-center justify-center">
-          <span className="text-3xl">🏆</span>
-        </div>
-        <p className="text-slate-400">{t.no_badges}</p>
-        <p className="text-slate-500 text-sm mt-2">{t.unlock_msg}</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <span className="text-slate-300">{t.unlocked}</span>
-        <span className="text-cyan-400 font-bold">
-          {unlockedCount}/{totalBadges}
-        </span>
-      </div>
-
-      <div className="grid grid-cols-4 gap-2">
-        {Object.values(achievementsData)
-          .slice(0, 8)
-          .map((achievement) => {
-            const isUnlocked = achievements.some(
-              (a) => a.achievement_id === achievement.id
-            );
-
-            return (
-              <div
-                key={achievement.id}
-                className={`relative aspect-square rounded-lg flex items-center justify-center text-2xl transition-all ${
-                  isUnlocked
-                    ? "bg-gradient-to-br from-cyan-500/10 to-teal-500/10 border border-cyan-500/20 hover:scale-110 cursor-pointer"
-                    : "bg-slate-800/30 border border-slate-700/30 opacity-40 grayscale"
-                }`}
-                title={
-                  isUnlocked
-                    ? achievement.name
-                    : `🔒 ${achievement.name} (${t.locked})`
-                }
-              >
-                {achievement.icon}
-                {!isUnlocked && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-slate-950/50 rounded-lg">
-                    <span className="text-slate-600 text-lg">🔒</span>
-                  </div>
-                )}
-              </div>
-            );
-          })}
       </div>
     </div>
   );
