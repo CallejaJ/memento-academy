@@ -1262,9 +1262,9 @@ export function CourseSection({
                                 {col.attrs?.map((attr: any, j: number) => (
                                   <div
                                     key={j}
-                                    className="flex justify-between text-sm"
+                                    className="flex flex-col gap-0.5 text-sm border-b border-slate-700/50 pb-2 last:border-0"
                                   >
-                                    <span className="text-slate-400">
+                                    <span className="text-slate-400 text-xs">
                                       {attr.label}
                                     </span>
                                     <span className="text-white font-medium">
@@ -1331,6 +1331,176 @@ export function CourseSection({
                             {content.security_shield.core.warning}
                           </p>
                         </div>
+                      )}
+                    </div>
+                    <div className="flex justify-center mt-6 pt-4 border-t border-slate-800/50">
+                      <p className="text-[10px] text-slate-500 font-mono">
+                        © memento-academy.com
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* cbdc_timeline (CBDC - horizontal timeline) */}
+                {content.cbdc_timeline && (
+                  <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-white text-center mb-6">
+                      {content.cbdc_timeline.title}
+                    </h3>
+                    <div className="relative">
+                      {/* Timeline line */}
+                      <div className="absolute top-6 left-0 right-0 h-0.5 bg-slate-700" />
+                      <div className="flex justify-between relative">
+                        {content.cbdc_timeline.phases?.map(
+                          (phase: any, i: number) => {
+                            const dotColor =
+                              phase.status === "complete"
+                                ? "bg-green-500"
+                                : phase.status === "current"
+                                  ? "bg-cyan-500 animate-pulse"
+                                  : "bg-slate-600";
+                            const textColor =
+                              phase.status === "complete"
+                                ? "text-green-400"
+                                : phase.status === "current"
+                                  ? "text-cyan-400"
+                                  : "text-slate-500";
+                            return (
+                              <div
+                                key={i}
+                                className="flex flex-col items-center text-center flex-1"
+                              >
+                                <div
+                                  className={`w-4 h-4 rounded-full ${dotColor} border-2 border-slate-900 z-10`}
+                                />
+                                <p
+                                  className={`text-sm font-bold mt-2 ${textColor}`}
+                                >
+                                  {phase.year}
+                                </p>
+                                <p className="text-xs text-white font-medium mt-1">
+                                  {phase.label}
+                                </p>
+                                <p className="text-[10px] text-slate-400 mt-0.5 max-w-[80px]">
+                                  {phase.desc}
+                                </p>
+                              </div>
+                            );
+                          }
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex justify-center mt-6 pt-4 border-t border-slate-800/50">
+                      <p className="text-[10px] text-slate-500 font-mono">
+                        © memento-academy.com
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* global_cbdc_status (CBDC - country cards) */}
+                {content.global_cbdc_status && (
+                  <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-white text-center mb-6">
+                      {content.global_cbdc_status.title}
+                    </h3>
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                      {content.global_cbdc_status.countries?.map(
+                        (country: any, i: number) => {
+                          const statusColor =
+                            country.status === "live"
+                              ? "bg-green-500"
+                              : country.status === "pilot"
+                                ? "bg-yellow-500"
+                                : country.status === "development"
+                                  ? "bg-blue-500"
+                                  : "bg-slate-500";
+                          const statusLabel =
+                            country.status === "live"
+                              ? "LIVE"
+                              : country.status === "pilot"
+                                ? "PILOT"
+                                : country.status === "development"
+                                  ? "DEV"
+                                  : "R&D";
+                          return (
+                            <div
+                              key={i}
+                              className="bg-slate-800/50 rounded-lg p-3 text-center border border-slate-700"
+                            >
+                              <span className="text-2xl">{country.flag}</span>
+                              <p className="text-sm font-bold text-white mt-1">
+                                {country.name}
+                              </p>
+                              <p className="text-xs text-slate-400">
+                                {country.cbdc}
+                              </p>
+                              <span
+                                className={`inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-white ${statusColor}`}
+                              >
+                                {statusLabel}
+                              </span>
+                              <p className="text-[10px] text-slate-500 mt-1">
+                                {country.users}
+                              </p>
+                            </div>
+                          );
+                        }
+                      )}
+                    </div>
+                    <div className="flex justify-center mt-6 pt-4 border-t border-slate-800/50">
+                      <p className="text-[10px] text-slate-500 font-mono">
+                        © memento-academy.com
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* security_checklist (Safety - checklist) */}
+                {content.security_checklist && (
+                  <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-white text-center mb-6">
+                      {content.security_checklist.title}
+                    </h3>
+                    <div className="space-y-3">
+                      {content.security_checklist.items?.map(
+                        (item: any, i: number) => (
+                          <div
+                            key={i}
+                            className={`flex items-start gap-3 p-3 rounded-lg ${
+                              item.critical
+                                ? "bg-red-500/10 border border-red-500/30"
+                                : "bg-slate-800/50 border border-slate-700"
+                            }`}
+                          >
+                            <div
+                              className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                                item.critical
+                                  ? "border-red-500"
+                                  : "border-slate-500"
+                              }`}
+                            >
+                              <span className="text-xs text-slate-400">✓</span>
+                            </div>
+                            <div>
+                              <p
+                                className={`font-medium ${
+                                  item.critical ? "text-red-400" : "text-white"
+                                }`}
+                              >
+                                {item.task}
+                                {item.critical && (
+                                  <span className="ml-2 text-[10px] bg-red-500 text-white px-1.5 py-0.5 rounded">
+                                    CRITICAL
+                                  </span>
+                                )}
+                              </p>
+                              <p className="text-sm text-slate-400 mt-0.5">
+                                {item.detail}
+                              </p>
+                            </div>
+                          </div>
+                        )
                       )}
                     </div>
                     <div className="flex justify-center mt-6 pt-4 border-t border-slate-800/50">

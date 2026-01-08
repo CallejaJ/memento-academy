@@ -197,25 +197,27 @@ VALUES
   '{
     "en": {
       "p1": "Most central banks are researching or piloting CBDCs. The race is on to define the future of sovereign money.",
-      "components": {
-        "title": "🌍 Global Status",
-        "items": [
-          {"title": "🇨🇳 China (e-CNY)", "desc": "Leader. Live pilot with 260m+ users. Programmable features in use."},
-          {"title": "🇧🇸 Bahamas (Sand Dollar)", "desc": "First nationwide CBDC launched in 2020. Focus on island inclusion."},
-          {"title": "🇧🇷 Brazil (Drex)", "desc": "Advanced pilot focused on asset tokenization and B2B."},
-          {"title": "🇺🇸 USA (Digital Dollar)", "desc": "Still in research. Politically controversial due to privacy concerns."}
+      "global_cbdc_status": {
+        "title": "Global CBDC Status",
+        "countries": [
+          { "flag": "🇨🇳", "name": "China", "cbdc": "e-CNY", "status": "live", "users": "260M+" },
+          { "flag": "🇧🇸", "name": "Bahamas", "cbdc": "Sand Dollar", "status": "live", "users": "National" },
+          { "flag": "🇧🇷", "name": "Brazil", "cbdc": "Drex", "status": "pilot", "users": "Testing" },
+          { "flag": "��", "name": "EU", "cbdc": "Digital Euro", "status": "development", "users": "2027" },
+          { "flag": "🇺🇸", "name": "USA", "cbdc": "Digital Dollar", "status": "research", "users": "TBD" }
         ]
       }
     },
     "es": {
       "p1": "La mayoría de bancos centrales están investigando o probando CBDCs. La carrera ha comenzado para definir el futuro del dinero soberano.",
-      "components": {
-        "title": "🌍 Estado Global",
-        "items": [
-          {"title": "🇨🇳 China (e-CNY)", "desc": "Líder. Piloto vivo con 260m+ usuarios. Funciones programables en uso."},
-          {"title": "🇧🇸 Bahamas (Sand Dollar)", "desc": "Primera CBDC nacional lanzada en 2020. Enfoque en inclusión isleña."},
-          {"title": "🇧🇷 Brasil (Drex)", "desc": "Piloto avanzado enfocado en tokenización de activos y B2B."},
-          {"title": "🇺🇸 EE.UU. (Dólar Digital)", "desc": "Aún en investigación. Políticamente controversial por privacidad."}
+      "global_cbdc_status": {
+        "title": "Estado Global de CBDCs",
+        "countries": [
+          { "flag": "🇨🇳", "name": "China", "cbdc": "e-CNY", "status": "live", "users": "260M+" },
+          { "flag": "🇧🇸", "name": "Bahamas", "cbdc": "Sand Dollar", "status": "live", "users": "Nacional" },
+          { "flag": "🇧🇷", "name": "Brasil", "cbdc": "Drex", "status": "pilot", "users": "Pruebas" },
+          { "flag": "🇪🇺", "name": "UE", "cbdc": "Euro Digital", "status": "development", "users": "2027" },
+          { "flag": "🇺🇸", "name": "EE.UU.", "cbdc": "Dólar Digital", "status": "research", "users": "Por definir" }
         ]
       }
     }
@@ -234,26 +236,28 @@ VALUES
   '{"en": "When will it happen?", "es": "¿Cuándo sucederá?"}',
   '{
     "en": {
-      "p1": "The transition to CBDCs is gradual but accelerating. We are currently in the ''Pilot Phase'' globally.",
-      "components": {
-        "title": "📅 Key Milestones",
-        "items": [
-          {"title": "2020", "desc": "Bahamas launches Sand Dollar (First operational CBDC)"},
-          {"title": "2022", "desc": "China expands e-CNY pilot to Olympics and major cities"},
-          {"title": "2023-2025", "desc": "Preparation Phase. EU & UK finalize legal frameworks"},
-          {"title": "2027-2030", "desc": "Launch Phase. Major economies (EU, maybe US) issue live CBDCs"}
+      "p1": "The transition to CBDCs is gradual but accelerating. We are currently in the Pilot Phase globally.",
+      "cbdc_timeline": {
+        "title": "CBDC Implementation Timeline",
+        "phases": [
+          { "year": "2020", "label": "First Launch", "desc": "Bahamas Sand Dollar", "status": "complete" },
+          { "year": "2022", "label": "Major Pilots", "desc": "China Olympics e-CNY", "status": "complete" },
+          { "year": "2024", "label": "Legal Frameworks", "desc": "EU & UK finalize laws", "status": "current" },
+          { "year": "2027", "label": "Mass Rollout", "desc": "Digital Euro launch", "status": "future" },
+          { "year": "2030", "label": "Global Adoption", "desc": "Most economies have CBDCs", "status": "future" }
         ]
       }
     },
     "es": {
-      "p1": "La transición a CBDCs es gradual pero se acelera. Actualmente estamos en la ''Fase Piloto'' globalmente.",
-      "components": {
-        "title": "📅 Hitos Clave",
-        "items": [
-          {"title": "2020", "desc": "Bahamas lanza Sand Dollar (Primera CBDC operacional)"},
-          {"title": "2022", "desc": "China expande piloto e-CNY a Olimpiadas y ciudades principales"},
-          {"title": "2023-2025", "desc": "Fase de Preparación. UE y UK finalizan marcos legales"},
-          {"title": "2027-2030", "desc": "Fase de Lanzamiento. Grandes economías (UE, tal vez EE.UU.) emiten CBDC real"}
+      "p1": "La transición a CBDCs es gradual pero se acelera. Actualmente estamos en la Fase Piloto globalmente.",
+      "cbdc_timeline": {
+        "title": "Cronograma de Implementación CBDC",
+        "phases": [
+          { "year": "2020", "label": "Primer Lanzamiento", "desc": "Bahamas Sand Dollar", "status": "complete" },
+          { "year": "2022", "label": "Pilotos Mayores", "desc": "China Olimpiadas e-CNY", "status": "complete" },
+          { "year": "2024", "label": "Marcos Legales", "desc": "UE y UK finalizan leyes", "status": "current" },
+          { "year": "2027", "label": "Despliegue Masivo", "desc": "Lanzamiento Euro Digital", "status": "future" },
+          { "year": "2030", "label": "Adopción Global", "desc": "Mayoría de economías tienen CBDCs", "status": "future" }
         ]
       }
     }

@@ -267,25 +267,29 @@ VALUES
   '{
     "en": {
       "p1": "Before holding significant value, ensure you check these boxes.",
-      "components": {
-        "title": "✅ Final Review",
+      "security_checklist": {
+        "title": "Security Checklist",
         "items": [
-          {"title": "2FA Enabled", "desc": "Use Authenticator apps, NOT SMS"},
-          {"title": "Offline Seed", "desc": "Seed phrase is written on paper/metal, NOT on computer/cloud"},
-          {"title": "Bookmarked Sites", "desc": "You access exchanges via bookmarks, not Google Search"},
-          {"title": "Address Check", "desc": "You verify the first and last 4 chars of addresses before sending"}
+          { "task": "2FA Enabled", "detail": "Use Authenticator apps, NOT SMS", "critical": true },
+          { "task": "Offline Seed", "detail": "Written on paper/metal, NOT digital", "critical": true },
+          { "task": "Bookmarked Sites", "detail": "Access exchanges via bookmarks, not Google", "critical": false },
+          { "task": "Address Verification", "detail": "Check first and last 4 chars before sending", "critical": false },
+          { "task": "Hardware Wallet", "detail": "For holdings over $1,000", "critical": false },
+          { "task": "Revoke Approvals", "detail": "Check revoke.cash regularly", "critical": false }
         ]
       }
     },
     "es": {
       "p1": "Antes de mantener valor significativo, asegúrate de marcar estas casillas.",
-      "components": {
-        "title": "✅ Revisión Final",
+      "security_checklist": {
+        "title": "Checklist de Seguridad",
         "items": [
-          {"title": "2FA Activado", "desc": "Usa apps Autenticadoras, NO SMS"},
-          {"title": "Seed Offline", "desc": "La frase semilla está escrita en papel/metal, NO en computadora/nube"},
-          {"title": "Sitios Marcados", "desc": "Accedes a exchanges vía marcadores, no Búsqueda de Google"},
-          {"title": "Chequeo de Dirección", "desc": "Verificas los primeros y últimos 4 caracteres de direcciones antes de enviar"}
+          { "task": "2FA Activado", "detail": "Usa apps Autenticadoras, NO SMS", "critical": true },
+          { "task": "Seed Offline", "detail": "Escrita en papel/metal, NO digital", "critical": true },
+          { "task": "Sitios Marcados", "detail": "Accede a exchanges vía marcadores, no Google", "critical": false },
+          { "task": "Verificación Dirección", "detail": "Revisa primeros y últimos 4 chars antes de enviar", "critical": false },
+          { "task": "Hardware Wallet", "detail": "Para holdings sobre $1,000", "critical": false },
+          { "task": "Revocar Aprobaciones", "detail": "Revisa revoke.cash regularmente", "critical": false }
         ]
       }
     }
