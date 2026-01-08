@@ -28,7 +28,6 @@ interface CourseProgress {
   course_id: string;
   progress_percentage: number;
   last_accessed_at: string;
-  current_section_index: number;
 }
 
 const translations = {
@@ -97,9 +96,7 @@ export default function DashboardPage() {
         // Fetch course progress
         const { data: progressData } = await supabase
           .from("course_progress")
-          .select(
-            "course_id, progress_percentage, last_accessed_at, current_section_index"
-          )
+          .select("course_id, progress_percentage, last_accessed_at")
           .eq("user_id", user.id)
           .order("last_accessed_at", { ascending: false });
 
@@ -137,7 +134,7 @@ export default function DashboardPage() {
     coursesProgress.length > 0
       ? Math.round(
           coursesProgress.reduce((acc, p) => acc + p.progress_percentage, 0) /
-            allCourses.length
+            coursesProgress.length
         )
       : 0;
   const level = Math.floor(totalXP / 1000) + 1;
@@ -209,7 +206,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-slate-950">
       <MainNav lng={lng} />
-      <div className="container mx-auto px-4 py-8 md:py-12">
+      <div className="container mx-auto px-4 pt-24 pb-12">
         <div className="max-w-6xl mx-auto space-y-8">
           {/* Welcome Header */}
           <div className="flex items-center gap-4">
@@ -239,8 +236,10 @@ export default function DashboardPage() {
               courseId={lastCourse.course_id}
               courseTitle={lastCourseData.title}
               courseSlug={lastCourseData.slug}
-              currentSection={lastCourse.current_section_index + 1}
-              totalSections={lastCourseData.sections || 8}
+              currentSection={Math.ceil(
+                (lastCourse.progress_percentage / 100) * 8
+              )}
+              totalSections={8}
               progressPercentage={lastCourse.progress_percentage}
             />
           ) : (
