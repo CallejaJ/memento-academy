@@ -17,8 +17,17 @@ VALUES
       "p1": "The absolute most important rule in all of Web3 security is simple but critical:",
       "p2": "**NEVER share your seed phrase or private key with ANYONE.**",
       "p3": "No legitimate company, tech support, or expert will ever ask for this information. Anyone who asks is trying to steal from you immediately.",
+      "security_shield": {
+        "title": "Your Security Layers",
+        "layers": [
+          { "name": "Hardware", "desc": "Ledger/Trezor (Cold Storage)", "color": "bg-emerald-600" },
+          { "name": "Software", "desc": "2FA Apps, Password Manager", "color": "bg-blue-600" },
+          { "name": "Knowledge", "desc": "Verify URLs, Ignore DMs", "color": "bg-purple-600" }
+        ],
+        "core": { "label": "SEED PHRASE", "warning": "Never Share!" }
+      },
       "components": {
-        "title": "🚫 Who will NOT ask?",
+        "title": "Who Will NOT Ask?",
         "items": [
           {"title": "MetaMask Support", "desc": "They will never ask for your seed phrase"},
           {"title": "Ledger / Trezor", "desc": "Hardware wallets never need your online seed input"},
@@ -31,8 +40,17 @@ VALUES
       "p1": "La regla absoluta más importante en toda la seguridad Web3 es simple pero crítica:",
       "p2": "**NUNCA compartas tu frase semilla o clave privada con NADIE.**",
       "p3": "Ninguna compañía legítima, soporte técnico o experto te pedirá jamás esta información. Cualquiera que lo pida está intentando robarte inmediatamente.",
+      "security_shield": {
+        "title": "Tus Capas de Seguridad",
+        "layers": [
+          { "name": "Hardware", "desc": "Ledger/Trezor (Almacenamiento Frío)", "color": "bg-emerald-600" },
+          { "name": "Software", "desc": "Apps 2FA, Gestor Contraseñas", "color": "bg-blue-600" },
+          { "name": "Conocimiento", "desc": "Verifica URLs, Ignora DMs", "color": "bg-purple-600" }
+        ],
+        "core": { "label": "FRASE SEMILLA", "warning": "¡Nunca Compartas!" }
+      },
       "components": {
-        "title": "🚫 ¿Quién NO preguntará?",
+        "title": "¿Quién NO Preguntará?",
         "items": [
           {"title": "Soporte MetaMask", "desc": "Nunca te pedirán tu frase semilla"},
           {"title": "Ledger / Trezor", "desc": "Las hardware wallets no necesitan tu seed online"},

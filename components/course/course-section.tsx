@@ -1228,6 +1228,119 @@ export function CourseSection({
                   </div>
                 )}
 
+                {/* money_comparison (CBDC - 3 column comparison) */}
+                {content.money_comparison && (
+                  <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-white text-center mb-6">
+                      {content.money_comparison.title}
+                    </h3>
+                    {/* Safelist: bg-green-600 bg-orange-500 bg-blue-600 */}
+                    <div className="grid md:grid-cols-3 gap-4">
+                      {content.money_comparison.columns?.map(
+                        (col: any, i: number) => {
+                          const headerColor =
+                            col.color === "bg-green-600"
+                              ? "bg-green-600"
+                              : col.color === "bg-orange-500"
+                                ? "bg-orange-500"
+                                : col.color === "bg-blue-600"
+                                  ? "bg-blue-600"
+                                  : "bg-slate-600";
+                          return (
+                            <div
+                              key={i}
+                              className="bg-slate-800/50 rounded-lg overflow-hidden border border-slate-700"
+                            >
+                              <div
+                                className={`${headerColor} px-4 py-3 text-center`}
+                              >
+                                <h4 className="font-bold text-white text-lg">
+                                  {col.name}
+                                </h4>
+                              </div>
+                              <div className="p-4 space-y-3">
+                                {col.attrs?.map((attr: any, j: number) => (
+                                  <div
+                                    key={j}
+                                    className="flex justify-between text-sm"
+                                  >
+                                    <span className="text-slate-400">
+                                      {attr.label}
+                                    </span>
+                                    <span className="text-white font-medium">
+                                      {attr.value}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          );
+                        }
+                      )}
+                    </div>
+                    <div className="flex justify-center mt-6 pt-4 border-t border-slate-800/50">
+                      <p className="text-[10px] text-slate-500 font-mono">
+                        © memento-academy.com
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* security_shield (Safety - layered protection) */}
+                {content.security_shield && (
+                  <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-white text-center mb-6">
+                      {content.security_shield.title}
+                    </h3>
+                    {/* Safelist: bg-emerald-600 bg-blue-600 bg-purple-600 */}
+                    <div className="flex flex-col items-center gap-2">
+                      {content.security_shield.layers?.map(
+                        (layer: any, i: number) => {
+                          const layerColor =
+                            layer.color === "bg-emerald-600"
+                              ? "bg-emerald-600"
+                              : layer.color === "bg-blue-600"
+                                ? "bg-blue-600"
+                                : layer.color === "bg-purple-600"
+                                  ? "bg-purple-600"
+                                  : "bg-slate-600";
+                          const widthClass =
+                            i === 0 ? "w-full" : i === 1 ? "w-5/6" : "w-4/6";
+                          return (
+                            <div
+                              key={i}
+                              className={`${widthClass} ${layerColor} rounded-lg p-4 text-center transition-transform hover:scale-105`}
+                            >
+                              <p className="font-bold text-white">
+                                {layer.name}
+                              </p>
+                              <p className="text-sm text-white/80">
+                                {layer.desc}
+                              </p>
+                            </div>
+                          );
+                        }
+                      )}
+                      {/* Core - the protected seed */}
+                      {content.security_shield.core && (
+                        <div className="w-3/6 bg-red-600 rounded-lg p-4 text-center mt-2 border-2 border-red-400 shadow-[0_0_20px_rgba(239,68,68,0.3)]">
+                          <p className="font-bold text-white text-lg">
+                            {content.security_shield.core.label}
+                          </p>
+                          <p className="text-sm text-red-200">
+                            {content.security_shield.core.warning}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex justify-center mt-6 pt-4 border-t border-slate-800/50">
+                      <p className="text-[10px] text-slate-500 font-mono">
+                        © memento-academy.com
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 {/* code block (code snippet) - Smart Contracts */}
                 {content.code && (
                   <div className="bg-slate-900 rounded-lg p-4 overflow-x-auto">

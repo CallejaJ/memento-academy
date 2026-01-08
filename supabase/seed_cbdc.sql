@@ -93,25 +93,53 @@ VALUES
   '{
     "en": {
       "p1": "It is crucial to understand that CBDCs are the opposite of cryptocurrencies like Bitcoin in terms of control and philosophy.",
-      "components": {
-        "title": "🔄 Comparison Table",
-        "items": [
-          {"title": "Control", "desc": "Bitcoin: Nobody (Decentralized) | CBDC: Central Bank | Cash: You"},
-          {"title": "Privacy", "desc": "Bitcoin: Pseudonymous | CBDC: 100% Traceable | Cash: Anonymous"},
-          {"title": "Supply", "desc": "Bitcoin: Fixed (21m) | CBDC: Unlimited (Printable) | Cash: Unlimited"},
-          {"title": "Offline Use", "desc": "Bitcoin: No | CBDC: Maybe | Cash: Yes"}
+      "money_comparison": {
+        "title": "Cash vs Bitcoin vs CBDC",
+        "columns": [
+          { "name": "Cash", "color": "bg-green-600", "attrs": [
+            { "label": "Control", "value": "You" },
+            { "label": "Privacy", "value": "Anonymous" },
+            { "label": "Supply", "value": "Unlimited" },
+            { "label": "Offline", "value": "Yes" }
+          ]},
+          { "name": "Bitcoin", "color": "bg-orange-500", "attrs": [
+            { "label": "Control", "value": "Decentralized" },
+            { "label": "Privacy", "value": "Pseudonymous" },
+            { "label": "Supply", "value": "Fixed (21M)" },
+            { "label": "Offline", "value": "No" }
+          ]},
+          { "name": "CBDC", "color": "bg-blue-600", "attrs": [
+            { "label": "Control", "value": "Central Bank" },
+            { "label": "Privacy", "value": "Fully Traceable" },
+            { "label": "Supply", "value": "Unlimited" },
+            { "label": "Offline", "value": "Maybe" }
+          ]}
         ]
       }
     },
     "es": {
       "p1": "Es crucial entender que las CBDC son lo opuesto a criptomonedas como Bitcoin en términos de control y filosofía.",
-      "components": {
-        "title": "🔄 Tabla Comparativa",
-        "items": [
-          {"title": "Control", "desc": "Bitcoin: Nadie (Descentralizado) | CBDC: Banco Central | Efectivo: Tú"},
-          {"title": "Privacidad", "desc": "Bitcoin: Seudónimo | CBDC: 100% Rastreable | Efectivo: Anónimo"},
-          {"title": "Suministro", "desc": "Bitcoin: Fijo (21m) | CBDC: Ilimitado (Imprimible) | Efectivo: Ilimitado"},
-          {"title": "Uso Offline", "desc": "Bitcoin: No | CBDC: Tal vez | Efectivo: Sí"}
+      "money_comparison": {
+        "title": "Efectivo vs Bitcoin vs CBDC",
+        "columns": [
+          { "name": "Efectivo", "color": "bg-green-600", "attrs": [
+            { "label": "Control", "value": "Tú" },
+            { "label": "Privacidad", "value": "Anónimo" },
+            { "label": "Suministro", "value": "Ilimitado" },
+            { "label": "Offline", "value": "Sí" }
+          ]},
+          { "name": "Bitcoin", "color": "bg-orange-500", "attrs": [
+            { "label": "Control", "value": "Descentralizado" },
+            { "label": "Privacidad", "value": "Seudónimo" },
+            { "label": "Suministro", "value": "Fijo (21M)" },
+            { "label": "Offline", "value": "No" }
+          ]},
+          { "name": "CBDC", "color": "bg-blue-600", "attrs": [
+            { "label": "Control", "value": "Banco Central" },
+            { "label": "Privacidad", "value": "Totalmente Rastreable" },
+            { "label": "Suministro", "value": "Ilimitado" },
+            { "label": "Offline", "value": "Tal vez" }
+          ]}
         ]
       }
     }
