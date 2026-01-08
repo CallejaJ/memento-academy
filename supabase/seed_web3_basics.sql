@@ -18,7 +18,7 @@ VALUES
     "en": {
       "p1": "The internet has evolved through three major phases, each transforming how we interact with digital content and each other.",
       "web_eras": {
-        "title": "🌐 The Evolution of the Web",
+        "title": "The Web Evolution",
         "eras": [
           { "year": "1990s", "name": "Web 1.0", "badge": "Read-Only", "desc": "Static pages. Company creates, you read. Like a digital magazine.", "color": "bg-slate-700" },
           { "year": "2005+", "name": "Web 2.0", "badge": "Read-Write", "desc": "Social Media. You create content, but platforms own it.", "color": "bg-blue-600" },
@@ -26,7 +26,7 @@ VALUES
         ]
       },
       "comparison": {
-        "title": "📊 Key Differences",
+        "title": "Key Differences",
         "list": [
           "**Ownership:** Web2 = platforms own data. Web3 = users own data.",
           "**Identity:** Web2 = login with Google/Facebook. Web3 = your wallet IS your identity.",
@@ -38,7 +38,7 @@ VALUES
     "es": {
       "p1": "Internet ha evolucionado a través de tres fases principales, cada una transformando cómo interactuamos con el contenido digital.",
       "web_eras": {
-        "title": "🌐 La Evolución de la Web",
+        "title": "Evolución de la Web",
         "eras": [
           { "year": "1990s", "name": "Web 1.0", "badge": "Solo Lectura", "desc": "Páginas estáticas. La empresa crea, tú lees. Como una revista digital.", "color": "bg-slate-700" },
           { "year": "2005+", "name": "Web 2.0", "badge": "Lectura-Escritura", "desc": "Redes Sociales. Tú creas contenido, pero las plataformas lo poseen.", "color": "bg-blue-600" },
@@ -46,7 +46,7 @@ VALUES
         ]
       },
       "comparison": {
-        "title": "📊 Diferencias Clave",
+        "title": "Diferencias Clave",
         "list": [
           "**Propiedad:** Web2 = plataformas tienen datos. Web3 = usuarios tienen datos.",
           "**Identidad:** Web2 = login con Google/Facebook. Web3 = tu wallet ES tu identidad.",
@@ -82,7 +82,7 @@ VALUES
         "decentralized": { "label": "Decentralized (Web3)", "desc": "Thousands of nodes share the record. Unstoppable." }
       },
       "components": {
-        "title": "🔗 Core Components",
+        "title": "Core Components",
         "items": [
           {"title": "Blocks", "desc": "Containers of transaction data with timestamps"},
           {"title": "Chain", "desc": "Blocks linked via cryptographic hashes"},
@@ -91,7 +91,7 @@ VALUES
         ]
       },
       "example": {
-        "title": "💡 Everyday Example",
+        "title": "Everyday Example",
         "list": [
           "Bank transfer: Bank verifies → takes time → charges fees",
           "Blockchain transfer: Network verifies → instant → lower cost",
@@ -107,7 +107,7 @@ VALUES
         "decentralized": { "label": "Descentralizado (Web3)", "desc": "Miles de nodos comparten el registro. Imparable." }
       },
       "components": {
-        "title": "🔗 Componentes Principales",
+        "title": "Componentes Principales",
         "items": [
           {"title": "Bloques", "desc": "Contenedores de datos de transacciones con timestamps"},
           {"title": "Cadena", "desc": "Bloques enlazados vía hashes criptográficos"},
@@ -116,7 +116,7 @@ VALUES
         ]
       },
       "example": {
-        "title": "💡 Ejemplo Cotidiano",
+        "title": "Ejemplo Cotidiano",
         "list": [
           "Transferencia bancaria: Banco verifica → toma tiempo → cobra tarifas",
           "Transferencia blockchain: Red verifica → instantáneo → menor costo",
@@ -146,7 +146,7 @@ VALUES
     "en": {
       "p1": "Web3 is not just theory—it powers real applications used by millions of people today.",
       "components": {
-        "title": "💰 Decentralized Finance (DeFi)",
+        "title": "Decentralized Finance (DeFi)",
         "items": [
           {"title": "Lending", "desc": "Earn interest by lending your crypto, borrow against collateral"},
           {"title": "DEXs", "desc": "Trade directly with others, no exchange registration needed"},
@@ -155,7 +155,7 @@ VALUES
         ]
       },
       "nfts": {
-        "title": "🎨 NFTs & Digital Ownership",
+        "title": "NFTs & Digital Ownership",
         "list": [
           "**Art:** Digital artists sell directly to collectors",
           "**Gaming:** Own in-game items, trade across platforms",
@@ -167,7 +167,7 @@ VALUES
     "es": {
       "p1": "Web3 no es solo teoría—impulsa aplicaciones reales usadas por millones de personas hoy.",
       "components": {
-        "title": "💰 Finanzas Descentralizadas (DeFi)",
+        "title": "Finanzas Descentralizadas (DeFi)",
         "items": [
           {"title": "Préstamos", "desc": "Gana interés prestando tu crypto, pide prestado con colateral"},
           {"title": "DEXs", "desc": "Intercambia directamente con otros, sin registro en exchange"},
@@ -176,7 +176,7 @@ VALUES
         ]
       },
       "nfts": {
-        "title": "🎨 NFTs y Propiedad Digital",
+        "title": "NFTs y Propiedad Digital",
         "list": [
           "**Arte:** Artistas digitales venden directamente a coleccionistas",
           "**Gaming:** Posee items del juego, comercia entre plataformas",
@@ -207,7 +207,7 @@ VALUES
     "en": {
       "p1": "Understanding where Web3 came from helps us see where it is going.",
       "timeline": {
-        "title": "📅 Key Milestones",
+        "title": "Key Milestones",
         "items": [
           {"title": "2008", "desc": "Satoshi Nakamoto publishes Bitcoin whitepaper"},
           {"title": "2009", "desc": "Bitcoin network goes live, first block mined"},
@@ -218,7 +218,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "🔮 What is Coming Next",
+        "title": "What is Coming Next",
         "list": [
           "**Institutional adoption:** Banks and corporations entering crypto",
           "**Regulation:** Governments creating crypto frameworks",
@@ -230,7 +230,7 @@ VALUES
     "es": {
       "p1": "Entender de dónde viene Web3 nos ayuda a ver hacia dónde va.",
       "timeline": {
-        "title": "📅 Hitos Clave",
+        "title": "Hitos Clave",
         "items": [
           {"title": "2008", "desc": "Satoshi Nakamoto publica el whitepaper de Bitcoin"},
           {"title": "2009", "desc": "La red Bitcoin se activa, primer bloque minado"},
@@ -241,7 +241,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "🔮 Qué Viene Después",
+        "title": "Qué Viene Después",
         "list": [
           "**Adopción institucional:** Bancos y corporaciones entrando a crypto",
           "**Regulación:** Gobiernos creando marcos para crypto",
@@ -272,16 +272,16 @@ VALUES
     "en": {
       "p1": "Beyond finance, blockchain solves real problems in many industries.",
       "components": {
-        "title": "🏭 Industry Applications",
+        "title": "Industry Applications",
         "items": [
-          {"title": "🗳️ Voting", "desc": "Transparent, tamper-proof elections and governance"},
-          {"title": "📦 Supply Chain", "desc": "Track products from origin to consumer"},
-          {"title": "🆔 Digital Identity", "desc": "Own your ID without relying on Big Tech"},
-          {"title": "🏥 Healthcare", "desc": "Secure, portable medical records"}
+          {"title": "Voting", "desc": "Transparent, tamper-proof elections and governance"},
+          {"title": "Supply Chain", "desc": "Track products from origin to consumer"},
+          {"title": "Digital Identity", "desc": "Own your ID without relying on Big Tech"},
+          {"title": "Healthcare", "desc": "Secure, portable medical records"}
         ]
       },
       "example": {
-        "title": "💡 Real Example: Supply Chain",
+        "title": "Real Example: Supply Chain",
         "list": [
           "Problem: Fake products enter supply chains",
           "Solution: Each item gets a unique blockchain ID",
@@ -293,16 +293,16 @@ VALUES
     "es": {
       "p1": "Más allá de las finanzas, blockchain resuelve problemas reales en muchas industrias.",
       "components": {
-        "title": "🏭 Aplicaciones en Industrias",
+        "title": "Aplicaciones en Industrias",
         "items": [
-          {"title": "🗳️ Votación", "desc": "Elecciones transparentes y a prueba de manipulación"},
-          {"title": "📦 Cadena de Suministro", "desc": "Rastrear productos desde origen hasta consumidor"},
-          {"title": "🆔 Identidad Digital", "desc": "Poseer tu ID sin depender de Big Tech"},
-          {"title": "🏥 Salud", "desc": "Registros médicos seguros y portables"}
+          {"title": "Votación", "desc": "Elecciones transparentes y a prueba de manipulación"},
+          {"title": "Cadena de Suministro", "desc": "Rastrear productos desde origen hasta consumidor"},
+          {"title": "Identidad Digital", "desc": "Poseer tu ID sin depender de Big Tech"},
+          {"title": "Salud", "desc": "Registros médicos seguros y portables"}
         ]
       },
       "example": {
-        "title": "💡 Ejemplo Real: Cadena de Suministro",
+        "title": "Ejemplo Real: Cadena de Suministro",
         "list": [
           "Problema: Productos falsos entran en cadenas de suministro",
           "Solución: Cada item recibe un ID único en blockchain",

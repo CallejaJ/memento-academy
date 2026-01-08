@@ -17,7 +17,7 @@ VALUES
       "p1": "A **CBDC** (Central Bank Digital Currency) is digital money issued directly by a central bank. It is the digital equivalent of cash.",
       "p2": "Unlike cryptocurrencies like Bitcoin, CBDCs are **controlled by the government** and have the backing of the State. They are not decentralized.",
       "components": {
-        "title": "🏛️ Key Characteristics",
+        "title": "Key Characteristics",
         "items": [
           {"title": "Issued by State", "desc": "Created and backed by the Central Bank (e.g., Fed, ECB)"},
           {"title": "Centralized", "desc": "A single entity controls the supply and rules"},
@@ -30,7 +30,7 @@ VALUES
       "p1": "Una **CBDC** (Moneda Digital de Banco Central) es dinero digital emitido directamente por un banco central. Es el equivalente digital del efectivo.",
       "p2": "A diferencia de criptomonedas como Bitcoin, las CBDC son **controladas por el gobierno** y tienen el respaldo del Estado. No son descentralizadas.",
       "components": {
-        "title": "🏛️ Características Clave",
+        "title": "Características Clave",
         "items": [
           {"title": "Emitida por el Estado", "desc": "Creada y respaldada por el Banco Central (ej. Fed, BCE)"},
           {"title": "Centralizada", "desc": "Una entidad única controla el suministro y las reglas"},
@@ -288,7 +288,7 @@ VALUES
     "en": {
       "p1": "Regardless of your opinion on CBDCs, they are likely coming. The best defense is being informed and diversified.",
       "components": {
-        "title": "💡 Action Plan",
+        "title": "Action Plan",
         "items": [
           {"title": "Stay Informed", "desc": "Understand the features of your local CBDC as they are announced"},
           {"title": "Diversify", "desc": "Dont keep all your wealth in one system. Mix cash, cardio, crypto, and traditional finance"},
@@ -300,7 +300,7 @@ VALUES
     "es": {
       "p1": "Independientemente de tu opinión sobre las CBDC, es probable que lleguen. La mejor defensa es estar informado y diversificado.",
       "components": {
-        "title": "💡 Plan de Acción",
+        "title": "Plan de Acción",
         "items": [
           {"title": "Mantente Informado", "desc": "Entiende las funciones de tu CBDC local conforme se anuncien"},
           {"title": "Diversifica", "desc": "No mantengas toda tu riqueza en un solo sistema. Mezcla efectivo, crypto, y finanzas tradicionales"},

@@ -16,7 +16,7 @@ VALUES
     "en": {
       "p1": "Cryptocurrencies are digital or virtual currencies that use cryptography for security. Unlike traditional money, they are decentralized and operate without a central authority.",
       "components": {
-        "title": "🔑 Key Characteristics",
+        "title": "Key Characteristics",
         "items": [
           {"title": "Digital", "desc": "Exists only in electronic form, no physical coins or bills"},
           {"title": "Decentralized", "desc": "No central bank or government controls it"},
@@ -25,7 +25,7 @@ VALUES
         ]
       },
       "example": {
-        "title": "💡 Simple Analogy",
+        "title": "Simple Analogy",
         "list": [
           "Think of crypto like email vs postal mail",
           "Email is digital, instant, and doesnt need a post office",
@@ -36,7 +36,7 @@ VALUES
     "es": {
       "p1": "Las criptomonedas son monedas digitales o virtuales que usan criptografía para seguridad. A diferencia del dinero tradicional, son descentralizadas y operan sin autoridad central.",
       "components": {
-        "title": "🔑 Características Clave",
+        "title": "Características Clave",
         "items": [
           {"title": "Digital", "desc": "Existe solo en forma electrónica, sin monedas físicas"},
           {"title": "Descentralizado", "desc": "Ningún banco central o gobierno lo controla"},
@@ -45,7 +45,7 @@ VALUES
         ]
       },
       "example": {
-        "title": "💡 Analogía Simple",
+        "title": "Analogía Simple",
         "list": [
           "Piensa en crypto como email vs correo postal",
           "El email es digital, instantáneo, y no necesita oficina de correos",
@@ -70,7 +70,7 @@ VALUES
     "en": {
       "p1": "There are over 20,000 cryptocurrencies, but you only need to know a handful to get started.",
       "components": {
-        "title": "🏆 Top Cryptocurrencies",
+        "title": "Top Cryptocurrencies",
         "items": [
           {"title": "Bitcoin (BTC)", "desc": "The original crypto, digital gold, store of value"},
           {"title": "Ethereum (ETH)", "desc": "Smart contracts platform, powers DeFi and NFTs"},
@@ -79,7 +79,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "📊 Market Dominance",
+        "title": "Market Dominance",
         "list": [
           "**Bitcoin**: ~50% of total crypto market",
           "**Ethereum**: ~18% of total crypto market",
@@ -90,7 +90,7 @@ VALUES
     "es": {
       "p1": "Hay más de 20,000 criptomonedas, pero solo necesitas conocer unas pocas para empezar.",
       "components": {
-        "title": "🏆 Principales Criptomonedas",
+        "title": "Principales Criptomonedas",
         "items": [
           {"title": "Bitcoin (BTC)", "desc": "La crypto original, oro digital, reserva de valor"},
           {"title": "Ethereum (ETH)", "desc": "Plataforma de contratos inteligentes, impulsa DeFi y NFTs"},
@@ -99,7 +99,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "📊 Dominancia de Mercado",
+        "title": "Dominancia de Mercado",
         "list": [
           "**Bitcoin**: ~50% del mercado crypto total",
           "**Ethereum**: ~18% del mercado crypto total",
@@ -129,7 +129,7 @@ VALUES
         "cold": { "label": "COLD (Offline)", "desc": "Secure, Slower, Maximum Safety", "color": "bg-blue-500" }
       },
       "components": {
-        "title": "🔥 Hot Wallets vs ❄️ Cold Wallets",
+        "title": "Hot Wallets vs Cold Wallets",
         "items": [
           {"title": "Hot Wallet", "desc": "Connected to internet. Convenient but less secure. Examples: MetaMask, Trust Wallet"},
           {"title": "Cold Wallet", "desc": "Offline storage. Maximum security. Examples: Ledger, Trezor"},
@@ -138,7 +138,7 @@ VALUES
         ]
       },
       "example": {
-        "title": "💡 Recommendation",
+        "title": "Recommendation",
         "list": [
           "Start with MetaMask (free, browser extension)",
           "Keep small amounts for daily use",
@@ -154,7 +154,7 @@ VALUES
         "cold": { "label": "FRÍA (Offline)", "desc": "Seguro, Más Lento, Máxima Seguridad", "color": "bg-blue-500" }
       },
       "components": {
-        "title": "🔥 Wallets Calientes vs ❄️ Wallets Frías",
+        "title": "Wallets Calientes vs Wallets Frías",
         "items": [
           {"title": "Hot Wallet", "desc": "Conectada a internet. Conveniente pero menos segura. Ejemplos: MetaMask, Trust Wallet"},
           {"title": "Cold Wallet", "desc": "Almacenamiento offline. Máxima seguridad. Ejemplos: Ledger, Trezor"},
@@ -163,7 +163,7 @@ VALUES
         ]
       },
       "example": {
-        "title": "💡 Recomendación",
+        "title": "Recomendación",
         "list": [
           "Empieza con MetaMask (gratis, extensión de navegador)",
           "Mantén cantidades pequeñas para uso diario",
@@ -197,7 +197,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "⚠️ Golden Rules",
+        "title": "Golden Rules",
         "list": [
           "**NEVER share your seed phrase** with anyone, ever",
           "**NEVER store it digitally** (no screenshots, no cloud)",
@@ -218,7 +218,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "⚠️ Reglas de Oro",
+        "title": "Reglas de Oro",
         "list": [
           "**NUNCA compartas tu frase semilla** con nadie, jamás",
           "**NUNCA la guardes digitalmente** (sin capturas, sin nube)",
@@ -253,7 +253,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "💡 Pro Tips",
+        "title": "Pro Tips",
         "list": [
           "Start with amounts you can afford to lose completely",
           "Learn by doing, but with small amounts",
@@ -274,7 +274,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "💡 Tips Pro",
+        "title": "Tips Pro",
         "list": [
           "Empieza con cantidades que puedas perder completamente",
           "Aprende haciendo, pero con cantidades pequeñas",
@@ -309,7 +309,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "💰 Fee Types",
+        "title": "Fee Types",
         "list": [
           "**Maker fees**: You add liquidity (0.1-0.5%)",
           "**Taker fees**: You take liquidity (0.1-0.6%)",
@@ -330,7 +330,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "💰 Tipos de Tarifas",
+        "title": "Tipos de Tarifas",
         "list": [
           "**Maker fees**: Añades liquidez (0.1-0.5%)",
           "**Taker fees**: Tomas liquidez (0.1-0.6%)",
@@ -429,7 +429,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "📊 Diversification Rules",
+        "title": "Diversification Rules",
         "list": [
           "**Never 100% in one coin** - diversify across assets",
           "**Keep some stablecoins** - for buying dips",
@@ -458,7 +458,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "📊 Reglas de Diversificación",
+        "title": "Reglas de Diversificación",
         "list": [
           "**Nunca 100% en una moneda** - diversifica entre activos",
           "**Mantén algunas stablecoins** - para comprar en bajadas",
