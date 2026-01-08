@@ -55,8 +55,13 @@ VALUES
   '{
     "en": {
       "p1": "The biggest debate surrounding CBDCs is about **programmability**. Since CBDCs are code, the issuer (the Central Bank) can program rules into the money itself.",
+      "infographic": {
+        "src": "/images/cbdc_flow_diagram.png",
+        "alt": "How Programmable Money Works",
+        "caption": "CBDC Flow: Central Bank to Your Wallet"
+      },
       "components": {
-        "title": "⚠️ Potential Risks",
+        "title": "Potential Risks",
         "items": [
           {"title": "Expiration Dates", "desc": "Money that expires if not spent by a certain date to stimulate spending"},
           {"title": "Purchase Restrictions", "desc": "Blocking purchases of specific goods (alcohol, travel) based on rules"},
@@ -67,8 +72,13 @@ VALUES
     },
     "es": {
       "p1": "El mayor debate sobre las CBDC gira en torno a la **programabilidad**. Dado que son código, el emisor (Banco Central) puede programar reglas en el dinero mismo.",
+      "infographic": {
+        "src": "/images/cbdc_flow_diagram_es.png",
+        "alt": "Cómo Funciona el Dinero Programable",
+        "caption": "Flujo CBDC: Banco Central a Tu Wallet"
+      },
       "components": {
-        "title": "⚠️ Riesgos Potenciales",
+        "title": "Riesgos Potenciales",
         "items": [
           {"title": "Fechas de Caducidad", "desc": "Dinero que caduca si no se gasta en cierta fecha para estimular el consumo"},
           {"title": "Restricciones de Compra", "desc": "Bloquear compras de ciertos bienes (alcohol, viajes) basado en reglas"},

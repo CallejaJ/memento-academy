@@ -810,6 +810,23 @@ export function CourseSection({
                   </div>
                 )}
 
+                {/* infographic (AI-generated image) */}
+                {content.infographic && (
+                  <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 overflow-hidden">
+                    <div className="relative w-full aspect-[3/2] rounded-lg overflow-hidden">
+                      <img
+                        src={content.infographic.src}
+                        alt={content.infographic.alt}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    {content.infographic.caption && (
+                      <p className="text-center text-sm text-slate-400 mt-3">
+                        {content.infographic.caption}
+                      </p>
+                    )}
+                  </div>
+                )}
                 {/* goals block (Portfolio Basics) */}
                 {content.goals && (
                   <div className="bg-slate-800/40 p-4 rounded-lg">
