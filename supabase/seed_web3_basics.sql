@@ -17,12 +17,12 @@ VALUES
   '{
     "en": {
       "p1": "The internet has evolved through three major phases, each transforming how we interact with digital content and each other.",
-      "stages": {
-        "title": "🌐 The Three Eras",
-        "items": [
-          {"title": "Web 1.0 (1990s)", "desc": "Read-only. Static pages, no interaction. Like a digital newspaper."},
-          {"title": "Web 2.0 (2000s)", "desc": "Read-write. Social media, user content. But companies own your data."},
-          {"title": "Web 3.0 (2020s)", "desc": "Read-write-own. You control your data, identity, and digital assets."}
+      "web_eras": {
+        "title": "🌐 The Evolution of the Web",
+        "eras": [
+          { "year": "1990s", "name": "Web 1.0", "badge": "Read-Only", "desc": "Static pages. Company creates, you read. Like a digital magazine.", "color": "bg-slate-700" },
+          { "year": "2005+", "name": "Web 2.0", "badge": "Read-Write", "desc": "Social Media. You create content, but platforms own it.", "color": "bg-blue-600" },
+          { "year": "2020+", "name": "Web 3.0", "badge": "Read-Write-Own", "desc": "Decentralized. You create and truly own your digital assets.", "color": "bg-emerald-600" }
         ]
       },
       "comparison": {
@@ -37,12 +37,12 @@ VALUES
     },
     "es": {
       "p1": "Internet ha evolucionado a través de tres fases principales, cada una transformando cómo interactuamos con el contenido digital.",
-      "stages": {
-        "title": "🌐 Las Tres Eras",
-        "items": [
-          {"title": "Web 1.0 (1990s)", "desc": "Solo lectura. Páginas estáticas, sin interacción. Como un periódico digital."},
-          {"title": "Web 2.0 (2000s)", "desc": "Leer-escribir. Redes sociales, contenido de usuarios. Pero las empresas tienen tus datos."},
-          {"title": "Web 3.0 (2020s)", "desc": "Leer-escribir-poseer. Tú controlas tus datos, identidad y activos digitales."}
+      "web_eras": {
+        "title": "🌐 La Evolución de la Web",
+        "eras": [
+          { "year": "1990s", "name": "Web 1.0", "badge": "Solo Lectura", "desc": "Páginas estáticas. La empresa crea, tú lees. Como una revista digital.", "color": "bg-slate-700" },
+          { "year": "2005+", "name": "Web 2.0", "badge": "Lectura-Escritura", "desc": "Redes Sociales. Tú creas contenido, pero las plataformas lo poseen.", "color": "bg-blue-600" },
+          { "year": "2020+", "name": "Web 3.0", "badge": "Lectura-Escritura-Propiedad", "desc": "Descentralizado. Tú creas y realmente posees tus activos digitales.", "color": "bg-emerald-600" }
         ]
       },
       "comparison": {
@@ -76,7 +76,11 @@ VALUES
   '{
     "en": {
       "p1": "Imagine a giant ledger that everyone can see, but no one can modify once written. That is **blockchain**: a public, transparent, and immutable record of all transactions.",
-      "desc": "Instead of trusting a bank or company, trust is distributed among thousands of computers that verify each operation. There is no single point of failure or central authority.",
+      "network_diagram": {
+        "title": "Centralized vs Decentralized",
+        "centralized": { "label": "Centralized (Web2)", "desc": "One central server controls all data. Single point of failure." },
+        "decentralized": { "label": "Decentralized (Web3)", "desc": "Thousands of nodes share the record. Unstoppable." }
+      },
       "components": {
         "title": "🔗 Core Components",
         "items": [
@@ -97,7 +101,11 @@ VALUES
     },
     "es": {
       "p1": "Imagina un libro de contabilidad gigante que todos pueden ver, pero nadie puede modificar una vez escrito. Eso es **blockchain**: un registro público, transparente e inmutable de todas las transacciones.",
-      "desc": "En lugar de confiar en un banco o empresa, la confianza se distribuye entre miles de computadoras que verifican cada operación. No hay un punto único de fallo ni autoridad central.",
+      "network_diagram": {
+        "title": "Centralizado vs Descentralizado",
+        "centralized": { "label": "Centralizado (Web2)", "desc": "Un servidor central controla todo. Punto único de fallo." },
+        "decentralized": { "label": "Descentralizado (Web3)", "desc": "Miles de nodos comparten el registro. Imparable." }
+      },
       "components": {
         "title": "🔗 Componentes Principales",
         "items": [

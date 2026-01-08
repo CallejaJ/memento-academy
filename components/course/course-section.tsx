@@ -798,7 +798,12 @@ export function CourseSection({
                       {content.example.list?.map((item: string, i: number) => (
                         <li
                           key={i}
-                          dangerouslySetInnerHTML={{ __html: `• ${item}` }}
+                          dangerouslySetInnerHTML={{
+                            __html: `• ${item.replace(
+                              /\*\*(.*?)\*\*/g,
+                              "<strong>$1</strong>"
+                            )}`,
+                          }}
                         />
                       ))}
                     </ul>
@@ -891,6 +896,52 @@ export function CourseSection({
                   </div>
                 )}
 
+                {/* PROPOSED: wallet_scale (Hot vs Cold) */}
+                {content.wallet_scale && (
+                  <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                    <h3 className="text-xl font-bold text-white text-center mb-6">
+                      {content.wallet_scale.title}
+                    </h3>
+
+                    <div className="flex flex-col md:flex-row gap-4 items-stretch justify-center">
+                      {/* HOT Side */}
+                      <div className="flex-1 bg-red-500/10 border border-red-500/30 rounded-lg p-4 flex flex-col items-center text-center relative overflow-hidden group hover:bg-red-500/20 transition-colors">
+                        <div className="absolute top-0 w-full h-1 bg-gradient-to-r from-orange-500 to-red-600" />
+                        <span className="text-4xl mb-4">🔥</span>
+                        <h4 className="text-xl font-bold text-red-500 mb-2">
+                          {content.wallet_scale.hot?.label}
+                        </h4>
+                        <p className="text-sm text-red-200/80">
+                          {content.wallet_scale.hot?.desc}
+                        </p>
+                      </div>
+
+                      {/* Arrow / Vs */}
+                      <div className="flex items-center justify-center text-slate-500 font-bold">
+                        VS
+                      </div>
+
+                      {/* COLD Side */}
+                      <div className="flex-1 bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 flex flex-col items-center text-center relative overflow-hidden group hover:bg-blue-500/20 transition-colors">
+                        <div className="absolute top-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-blue-600" />
+                        <span className="text-4xl mb-4">❄️</span>
+                        <h4 className="text-xl font-bold text-blue-500 mb-2">
+                          {content.wallet_scale.cold?.label}
+                        </h4>
+                        <p className="text-sm text-blue-200/80">
+                          {content.wallet_scale.cold?.desc}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-center mt-6 pt-4 border-t border-slate-800/50">
+                      <p className="text-[10px] text-slate-500 font-mono">
+                        © Memento Academy
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 {/* risk block (Red list) */}
                 {content.risk && (
                   <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
@@ -910,6 +961,156 @@ export function CourseSection({
                         />
                       ))}
                     </ul>
+                  </div>
+                )}
+
+                {/* PROPOSED: web_eras (Timeline) */}
+                {content.web_eras && (
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-white text-center mb-6">
+                      {content.web_eras.title}
+                    </h3>
+                    {/* Safelist: bg-slate-700 bg-blue-600 bg-emerald-600 */}
+                    <div className="grid md:grid-cols-3 gap-4">
+                      {content.web_eras.eras?.map((era: any, i: number) => {
+                        // Explicit color mapping to prevent Tailwind purging
+                        const borderColor =
+                          era.color === "bg-slate-700"
+                            ? "bg-slate-500"
+                            : era.color === "bg-blue-600"
+                              ? "bg-blue-600"
+                              : era.color === "bg-emerald-600"
+                                ? "bg-emerald-600"
+                                : "bg-indigo-500";
+                        const badgeBg =
+                          era.color === "bg-slate-700"
+                            ? "bg-slate-600 text-slate-200"
+                            : era.color === "bg-blue-600"
+                              ? "bg-blue-600/20 text-blue-400"
+                              : era.color === "bg-emerald-600"
+                                ? "bg-emerald-600/20 text-emerald-400"
+                                : "bg-indigo-500/20 text-indigo-400";
+                        return (
+                          <div
+                            key={i}
+                            className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col items-center text-center relative overflow-hidden group hover:border-indigo-500/50 transition-colors"
+                          >
+                            <div
+                              className={`absolute top-0 left-0 right-0 h-1.5 ${borderColor}`}
+                            />
+                            <span className="text-xs font-mono text-slate-400 mb-1 mt-2">
+                              {era.year}
+                            </span>
+                            <h4 className="text-lg font-bold text-white mb-2">
+                              {era.name}
+                            </h4>
+                            <span
+                              className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider mb-3 ${badgeBg}`}
+                            >
+                              {era.badge}
+                            </span>
+                            <p className="text-sm text-slate-300 leading-relaxed">
+                              {era.desc}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="flex justify-center mt-2 opacity-50">
+                      <p className="text-[10px] text-slate-500 font-mono">
+                        © Memento Academy
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* PROPOSED: network_diagram (Centralized vs Decentralized) */}
+                {content.network_diagram && (
+                  <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                    <h3 className="text-lg font-bold text-white text-center mb-8">
+                      {content.network_diagram.title}
+                    </h3>
+
+                    <div className="grid md:grid-cols-2 gap-8 relative">
+                      {/* Vertical divider for desktop */}
+                      <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-slate-800 -translate-x-1/2" />
+
+                      {/* Centralized Visual */}
+                      <div className="flex flex-col items-center">
+                        <div className="w-40 h-32 relative mb-4">
+                          {/* Central Node */}
+                          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.3)] z-10">
+                            <div className="w-6 h-6 border-2 border-white/50 rounded-sm" />
+                          </div>
+                          {/* Satellite Nodes */}
+                          {[0, 1, 2, 3, 4].map((n) => (
+                            <div
+                              key={n}
+                              className="absolute w-3 h-3 bg-slate-600 rounded-full"
+                              style={{
+                                top: `${50 + 40 * Math.sin((n * 2 * Math.PI) / 5)}%`,
+                                left: `${50 + 40 * Math.cos((n * 2 * Math.PI) / 5)}%`,
+                                transform: "translate(-50%, -50%)",
+                              }}
+                            />
+                          ))}
+                          {/* Connections */}
+                          {[0, 1, 2, 3, 4].map((n) => (
+                            <div
+                              key={`line-${n}`}
+                              className="absolute left-1/2 top-1/2 w-[40px] h-[1px] bg-slate-700 origin-left -z-0"
+                              style={{
+                                transform: `rotate(${(n * 360) / 5}deg)`,
+                              }}
+                            />
+                          ))}
+                        </div>
+                        <h4 className="font-bold text-white mb-1">
+                          {content.network_diagram.centralized.label}
+                        </h4>
+                        <p className="text-xs text-center text-slate-400 max-w-[200px]">
+                          {content.network_diagram.centralized.desc}
+                        </p>
+                      </div>
+
+                      {/* Decentralized Visual */}
+                      <div className="flex flex-col items-center">
+                        <div className="w-40 h-32 relative mb-4">
+                          {/* Nodes Mesh */}
+                          {[0, 1, 2, 3, 4, 5].map((n) => (
+                            <div
+                              key={n}
+                              className="absolute w-4 h-4 bg-emerald-500 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.3)]"
+                              style={{
+                                top: `${20 + Math.random() * 60}%`,
+                                left: `${20 + Math.random() * 60}%`,
+                              }}
+                            />
+                          ))}
+                          {/* Random connections (simulated visual mesh) */}
+                          <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-30">
+                            <path
+                              d="M40 40 L90 30 M90 30 L110 80 M110 80 L60 90 M60 90 L40 40 M40 40 L110 80 M90 30 L60 90"
+                              stroke="currentColor"
+                              className="text-emerald-500"
+                              strokeWidth="1"
+                            />
+                          </svg>
+                        </div>
+                        <h4 className="font-bold text-white mb-1">
+                          {content.network_diagram.decentralized.label}
+                        </h4>
+                        <p className="text-xs text-center text-slate-400 max-w-[200px]">
+                          {content.network_diagram.decentralized.desc}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-center mt-6 pt-4 border-t border-slate-800/50">
+                      <p className="text-[10px] text-slate-500 font-mono">
+                        © Memento Academy
+                      </p>
+                    </div>
                   </div>
                 )}
 
@@ -966,41 +1167,64 @@ export function CourseSection({
                   </div>
                 )}
 
-                {/* comparison block (table) - Smart Contracts */}
+                {/* comparison block (table OR list) */}
                 {content.comparison && (
                   <div className="bg-slate-800/40 p-4 rounded-lg overflow-x-auto">
                     <h4 className="font-semibold text-white mb-3">
                       {content.comparison.title}
                     </h4>
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="border-b border-slate-700">
-                          <th className="text-left py-2 text-slate-400">
-                            Aspect
-                          </th>
-                          <th className="text-left py-2 text-red-400">
-                            Traditional
-                          </th>
-                          <th className="text-left py-2 text-green-400">
-                            Smart Contract
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {content.comparison.table?.map(
-                          (row: any, i: number) => (
-                            <tr
+                    {/* TABLE format (Smart Contracts) */}
+                    {content.comparison.table && (
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="border-b border-slate-700">
+                            <th className="text-left py-2 text-slate-400">
+                              Aspect
+                            </th>
+                            <th className="text-left py-2 text-red-400">
+                              Traditional
+                            </th>
+                            <th className="text-left py-2 text-green-400">
+                              Smart Contract
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {content.comparison.table?.map(
+                            (row: any, i: number) => (
+                              <tr
+                                key={i}
+                                className="border-b border-slate-800/50"
+                              >
+                                <td className="py-2 text-white">
+                                  {row.aspect}
+                                </td>
+                                <td className="py-2">{row.traditional}</td>
+                                <td className="py-2">{row.smart}</td>
+                              </tr>
+                            )
+                          )}
+                        </tbody>
+                      </table>
+                    )}
+                    {/* LIST format (Web3 Basics) */}
+                    {content.comparison.list && !content.comparison.table && (
+                      <ul className="space-y-2 text-sm">
+                        {content.comparison.list?.map(
+                          (item: string, i: number) => (
+                            <li
                               key={i}
-                              className="border-b border-slate-800/50"
-                            >
-                              <td className="py-2 text-white">{row.aspect}</td>
-                              <td className="py-2">{row.traditional}</td>
-                              <td className="py-2">{row.smart}</td>
-                            </tr>
+                              dangerouslySetInnerHTML={{
+                                __html: `• ${item.replace(
+                                  /\*\*(.*?)\*\*/g,
+                                  "<strong class='text-cyan-400'>$1</strong>"
+                                )}`,
+                              }}
+                            />
                           )
                         )}
-                      </tbody>
-                    </table>
+                      </ul>
+                    )}
                   </div>
                 )}
 

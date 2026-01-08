@@ -123,6 +123,11 @@ VALUES
   '{
     "en": {
       "p1": "A crypto wallet doesnt actually store your crypto—it stores the private keys that prove you own it. Think of it like a keychain to your digital safe.",
+      "wallet_scale": {
+        "title": "🌡️ Wallet Temperature Scale",
+        "hot": { "label": "HOT (Online)", "desc": "Convenient, Fast, Lower Security", "color": "bg-red-500" },
+        "cold": { "label": "COLD (Offline)", "desc": "Secure, Slower, Maximum Safety", "color": "bg-blue-500" }
+      },
       "components": {
         "title": "🔥 Hot Wallets vs ❄️ Cold Wallets",
         "items": [
@@ -143,6 +148,11 @@ VALUES
     },
     "es": {
       "p1": "Una wallet crypto no almacena realmente tu crypto—almacena las claves privadas que prueban que lo posees. Piénsalo como un llavero de tu caja fuerte digital.",
+      "wallet_scale": {
+        "title": "🌡️ Escala de Temperatura de Wallets",
+        "hot": { "label": "CALIENTE (Online)", "desc": "Conveniente, Rápido, Menor Seguridad", "color": "bg-red-500" },
+        "cold": { "label": "FRÍA (Offline)", "desc": "Seguro, Más Lento, Máxima Seguridad", "color": "bg-blue-500" }
+      },
       "components": {
         "title": "🔥 Wallets Calientes vs ❄️ Wallets Frías",
         "items": [
@@ -401,6 +411,14 @@ VALUES
   '{
     "en": {
       "p1": "A well-balanced portfolio reduces risk while maintaining growth potential.",
+      "pyramid": {
+        "title": "Risk vs Reward Pyramid",
+        "levels": [
+          { "label": "Moonshots / High Risk", "desc": "Small Caps, Memecoins (<5%)", "color": "bg-red-500", "width": "w-1/3" },
+          { "label": "Growth / Mid Caps", "desc": "L1s, Major Protocols (15-25%)", "color": "bg-blue-500", "width": "w-2/3" },
+          { "label": "Foundation / Safe Haven", "desc": "Bitcoin, Ethereum (70%+)", "color": "bg-green-500", "width": "w-full" }
+        ]
+      },
       "components": {
         "title": "🎯 Portfolio Allocation Ideas",
         "items": [
@@ -422,6 +440,14 @@ VALUES
     },
     "es": {
       "p1": "Un portafolio bien balanceado reduce riesgo mientras mantiene potencial de crecimiento.",
+      "pyramid": {
+        "title": "Pirámide Riesgo vs Retorno",
+        "levels": [
+          { "label": "Moonshots / Alto Riesgo", "desc": "Small Caps, Memecoins (<5%)", "color": "bg-red-500", "width": "w-1/3" },
+          { "label": "Crecimiento / Mid Caps", "desc": "L1s, Protocolos Mayores (15-25%)", "color": "bg-blue-500", "width": "w-2/3" },
+          { "label": "Fundación / Refugio Seguro", "desc": "Bitcoin, Ethereum (70%+)", "color": "bg-green-500", "width": "w-full" }
+        ]
+      },
       "components": {
         "title": "🎯 Ideas de Asignación de Portafolio",
         "items": [
