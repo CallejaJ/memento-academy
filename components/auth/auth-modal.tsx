@@ -95,6 +95,7 @@ export function AuthModal({
   const [mode, setMode] = useState<AuthMode>(defaultMode);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fax, setFax] = useState(""); // Honeypot field
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [successState, setSuccessState] = useState<SuccessState>("none");
@@ -122,6 +123,14 @@ export function AuthModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Anti-bot check: If honeypot field 'fax' is filled, silently return
+    if (fax) {
+      console.log("Bot detected");
+      setSuccessState("signup-success"); // Fake success
+      return;
+    }
+
     setError(null);
     setIsLoading(true);
 
@@ -262,6 +271,23 @@ export function AuthModal({
               onChange={(e) => setEmail(e.target.value)}
               required
               className="bg-slate-800 border-slate-600 text-white"
+            />
+          </div>
+
+          {/* Honeypot Field - Hidden from humans */}
+          <div
+            className="absolute opacity-0 -z-10 select-none pointer-events-none"
+            aria-hidden="true"
+          >
+            <Label htmlFor="fax-number">Fax Number</Label>
+            <Input
+              id="fax-number"
+              type="text"
+              name="fax"
+              value={fax}
+              onChange={(e) => setFax(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
             />
           </div>
 
