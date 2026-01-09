@@ -3,6 +3,56 @@ import { Badge } from "@/components/ui/badge";
 import { CourseContentList } from "@/components/course/course-content-list";
 import { getCourseContent } from "@/actions/course";
 import { getSession } from "@/lib/server-auth";
+import { JsonLd } from "@/components/json-ld";
+import type { Metadata } from "next";
+
+// Generate metadata for SEO
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lng: string }>;
+}): Promise<Metadata> {
+  const { lng } = await params;
+
+  const meta = {
+    en: {
+      title:
+        "Understanding CBDCs - Central Bank Digital Currencies | Memento Academy",
+      description:
+        "What are CBDCs? Learn about Central Bank Digital Currencies, how they differ from crypto, privacy implications, and global adoption. Free course.",
+      keywords: [
+        "CBDC",
+        "Central Bank Digital Currency",
+        "digital euro",
+        "digital dollar",
+        "government crypto",
+        "digital money",
+      ],
+    },
+    es: {
+      title:
+        "Entendiendo CBDCs - Monedas Digitales de Banco Central | Memento Academy",
+      description:
+        "¿Qué son las CBDCs? Aprende sobre Monedas Digitales de Banco Central, diferencias con crypto, implicaciones de privacidad y adopción global. Curso gratuito.",
+      keywords: [
+        "CBDC",
+        "Moneda Digital Banco Central",
+        "euro digital",
+        "dólar digital",
+        "cripto gubernamental",
+        "dinero digital",
+      ],
+    },
+  };
+
+  const t = meta[lng as keyof typeof meta] || meta.en;
+
+  return {
+    title: t.title,
+    description: t.description,
+    keywords: t.keywords,
+  };
+}
 
 export default async function CBDCPage({
   params,
@@ -54,8 +104,21 @@ export default async function CBDCPage({
 
   const t = translations[lng as keyof typeof translations] || translations.en;
 
+  // Course data for JSON-LD
+  const courseData = {
+    name: lng === "es" ? "Entendiendo CBDCs" : "Understanding CBDCs",
+    description:
+      lng === "es"
+        ? "Monedas Digitales de Banco Central: el futuro del dinero creado por gobiernos."
+        : "Central Bank Digital Currencies: the future of government-created money.",
+    duration: "45 min",
+    difficulty: "beginner" as const,
+    isFree: true,
+  };
+
   return (
     <div className="min-h-screen bg-slate-950">
+      <JsonLd lng={lng} url={`/${lng}/learn/cbdc`} course={courseData} />
       <MainNav lng={lng} />
 
       {/* Hero */}

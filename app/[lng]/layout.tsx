@@ -22,15 +22,19 @@ export async function generateMetadata({
   params: Promise<{ lng: string }>;
 }): Promise<Metadata> {
   const { lng } = await params;
-  // Fallback for metadata translation since we might not have access to the hook here efficiently without async
+  const baseUrl = "https://memento-academy.com";
+
+  // SEO-optimized titles and descriptions
   const title =
     lng === "es"
-      ? "Memento Academy | Domina la Web3"
-      : "Memento Academy | Master Web3";
+      ? "Memento Academy | Aprende Web3 y Blockchain Gratis"
+      : "Memento Academy | Learn Web3 & Blockchain Free";
   const description =
     lng === "es"
-      ? "Tu puerta de entrada al dominio de la Web3"
-      : "Your gateway to Web3 mastery";
+      ? "La forma más sencilla de entrar en Web3 y Blockchain. Desglosamos conceptos complejos como CBDCs y Cripto para principiantes absolutos. ¿Lo mejor? Es 100% gratis."
+      : "The simplest onboarding to Web3 and Blockchain. We break down complex concepts like CBDCs and Crypto for absolute beginners. The best part? It's 100% free.";
+
+  const alternateLanguage = lng === "es" ? "en" : "es";
 
   return {
     title: {
@@ -38,15 +42,72 @@ export async function generateMetadata({
       template: `%s | Memento Academy`,
     },
     description,
-    keywords: [
-      "Web3",
-      "Blockchain",
-      "Crypto",
-      "Cursos",
-      "Courses",
-      "Education",
-      "Educación",
-    ],
+    keywords:
+      lng === "es"
+        ? [
+            "Web3",
+            "Blockchain",
+            "Criptomonedas",
+            "Cursos gratis",
+            "CBDC",
+            "Educación blockchain",
+            "Aprende cripto",
+            "DeFi",
+            "NFT",
+          ]
+        : [
+            "Web3",
+            "Blockchain",
+            "Cryptocurrency",
+            "Free courses",
+            "CBDC",
+            "Blockchain education",
+            "Learn crypto",
+            "DeFi",
+            "NFT",
+          ],
+
+    // Canonical and alternate language URLs
+    metadataBase: new URL(baseUrl),
+    alternates: {
+      canonical: `/${lng}`,
+      languages: {
+        en: "/en",
+        es: "/es",
+        "x-default": "/en",
+      },
+    },
+
+    // OpenGraph for social sharing
+    openGraph: {
+      title,
+      description,
+      url: `${baseUrl}/${lng}`,
+      siteName: "Memento Academy",
+      locale: lng === "es" ? "es_ES" : "en_US",
+      alternateLocale: lng === "es" ? "en_US" : "es_ES",
+      type: "website",
+      images: [
+        {
+          url: `${baseUrl}/memento-academy-logo.png`,
+          width: 512,
+          height: 512,
+          alt: "Memento Academy Logo",
+        },
+      ],
+    },
+
+    // Twitter Card
+    twitter: {
+      card: "summary_large_image",
+      site: "@memento_academy",
+      creator: "@memento_academy",
+      title,
+      description,
+      images: [`${baseUrl}/memento-academy-logo.png`],
+    },
+
+    // Icons
     icons: {
       icon: [
         {
@@ -74,6 +135,19 @@ export async function generateMetadata({
       apple: [{ url: "/favicon/apple-touch-icon.png" }],
     },
     manifest: "/favicon/site.webmanifest",
+
+    // Additional SEO
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
   };
 }
 

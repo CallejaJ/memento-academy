@@ -3,6 +3,54 @@ import { Badge } from "@/components/ui/badge";
 import { CourseContentList } from "@/components/course/course-content-list";
 import { getCourseContent } from "@/actions/course";
 import { getSession } from "@/lib/server-auth";
+import { JsonLd } from "@/components/json-ld";
+import type { Metadata } from "next";
+
+// Generate metadata for SEO
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lng: string }>;
+}): Promise<Metadata> {
+  const { lng } = await params;
+
+  const meta = {
+    en: {
+      title: "Crypto Security Guide - Protect Your Assets | Memento Academy",
+      description:
+        "Essential security guide for cryptocurrency. Learn to identify scams, protect your wallet, secure your seed phrase, and stay safe in Web3. Free course.",
+      keywords: [
+        "crypto security",
+        "crypto scams",
+        "wallet security",
+        "seed phrase",
+        "phishing",
+        "Web3 safety",
+      ],
+    },
+    es: {
+      title: "Guía de Seguridad Cripto - Protege tus Activos | Memento Academy",
+      description:
+        "Guía esencial de seguridad para criptomonedas. Aprende a identificar estafas, proteger tu wallet, asegurar tu seed phrase y mantenerte seguro en Web3. Curso gratuito.",
+      keywords: [
+        "seguridad cripto",
+        "estafas crypto",
+        "seguridad wallet",
+        "seed phrase",
+        "phishing",
+        "seguridad Web3",
+      ],
+    },
+  };
+
+  const t = meta[lng as keyof typeof meta] || meta.en;
+
+  return {
+    title: t.title,
+    description: t.description,
+    keywords: t.keywords,
+  };
+}
 
 export default async function SafetyPage({
   params,
@@ -54,8 +102,21 @@ export default async function SafetyPage({
 
   const t = translations[lng as keyof typeof translations] || translations.en;
 
+  // Course data for JSON-LD
+  const courseData = {
+    name: lng === "es" ? "Guía de Seguridad" : "Security Guide",
+    description:
+      lng === "es"
+        ? "Protégete de estafas y aprende a mantener seguros tus activos digitales."
+        : "Protect yourself from scams and learn to keep your digital assets safe.",
+    duration: "50 min",
+    difficulty: "beginner" as const,
+    isFree: true,
+  };
+
   return (
     <div className="min-h-screen bg-slate-950">
+      <JsonLd lng={lng} url={`/${lng}/learn/safety`} course={courseData} />
       <MainNav lng={lng} />
 
       {/* Hero */}

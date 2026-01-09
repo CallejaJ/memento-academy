@@ -6,6 +6,7 @@ import Link from "next/link";
 import { CourseContentList } from "@/components/course/course-content-list";
 import { getCourseContent } from "@/actions/course";
 import { getSession } from "@/lib/server-auth";
+import { JsonLd } from "@/components/json-ld";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -114,8 +115,21 @@ export default async function Web3BasicsPage({
 
   const t = translations[lng as keyof typeof translations] || translations.en;
 
+  // Course data for JSON-LD
+  const courseData = {
+    name: lng === "es" ? "Fundamentos de Web3" : "What is Web3?",
+    description:
+      lng === "es"
+        ? "La guía definitiva para entender Web3 y blockchain. DeFi, NFTs y más."
+        : "The definitive guide to understanding Web3 and blockchain. DeFi, NFTs and more.",
+    duration: "45 min",
+    difficulty: "beginner" as const,
+    isFree: true,
+  };
+
   return (
     <div className="min-h-screen bg-slate-950">
+      <JsonLd lng={lng} url={`/${lng}/learn/web3-basics`} course={courseData} />
       <MainNav lng={lng} />
 
       {/* Hero Section */}

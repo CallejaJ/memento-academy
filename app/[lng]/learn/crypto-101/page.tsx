@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { CourseContentList } from "@/components/course/course-content-list";
 import { getCourseContent } from "@/actions/course";
 import { getSession } from "@/lib/server-auth";
+import { JsonLd } from "@/components/json-ld";
 import type { Metadata } from "next";
 
 // Generate metadata for SEO
@@ -116,8 +117,21 @@ export default async function Crypto101Page({
 
   const t = translations[lng as keyof typeof translations] || translations.en;
 
+  // Course metadata for JSON-LD
+  const courseData = {
+    name: lng === "es" ? "Cripto 101" : "Crypto 101",
+    description:
+      lng === "es"
+        ? "Todo lo que necesitas saber sobre criptomonedas. Bitcoin, Ethereum, wallets, seguridad y trading básico."
+        : "Everything you need to know about cryptocurrencies. Bitcoin, Ethereum, wallets, security, and trading basics.",
+    duration: "60 min",
+    difficulty: "beginner" as const,
+    isFree: true,
+  };
+
   return (
     <div className="min-h-screen bg-slate-950">
+      <JsonLd lng={lng} url={`/${lng}/learn/crypto-101`} course={courseData} />
       <MainNav lng={lng} />
 
       {/* Hero Section */}
