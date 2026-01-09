@@ -788,6 +788,22 @@ export function CourseSection({
                   </div>
                 )}
 
+                {/* diagram block (image based) */}
+                {content.diagram && (
+                  <div className="bg-slate-800/40 p-4 rounded-lg border border-slate-700/50">
+                    <h4 className="font-semibold text-white mb-4">
+                      {content.diagram.title}
+                    </h4>
+                    <div className="rounded-xl overflow-hidden border border-slate-700 shadow-lg">
+                      <img
+                        src={content.diagram.src}
+                        alt={content.diagram.alt || "Diagram"}
+                        className="w-full h-auto object-cover hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                  </div>
+                )}
+
                 {/* example block (list) */}
                 {content.example && (
                   <div className="bg-slate-800/40 p-4 rounded-lg">

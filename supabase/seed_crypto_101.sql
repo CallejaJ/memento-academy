@@ -124,7 +124,7 @@ VALUES
     "en": {
       "p1": "A crypto wallet doesnt actually store your crypto—it stores the private keys that prove you own it. Think of it like a keychain to your digital safe.",
       "wallet_scale": {
-        "title": "🌡️ Wallet Temperature Scale",
+        "title": "Wallet Temperature Scale",
         "hot": { "label": "HOT (Online)", "desc": "Convenient, Fast, Lower Security", "color": "bg-red-500" },
         "cold": { "label": "COLD (Offline)", "desc": "Secure, Slower, Maximum Safety", "color": "bg-blue-500" }
       },
@@ -149,7 +149,7 @@ VALUES
     "es": {
       "p1": "Una wallet crypto no almacena realmente tu crypto—almacena las claves privadas que prueban que lo posees. Piénsalo como un llavero de tu caja fuerte digital.",
       "wallet_scale": {
-        "title": "🌡️ Escala de Temperatura de Wallets",
+        "title": "Escala de Temperatura de Wallets",
         "hot": { "label": "CALIENTE (Online)", "desc": "Conveniente, Rápido, Menor Seguridad", "color": "bg-red-500" },
         "cold": { "label": "FRÍA (Offline)", "desc": "Seguro, Más Lento, Máxima Seguridad", "color": "bg-blue-500" }
       },
@@ -188,7 +188,7 @@ VALUES
     "en": {
       "p1": "Security is everything in crypto. Lose your keys, lose your money. There is no customer support to call.",
       "components": {
-        "title": "🔐 Security Fundamentals",
+        "title": "Security Fundamentals",
         "items": [
           {"title": "Private Key", "desc": "Like a password, but you can NEVER change it. Never share it."},
           {"title": "Seed Phrase", "desc": "12-24 words that can recover your entire wallet. Write on paper, not digital."},
@@ -209,7 +209,7 @@ VALUES
     "es": {
       "p1": "La seguridad es todo en crypto. Pierdes tus claves, pierdes tu dinero. No hay servicio al cliente para llamar.",
       "components": {
-        "title": "🔐 Fundamentos de Seguridad",
+        "title": "Fundamentos de Seguridad",
         "items": [
           {"title": "Clave Privada", "desc": "Como una contraseña, pero NUNCA puedes cambiarla. Nunca la compartas."},
           {"title": "Frase Semilla", "desc": "12-24 palabras que pueden recuperar toda tu wallet. Escríbela en papel, no digital."},
@@ -244,7 +244,7 @@ VALUES
     "en": {
       "p1": "Ready to start? Here is a step-by-step guide to safely enter the crypto world.",
       "components": {
-        "title": "📋 Your First Week in Crypto",
+        "title": "Your First Week in Crypto",
         "items": [
           {"title": "Day 1-2", "desc": "Install MetaMask, secure your seed phrase on paper"},
           {"title": "Day 3-4", "desc": "Create account on a trusted exchange (Coinbase, Kraken)"},
@@ -265,7 +265,7 @@ VALUES
     "es": {
       "p1": "¿Listo para empezar? Aquí tienes una guía paso a paso para entrar seguro al mundo crypto.",
       "components": {
-        "title": "📋 Tu Primera Semana en Crypto",
+        "title": "Tu Primera Semana en Crypto",
         "items": [
           {"title": "Día 1-2", "desc": "Instala MetaMask, asegura tu frase semilla en papel"},
           {"title": "Día 3-4", "desc": "Crea cuenta en un exchange confiable (Coinbase, Kraken)"},
@@ -300,7 +300,7 @@ VALUES
     "en": {
       "p1": "There are many ways to buy crypto, but exchanges are the most common for beginners.",
       "components": {
-        "title": "🏦 Popular Exchanges",
+        "title": "Popular Exchanges",
         "items": [
           {"title": "Coinbase", "desc": "Beginner-friendly, higher fees, great UI"},
           {"title": "Kraken", "desc": "Lower fees, good security, US-friendly"},
@@ -321,7 +321,7 @@ VALUES
     "es": {
       "p1": "Hay muchas formas de comprar crypto, pero los exchanges son las más comunes para principiantes.",
       "components": {
-        "title": "🏦 Exchanges Populares",
+        "title": "Exchanges Populares",
         "items": [
           {"title": "Coinbase", "desc": "Amigable para principiantes, tarifas más altas, gran UI"},
           {"title": "Kraken", "desc": "Tarifas más bajas, buena seguridad, amigable con EE.UU."},
@@ -356,7 +356,7 @@ VALUES
     "en": {
       "p1": "Understanding basic order types and strategies will help you make smarter decisions.",
       "components": {
-        "title": "📈 Order Types",
+        "title": "Order Types",
         "items": [
           {"title": "Market Order", "desc": "Buy/sell immediately at current price. Simple but can slip."},
           {"title": "Limit Order", "desc": "Set your price. Only executes if market reaches it."},
@@ -365,7 +365,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "🎯 Beginner Strategies",
+        "title": "Beginner Strategies",
         "list": [
           "**HODL**: Buy and hold long-term, ignore short-term volatility",
           "**DCA**: Invest fixed amount weekly/monthly, removes emotion",
@@ -377,7 +377,7 @@ VALUES
     "es": {
       "p1": "Entender los tipos de órdenes básicos y estrategias te ayudará a tomar decisiones más inteligentes.",
       "components": {
-        "title": "📈 Tipos de Órdenes",
+        "title": "Tipos de Órdenes",
         "items": [
           {"title": "Orden de Mercado", "desc": "Compra/vende inmediatamente al precio actual. Simple pero puede deslizar."},
           {"title": "Orden Límite", "desc": "Estableces tu precio. Solo se ejecuta si el mercado lo alcanza."},
@@ -386,7 +386,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "🎯 Estrategias para Principiantes",
+        "title": "Estrategias para Principiantes",
         "list": [
           "**HODL**: Compra y mantén a largo plazo, ignora volatilidad corta",
           "**DCA**: Invierte cantidad fija semanal/mensual, elimina emoción",
@@ -420,7 +420,7 @@ VALUES
         ]
       },
       "components": {
-        "title": "🎯 Portfolio Allocation Ideas",
+        "title": "Portfolio Allocation Ideas",
         "items": [
           {"title": "Conservative", "desc": "70% BTC, 20% ETH, 10% stablecoins"},
           {"title": "Balanced", "desc": "50% BTC, 30% ETH, 15% alts, 5% stables"},
@@ -449,7 +449,7 @@ VALUES
         ]
       },
       "components": {
-        "title": "🎯 Ideas de Asignación de Portafolio",
+        "title": "Ideas de Asignación de Portafolio",
         "items": [
           {"title": "Conservador", "desc": "70% BTC, 20% ETH, 10% stablecoins"},
           {"title": "Balanceado", "desc": "50% BTC, 30% ETH, 15% alts, 5% stables"},
@@ -484,7 +484,7 @@ VALUES
     "en": {
       "p1": "Got questions? We have got answers! Here are the things people ask us most often when starting out with crypto.",
       "faqs": {
-        "title": "❓ Your Questions Answered",
+        "title": "Your Questions Answered",
         "items": [
           {"title": "How much money do I need to start?", "desc": "As little as $10! Seriously, you dont need thousands to begin. Start small, learn the ropes, and grow from there."},
           {"title": "Is crypto legal?", "desc": "In most countries, absolutely yes. But rules vary by location, so do a quick check on your local regulations. Better safe than sorry!"},
@@ -502,7 +502,7 @@ VALUES
     "es": {
       "p1": "¿Tienes preguntas? ¡Tenemos respuestas! Aquí están las cosas que la gente nos pregunta más cuando empiezan con crypto.",
       "faqs": {
-        "title": "❓ Tus Preguntas Respondidas",
+        "title": "Tus Preguntas Respondidas",
         "items": [
           {"title": "¿Cuánto dinero necesito para empezar?", "desc": "¡Tan poco como $10! En serio, no necesitas miles para comenzar. Empieza pequeño, aprende cómo funciona, y crece desde ahí."},
           {"title": "¿Es legal el crypto?", "desc": "En la mayoría de países, absolutamente sí. Pero las reglas varían por ubicación, así que revisa tus regulaciones locales. ¡Más vale prevenir!"},

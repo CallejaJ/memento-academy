@@ -17,13 +17,10 @@ VALUES
   '{
     "en": {
       "p1": "The internet has evolved through three major phases, each transforming how we interact with digital content and each other.",
-      "web_eras": {
+      "diagram": {
         "title": "The Web Evolution",
-        "eras": [
-          { "year": "1990s", "name": "Web 1.0", "badge": "Read-Only", "desc": "Static pages. Company creates, you read. Like a digital magazine.", "color": "bg-slate-700" },
-          { "year": "2005+", "name": "Web 2.0", "badge": "Read-Write", "desc": "Social Media. You create content, but platforms own it.", "color": "bg-blue-600" },
-          { "year": "2020+", "name": "Web 3.0", "badge": "Read-Write-Own", "desc": "Decentralized. You create and truly own your digital assets.", "color": "bg-emerald-600" }
-        ]
+        "src": "/images/diagrams/web-evolution.png",
+        "alt": "Web 1.0 vs Web 2.0 vs Web 3.0 Evolution Diagram"
       },
       "comparison": {
         "title": "Key Differences",
@@ -37,13 +34,10 @@ VALUES
     },
     "es": {
       "p1": "Internet ha evolucionado a través de tres fases principales, cada una transformando cómo interactuamos con el contenido digital.",
-      "web_eras": {
+      "diagram": {
         "title": "Evolución de la Web",
-        "eras": [
-          { "year": "1990s", "name": "Web 1.0", "badge": "Solo Lectura", "desc": "Páginas estáticas. La empresa crea, tú lees. Como una revista digital.", "color": "bg-slate-700" },
-          { "year": "2005+", "name": "Web 2.0", "badge": "Lectura-Escritura", "desc": "Redes Sociales. Tú creas contenido, pero las plataformas lo poseen.", "color": "bg-blue-600" },
-          { "year": "2020+", "name": "Web 3.0", "badge": "Lectura-Escritura-Propiedad", "desc": "Descentralizado. Tú creas y realmente posees tus activos digitales.", "color": "bg-emerald-600" }
-        ]
+        "src": "/images/diagrams/web-evolution-es.png",
+        "alt": "Diagrama de Evolución de Web 1.0 a Web 3.0"
       },
       "comparison": {
         "title": "Diferencias Clave",
@@ -76,10 +70,10 @@ VALUES
   '{
     "en": {
       "p1": "Imagine a giant ledger that everyone can see, but no one can modify once written. That is **blockchain**: a public, transparent, and immutable record of all transactions.",
-      "network_diagram": {
+      "diagram": {
         "title": "Centralized vs Decentralized",
-        "centralized": { "label": "Centralized (Web2)", "desc": "One central server controls all data. Single point of failure." },
-        "decentralized": { "label": "Decentralized (Web3)", "desc": "Thousands of nodes share the record. Unstoppable." }
+        "src": "/images/diagrams/centralized-vs-decentralized.png",
+        "alt": "Centralized Web2 vs Decentralized Web3 Network Comparison"
       },
       "components": {
         "title": "Core Components",
@@ -101,10 +95,10 @@ VALUES
     },
     "es": {
       "p1": "Imagina un libro de contabilidad gigante que todos pueden ver, pero nadie puede modificar una vez escrito. Eso es **blockchain**: un registro público, transparente e inmutable de todas las transacciones.",
-      "network_diagram": {
+      "diagram": {
         "title": "Centralizado vs Descentralizado",
-        "centralized": { "label": "Centralizado (Web2)", "desc": "Un servidor central controla todo. Punto único de fallo." },
-        "decentralized": { "label": "Descentralizado (Web3)", "desc": "Miles de nodos comparten el registro. Imparable." }
+        "src": "/images/diagrams/centralized-vs-decentralized-es.png",
+        "alt": "Comparación de Red Centralizada Web2 vs Descentralizada Web3"
       },
       "components": {
         "title": "Componentes Principales",
@@ -333,7 +327,7 @@ VALUES
     "en": {
       "p1": "Web3 is not just for tech enthusiasts—it offers tangible benefits for everyone.",
       "benefits": {
-        "title": "✅ Key Benefits",
+        "title": "Key Benefits",
         "items": [
           {"title": "Control Your Data", "desc": "You decide who accesses your personal information"},
           {"title": "Censorship Resistance", "desc": "Content and money that cannot be blocked by third parties"},
@@ -342,7 +336,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "💼 Career Opportunities",
+        "title": "Career Opportunities",
         "list": [
           "**Developers:** $150-300k salaries for blockchain devs",
           "**Designers:** NFT art and Web3 UX design",
@@ -354,7 +348,7 @@ VALUES
     "es": {
       "p1": "Web3 no es solo para entusiastas de la tecnología—ofrece beneficios tangibles para todos.",
       "benefits": {
-        "title": "✅ Beneficios Clave",
+        "title": "Beneficios Clave",
         "items": [
           {"title": "Controla Tus Datos", "desc": "Tú decides quién accede a tu información personal"},
           {"title": "Resistencia a Censura", "desc": "Contenido y dinero que no puede ser bloqueado por terceros"},
@@ -363,7 +357,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "💼 Oportunidades de Carrera",
+        "title": "Oportunidades de Carrera",
         "list": [
           "**Desarrolladores:** Salarios de $150-300k para devs blockchain",
           "**Diseñadores:** Arte NFT y diseño UX Web3",
@@ -394,7 +388,7 @@ VALUES
     "en": {
       "p1": "Web3 is still in its early stages. Here is what experts predict for the next decade.",
       "trends": {
-        "title": "🚀 Emerging Trends",
+        "title": "Emerging Trends",
         "items": [
           {"title": "AI + Blockchain", "desc": "AI agents with their own wallets and economic activity"},
           {"title": "Tokenized Assets", "desc": "Real estate, stocks, and art as blockchain tokens"},
@@ -403,7 +397,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "🔮 Predictions for 2030",
+        "title": "Predictions for 2030",
         "list": [
           "**$10+ trillion** in tokenized real-world assets",
           "**1 billion+** crypto wallet users globally",
@@ -415,7 +409,7 @@ VALUES
     "es": {
       "p1": "Web3 está todavía en sus primeras etapas. Esto es lo que predicen los expertos para la próxima década.",
       "trends": {
-        "title": "🚀 Tendencias Emergentes",
+        "title": "Tendencias Emergentes",
         "items": [
           {"title": "IA + Blockchain", "desc": "Agentes de IA con sus propias billeteras y actividad económica"},
           {"title": "Activos Tokenizados", "desc": "Inmuebles, acciones y arte como tokens blockchain"},
@@ -424,7 +418,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "🔮 Predicciones para 2030",
+        "title": "Predicciones para 2030",
         "list": [
           "**$10+ billones** en activos reales tokenizados",
           "**1 billón+** de usuarios de billeteras crypto globalmente",
@@ -455,7 +449,7 @@ VALUES
     "en": {
       "p1": "Got questions? Here are the most common ones we receive about Web3.",
       "faqs": {
-        "title": "❓ FAQs",
+        "title": "FAQs",
         "items": [
           {"title": "Is Web3 the same as crypto?", "desc": "No. Crypto is the financial layer, Web3 is the broader vision of a decentralized internet."},
           {"title": "Do I need coding skills?", "desc": "No. You can use Web3 apps just like regular apps. Coding is only needed to build them."},
@@ -469,7 +463,7 @@ VALUES
     "es": {
       "p1": "¿Tienes preguntas? Aquí están las más comunes que recibimos sobre Web3.",
       "faqs": {
-        "title": "❓ Preguntas Frecuentes",
+        "title": "Preguntas Frecuentes",
         "items": [
           {"title": "¿Web3 es lo mismo que crypto?", "desc": "No. Crypto es la capa financiera, Web3 es la visión más amplia de un internet descentralizado."},
           {"title": "¿Necesito saber programar?", "desc": "No. Puedes usar apps Web3 como apps normales. Programar solo es necesario para crearlas."},
