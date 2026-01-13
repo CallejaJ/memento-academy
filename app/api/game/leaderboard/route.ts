@@ -1,15 +1,22 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
+import { Database } from "@/types/supabase";
+import { PostgrestError } from "@supabase/supabase-js";
+
+type LeaderboardRow = Database["public"]["Views"]["game_leaderboard"]["Row"];
 
 export async function GET() {
   try {
     const supabase = await createClient();
 
     // Get leaderboard from view
-    const { data: leaderboard, error } = await supabase
+    const { data: leaderboard, error } = (await supabase
       .from("game_leaderboard")
       .select("*")
-      .limit(100);
+      .limit(100)) as {
+      data: LeaderboardRow[] | null;
+      error: PostgrestError | null;
+    };
 
     if (error) {
       console.error("Leaderboard error:", error);
