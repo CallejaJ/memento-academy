@@ -371,7 +371,17 @@ export interface Database {
       };
     };
     Views: {
-      [_ in never]: never;
+      game_leaderboard: {
+        Row: {
+          user_id: string;
+          email: string | null;
+          wallet_address: string | null;
+          games_played: number;
+          total_score: number;
+          best_score: number;
+          avg_score: number;
+        };
+      };
     };
     Functions: {
       [_ in never]: never;

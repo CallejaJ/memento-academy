@@ -104,12 +104,12 @@ export function RecommendedCourses({
                   <Badge
                     variant="outline"
                     className={
-                      course.premium
+                      course.isPremium
                         ? "border-amber-500/30 text-amber-400"
                         : "border-emerald-500/30 text-emerald-400"
                     }
                   >
-                    {course.premium ? t.premium : t.free}
+                    {course.isPremium ? t.premium : t.free}
                   </Badge>
                 </div>
 
