@@ -190,49 +190,48 @@ export function QuizModal({
                   className="space-y-3 pl-8"
                 >
                   {
-                    /* Fix for localized options: use getLoc to extract the array */
-                    (Array.isArray(getLoc(q.options))
-                      ? getLoc(q.options)
-                      : []
-                    ).map((opt: any, optIdx: number) => {
-                      // Check if this option was selected and if it was right/wrong
-                      // Note: Front-end doesn't know which is correct unless validated.
-                      // But we can highlight the selected one green/red if we have feedback.
+                    /* Fix mapping: q.options is an array of localized objects */
+                    (Array.isArray(q.options) ? q.options : []).map(
+                      (opt: any, optIdx: number) => {
+                        // Check if this option was selected and if it was right/wrong
+                        // Note: Front-end doesn't know which is correct unless validated.
+                        // But we can highlight the selected one green/red if we have feedback.
 
-                      let itemClass =
-                        "border-slate-700 bg-slate-800/50 hover:bg-slate-800";
+                        let itemClass =
+                          "border-slate-700 bg-slate-800/50 hover:bg-slate-800";
 
-                      if (result) {
-                        const selected = answers[q.id] === optIdx;
-                        if (selected) {
-                          if (isCorrect)
-                            itemClass =
-                              "border-green-500 bg-green-500/10 text-green-400";
-                          else
-                            itemClass =
-                              "border-red-500 bg-red-500/10 text-red-400";
+                        if (result) {
+                          const selected = answers[q.id] === optIdx;
+                          if (selected) {
+                            if (isCorrect)
+                              itemClass =
+                                "border-green-500 bg-green-500/10 text-green-400";
+                            else
+                              itemClass =
+                                "border-red-500 bg-red-500/10 text-red-400";
+                          }
                         }
-                      }
 
-                      return (
-                        <div
-                          key={optIdx}
-                          className={`flex items-center space-x-3 rounded-lg border p-3 transition-all ${itemClass}`}
-                        >
-                          <RadioGroupItem
-                            value={optIdx.toString()}
-                            id={`q-${q.id}-opt-${optIdx}`}
-                            className="border-slate-500 text-violet-500"
-                          />
-                          <Label
-                            htmlFor={`q-${q.id}-opt-${optIdx}`}
-                            className="flex-grow cursor-pointer"
+                        return (
+                          <div
+                            key={optIdx}
+                            className={`flex items-center space-x-3 rounded-lg border p-3 transition-all ${itemClass}`}
                           >
-                            {getLoc(opt)}
-                          </Label>
-                        </div>
-                      );
-                    })
+                            <RadioGroupItem
+                              value={optIdx.toString()}
+                              id={`q-${q.id}-opt-${optIdx}`}
+                              className="border-slate-500 text-violet-500"
+                            />
+                            <Label
+                              htmlFor={`q-${q.id}-opt-${optIdx}`}
+                              className="flex-grow cursor-pointer"
+                            >
+                              {getLoc(opt)}
+                            </Label>
+                          </div>
+                        );
+                      }
+                    )
                   }
                 </RadioGroup>
 

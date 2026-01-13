@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/auth-context";
 import { sendPasswordResetEmail } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
@@ -93,6 +93,12 @@ export function AuthModal({
   lng = "en",
 }: AuthModalProps) {
   const [mode, setMode] = useState<AuthMode>(defaultMode);
+
+  useEffect(() => {
+    if (isOpen) {
+      setMode(defaultMode);
+    }
+  }, [isOpen, defaultMode]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fax, setFax] = useState(""); // Honeypot field
