@@ -146,5 +146,207 @@
     "path_3_desc": "DeFi y NFTs (Premium)",
     "path_4_title": "Conviértete en Pro",
     "path_4_desc": "Desarrollo Blockchain"
+  },
+  "about_page": {
+    "badge": "🎓 Sobre Memento Academy",
+    "title": "Nuestra",
+    "title_highlight": "Misión",
+    "subtitle": "Empoderando a todos para entender y navegar la revolución financiera digital.",
+    "why_exist_title": "Por Qué Existimos",
+    "why_exist_p1": "El mundo de las criptomonedas, blockchain y CBDCs puede ser abrumador. Jerga compleja, información contradictoria y \"gurús\" depredadores dificultan que los recién llegados aprendan de forma segura.",
+    "why_exist_p2_strong": "Memento Academy fue creada para cambiar eso.",
+    "why_exist_p2": "Creemos que entender las finanzas digitales no debería requerir un título en informática ni cursos costosos.",
+    "values_title": "Nuestros Valores Fundamentales",
+    "values": {
+      "free": {
+        "title": "Educación 100% Gratuita",
+        "desc": "Todos nuestros cursos, guías y recursos son completamente gratis. Sin costos ocultos, sin niveles premium, sin muros de pago."
+      },
+      "beginner": {
+        "title": "Enfoque para Principiantes",
+        "desc": "Explicamos todo asumiendo cero conocimiento previo. Sin jerga, sin exclusión."
+      },
+      "noscam": {
+        "title": "Sin Promociones, Sin Estafas",
+        "desc": "Nunca promocionamos criptomonedas específicas ni damos consejos de inversión. Nuestro objetivo es educar, no vender."
+      },
+      "global": {
+        "title": "Global y Accesible",
+        "desc": "El conocimiento no debería tener fronteras. Trabajamos para que nuestro contenido esté disponible en múltiples idiomas."
+      }
+    },
+    "community_title": "Nuestra Comunidad",
+    "stats": {
+      "members": "Miembros de la Comunidad",
+      "free": "Contenido Gratuito",
+      "fees": "Costos Ocultos"
+    },
+    "help_title": "¿Quieres Ayudar?",
+    "help_desc": "Memento Academy es un proyecto comunitario. Damos la bienvenida a contribuciones de muchas formas: escribir guías, traducir contenido, ayudar a los recién llegados en Discord, o difundir la palabra.",
+    "help_btn": "Aprende Cómo Contribuir",
+    "cta_title": "Comienza Tu Viaje Hoy",
+    "cta_desc": "Únete a nuestra comunidad y empieza a aprender gratis.",
+    "cta_courses": "Explorar Cursos",
+    "cta_newsletter": "Únete al Boletín"
+  },
+  "knowledge_base_page": {
+    "badge": "❓ Centro de Ayuda",
+    "title": "Base de",
+    "title_highlight": "Conocimiento",
+    "subtitle": "Encuentra respuestas rápidas a las preguntas más comunes sobre Web3, cripto y finanzas digitales.",
+    "categories": {
+      "web3": {
+        "title": "Web3 y Blockchain",
+        "q1": "¿Cuál es la diferencia entre Web2 y Web3?",
+        "a1": "Web2 es el internet actual donde las plataformas poseen tus datos (Facebook, Google). Web3 es el internet descentralizado donde tú posees tus datos, identidad y activos a través de la tecnología blockchain.",
+        "q2": "¿Necesito ser técnico para entender Web3?",
+        "a2": "¡Para nada! Nuestros cursos están diseñados para principiantes absolutos. Explicamos todo en términos simples sin requerir ningún conocimiento técnico previo.",
+        "q3": "¿Es blockchain lo mismo que criptomoneda?",
+        "a3": "No. Blockchain es la tecnología (un libro de contabilidad descentralizado), mientras que la criptomoneda es una aplicación de esa tecnología (dinero digital). Blockchain puede usarse para muchas cosas más allá de las monedas."
+      },
+      "crypto": {
+        "title": "Criptomonedas",
+        "q1": "¿Es legal la criptomoneda?",
+        "a1": "En la mayoría de los países, sí. Sin embargo, las regulaciones varían. Algunos países la han prohibido, mientras otros la han aceptado. Siempre verifica las leyes locales.",
+        "q2": "¿Cómo compro mi primera criptomoneda?",
+        "a2": "Puedes usar exchanges como Coinbase o Binance. Crea una cuenta, verifica tu identidad y compra con transferencia bancaria o tarjeta. Empieza con cantidades pequeñas mientras aprendes.",
+        "q3": "¿Qué es una wallet y necesito una?",
+        "a3": "Una wallet almacena tu criptomoneda. Para principiantes, las wallets de los exchanges están bien. A medida que aprendas más, puede que quieras una wallet personal como MetaMask (caliente) o Ledger (fría) para mayor seguridad."
+      },
+      "cbdc": {
+        "title": "CBDCs",
+        "q1": "¿Cuándo se lanzará el Euro Digital?",
+        "a1": "El Banco Central Europeo apunta a 2027-2028 para un posible lanzamiento. Actualmente está en la 'fase de preparación' después de completar la fase de investigación en 2023.",
+        "q2": "¿Las CBDCs reemplazarán el efectivo?",
+        "a2": "Los bancos centrales afirman que las CBDCs complementarán el efectivo, no lo reemplazarán. Sin embargo, muchos defensores de la privacidad están preocupados de que esto podría llevar eventualmente a una sociedad sin efectivo.",
+        "q3": "¿Son las CBDCs como Bitcoin?",
+        "a3": "No. Las CBDCs están controladas centralmente por gobiernos, mientras que Bitcoin es descentralizado sin autoridad central. Las CBDCs pueden ser censuradas y monitoreadas; las transacciones de Bitcoin son pseudónimas."
+      },
+      "security": {
+        "title": "Seguridad",
+        "q1": "¿Cómo detecto una estafa cripto?",
+        "a1": "Señales de alerta: promesas de rendimientos garantizados, presión para actuar rápido, solicitudes de tu frase semilla, ofertas no solicitadas y proyectos con equipos anónimos. Si suena demasiado bueno para ser verdad, lo es.",
+        "q2": "¿Qué debo hacer si me han estafado?",
+        "a2": "Desafortunadamente, las transacciones blockchain son irreversibles. Documenta todo, reporta a las autoridades y a la plataforma involucrada, y advierte a otros para prevenir más víctimas.",
+        "q3": "¿Es seguro mantener cripto en un exchange?",
+        "a3": "Para principiantes con cantidades pequeñas, es conveniente. Pero 'si no son tus llaves, no es tu cripto' - para cantidades mayores, usa una wallet personal donde controles las llaves privadas."
+      }
+    },
+    "still_questions_title": "¿Aún Tienes Preguntas?",
+    "still_questions_desc": "¿No encuentras lo que buscas? Únete a nuestro Discord comunitario donde nuestro equipo y otros estudiantes pueden ayudarte.",
+    "contact_btn": "Contáctanos",
+    "learn_btn": "Empezar a Aprender"
+  },
+  "contribute_page": {
+    "badge": "🤝 Únete al Movimiento",
+    "title": "Contribuir",
+    "subtitle": "Memento Academy es un proyecto comunitario. Hay muchas formas de ayudar a democratizar la educación Web3.",
+    "ways_title": "Formas de Contribuir",
+    "contributions": {
+      "write": {
+        "title": "Escribir Contenido",
+        "desc": "Ayúdanos a crear guías, tutoriales y explicaciones para principiantes. Comparte tu conocimiento en un lenguaje accesible.",
+        "req1": "Comprensión de temas Web3/cripto",
+        "req2": "Capacidad de explicar conceptos complejos de forma simple",
+        "req3": "Habilidades de escritura en español o inglés"
+      },
+      "translate": {
+        "title": "Traducir",
+        "desc": "Ayúdanos a llegar a más personas traduciendo contenido a tu idioma nativo.",
+        "req1": "Fluidez en inglés + otro idioma",
+        "req2": "Comprensión de terminología cripto",
+        "req3": "Atención al detalle"
+      },
+      "community": {
+        "title": "Soporte Comunitario",
+        "desc": "Ayuda a los recién llegados en nuestro Discord, responde preguntas y crea un ambiente acogedor.",
+        "req1": "Conocimiento básico de Web3/cripto",
+        "req2": "Paciencia y empatía",
+        "req3": "Disponibilidad de unas horas por semana"
+      },
+      "spread": {
+        "title": "Difundir la Palabra",
+        "desc": "Comparte nuestro contenido en redes sociales, foros y con amigos curiosos sobre cripto.",
+        "req1": "Presencia en redes sociales",
+        "req2": "Creencia genuina en nuestra misión",
+        "req3": "¡No se necesitan habilidades especiales!"
+      },
+      "dev": {
+        "title": "Desarrollo",
+        "desc": "Contribuye a nuestra plataforma de código abierto. Usamos Next.js, React y Tailwind CSS.",
+        "req1": "Experiencia en React/Next.js",
+        "req2": "Conocimiento de Git/GitHub",
+        "req3": "Interés en tecnología educativa"
+      },
+      "donate": {
+        "title": "Donar",
+        "desc": "Ayuda a mantener nuestros servidores funcionando y el contenido gratis. Cada contribución ayuda.",
+        "req1": "¡Sin requisitos!",
+        "req2": "Cualquier cantidad ayuda",
+        "req3": "100% va a operaciones"
+      }
+    },
+    "requirements_label": "Lo que buscamos:",
+    "how_to_title": "Cómo Empezar",
+    "step1_title": "Únete a nuestro Discord",
+    "step1_desc": "Preséntate en el canal #contributors y cuéntanos cómo te gustaría ayudar.",
+    "step2_title": "Elige una tarea",
+    "step2_desc": "Revisa nuestro tablero de tareas para elementos abiertos o propón algo nuevo basado en tus habilidades.",
+    "step3_title": "Comienza a contribuir",
+    "step3_desc": "Trabaja en tu contribución y envíala para revisión. Te daremos retroalimentación y orientación.",
+    "ready_title": "¿Listo para Marcar la Diferencia?",
+    "ready_desc": "Cada contribución, sin importar cuán pequeña, ayuda a alguien a entender cripto y Web3 un poco mejor.",
+    "contact_btn": "Ponte en Contacto",
+    "github_btn": "Ver GitHub"
+  },
+  "contact_page": {
+    "badge": "💬 Contáctanos",
+    "title": "Contáctanos",
+    "title_end": "",
+    "subtitle": "¿Tienes preguntas, sugerencias o quieres colaborar? Nos encantaría saber de ti.",
+    "discord": {
+      "title": "Comunidad Discord",
+      "desc": "Únete a nuestro Discord para soporte en tiempo real, discusiones y eventos comunitarios.",
+      "btn": "Unirse a Discord"
+    },
+    "email": {
+      "title": "Email Directo",
+      "desc": "¿Prefieres email? Haz clic abajo para abrir tu cliente de correo.",
+      "btn": "Enviar Email"
+    },
+    "form": {
+      "title": "Envíanos un Mensaje",
+      "desc": "Completa el formulario y te responderemos directamente a tu email.",
+      "name": "Nombre",
+      "name_placeholder": "Juan García",
+      "email": "Email",
+      "email_placeholder": "juan@ejemplo.com",
+      "subject": "Asunto",
+      "subject_placeholder": "¿Cómo podemos ayudarte?",
+      "message": "Mensaje",
+      "message_placeholder": "Cuéntanos más sobre tu consulta...",
+      "submit": "Enviar Mensaje",
+      "sending": "Enviando...",
+      "success_title": "Mensaje enviado correctamente",
+      "success_desc": "Hemos recibido tu mensaje y te responderemos pronto.",
+      "back_to_form": "← Volver al formulario",
+      "error": "Error: Algo salió mal. Por favor, inténtalo de nuevo más tarde.",
+      "validation": {
+        "name_min": "El nombre debe tener al menos 2 caracteres",
+        "email_invalid": "Dirección de email inválida",
+        "subject_min": "El asunto debe tener al menos 5 caracteres",
+        "message_min": "El mensaje debe tener al menos 10 caracteres"
+      }
+    },
+    "follow_us": "Síguenos",
+    "response_times": {
+      "title": "Tiempos de Respuesta",
+      "discord": "Discord:",
+      "discord_time": "Normalmente en minutos durante horas activas",
+      "email": "Email:",
+      "email_time": "Entre 24-48 horas hábiles",
+      "github": "GitHub Issues:",
+      "github_time": "Dentro de 1 semana para solicitudes, más rápido para bugs"
+    }
   }
 }

@@ -56,7 +56,7 @@ VALUES
     "en": {
       "p1": "The biggest debate surrounding CBDCs is about **programmability**. Since CBDCs are code, the issuer (the Central Bank) can program rules into the money itself.",
       "infographic": {
-        "src": "/images/cbdc_flow_diagram.png",
+        "src": "/images/diagrams/cbdc_flow_diagram.png",
         "alt": "How Programmable Money Works",
         "caption": "CBDC Flow: Central Bank to Your Wallet"
       },
@@ -73,7 +73,7 @@ VALUES
     "es": {
       "p1": "El mayor debate sobre las CBDC gira en torno a la **programabilidad**. Dado que son código, el emisor (Banco Central) puede programar reglas en el dinero mismo.",
       "infographic": {
-        "src": "/images/cbdc_flow_diagram_es.png",
+        "src": "/images/diagrams/cbdc_flow_diagram_es.png",
         "alt": "Cómo Funciona el Dinero Programable",
         "caption": "Flujo CBDC: Banco Central a Tu Wallet"
       },

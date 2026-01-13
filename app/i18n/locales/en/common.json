@@ -146,5 +146,207 @@
     "path_3_desc": "DeFi & NFTs (Premium)",
     "path_4_title": "Become a Pro",
     "path_4_desc": "Blockchain Development"
+  },
+  "about_page": {
+    "badge": "🎓 About Memento Academy",
+    "title": "Our",
+    "title_highlight": "Mission",
+    "subtitle": "Empowering everyone to understand and navigate the digital financial revolution.",
+    "why_exist_title": "Why We Exist",
+    "why_exist_p1": "The world of cryptocurrencies, blockchain, and CBDCs can be overwhelming. Complex jargon, conflicting information, and predatory \"gurus\" make it hard for newcomers to learn safely.",
+    "why_exist_p2_strong": "Memento Academy was created to change that.",
+    "why_exist_p2": "We believe that understanding digital finance shouldn't require a computer science degree or expensive courses.",
+    "values_title": "Our Core Values",
+    "values": {
+      "free": {
+        "title": "100% Free Education",
+        "desc": "All our courses, guides, and resources are completely free. No hidden fees, no premium tiers, no paywalls."
+      },
+      "beginner": {
+        "title": "Beginner-First Approach",
+        "desc": "We explain everything assuming zero prior knowledge. No jargon, no gatekeeping."
+      },
+      "noscam": {
+        "title": "No Shilling, No Scams",
+        "desc": "We never promote specific cryptocurrencies or investment advice. Our goal is education, not sales."
+      },
+      "global": {
+        "title": "Global & Accessible",
+        "desc": "Knowledge should have no borders. We're working to make our content available in multiple languages."
+      }
+    },
+    "community_title": "Our Community",
+    "stats": {
+      "members": "Community Members",
+      "free": "Free Content",
+      "fees": "Hidden Fees"
+    },
+    "help_title": "Want to Help?",
+    "help_desc": "Memento Academy is a community project. We welcome contributions in many forms: writing guides, translating content, helping newcomers in our Discord, or spreading the word.",
+    "help_btn": "Learn How to Contribute",
+    "cta_title": "Start Your Journey Today",
+    "cta_desc": "Join our community and begin learning for free.",
+    "cta_courses": "Explore Courses",
+    "cta_newsletter": "Join Newsletter"
+  },
+  "knowledge_base_page": {
+    "badge": "❓ Help Center",
+    "title": "Knowledge",
+    "title_highlight": "Base",
+    "subtitle": "Find quick answers to the most common questions about Web3, crypto, and digital finance.",
+    "categories": {
+      "web3": {
+        "title": "Web3 & Blockchain",
+        "q1": "What's the difference between Web2 and Web3?",
+        "a1": "Web2 is the current internet where platforms own your data (Facebook, Google). Web3 is the decentralized internet where you own your data, identity, and assets through blockchain technology.",
+        "q2": "Do I need to be technical to understand Web3?",
+        "a2": "Not at all! Our courses are designed for absolute beginners. We explain everything in simple terms without requiring any technical background.",
+        "q3": "Is blockchain the same as cryptocurrency?",
+        "a3": "No. Blockchain is the technology (a decentralized ledger), while cryptocurrency is one application of that technology (digital money). Blockchain can be used for many things beyond currencies."
+      },
+      "crypto": {
+        "title": "Cryptocurrencies",
+        "q1": "Is cryptocurrency legal?",
+        "a1": "In most countries, yes. However, regulations vary. Some countries have banned it, while others have embraced it. Always check your local laws.",
+        "q2": "How do I buy my first cryptocurrency?",
+        "a2": "You can use exchanges like Coinbase or Binance. Create an account, verify your identity, and purchase with bank transfer or card. Start with small amounts while learning.",
+        "q3": "What's a wallet and do I need one?",
+        "a3": "A wallet stores your cryptocurrency. For beginners, exchange wallets are fine. As you learn more, you may want a personal wallet like MetaMask (hot) or Ledger (cold) for better security."
+      },
+      "cbdc": {
+        "title": "CBDCs",
+        "q1": "When will the Digital Euro launch?",
+        "a1": "The European Central Bank is targeting 2027-2028 for a potential launch. It's currently in the 'preparation phase' after completing the investigation phase in 2023.",
+        "q2": "Will CBDCs replace cash?",
+        "a2": "Central banks claim CBDCs will complement cash, not replace it. However, many privacy advocates are concerned this could eventually lead to a cashless society.",
+        "q3": "Are CBDCs like Bitcoin?",
+        "a3": "No. CBDCs are centrally controlled by governments, while Bitcoin is decentralized with no central authority. CBDCs can be censored and monitored; Bitcoin transactions are pseudonymous."
+      },
+      "security": {
+        "title": "Security",
+        "q1": "How do I spot a crypto scam?",
+        "a1": "Red flags: promises of guaranteed returns, pressure to act fast, requests for your seed phrase, unsolicited offers, and projects with anonymous teams. If it sounds too good to be true, it is.",
+        "q2": "What should I do if I've been scammed?",
+        "a2": "Unfortunately, blockchain transactions are irreversible. Document everything, report to authorities and the platform involved, and warn others to prevent more victims.",
+        "q3": "Is it safe to keep crypto on an exchange?",
+        "a3": "For beginners with small amounts, it's convenient. But 'not your keys, not your crypto' - for larger amounts, use a personal wallet where you control the private keys."
+      }
+    },
+    "still_questions_title": "Still Have Questions?",
+    "still_questions_desc": "Can't find what you're looking for? Join our community Discord where our team and fellow learners can help.",
+    "contact_btn": "Contact Us",
+    "learn_btn": "Start Learning"
+  },
+  "contribute_page": {
+    "badge": "🤝 Join the Movement",
+    "title": "Contribute",
+    "subtitle": "Memento Academy is a community project. There are many ways to help democratize Web3 education.",
+    "ways_title": "Ways to Contribute",
+    "contributions": {
+      "write": {
+        "title": "Write Content",
+        "desc": "Help us create guides, tutorials, and explainers for beginners. Share your knowledge in accessible language.",
+        "req1": "Understanding of Web3/crypto topics",
+        "req2": "Ability to explain complex concepts simply",
+        "req3": "English writing skills"
+      },
+      "translate": {
+        "title": "Translate",
+        "desc": "Help us reach more people by translating content into your native language.",
+        "req1": "Fluency in English + another language",
+        "req2": "Understanding of crypto terminology",
+        "req3": "Attention to detail"
+      },
+      "community": {
+        "title": "Community Support",
+        "desc": "Help newcomers in our Discord, answer questions, and create a welcoming environment.",
+        "req1": "Basic Web3/crypto knowledge",
+        "req2": "Patience and empathy",
+        "req3": "Available a few hours per week"
+      },
+      "spread": {
+        "title": "Spread the Word",
+        "desc": "Share our content on social media, forums, and with friends who are curious about crypto.",
+        "req1": "Social media presence",
+        "req2": "Genuine belief in our mission",
+        "req3": "No special skills needed!"
+      },
+      "dev": {
+        "title": "Development",
+        "desc": "Contribute to our open-source platform. We use Next.js, React, and Tailwind CSS.",
+        "req1": "React/Next.js experience",
+        "req2": "Git/GitHub knowledge",
+        "req3": "Interest in education tech"
+      },
+      "donate": {
+        "title": "Donate",
+        "desc": "Help keep our servers running and content free. Every contribution helps.",
+        "req1": "No requirements!",
+        "req2": "Any amount helps",
+        "req3": "100% goes to operations"
+      }
+    },
+    "requirements_label": "What we're looking for:",
+    "how_to_title": "How to Get Started",
+    "step1_title": "Join our Discord",
+    "step1_desc": "Introduce yourself in the #contributors channel and tell us how you'd like to help.",
+    "step2_title": "Pick a task",
+    "step2_desc": "Check our task board for open items or propose something new based on your skills.",
+    "step3_title": "Start contributing",
+    "step3_desc": "Work on your contribution and submit it for review. We'll provide feedback and guidance.",
+    "ready_title": "Ready to Make a Difference?",
+    "ready_desc": "Every contribution, no matter how small, helps someone understand crypto and Web3 a little better.",
+    "contact_btn": "Get in Touch",
+    "github_btn": "View GitHub"
+  },
+  "contact_page": {
+    "badge": "💬 Get in Touch",
+    "title": "Contact",
+    "title_end": "Us",
+    "subtitle": "Have questions, suggestions, or want to collaborate? We'd love to hear from you.",
+    "discord": {
+      "title": "Discord Community",
+      "desc": "Join our Discord for real-time support, discussions, and community events.",
+      "btn": "Join Discord"
+    },
+    "email": {
+      "title": "Direct Email",
+      "desc": "Prefer email? Click below to open your mail client.",
+      "btn": "Send Email"
+    },
+    "form": {
+      "title": "Send us a Message",
+      "desc": "Fill out the form below and we'll get back to you directly to your email.",
+      "name": "Name",
+      "name_placeholder": "John Doe",
+      "email": "Email",
+      "email_placeholder": "john@example.com",
+      "subject": "Subject",
+      "subject_placeholder": "How can we help?",
+      "message": "Message",
+      "message_placeholder": "Tell us more about your inquiry...",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success_title": "Message sent successfully",
+      "success_desc": "We've received your message and will get back to you soon.",
+      "back_to_form": "← Back to form",
+      "error": "Error: Something went wrong. Please try again later.",
+      "validation": {
+        "name_min": "Name must be at least 2 characters",
+        "email_invalid": "Invalid email address",
+        "subject_min": "Subject must be at least 5 characters",
+        "message_min": "Message must be at least 10 characters"
+      }
+    },
+    "follow_us": "Follow Us",
+    "response_times": {
+      "title": "Response Times",
+      "discord": "Discord:",
+      "discord_time": "Usually within minutes during active hours",
+      "email": "Email:",
+      "email_time": "Within 24-48 business hours",
+      "github": "GitHub Issues:",
+      "github_time": "Within 1 week for feature requests, faster for bugs"
+    }
   }
 }

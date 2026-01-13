@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/contexts/auth-context";
 import { AuthModalProvider } from "@/contexts/auth-modal-context";
+import { PrivyProvider } from "@/lib/privy";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "@/components/ui/toaster";
@@ -174,13 +175,15 @@ export default async function RootLayout({
           forcedTheme="dark"
           enableSystem
         >
-          <AuthProvider>
-            <AuthModalProvider>
-              <div className="flex-grow">{children}</div>
-              <SpeedInsights />
-              <Toaster />
-            </AuthModalProvider>
-          </AuthProvider>
+          <PrivyProvider>
+            <AuthProvider>
+              <AuthModalProvider>
+                <div className="flex-grow">{children}</div>
+                <SpeedInsights />
+                <Toaster />
+              </AuthModalProvider>
+            </AuthProvider>
+          </PrivyProvider>
         </ThemeProvider>
       </body>
     </html>

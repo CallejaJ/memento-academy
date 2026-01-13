@@ -18,7 +18,7 @@ VALUES
       "p2": "**NEVER share your seed phrase or private key with ANYONE.**",
       "p3": "No legitimate company, tech support, or expert will ever ask for this information. Anyone who asks is trying to steal from you immediately.",
       "infographic": {
-        "src": "/images/security_layers.png",
+        "src": "/images/schemas/security_layers.png",
         "alt": "Crypto Security Layers",
         "caption": "Your Defense in Depth"
       },
@@ -46,7 +46,7 @@ VALUES
       "p2": "**NUNCA compartas tu frase semilla o clave privada con NADIE.**",
       "p3": "Ninguna compañía legítima, soporte técnico o experto te pedirá jamás esta información. Cualquiera que lo pida está intentando robarte inmediatamente.",
       "infographic": {
-        "src": "/images/security_layers_es.png",
+        "src": "/images/schemas/security_layers_es.png",
         "alt": "Capas de Seguridad Crypto",
         "caption": "Tu Defensa en Profundidad"
       },

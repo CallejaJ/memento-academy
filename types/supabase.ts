@@ -184,6 +184,191 @@ export interface Database {
           },
         ];
       };
+      game_sessions: {
+        Row: {
+          id: string;
+          user_id: string;
+          session_token: string;
+          started_at: string;
+          expires_at: string;
+          finished_at: string | null;
+          score: number;
+          total_questions: number;
+          rewarded: boolean;
+          reward_tx_hash: string | null;
+          reward_signature: string | null;
+          reward_deadline: number | null;
+          ip_address: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          session_token: string;
+          started_at?: string;
+          expires_at?: string;
+          finished_at?: string | null;
+          score?: number;
+          total_questions?: number;
+          rewarded?: boolean;
+          reward_tx_hash?: string | null;
+          reward_signature?: string | null;
+          reward_deadline?: number | null;
+          ip_address?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          session_token?: string;
+          started_at?: string;
+          expires_at?: string;
+          finished_at?: string | null;
+          score?: number;
+          total_questions?: number;
+          rewarded?: boolean;
+          reward_tx_hash?: string | null;
+          reward_signature?: string | null;
+          reward_deadline?: number | null;
+          ip_address?: string | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      game_questions: {
+        Row: {
+          id: string;
+          category: string;
+          difficulty: "easy" | "medium" | "hard";
+          question_text: { [key: string]: string };
+          options: { [key: string]: string }[];
+          correct_index: number;
+          explanation: { [key: string]: string } | null;
+          from_course: string | null;
+          is_active: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          category: string;
+          difficulty?: "easy" | "medium" | "hard";
+          question_text: { [key: string]: string };
+          options: { [key: string]: string }[];
+          correct_index: number;
+          explanation?: { [key: string]: string } | null;
+          from_course?: string | null;
+          is_active?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          category?: string;
+          difficulty?: "easy" | "medium" | "hard";
+          question_text?: { [key: string]: string };
+          options?: { [key: string]: string }[];
+          correct_index?: number;
+          explanation?: { [key: string]: string } | null;
+          from_course?: string | null;
+          is_active?: boolean;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      game_answers: {
+        Row: {
+          id: string;
+          session_id: string;
+          question_id: string;
+          answer_index: number;
+          is_correct: boolean;
+          response_time_ms: number | null;
+          answered_at: string;
+        };
+        Insert: {
+          id?: string;
+          session_id: string;
+          question_id: string;
+          answer_index: number;
+          is_correct: boolean;
+          response_time_ms?: number | null;
+          answered_at?: string;
+        };
+        Update: {
+          id?: string;
+          session_id?: string;
+          question_id?: string;
+          answer_index?: number;
+          is_correct?: boolean;
+          response_time_ms?: number | null;
+          answered_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "game_answers_session_id_fkey";
+            columns: ["session_id"];
+            referencedRelation: "game_sessions";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "game_answers_question_id_fkey";
+            columns: ["question_id"];
+            referencedRelation: "game_questions";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      game_question_history: {
+        Row: {
+          user_id: string;
+          question_id: string;
+          seen_at: string;
+          was_correct: boolean | null;
+        };
+        Insert: {
+          user_id: string;
+          question_id: string;
+          seen_at?: string;
+          was_correct?: boolean | null;
+        };
+        Update: {
+          user_id?: string;
+          question_id?: string;
+          seen_at?: string;
+          was_correct?: boolean | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "game_question_history_question_id_fkey";
+            columns: ["question_id"];
+            referencedRelation: "game_questions";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      user_wallets: {
+        Row: {
+          id: string;
+          user_id: string;
+          wallet_address: string;
+          is_embedded: boolean;
+          linked_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          wallet_address: string;
+          is_embedded?: boolean;
+          linked_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          wallet_address?: string;
+          is_embedded?: boolean;
+          linked_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;

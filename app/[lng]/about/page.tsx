@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Heart, Globe, BookOpen, Users, Target, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NewsletterForm } from "@/components/newsletter/newsletter-form";
+import { useTranslation } from "@/app/i18n";
 
 export async function generateMetadata({
   params,
@@ -48,6 +49,8 @@ export default async function AboutPage({
   params: Promise<{ lng: string }>;
 }) {
   const { lng } = await params;
+  const { t } = await useTranslation(lng, "common");
+
   return (
     <div className="min-h-screen bg-slate-950">
       <MainNav lng={lng} />
@@ -57,17 +60,16 @@ export default async function AboutPage({
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <Badge className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20">
-              🎓 About Memento Academy
+              {t("about_page.badge")}
             </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
-              Our{" "}
+              {t("about_page.title")}{" "}
               <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
-                Mission
+                {t("about_page.title_highlight")}
               </span>
             </h1>
             <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-              Empowering everyone to understand and navigate the digital
-              financial revolution.
+              {t("about_page.subtitle")}
             </p>
           </div>
         </div>
@@ -80,24 +82,21 @@ export default async function AboutPage({
             <div className="bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-cyan-500/20 rounded-2xl p-8 mb-12">
               <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
                 <Target className="w-8 h-8 text-cyan-400" />
-                Why We Exist
+                {t("about_page.why_exist_title")}
               </h2>
               <p className="text-slate-300 text-lg">
-                The world of cryptocurrencies, blockchain, and CBDCs can be
-                overwhelming. Complex jargon, conflicting information, and
-                predatory "gurus" make it hard for newcomers to learn safely.
+                {t("about_page.why_exist_p1")}
               </p>
               <p className="text-slate-300 mt-4">
                 <strong className="text-white">
-                  Memento Academy was created to change that.
+                  {t("about_page.why_exist_p2_strong")}
                 </strong>{" "}
-                We believe that understanding digital finance shouldn't require
-                a computer science degree or expensive courses.
+                {t("about_page.why_exist_p2")}
               </p>
             </div>
 
             <h2 className="text-2xl font-bold text-white mb-6">
-              Our Core Values
+              {t("about_page.values_title")}
             </h2>
 
             <div className="grid md:grid-cols-2 gap-6 mb-12">
@@ -109,11 +108,10 @@ export default async function AboutPage({
                     </div>
                     <div>
                       <h3 className="text-white font-semibold mb-2">
-                        100% Free Education
+                        {t("about_page.values.free.title")}
                       </h3>
                       <p className="text-slate-400 text-sm">
-                        All our courses, guides, and resources are completely
-                        free. No hidden fees, no premium tiers, no paywalls.
+                        {t("about_page.values.free.desc")}
                       </p>
                     </div>
                   </div>
@@ -128,11 +126,10 @@ export default async function AboutPage({
                     </div>
                     <div>
                       <h3 className="text-white font-semibold mb-2">
-                        Beginner-First Approach
+                        {t("about_page.values.beginner.title")}
                       </h3>
                       <p className="text-slate-400 text-sm">
-                        We explain everything assuming zero prior knowledge. No
-                        jargon, no gatekeeping.
+                        {t("about_page.values.beginner.desc")}
                       </p>
                     </div>
                   </div>
@@ -147,11 +144,10 @@ export default async function AboutPage({
                     </div>
                     <div>
                       <h3 className="text-white font-semibold mb-2">
-                        No Shilling, No Scams
+                        {t("about_page.values.noscam.title")}
                       </h3>
                       <p className="text-slate-400 text-sm">
-                        We never promote specific cryptocurrencies or investment
-                        advice. Our goal is education, not sales.
+                        {t("about_page.values.noscam.desc")}
                       </p>
                     </div>
                   </div>
@@ -166,11 +162,10 @@ export default async function AboutPage({
                     </div>
                     <div>
                       <h3 className="text-white font-semibold mb-2">
-                        Global & Accessible
+                        {t("about_page.values.global.title")}
                       </h3>
                       <p className="text-slate-400 text-sm">
-                        Knowledge should have no borders. We're working to make
-                        our content available in multiple languages.
+                        {t("about_page.values.global.desc")}
                       </p>
                     </div>
                   </div>
@@ -180,7 +175,7 @@ export default async function AboutPage({
 
             <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
               <Users className="w-8 h-8 text-teal-400" />
-              Our Community
+              {t("about_page.community_title")}
             </h2>
 
             <div className="grid md:grid-cols-3 gap-6 mb-12">
@@ -188,34 +183,36 @@ export default async function AboutPage({
                 <div className="text-4xl font-bold text-cyan-400 mb-2">
                   50K+
                 </div>
-                <div className="text-slate-400">Community Members</div>
+                <div className="text-slate-400">
+                  {t("about_page.stats.members")}
+                </div>
               </div>
               <div className="text-center p-6 bg-slate-800/30 border border-slate-700 rounded-xl">
                 <div className="text-4xl font-bold text-teal-400 mb-2">
                   100%
                 </div>
-                <div className="text-slate-400">Free Content</div>
+                <div className="text-slate-400">
+                  {t("about_page.stats.free")}
+                </div>
               </div>
               <div className="text-center p-6 bg-slate-800/30 border border-slate-700 rounded-xl">
                 <div className="text-4xl font-bold text-emerald-400 mb-2">
                   0
                 </div>
-                <div className="text-slate-400">Hidden Fees</div>
+                <div className="text-slate-400">
+                  {t("about_page.stats.fees")}
+                </div>
               </div>
             </div>
 
             <div className="bg-slate-800/50 border border-slate-700 rounded-2xl p-8">
               <h3 className="text-xl font-bold text-white mb-4">
-                Want to Help?
+                {t("about_page.help_title")}
               </h3>
-              <p className="text-slate-300 mb-6">
-                Memento Academy is a community project. We welcome contributions
-                in many forms: writing guides, translating content, helping
-                newcomers in our Discord, or spreading the word.
-              </p>
+              <p className="text-slate-300 mb-6">{t("about_page.help_desc")}</p>
               <Link href={`/${lng}/contribute`}>
                 <Button className="bg-gradient-to-r from-cyan-500 to-teal-500">
-                  Learn How to Contribute
+                  {t("about_page.help_btn")}
                 </Button>
               </Link>
             </div>
@@ -228,18 +225,19 @@ export default async function AboutPage({
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center space-y-6">
             <h2 className="text-2xl font-bold text-white">
-              Start Your Journey Today
+              {t("about_page.cta_title")}
             </h2>
-            <p className="text-slate-400">
-              Join our community and begin learning for free.
-            </p>
+            <p className="text-slate-400">{t("about_page.cta_desc")}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href={`/${lng}/courses`}>
                 <Button className="bg-gradient-to-r from-cyan-500 to-teal-500">
-                  Explore Courses
+                  {t("about_page.cta_courses")}
                 </Button>
               </Link>
-              <NewsletterForm variant="modal" buttonText="Join Newsletter" />
+              <NewsletterForm
+                variant="modal"
+                buttonText={t("about_page.cta_newsletter")}
+              />
             </div>
           </div>
         </div>

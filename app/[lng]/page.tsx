@@ -21,6 +21,7 @@ import {
 import Image from "next/image";
 import { NewsletterForm } from "@/components/newsletter/newsletter-form";
 import { MainNav } from "@/components/main-nav";
+import { ArrowRight } from "lucide-react";
 import { useTranslation } from "@/app/i18n";
 import { Metadata } from "next";
 
@@ -59,17 +60,20 @@ export default async function LandingPage({
       <MainNav lng={lng} />
 
       {/* Hero Section */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 transition-colors duration-300 overflow-hidden">
+      <section
+        className="py-20 lg:py-32 transition-colors duration-300 overflow-hidden relative"
+        style={{
+          backgroundImage: "url('/images/wallpapers/quiz-bg.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundColor: "#0a1628",
+        }}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
-                <Badge
-                  variant="secondary"
-                  className="bg-cyan-500/10 text-cyan-400 dark:border dark:border-cyan-500/20 hover:bg-cyan-500/20 transition-colors duration-300"
-                >
-                  {t("hero.new_badge")}
-                </Badge>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight transition-colors duration-300">
                   {t("hero.title_start")}
                   <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
@@ -115,7 +119,7 @@ export default async function LandingPage({
             <div className="relative">
               <div className="relative z-10">
                 <Image
-                  src="/hero-image.png"
+                  src="/images/wallpapers/quiz-login-bg.png"
                   alt="Memento Academy - Web3 Onboarding"
                   width={600}
                   height={600}
@@ -125,6 +129,31 @@ export default async function LandingPage({
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-2xl blur-3xl opacity-20 transition-all duration-300"></div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="py-10 bg-slate-900/60 border-y border-slate-800/50">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-6 text-center md:text-left">
+          <div className="space-y-1">
+            <h3 className="text-xl font-bold text-white">
+              {lng === "es"
+                ? "Gana Criptomonedas Reales Jugando"
+                : "Earn Real Crypto by Playing"}
+            </h3>
+            <p className="text-slate-400 text-sm max-w-xl">
+              {lng === "es"
+                ? "Entra cada día, responde al quiz y recibe tokens MEMO directamente en tu billetera. Sin costes, sin gas, solo aprendizaje y recompensas."
+                : "Come back daily, answer the quiz, and receive MEMO tokens directly to your wallet. No costs, no gas, just learning and rewards."}
+            </p>
+          </div>
+          <Link href={`/${lng}/game`}>
+            <Button className="rounded-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold shadow-lg shadow-cyan-500/20 px-8">
+              {lng === "es"
+                ? "Regístrate y Juega Gratis"
+                : "Register & Play Free"}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -312,7 +341,13 @@ export default async function LandingPage({
       {/* Free Access Section (Replacing Pricing) */}
       <section
         id="start"
-        className="py-20 bg-slate-950 transition-colors duration-300"
+        className="py-20 transition-colors duration-300 relative"
+        style={{
+          backgroundImage: "url('/images/wallpapers/quiz-bg.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "bottom center",
+          backgroundColor: "#0a1628",
+        }}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-8 bg-slate-900/50 border border-slate-800 p-8 rounded-3xl">

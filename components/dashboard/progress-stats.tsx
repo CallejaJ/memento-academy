@@ -62,7 +62,6 @@ export function ProgressStats({
       <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-4 text-center hover:border-orange-500/30 transition-colors">
         <div className="text-3xl font-bold text-orange-400 flex items-center justify-center gap-1">
           {streak}
-          <span className="text-xl">🔥</span>
         </div>
         <div className="text-sm text-slate-400 mt-1">{t.streak}</div>
       </div>

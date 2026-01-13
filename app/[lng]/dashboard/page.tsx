@@ -20,6 +20,8 @@ import { useParams } from "next/navigation";
 import { getAllCourses } from "@/lib/courses-data";
 import { Settings } from "lucide-react";
 import { AchievementsPreview } from "@/components/dashboard/achievements-preview";
+import { GamePromo } from "@/components/dashboard/game-promo";
+import { useWallets } from "@privy-io/react-auth";
 
 interface Profile {
   full_name: string | null;
@@ -75,6 +77,20 @@ export default function DashboardPage() {
   const [totalXP, setTotalXP] = useState(0);
   const [streak, setStreak] = useState(0);
 
+  const [gameStats, setGameStats] = useState<{
+    gamesPlayed: number;
+    totalScore: number;
+    bestScore: number;
+    remainingAttempts?: number;
+  } | null>(null);
+
+  const { wallets } = useWallets(); // Get wallets from Privy
+
+  // Find the embedded wallet
+  const embeddedWallet = wallets.find(
+    (w) => w.walletClientType === "privy" || w.connectorType === "embedded"
+  );
+
   const t = translations[lng as keyof typeof translations] || translations.en;
 
   // Fetch profile and course progress
@@ -113,6 +129,17 @@ export default function DashboardPage() {
             0
           );
           setTotalXP(xp);
+        }
+
+        // Fetch game stats
+        try {
+          const res = await fetch("/api/game/stats");
+          if (res.ok) {
+            const stats = await res.json();
+            setGameStats(stats);
+          }
+        } catch (e) {
+          console.error("Failed to fetch game stats", e);
         }
 
         // TODO: Calculate streak from activity log (for now, mock it)
@@ -213,9 +240,12 @@ export default function DashboardPage() {
       <div className="container mx-auto px-4 pt-24 pb-12">
         <div className="max-w-6xl mx-auto space-y-8">
           {/* Welcome Header */}
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-4">
-              <Link href={`/${lng}/profile`} className="relative group">
+              <Link
+                href={`/${lng}/profile`}
+                className="relative group flex-shrink-0"
+              >
                 {profile?.avatar_url ? (
                   <img
                     src={profile.avatar_url}
@@ -233,23 +263,29 @@ export default function DashboardPage() {
                   <Settings className="w-5 h-5 text-white" />
                 </div>
               </Link>
-              <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-white">
+              <div className="min-w-0 flex-1">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white break-words">
                   {t.welcome}, {userName}!
                 </h1>
               </div>
             </div>
-            <Link href={`/${lng}/profile`}>
+            <Link href={`/${lng}/profile`} className="sm:flex-shrink-0">
               <Button
                 variant="outline"
                 size="sm"
-                className="border-slate-600 text-slate-300 hover:text-white"
+                className="w-full sm:w-auto border-slate-600 text-slate-300 hover:text-white"
               >
                 <Settings className="w-4 h-4 mr-2" />
                 {t.edit_profile}
               </Button>
             </Link>
           </div>
+
+          {/* Game Promo */}
+          <GamePromo
+            stats={gameStats || undefined}
+            walletAddress={embeddedWallet?.address}
+          />
 
           {/* Hero: Continue Learning */}
           {lastCourseData ? (
