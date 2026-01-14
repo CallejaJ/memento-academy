@@ -3,6 +3,7 @@
 import { MainNav } from "@/components/main-nav";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "@/app/i18n/client";
+import { SiteFooter } from "@/components/site-footer";
 
 export default function PrivacyPage({
   params,
@@ -314,6 +315,7 @@ export default function PrivacyPage({
           </div>
         </div>
       </section>
+      <SiteFooter lng={lng} />
     </div>
   );
 }

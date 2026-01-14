@@ -4,6 +4,7 @@ import { MainNav } from "@/components/main-nav";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "@/app/i18n/client";
 import Link from "next/link";
+import { SiteFooter } from "@/components/site-footer";
 
 export default function CookiesPage({
   params,
@@ -337,6 +338,7 @@ export default function CookiesPage({
           </div>
         </div>
       </section>
+      <SiteFooter lng={lng} />
     </div>
   );
 }
