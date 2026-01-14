@@ -10,6 +10,8 @@ import { PrivyProvider } from "@/lib/privy";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "@/components/ui/toaster";
 import { languages } from "../i18n/settings";
+import { CookieConsent } from "@/components/cookie-consent";
+import { GoogleAnalytics } from "@/components/google-analytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -181,6 +183,8 @@ export default async function RootLayout({
                 <div className="flex-grow">{children}</div>
                 <SpeedInsights />
                 <Toaster />
+                <CookieConsent lng={lng} />
+                <GoogleAnalytics />
               </AuthModalProvider>
             </AuthProvider>
           </PrivyProvider>

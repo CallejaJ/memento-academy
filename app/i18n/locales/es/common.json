@@ -348,5 +348,274 @@
       "github": "GitHub Issues:",
       "github_time": "Dentro de 1 semana para solicitudes, más rápido para bugs"
     }
+  },
+  "privacy_page": {
+    "last_updated": "Última actualización: Enero 2025",
+    "title": "Política de Privacidad",
+    "intro": "En Memento Academy, nos tomamos tu privacidad en serio. Esta política explica cómo recopilamos, usamos y protegemos tu información personal.",
+    "data_controller": {
+      "title": "Responsable del Tratamiento",
+      "name": "Jorge Calleja Pérez",
+      "id": "NIF: 31865985Z",
+      "location": "Málaga, España",
+      "email": "privacy@memento.academy"
+    },
+    "section1": {
+      "title": "1. Información que Recopilamos",
+      "text1": "Recopilamos información que proporcionas directamente:",
+      "list1": {
+        "email": "Correo electrónico",
+        "email_desc": "cuando te suscribes a nuestro boletín",
+        "name": "Nombre",
+        "name_desc": "opcionalmente, cuando lo proporcionas con tu suscripción",
+        "preferences": "Preferencias",
+        "preferences_desc": "tus intereses de contenido seleccionados"
+      },
+      "text2": "Recopilamos automáticamente:",
+      "list2": {
+        "analytics": "Datos básicos de análisis (páginas visitadas, tiempo en el sitio)",
+        "device": "Información del dispositivo (tipo de navegador, sistema operativo)"
+      }
+    },
+    "section2": {
+      "title": "2. Cómo Usamos Tu Información",
+      "text1": "Usamos tu información para:",
+      "list": {
+        "item1": "Enviarte nuestro boletín y las actualizaciones a las que te has suscrito",
+        "item2": "Mejorar nuestro contenido y experiencia de usuario",
+        "item3": "Responder a tus preguntas y solicitudes",
+        "item4": "Cumplir con obligaciones legales"
+      },
+      "text2": "Nunca vendemos tus datos",
+      "text2_suffix": "a terceros. Nunca compartimos tu correo electrónico con anunciantes."
+    },
+    "section3": {
+      "title": "3. Comunicaciones por Email",
+      "text": "Si te suscribes a nuestro boletín, recibirás contenido educativo basado en tus preferencias. Cada email incluye un enlace para cancelar la suscripción. Usamos Brevo (anteriormente Sendinblue) para enviar emails."
+    },
+    "section4": {
+      "title": "4. Cookies y Seguimiento",
+      "text": "Usamos análisis mínimos que respetan la privacidad. No usamos cookies publicitarias ni seguimiento entre sitios. Las cookies esenciales pueden usarse para autenticación y funcionalidad del sitio."
+    },
+    "section5": {
+      "title": "5. Seguridad de Datos",
+      "text": "Implementamos medidas de seguridad apropiadas para proteger tu información. Nuestra base de datos está alojada en Supabase con cifrado en reposo. Sin embargo, ninguna transmisión por internet es 100% segura."
+    },
+    "section6": {
+      "title": "6. Tus Derechos",
+      "text1": "Tienes derecho a:",
+      "list": {
+        "item1": "Acceder a tus datos personales",
+        "item2": "Solicitar la corrección de datos inexactos",
+        "item3": "Solicitar la eliminación de tus datos",
+        "item4": "Cancelar la suscripción de comunicaciones en cualquier momento"
+      },
+      "text2": "Para ejercer estos derechos, contáctanos en",
+      "email": "privacy@memento.academy"
+    },
+    "section7": {
+      "title": "7. Servicios de Terceros",
+      "text": "Usamos los siguientes servicios de terceros:",
+      "list": {
+        "supabase": "Supabase",
+        "supabase_desc": "Base de datos y autenticación",
+        "supabase_policy": "https://supabase.com/privacy",
+        "brevo": "Brevo",
+        "brevo_desc": "Entrega de email",
+        "brevo_policy": "https://www.brevo.com/legal/privacypolicy/",
+        "vercel": "Vercel",
+        "vercel_desc": "Alojamiento web",
+        "vercel_policy": "https://vercel.com/legal/privacy-policy",
+        "google_analytics": "Google Analytics",
+        "google_analytics_desc": "Análisis y estadísticas de uso del sitio web",
+        "google_analytics_policy": "https://policies.google.com/privacy"
+      }
+    },
+    "section8": {
+      "title": "8. Privacidad de Menores",
+      "text": "Nuestro servicio no está dirigido a menores de 13 años. No recopilamos información de menores de 13 años conscientemente."
+    },
+    "section9": {
+      "title": "9. Cambios a Esta Política",
+      "text": "Podemos actualizar esta política de vez en cuando. Te notificaremos de cambios significativos por email o mediante un aviso en nuestro sitio web."
+    },
+    "section10": {
+      "title": "10. Contáctanos",
+      "text": "¿Preguntas sobre esta política? Contáctanos en",
+      "email": "privacy@memento.academy"
+    }
+  },
+  "terms_page": {
+    "last_updated": "Última actualización: Diciembre 2024",
+    "title": "Términos de Servicio",
+    "intro": "Al usar Memento Academy, aceptas estos términos. Por favor, léelos cuidadosamente.",
+    "section1": {
+      "title": "1. Aceptación de Términos",
+      "text": "Al acceder o usar Memento Academy (\"el Servicio\"), aceptas estar sujeto a estos Términos de Servicio. Si no estás de acuerdo con alguna parte, no puedes acceder al Servicio."
+    },
+    "section2": {
+      "title": "2. Descripción del Servicio",
+      "text": "Memento Academy es una plataforma educativa gratuita que proporciona contenido sobre Web3, blockchain, criptomonedas y temas relacionados. Nuestro contenido es solo para fines educativos."
+    },
+    "section3": {
+      "title": "3. Descargo de Responsabilidad sobre Contenido Educativo",
+      "warning": "Importante:",
+      "warning_text": "Nuestro contenido es solo educativo. NO proporcionamos asesoramiento financiero, de inversión, legal o fiscal. Las inversiones en criptomonedas conllevan un riesgo significativo. Siempre haz tu propia investigación y consulta a profesionales antes de tomar decisiones financieras."
+    },
+    "section4": {
+      "title": "4. Responsabilidades del Usuario",
+      "text": "Aceptas:",
+      "list": {
+        "item1": "Proporcionar información precisa al registrarte",
+        "item2": "Usar el Servicio solo para fines lícitos",
+        "item3": "No intentar dañar o interrumpir el Servicio",
+        "item4": "No copiar, modificar o redistribuir nuestro contenido sin permiso",
+        "item5": "No usar el Servicio para spam o acosar a otros"
+      }
+    },
+    "section5": {
+      "title": "5. Propiedad Intelectual",
+      "text1": "Todo el contenido de Memento Academy (texto, gráficos, logotipos, imágenes) es de nuestra propiedad o está licenciado a nosotros. Puedes compartir nuestro contenido para fines personales y no comerciales con la atribución adecuada.",
+      "text2": "Nuestros materiales educativos están disponibles gratuitamente, pero no pueden venderse ni usarse en productos comerciales sin permiso por escrito."
+    },
+    "section6": {
+      "title": "6. Contenido Generado por Usuarios",
+      "text": "Si envías contenido (comentarios, publicaciones en foros, etc.), nos otorgas una licencia no exclusiva y libre de regalías para usar, mostrar y distribuir ese contenido. Sigues siendo responsable de tus envíos."
+    },
+    "section7": {
+      "title": "7. Enlaces de Terceros",
+      "text": "Nuestro Servicio puede contener enlaces a sitios web externos. No somos responsables de su contenido o prácticas. Accede a sitios de terceros bajo tu propio riesgo."
+    },
+    "section8": {
+      "title": "8. Limitación de Responsabilidad",
+      "text": "Memento Academy se proporciona \"tal cual\" sin garantías de ningún tipo. No somos responsables de ningún daño que surja de tu uso del Servicio, incluyendo pero no limitado a pérdidas financieras por inversiones en criptomonedas."
+    },
+    "section9": {
+      "title": "9. Modificaciones al Servicio",
+      "text": "Nos reservamos el derecho de modificar, suspender o descontinuar cualquier parte del Servicio en cualquier momento sin previo aviso. También podemos actualizar estos Términos periódicamente."
+    },
+    "section10": {
+      "title": "10. Terminación",
+      "text": "Podemos terminar o suspender tu acceso al Servicio inmediatamente, sin previo aviso, por conducta que creamos viola estos Términos o es dañina para otros usuarios."
+    },
+    "section11": {
+      "title": "11. Ley Aplicable",
+      "text": "Estos Términos se regirán e interpretarán de acuerdo con las leyes aplicables, sin tener en cuenta las disposiciones sobre conflictos de leyes."
+    },
+    "section12": {
+      "title": "12. Información de Contacto",
+      "text": "Para preguntas sobre estos Términos, contáctanos en",
+      "email": "legal@memento.academy"
+    },
+    "outro": "Al usar Memento Academy, reconoces que has leído, entendido y aceptas estar sujeto a estos Términos de Servicio."
+  },
+  "cookie_banner": {
+    "title": "Usamos cookies",
+    "description": "Usamos cookies para mejorar tu experiencia en nuestro sitio. Algunas son esenciales para el funcionamiento, otras nos ayudan a entender cómo lo usas.",
+    "accept_all": "Aceptar todas",
+    "reject_all": "Rechazar todas",
+    "customize": "Personalizar",
+    "save_preferences": "Guardar preferencias",
+    "privacy_policy": "Política de Privacidad",
+    "cookie_policy": "Política de Cookies",
+    "categories": {
+      "essential": {
+        "title": "Cookies esenciales",
+        "description": "Necesarias para que el sitio funcione. No se pueden desactivar."
+      },
+      "analytics": {
+        "title": "Cookies de análisis",
+        "description": "Nos ayudan a entender cómo los visitantes interactúan con el sitio."
+      },
+      "marketing": {
+        "title": "Cookies de marketing",
+        "description": "Se usan para rastrear visitantes en sitios web con fines publicitarios."
+      }
+    },
+    "manage_cookies": "Gestionar cookies"
+  },
+  "cookie_page": {
+    "last_updated": "Última actualización: Enero 2025",
+    "title": "Política de Cookies",
+    "intro": "Esta Política de Cookies explica qué son las cookies, cómo las usamos y tus opciones respecto a su uso.",
+    "section1": {
+      "title": "1. ¿Qué Son las Cookies?",
+      "text": "Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo (ordenador, tablet o móvil) cuando visitas un sitio web. Se usan ampliamente para que los sitios web funcionen de manera más eficiente y para proporcionar información a los propietarios del sitio."
+    },
+    "section2": {
+      "title": "2. Cómo Usamos las Cookies",
+      "text": "Usamos cookies para los siguientes propósitos:",
+      "list": {
+        "item1": "Cookies esenciales: Necesarias para que el sitio funcione correctamente (autenticación, seguridad)",
+        "item2": "Cookies de análisis: Nos ayudan a entender cómo los visitantes usan nuestro sitio (Google Analytics)",
+        "item3": "Cookies de preferencias: Recuerdan tu configuración y preferencias"
+      }
+    },
+    "section3": {
+      "title": "3. Cookies que Utilizamos",
+      "essential_title": "Cookies Esenciales",
+      "essential_desc": "Estas cookies son estrictamente necesarias para que el sitio funcione. No se pueden desactivar.",
+      "cookies_table": {
+        "name": "Nombre",
+        "provider": "Proveedor",
+        "purpose": "Propósito",
+        "duration": "Duración"
+      },
+      "essential_cookies": {
+        "cookie1": {
+          "name": "cookie_consent",
+          "provider": "Memento Academy",
+          "purpose": "Almacena tus preferencias de consentimiento de cookies",
+          "duration": "1 año"
+        },
+        "cookie2": {
+          "name": "sb-*",
+          "provider": "Supabase",
+          "purpose": "Autenticación y gestión de sesión",
+          "duration": "Sesión"
+        }
+      },
+      "analytics_title": "Cookies de Análisis",
+      "analytics_desc": "Estas cookies nos ayudan a entender cómo los visitantes interactúan con nuestro sitio. Todos los datos son anonimizados.",
+      "analytics_cookies": {
+        "cookie1": {
+          "name": "_ga, _ga_*",
+          "provider": "Google Analytics",
+          "purpose": "Distinguir usuarios y sesiones únicos",
+          "duration": "2 años"
+        },
+        "cookie2": {
+          "name": "_gid",
+          "provider": "Google Analytics",
+          "purpose": "Distinguir usuarios",
+          "duration": "24 horas"
+        }
+      }
+    },
+    "section4": {
+      "title": "4. Cookies de Terceros",
+      "text": "Algunas cookies son colocadas por servicios de terceros que aparecen en nuestras páginas:",
+      "google_analytics": {
+        "name": "Google Analytics",
+        "desc": "Usamos Google Analytics para analizar el uso del sitio web. Google puede transferir datos a servidores en Estados Unidos.",
+        "policy_link": "Política de Privacidad de Google",
+        "policy_url": "https://policies.google.com/privacy"
+      }
+    },
+    "section5": {
+      "title": "5. Gestionar tus Preferencias de Cookies",
+      "text1": "Puedes gestionar tus preferencias de cookies en cualquier momento haciendo clic en el botón \"Gestionar cookies\" en el pie de página de nuestro sitio web.",
+      "text2": "También puedes controlar las cookies a través de la configuración de tu navegador. Ten en cuenta que desactivar ciertas cookies puede afectar la funcionalidad del sitio.",
+      "browser_links": "Aprende a gestionar cookies en tu navegador:"
+    },
+    "section6": {
+      "title": "6. Cambios a Esta Política",
+      "text": "Podemos actualizar esta Política de Cookies de vez en cuando. Te notificaremos de cualquier cambio publicando la nueva política en esta página."
+    },
+    "section7": {
+      "title": "7. Contáctanos",
+      "text": "Si tienes preguntas sobre nuestro uso de cookies, contáctanos en",
+      "email": "privacy@memento.academy"
+    }
   }
 }

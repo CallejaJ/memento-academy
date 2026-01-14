@@ -1,28 +1,30 @@
-import { Metadata } from "next"
-import { MainNav } from "@/components/main-nav"
-import { Badge } from "@/components/ui/badge"
+"use client";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy | Memento Academy",
-  description: "Learn how Memento Academy collects, uses, and protects your personal information.",
-  keywords: ["privacy policy", "data protection", "memento academy privacy"],
-}
+import { MainNav } from "@/components/main-nav";
+import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "@/app/i18n/client";
 
-export default async function PrivacyPage({ params }: { params: Promise<{ lng: string }> }) {
-  const { lng } = await params
+export default function PrivacyPage({
+  params,
+}: {
+  params: Promise<{ lng: string }>;
+}) {
+  const { lng } = require("react").use(params);
+  const { t } = useTranslation(lng, "common");
+
   return (
     <div className="min-h-screen bg-slate-950">
       <MainNav lng={lng} />
-      
+
       {/* Hero */}
-      <section className="py-16 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pt-24 pb-16 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+        <div className="container mx-auto px-6 sm:px-8 lg:px-12">
           <div className="max-w-4xl mx-auto text-center space-y-4">
             <Badge className="bg-slate-800 text-slate-400 border-slate-700">
-              Last updated: December 2024
+              {t("privacy_page.last_updated")}
             </Badge>
             <h1 className="text-4xl sm:text-5xl font-bold text-white">
-              Privacy Policy
+              {t("privacy_page.title")}
             </h1>
           </div>
         </div>
@@ -30,99 +32,288 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lng: s
 
       {/* Content */}
       <section className="py-12 bg-slate-900/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto prose prose-invert prose-slate">
-            
-            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 mb-8">
+        <div className="container mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="max-w-3xl mx-auto">
+            {/* Intro box */}
+            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 mb-10">
               <p className="text-slate-300 text-lg mb-0">
-                At Memento Academy, we take your privacy seriously. This policy explains how we collect, 
-                use, and protect your personal information.
+                {t("privacy_page.intro")}
               </p>
             </div>
 
-            <h2 className="text-xl font-bold text-white">1. Information We Collect</h2>
-            <p className="text-slate-400">We collect information you provide directly:</p>
-            <ul className="text-slate-400">
-              <li><strong className="text-white">Email address</strong> - when you subscribe to our newsletter</li>
-              <li><strong className="text-white">Name</strong> - optionally, when provided with your subscription</li>
-              <li><strong className="text-white">Preferences</strong> - your selected content interests</li>
-            </ul>
-            <p className="text-slate-400">We automatically collect:</p>
-            <ul className="text-slate-400">
-              <li>Basic analytics data (pages visited, time on site)</li>
-              <li>Device information (browser type, operating system)</li>
-            </ul>
+            {/* Data Controller Box */}
+            <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-xl p-6 mb-10">
+              <h2 className="text-lg font-bold text-cyan-400 mb-4">
+                {t("privacy_page.data_controller.title")}
+              </h2>
+              <div className="space-y-2 text-slate-300">
+                <p>
+                  <strong className="text-white">
+                    {t("privacy_page.data_controller.name")}
+                  </strong>
+                </p>
+                <p className="text-sm text-slate-400">
+                  {t("privacy_page.data_controller.id")}
+                </p>
+                <p className="text-sm text-slate-400">
+                  {t("privacy_page.data_controller.location")}
+                </p>
+                <p className="text-sm">
+                  <a
+                    href={`mailto:${t("privacy_page.data_controller.email")}`}
+                    className="text-cyan-400 hover:text-cyan-300"
+                  >
+                    {t("privacy_page.data_controller.email")}
+                  </a>
+                </p>
+              </div>
+            </div>
 
-            <h2 className="text-xl font-bold text-white">2. How We Use Your Information</h2>
-            <p className="text-slate-400">We use your information to:</p>
-            <ul className="text-slate-400">
-              <li>Send you our newsletter and updates you've subscribed to</li>
-              <li>Improve our content and user experience</li>
-              <li>Respond to your questions and requests</li>
-              <li>Comply with legal obligations</li>
-            </ul>
-            <p className="text-slate-400">
-              <strong className="text-white">We never sell your data</strong> to third parties. We never share your 
-              email with advertisers.
-            </p>
+            {/* Sections */}
+            <div className="space-y-10">
+              {/* Section 1 */}
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold text-white">
+                  {t("privacy_page.section1.title")}
+                </h2>
+                <p className="text-slate-400">
+                  {t("privacy_page.section1.text1")}
+                </p>
+                <ul className="text-slate-400 list-disc list-inside space-y-2 ml-2">
+                  <li>
+                    <strong className="text-white">
+                      {t("privacy_page.section1.list1.email")}
+                    </strong>{" "}
+                    - {t("privacy_page.section1.list1.email_desc")}
+                  </li>
+                  <li>
+                    <strong className="text-white">
+                      {t("privacy_page.section1.list1.name")}
+                    </strong>{" "}
+                    - {t("privacy_page.section1.list1.name_desc")}
+                  </li>
+                  <li>
+                    <strong className="text-white">
+                      {t("privacy_page.section1.list1.preferences")}
+                    </strong>{" "}
+                    - {t("privacy_page.section1.list1.preferences_desc")}
+                  </li>
+                </ul>
+                <p className="text-slate-400 mt-4">
+                  {t("privacy_page.section1.text2")}
+                </p>
+                <ul className="text-slate-400 list-disc list-inside space-y-2 ml-2">
+                  <li>{t("privacy_page.section1.list2.analytics")}</li>
+                  <li>{t("privacy_page.section1.list2.device")}</li>
+                </ul>
+              </div>
 
-            <h2 className="text-xl font-bold text-white">3. Email Communications</h2>
-            <p className="text-slate-400">
-              If you subscribe to our newsletter, you'll receive educational content based on your preferences. 
-              Every email includes an unsubscribe link. We use Brevo (formerly Sendinblue) to send emails.
-            </p>
+              {/* Section 2 */}
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold text-white">
+                  {t("privacy_page.section2.title")}
+                </h2>
+                <p className="text-slate-400">
+                  {t("privacy_page.section2.text1")}
+                </p>
+                <ul className="text-slate-400 list-disc list-inside space-y-2 ml-2">
+                  <li>{t("privacy_page.section2.list.item1")}</li>
+                  <li>{t("privacy_page.section2.list.item2")}</li>
+                  <li>{t("privacy_page.section2.list.item3")}</li>
+                  <li>{t("privacy_page.section2.list.item4")}</li>
+                </ul>
+                <p className="text-slate-400 mt-4">
+                  <strong className="text-white">
+                    {t("privacy_page.section2.text2")}
+                  </strong>{" "}
+                  {t("privacy_page.section2.text2_suffix")}
+                </p>
+              </div>
 
-            <h2 className="text-xl font-bold text-white">4. Cookies & Tracking</h2>
-            <p className="text-slate-400">
-              We use minimal, privacy-respecting analytics. We do not use advertising cookies or 
-              cross-site tracking. Essential cookies may be used for authentication and site functionality.
-            </p>
+              {/* Section 3 */}
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold text-white">
+                  {t("privacy_page.section3.title")}
+                </h2>
+                <p className="text-slate-400">
+                  {t("privacy_page.section3.text")}
+                </p>
+              </div>
 
-            <h2 className="text-xl font-bold text-white">5. Data Security</h2>
-            <p className="text-slate-400">
-              We implement appropriate security measures to protect your information. Our database is 
-              hosted on Supabase with encryption at rest. However, no internet transmission is 100% secure.
-            </p>
+              {/* Section 4 */}
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold text-white">
+                  {t("privacy_page.section4.title")}
+                </h2>
+                <p className="text-slate-400">
+                  {t("privacy_page.section4.text")}
+                </p>
+              </div>
 
-            <h2 className="text-xl font-bold text-white">6. Your Rights</h2>
-            <p className="text-slate-400">You have the right to:</p>
-            <ul className="text-slate-400">
-              <li>Access your personal data</li>
-              <li>Request correction of inaccurate data</li>
-              <li>Request deletion of your data</li>
-              <li>Unsubscribe from communications at any time</li>
-            </ul>
-            <p className="text-slate-400">
-              To exercise these rights, contact us at <strong className="text-cyan-400">privacy@memento.academy</strong>
-            </p>
+              {/* Section 5 */}
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold text-white">
+                  {t("privacy_page.section5.title")}
+                </h2>
+                <p className="text-slate-400">
+                  {t("privacy_page.section5.text")}
+                </p>
+              </div>
 
-            <h2 className="text-xl font-bold text-white">7. Third-Party Services</h2>
-            <p className="text-slate-400">We use the following third-party services:</p>
-            <ul className="text-slate-400">
-              <li><strong className="text-white">Supabase</strong> - Database and authentication</li>
-              <li><strong className="text-white">Brevo</strong> - Email delivery</li>
-              <li><strong className="text-white">Vercel</strong> - Website hosting</li>
-            </ul>
+              {/* Section 6 */}
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold text-white">
+                  {t("privacy_page.section6.title")}
+                </h2>
+                <p className="text-slate-400">
+                  {t("privacy_page.section6.text1")}
+                </p>
+                <ul className="text-slate-400 list-disc list-inside space-y-2 ml-2">
+                  <li>{t("privacy_page.section6.list.item1")}</li>
+                  <li>{t("privacy_page.section6.list.item2")}</li>
+                  <li>{t("privacy_page.section6.list.item3")}</li>
+                  <li>{t("privacy_page.section6.list.item4")}</li>
+                </ul>
+                <p className="text-slate-400 mt-4">
+                  {t("privacy_page.section6.text2")}{" "}
+                  <strong className="text-cyan-400">
+                    {t("privacy_page.section6.email")}
+                  </strong>
+                </p>
+              </div>
 
-            <h2 className="text-xl font-bold text-white">8. Children's Privacy</h2>
-            <p className="text-slate-400">
-              Our service is not directed to children under 13. We do not knowingly collect 
-              information from children under 13.
-            </p>
+              {/* Section 7 - Third Party Services with links */}
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold text-white">
+                  {t("privacy_page.section7.title")}
+                </h2>
+                <p className="text-slate-400">
+                  {t("privacy_page.section7.text")}
+                </p>
+                <div className="space-y-3">
+                  <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <strong className="text-white">
+                          {t("privacy_page.section7.list.supabase")}
+                        </strong>
+                        <p className="text-slate-400 text-sm">
+                          {t("privacy_page.section7.list.supabase_desc")}
+                        </p>
+                      </div>
+                      <a
+                        href={t("privacy_page.section7.list.supabase_policy")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cyan-400 hover:text-cyan-300 text-sm"
+                      >
+                        Policy →
+                      </a>
+                    </div>
+                  </div>
+                  <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <strong className="text-white">
+                          {t("privacy_page.section7.list.brevo")}
+                        </strong>
+                        <p className="text-slate-400 text-sm">
+                          {t("privacy_page.section7.list.brevo_desc")}
+                        </p>
+                      </div>
+                      <a
+                        href={t("privacy_page.section7.list.brevo_policy")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cyan-400 hover:text-cyan-300 text-sm"
+                      >
+                        Policy →
+                      </a>
+                    </div>
+                  </div>
+                  <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <strong className="text-white">
+                          {t("privacy_page.section7.list.vercel")}
+                        </strong>
+                        <p className="text-slate-400 text-sm">
+                          {t("privacy_page.section7.list.vercel_desc")}
+                        </p>
+                      </div>
+                      <a
+                        href={t("privacy_page.section7.list.vercel_policy")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cyan-400 hover:text-cyan-300 text-sm"
+                      >
+                        Policy →
+                      </a>
+                    </div>
+                  </div>
+                  <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <strong className="text-white">
+                          {t("privacy_page.section7.list.google_analytics")}
+                        </strong>
+                        <p className="text-slate-400 text-sm">
+                          {t(
+                            "privacy_page.section7.list.google_analytics_desc"
+                          )}
+                        </p>
+                      </div>
+                      <a
+                        href={t(
+                          "privacy_page.section7.list.google_analytics_policy"
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cyan-400 hover:text-cyan-300 text-sm"
+                      >
+                        Policy →
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-            <h2 className="text-xl font-bold text-white">9. Changes to This Policy</h2>
-            <p className="text-slate-400">
-              We may update this policy from time to time. We'll notify you of significant changes 
-              via email or a notice on our website.
-            </p>
+              {/* Section 8 */}
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold text-white">
+                  {t("privacy_page.section8.title")}
+                </h2>
+                <p className="text-slate-400">
+                  {t("privacy_page.section8.text")}
+                </p>
+              </div>
 
-            <h2 className="text-xl font-bold text-white">10. Contact Us</h2>
-            <p className="text-slate-400">
-              Questions about this policy? Contact us at <strong className="text-cyan-400">privacy@memento.academy</strong>
-            </p>
+              {/* Section 9 */}
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold text-white">
+                  {t("privacy_page.section9.title")}
+                </h2>
+                <p className="text-slate-400">
+                  {t("privacy_page.section9.text")}
+                </p>
+              </div>
+
+              {/* Section 10 */}
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold text-white">
+                  {t("privacy_page.section10.title")}
+                </h2>
+                <p className="text-slate-400">
+                  {t("privacy_page.section10.text")}{" "}
+                  <strong className="text-cyan-400">
+                    {t("privacy_page.section10.email")}
+                  </strong>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }
