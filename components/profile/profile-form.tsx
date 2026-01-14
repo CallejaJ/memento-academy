@@ -5,6 +5,7 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import type { Database } from "@/types/supabase";
 import { useAuth } from "@/contexts/auth-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -88,26 +89,31 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
 
       if (existingProfile) {
         // Update existing profile
-        const { error } = await supabase
+        // Type assertion needed due to @supabase/ssr type inference issues
+        const updateData: Database["public"]["Tables"]["profiles"]["Update"] = {
+          full_name: fullName || null,
+          avatar_url: avatarUrl || null,
+          updated_at: new Date().toISOString(),
+        };
+        const { error: updateError } = await (supabase as any)
           .from("profiles")
-          .update({
-            full_name: fullName || null,
-            avatar_url: avatarUrl || null,
-            updated_at: new Date().toISOString(),
-          })
+          .update(updateData)
           .eq("id", user.id);
 
-        if (error) throw error;
+        if (updateError) throw updateError;
       } else {
         // Insert new profile
-        const { error } = await supabase.from("profiles").insert({
+        const insertData: Database["public"]["Tables"]["profiles"]["Insert"] = {
           id: user.id,
           email: user.email ?? null,
           full_name: fullName || null,
           avatar_url: avatarUrl || null,
-        });
+        };
+        const { error: insertError } = await (supabase as any)
+          .from("profiles")
+          .insert(insertData);
 
-        if (error) throw error;
+        if (insertError) throw insertError;
       }
 
       setSuccess("Profile updated successfully! Redirecting...");
