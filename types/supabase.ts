@@ -374,7 +374,8 @@ export interface Database {
       game_leaderboard: {
         Row: {
           user_id: string;
-          email: string | null;
+          display_name: string | null; // Truncated name (e.g., "joh***")
+          email: string | null; // Truncated email (same as display_name for privacy)
           wallet_address: string | null;
           games_played: number;
           total_score: number;

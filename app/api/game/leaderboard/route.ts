@@ -26,12 +26,11 @@ export async function GET() {
       );
     }
 
-    // Truncate wallet addresses for privacy
+    // Truncate wallet addresses for privacy (emails already truncated in view)
     const safeLeaderboard = (leaderboard || []).map((entry, index) => ({
       rank: index + 1,
-      email: entry.email
-        ? `${entry.email.split("@")[0].slice(0, 3)}***`
-        : "Anonymous",
+      // Email ya viene truncado de la vista (ej: "joh***")
+      email: entry.email || "Anonymous",
       walletAddress: entry.wallet_address
         ? `${entry.wallet_address.slice(0, 6)}...${entry.wallet_address.slice(-4)}`
         : null,
