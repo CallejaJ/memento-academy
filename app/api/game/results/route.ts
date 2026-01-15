@@ -36,12 +36,23 @@ export async function POST(request: NextRequest) {
     }
 
     // Get session
-    const { data: session, error: sessionError } = await supabase
+    const { data: sessionData, error: sessionError } = await supabase
       .from("game_sessions")
       .select("*")
       .eq("session_token", sessionToken)
       .eq("user_id", user.id)
       .single();
+
+    // Type assertion for session
+    const session = sessionData as {
+      id: string;
+      finished_at: string | null;
+      score: number;
+      total_questions: number;
+      rewarded: boolean;
+      reward_signature: string | null;
+      reward_deadline: number | null;
+    } | null;
 
     if (sessionError || !session) {
       return NextResponse.json({ error: "Invalid session" }, { status: 403 });
@@ -143,7 +154,8 @@ export async function POST(request: NextRequest) {
           console.log("[Results API] Signature generated successfully!");
 
           // Save signature and deadline to session
-          await supabase
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          await (supabase as any)
             .from("game_sessions")
             .update({
               reward_signature: rewardSignature,
@@ -162,7 +174,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Mark session as finished
-    await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase as any)
       .from("game_sessions")
       .update({
         finished_at: new Date().toISOString(),

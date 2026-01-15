@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate session
+    // Validate session and get option mappings
     const { data: session, error: sessionError } = await supabase
       .from("game_sessions")
       .select("*")
@@ -35,7 +35,15 @@ export async function POST(request: NextRequest) {
       .is("finished_at", null)
       .single();
 
-    if (sessionError || !session) {
+    // Type assertion for session
+    const typedSession = session as {
+      id: string;
+      expires_at: string;
+      score: number;
+      reward_signature: string | null;
+    } | null;
+
+    if (sessionError || !typedSession) {
       return NextResponse.json(
         { error: "Invalid or completed session" },
         { status: 403 }
@@ -43,8 +51,19 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if session expired
-    if (new Date(session.expires_at) < new Date()) {
+    if (new Date(typedSession.expires_at) < new Date()) {
       return NextResponse.json({ error: "Session expired" }, { status: 410 });
+    }
+
+    // Get option mappings from session (stored when questions were fetched)
+    let optionMappings: Record<string, number[]> = {};
+    if (typedSession.reward_signature) {
+      try {
+        optionMappings = JSON.parse(typedSession.reward_signature);
+      } catch {
+        // If parsing fails, mappings might not exist or format changed
+        console.warn("Could not parse option mappings, using direct indices");
+      }
     }
 
     // Anti-bot: Check response time
@@ -59,7 +78,7 @@ export async function POST(request: NextRequest) {
     const { data: existingAnswer } = await supabase
       .from("game_answers")
       .select("id")
-      .eq("session_id", session.id)
+      .eq("session_id", typedSession.id)
       .eq("question_id", questionId)
       .single();
 
@@ -71,11 +90,17 @@ export async function POST(request: NextRequest) {
     }
 
     // Get correct answer from database (server-side only)
-    const { data: question, error: questionError } = await supabase
+    const { data: questionData, error: questionError } = await supabase
       .from("game_questions")
       .select("correct_index, explanation")
       .eq("id", questionId)
       .single();
+
+    // Type assertion for question
+    const question = questionData as {
+      correct_index: number;
+      explanation: unknown;
+    } | null;
 
     if (questionError || !question) {
       return NextResponse.json(
@@ -84,16 +109,34 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Note: isCorrect using direct index (for backwards compatibility check)
     const isCorrect = answerIndex === question.correct_index;
 
-    // Save answer
-    const { error: answerError } = await supabase.from("game_answers").insert({
-      session_id: session.id,
-      question_id: questionId,
-      answer_index: answerIndex,
-      is_correct: isCorrect,
-      response_time_ms: responseTimeMs,
-    });
+    // Translate user's answer index using option mapping (if available)
+    // The mapping stores: indexMap[shuffledPosition] = originalIndex
+    // So we need to find which original index the user selected
+    const questionMapping = optionMappings[questionId];
+    let originalAnswerIndex = answerIndex;
+
+    if (questionMapping && questionMapping[answerIndex] !== undefined) {
+      // User clicked on shuffled position 'answerIndex'
+      // This corresponds to original position 'questionMapping[answerIndex]'
+      originalAnswerIndex = questionMapping[answerIndex];
+    }
+
+    const isCorrectWithMapping = originalAnswerIndex === question.correct_index;
+
+    // Save answer (store original index for consistency)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error: answerError } = await (supabase as any)
+      .from("game_answers")
+      .insert({
+        session_id: typedSession.id,
+        question_id: questionId,
+        answer_index: originalAnswerIndex, // Store original index
+        is_correct: isCorrectWithMapping,
+        response_time_ms: responseTimeMs,
+      });
 
     if (answerError) {
       console.error("Save answer error:", answerError);
@@ -104,27 +147,38 @@ export async function POST(request: NextRequest) {
     }
 
     // Add to user's question history
-    await supabase.from("game_question_history").upsert({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase as any).from("game_question_history").upsert({
       user_id: user.id,
       question_id: questionId,
-      was_correct: isCorrect,
+      was_correct: isCorrectWithMapping,
       seen_at: new Date().toISOString(),
     });
 
     // Update session score if correct
-    if (isCorrect) {
-      await supabase
+    if (isCorrectWithMapping) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (supabase as any)
         .from("game_sessions")
-        .update({ score: session.score + 1 })
-        .eq("id", session.id);
+        .update({ score: typedSession.score + 1 })
+        .eq("id", typedSession.id);
     }
 
-    // Return feedback with correct answer
+    // Calculate shuffled correct index (for UI feedback)
+    // Find which shuffled position has the correct answer
+    let shuffledCorrectIndex = question.correct_index;
+    if (questionMapping) {
+      shuffledCorrectIndex = questionMapping.indexOf(question.correct_index);
+      if (shuffledCorrectIndex === -1)
+        shuffledCorrectIndex = question.correct_index;
+    }
+
+    // Return feedback with correct answer (using shuffled index for UI)
     return NextResponse.json({
-      isCorrect,
-      correctIndex: question.correct_index,
+      isCorrect: isCorrectWithMapping,
+      correctIndex: shuffledCorrectIndex, // Return shuffled position for UI highlight
       explanation: question.explanation,
-      currentScore: session.score + (isCorrect ? 1 : 0),
+      currentScore: typedSession.score + (isCorrectWithMapping ? 1 : 0),
     });
   } catch (error) {
     console.error("Submit answer error:", error);

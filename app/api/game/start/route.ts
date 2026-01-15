@@ -47,7 +47,8 @@ export async function POST(request: NextRequest) {
       "unknown";
 
     // Create session
-    const { data: session, error: sessionError } = await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: sessionData, error: sessionError } = await (supabase as any)
       .from("game_sessions")
       .insert({
         user_id: user.id,
@@ -59,7 +60,10 @@ export async function POST(request: NextRequest) {
       .select()
       .single();
 
-    if (sessionError) {
+    // Type assertion for session
+    const session = sessionData as { id: string } | null;
+
+    if (sessionError || !session) {
       console.error("Session creation error:", sessionError);
       return NextResponse.json(
         { error: "Failed to create session" },
