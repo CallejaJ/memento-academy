@@ -51,6 +51,11 @@ COMMENT ON VIEW game_leaderboard IS 'Leaderboard view with privacy-safe display 
 -- Habilitar Row Level Security
 ALTER TABLE public.newsletter_subscribers ENABLE ROW LEVEL SECURITY;
 
+-- Eliminar políticas existentes (si las hay)
+DROP POLICY IF EXISTS "Service role full access" ON public.newsletter_subscribers;
+DROP POLICY IF EXISTS "Users can view own subscription" ON public.newsletter_subscribers;
+DROP POLICY IF EXISTS "Users can unsubscribe" ON public.newsletter_subscribers;
+
 -- Política 1: Service role tiene acceso completo (para backend/email sending)
 CREATE POLICY "Service role full access"
 ON public.newsletter_subscribers
