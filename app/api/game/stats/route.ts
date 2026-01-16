@@ -87,7 +87,7 @@ export async function GET(request: Request) {
       .gte("created_at", `${today}T00:00:00.000Z`)
       .lte("created_at", `${today}T23:59:59.999Z`);
 
-    const remainingAttempts = Math.max(0, 50 - (attemptsCount || 0)); // Temporarily 10 for testing (was 3)
+    const remainingAttempts = Math.max(0, 5 - (attemptsCount || 0)); // 5 attempts per day
 
     const gamesPlayed = sessions?.length || 0;
     const totalScore =
