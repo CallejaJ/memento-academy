@@ -99,7 +99,7 @@ export default function LeaderboardPage() {
       className="min-h-screen py-8 px-4"
       style={{
         backgroundImage:
-          "linear-gradient(to bottom right, rgba(2, 6, 23, 0.85), rgba(15, 23, 42, 0.75)), url('/images/wallpapers/quiz-bg.png')",
+          "linear-gradient(to bottom right, rgba(2, 6, 23, 0.6), rgba(15, 23, 42, 0.5)), url('/images/wallpapers/quiz-bg.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
