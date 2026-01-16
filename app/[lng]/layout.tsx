@@ -1,7 +1,7 @@
 import type React from "react";
 import "../../app/globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Orbitron } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/contexts/auth-context";
 import { AuthModalProvider } from "@/contexts/auth-modal-context";
@@ -14,6 +14,10 @@ import { CookieConsent } from "@/components/cookie-consent";
 import { GoogleAnalytics } from "@/components/google-analytics";
 
 const inter = Inter({ subsets: ["latin"] });
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  variable: "--font-orbitron",
+});
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -167,7 +171,7 @@ export default async function RootLayout({
   return (
     <html lang={lng} suppressHydrationWarning>
       <body
-        className={`${inter.className} min-h-screen w-full overflow-x-hidden antialiased flex flex-col`}
+        className={`${inter.className} ${orbitron.variable} min-h-screen w-full overflow-x-hidden antialiased flex flex-col`}
         suppressHydrationWarning
       >
         <JsonLd lng={lng} url={`/${lng}`} />
