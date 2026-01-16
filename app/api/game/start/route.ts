@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
 import { randomUUID } from "crypto";
 
-const MAX_DAILY_SESSIONS = 50; // Temporarily increased for testing (was 3)
+const MAX_DAILY_SESSIONS = 5; // 5 attempts per day
 const SESSION_EXPIRY_MINUTES = 10;
 
 export async function POST(request: NextRequest) {

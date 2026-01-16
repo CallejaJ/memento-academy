@@ -213,7 +213,7 @@ export async function GET(request: NextRequest) {
       sessionId: session.id,
       questions: safeQuestions,
       totalQuestions: safeQuestions.length,
-      timePerQuestion: 30, // seconds
+      timePerQuestion: 10, // seconds
     });
   } catch (error) {
     console.error("Get questions error:", error);

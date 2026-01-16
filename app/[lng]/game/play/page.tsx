@@ -45,9 +45,12 @@ interface AnswerFeedback {
   isCorrect: boolean;
   correctIndex: number;
   explanation: { en: string; es: string } | null;
+  timeBonus?: { bonus: number; label: string };
+  streakMultiplier?: { multiplier: number; label: string };
+  newStreak?: number;
 }
 
-const TIME_PER_QUESTION = 30;
+const TIME_PER_QUESTION = 10;
 
 function GamePlayContent() {
   const { lng } = useParams<{ lng: string }>();
@@ -136,6 +139,7 @@ function GamePlayContent() {
           questionId: questions[currentIndex].id,
           answerIndex,
           responseTimeMs,
+          currentStreak: streak, // Send current streak for multiplier calc
         }),
       });
 
@@ -144,7 +148,7 @@ function GamePlayContent() {
       setShowFeedback(true);
 
       if (data.isCorrect) {
-        setStreak((prev) => prev + 1);
+        setStreak(data.newStreak ?? streak + 1);
         setScore((prev) => prev + 1);
         // Mini confetti for correct answer
         confetti({
@@ -358,17 +362,36 @@ function GamePlayContent() {
                   : "bg-red-500/20 border border-red-500/50"
               }`}
             >
-              <div className="flex items-center gap-2 mb-2">
-                {feedback?.isCorrect ? (
-                  <CheckCircle className="w-6 h-6 text-green-400" />
-                ) : (
-                  <XCircle className="w-6 h-6 text-red-400" />
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  {feedback?.isCorrect ? (
+                    <CheckCircle className="w-6 h-6 text-green-400" />
+                  ) : (
+                    <XCircle className="w-6 h-6 text-red-400" />
+                  )}
+                  <span
+                    className={`font-bold ${feedback?.isCorrect ? "text-green-400" : "text-red-400"}`}
+                  >
+                    {feedback?.isCorrect ? t.correct : t.incorrect}
+                  </span>
+                </div>
+
+                {/* Bonus badges */}
+                {feedback?.isCorrect && (
+                  <div className="flex items-center gap-2">
+                    {feedback.timeBonus?.label && (
+                      <span className="px-2 py-1 text-xs font-bold rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/50">
+                        ⚡ {feedback.timeBonus.label} +
+                        {feedback.timeBonus.bonus}%
+                      </span>
+                    )}
+                    {feedback.streakMultiplier?.label && (
+                      <span className="px-2 py-1 text-xs font-bold rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/50">
+                        {feedback.streakMultiplier.label}
+                      </span>
+                    )}
+                  </div>
                 )}
-                <span
-                  className={`font-bold ${feedback?.isCorrect ? "text-green-400" : "text-red-400"}`}
-                >
-                  {feedback?.isCorrect ? t.correct : t.incorrect}
-                </span>
               </div>
               {feedback?.explanation && (
                 <p className="text-slate-300 text-sm">

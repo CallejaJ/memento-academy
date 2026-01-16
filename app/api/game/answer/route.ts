@@ -2,6 +2,35 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
 
 const MIN_RESPONSE_TIME_MS = 1000; // Answers faster than 1 second are suspicious
+const TIME_PER_QUESTION_MS = 10000; // 10 seconds
+const FAST_ANSWER_THRESHOLD_MS = 3000; // Under 3s = fast bonus
+const MEDIUM_ANSWER_THRESHOLD_MS = 5000; // Under 5s = medium bonus
+
+// Calculate time bonus points
+function calculateTimeBonus(responseTimeMs: number): {
+  bonus: number;
+  label: string;
+} {
+  if (responseTimeMs < FAST_ANSWER_THRESHOLD_MS) {
+    return { bonus: 50, label: "¡RÁPIDO!" }; // +50% bonus
+  } else if (responseTimeMs < MEDIUM_ANSWER_THRESHOLD_MS) {
+    return { bonus: 25, label: "¡Veloz!" }; // +25% bonus
+  }
+  return { bonus: 0, label: "" };
+}
+
+// Calculate streak multiplier
+function getStreakMultiplier(streak: number): {
+  multiplier: number;
+  label: string;
+} {
+  if (streak >= 5) {
+    return { multiplier: 2.0, label: "🔥🔥 x2" };
+  } else if (streak >= 3) {
+    return { multiplier: 1.5, label: "🔥 x1.5" };
+  }
+  return { multiplier: 1.0, label: "" };
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,7 +46,13 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { sessionToken, questionId, answerIndex, responseTimeMs } = body;
+    const {
+      sessionToken,
+      questionId,
+      answerIndex,
+      responseTimeMs,
+      currentStreak = 0,
+    } = body;
 
     if (!sessionToken || !questionId || answerIndex === undefined) {
       return NextResponse.json(
@@ -173,12 +208,24 @@ export async function POST(request: NextRequest) {
         shuffledCorrectIndex = question.correct_index;
     }
 
-    // Return feedback with correct answer (using shuffled index for UI)
+    // Calculate bonuses
+    const timeBonus = responseTimeMs
+      ? calculateTimeBonus(responseTimeMs)
+      : { bonus: 0, label: "" };
+    const streakInfo = getStreakMultiplier(
+      currentStreak + (isCorrectWithMapping ? 1 : 0)
+    );
+
+    // Return feedback with correct answer and bonus info
     return NextResponse.json({
       isCorrect: isCorrectWithMapping,
-      correctIndex: shuffledCorrectIndex, // Return shuffled position for UI highlight
+      correctIndex: shuffledCorrectIndex,
       explanation: question.explanation,
       currentScore: typedSession.score + (isCorrectWithMapping ? 1 : 0),
+      // New bonus fields
+      timeBonus: isCorrectWithMapping ? timeBonus : { bonus: 0, label: "" },
+      streakMultiplier: streakInfo,
+      newStreak: isCorrectWithMapping ? currentStreak + 1 : 0,
     });
   } catch (error) {
     console.error("Submit answer error:", error);
