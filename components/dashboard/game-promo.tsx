@@ -112,7 +112,7 @@ export function GamePromo({ stats, walletAddress }: GamePromoProps) {
         <div className="lg:col-span-7 space-y-6">
           <div className="inline-flex items-center gap-3 rounded-full border border-purple-400/30 bg-purple-400/10 px-3 py-1 text-xs font-medium text-purple-300">
             <span>
-              {t.dailyAttempts}: {remainingAttempts ?? "..."}/50
+              {t.dailyAttempts}: {remainingAttempts ?? "..."}/5
             </span>
           </div>
 
