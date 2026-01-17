@@ -256,6 +256,26 @@ export default function PrivacyPage({
                     <div className="flex items-center justify-between">
                       <div>
                         <strong className="text-white">
+                          {t("privacy_page.section7.list.cloudflare")}
+                        </strong>
+                        <p className="text-slate-400 text-sm">
+                          {t("privacy_page.section7.list.cloudflare_desc")}
+                        </p>
+                      </div>
+                      <a
+                        href={t("privacy_page.section7.list.cloudflare_policy")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cyan-400 hover:text-cyan-300 text-sm"
+                      >
+                        Policy →
+                      </a>
+                    </div>
+                  </div>
+                  <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <strong className="text-white">
                           {t("privacy_page.section7.list.google_analytics")}
                         </strong>
                         <p className="text-slate-400 text-sm">

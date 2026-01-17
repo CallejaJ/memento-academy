@@ -426,6 +426,9 @@
         "vercel": "Vercel",
         "vercel_desc": "Alojamiento web",
         "vercel_policy": "https://vercel.com/legal/privacy-policy",
+        "cloudflare": "Cloudflare",
+        "cloudflare_desc": "DNS, seguridad y Email Routing",
+        "cloudflare_policy": "https://www.cloudflare.com/privacypolicy/",
         "google_analytics": "Google Analytics",
         "google_analytics_desc": "Análisis y estadísticas de uso del sitio web",
         "google_analytics_policy": "https://policies.google.com/privacy"
