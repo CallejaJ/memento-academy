@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Twitter, Disc } from "lucide-react";
+import { Github } from "lucide-react";
+import { XIcon } from "@/components/icons/x-icon";
+import { DiscordIcon } from "@/components/icons/discord-icon";
 
 interface SiteFooterProps {
   lng: string;
@@ -27,7 +29,7 @@ export function SiteFooter({ lng }: SiteFooterProps) {
               rel="noreferrer"
               className="text-slate-600 hover:text-cyan-500 transition-colors"
             >
-              <Twitter className="w-4 h-4" />
+              <XIcon className="w-4 h-4" />
               <span className="sr-only">X (Twitter)</span>
             </Link>
             <Link
@@ -45,7 +47,7 @@ export function SiteFooter({ lng }: SiteFooterProps) {
               rel="noreferrer"
               className="text-slate-600 hover:text-cyan-500 transition-colors"
             >
-              <Disc className="w-4 h-4" />
+              <DiscordIcon className="w-4 h-4" />
               <span className="sr-only">Discord</span>
             </Link>
           </div>

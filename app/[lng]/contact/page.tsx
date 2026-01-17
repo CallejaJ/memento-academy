@@ -2,7 +2,9 @@ import { Metadata } from "next";
 import { MainNav } from "@/components/main-nav";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mail, MessageCircle, Github, Twitter } from "lucide-react";
+import { Mail, MessageCircle, Github } from "lucide-react";
+import { XIcon } from "@/components/icons/x-icon";
+import { DiscordIcon } from "@/components/icons/discord-icon";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/contact/contact-form";
 import { useTranslation } from "@/app/i18n";
@@ -132,13 +134,13 @@ export default async function ContactPage({
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
               <a
-                href="https://twitter.com/memento_academy"
+                href="https://x.com/memento_academy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500/30 transition-all"
               >
-                <Twitter className="w-5 h-5 text-cyan-400" />
-                <span className="text-white">Twitter</span>
+                <XIcon className="w-5 h-5 text-cyan-400" />
+                <span className="text-white">X</span>
               </a>
               <a
                 href="https://discord.gg/MWfHKfjYS7"
@@ -146,7 +148,7 @@ export default async function ContactPage({
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500/30 transition-all"
               >
-                <MessageCircle className="w-5 h-5 text-indigo-400" />
+                <DiscordIcon className="w-5 h-5 text-indigo-400" />
                 <span className="text-white">Discord</span>
               </a>
               <a
