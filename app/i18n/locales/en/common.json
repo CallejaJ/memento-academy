@@ -358,7 +358,7 @@
       "name": "Jorge Calleja Pérez",
       "id": "NIF: 31865985Z",
       "location": "Málaga, Spain",
-      "email": "privacy@memento.academy"
+      "email": "privacy@memento-academy.com"
     },
     "section1": {
       "title": "1. Information We Collect",
@@ -411,7 +411,7 @@
         "item4": "Unsubscribe from communications at any time"
       },
       "text2": "To exercise these rights, contact us at",
-      "email": "privacy@memento.academy"
+      "email": "privacy@memento-academy.com"
     },
     "section7": {
       "title": "7. Third-Party Services",
@@ -442,7 +442,7 @@
     "section10": {
       "title": "10. Contact Us",
       "text": "Questions about this policy? Contact us at",
-      "email": "privacy@memento.academy"
+      "email": "privacy@memento-academy.com"
     }
   },
   "terms_page": {
@@ -615,7 +615,7 @@
     "section7": {
       "title": "7. Contact Us",
       "text": "If you have questions about our use of cookies, contact us at",
-      "email": "privacy@memento.academy"
+      "email": "privacy@memento-academy.com"
     }
   }
 }
