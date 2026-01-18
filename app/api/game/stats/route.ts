@@ -62,9 +62,19 @@ export async function GET(request: Request) {
     }
 
     // Query game sessions table directly to avoid View dependencies issues
+    // Only count Classic mode for best score (out of 10)
+    // Use total_questions = 10 to identify Classic mode (more reliable than game_mode for legacy sessions)
+    const { data: classicSessions, error: classicError } = await supabase
+      .from("game_sessions")
+      .select("score, finished_at, game_mode, total_questions")
+      .eq("user_id", user.id)
+      .eq("total_questions", 10)
+      .not("finished_at", "is", null);
+
+    // All finished sessions for total stats
     const { data: sessions, error } = await supabase
       .from("game_sessions")
-      .select("score, finished_at")
+      .select("score, finished_at, game_mode")
       .eq("user_id", user.id)
       .not("finished_at", "is", null);
 
@@ -95,8 +105,9 @@ export async function GET(request: Request) {
         (acc: number, session: any) => acc + (session.score || 0),
         0,
       ) || 0;
+    // Best score from Classic mode only (out of 10)
     const bestScore =
-      sessions?.reduce(
+      classicSessions?.reduce(
         (max: number, session: any) => Math.max(max, session.score || 0),
         0,
       ) || 0;
@@ -105,9 +116,9 @@ export async function GET(request: Request) {
     const avgScore =
       gamesPlayed > 0 ? Number((totalScore / gamesPlayed).toFixed(1)) : 0;
 
-    // Calculate earned tokens (sum of scores where score >= 8)
+    // Calculate earned tokens (sum of scores where score >= 8, Classic mode only)
     const earnedTokens =
-      sessions?.reduce(
+      classicSessions?.reduce(
         (acc: number, session: any) =>
           (session.score || 0) >= 8 ? acc + (session.score || 0) : acc,
         0,
