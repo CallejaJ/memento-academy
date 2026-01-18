@@ -8,7 +8,7 @@ acceptLanguage.languages(languages);
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|assets|favicon|favicon.ico|sw.js|site.webmanifest|sitemap.xml|robots.txt|.*\\.png|.*\\.jpg|.*\\.jpeg|.*\\.svg|.*\\.gif).*)",
+    "/((?!api|_next/static|_next/image|assets|favicon|favicon.ico|sw.js|site.webmanifest|sitemap.xml|sitemap-twitter.xml|robots.txt|.*\\.png|.*\\.jpg|.*\\.jpeg|.*\\.svg|.*\\.gif).*)",
   ],
 };
 
@@ -31,7 +31,7 @@ export async function middleware(req: NextRequest) {
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value, options }) =>
-            req.cookies.set(name, value)
+            req.cookies.set(name, value),
           );
           response = NextResponse.next({
             request: {
@@ -39,11 +39,11 @@ export async function middleware(req: NextRequest) {
             },
           });
           cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
+            response.cookies.set(name, value, options),
           );
         },
       },
-    }
+    },
   );
 
   // Refresh the session
@@ -62,14 +62,14 @@ export async function middleware(req: NextRequest) {
     !req.nextUrl.pathname.startsWith("/_next")
   ) {
     return NextResponse.redirect(
-      new URL(`/${lng}${req.nextUrl.pathname}${req.nextUrl.search}`, req.url)
+      new URL(`/${lng}${req.nextUrl.pathname}${req.nextUrl.search}`, req.url),
     );
   }
 
   if (req.headers.has("referer")) {
     const refererUrl = new URL(req.headers.get("referer")!);
     const lngInReferer = languages.find((l) =>
-      refererUrl.pathname.startsWith(`/${l}`)
+      refererUrl.pathname.startsWith(`/${l}`),
     );
     if (lngInReferer) response.cookies.set(cookieName, lngInReferer);
   }
