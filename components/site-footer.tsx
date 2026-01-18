@@ -21,6 +21,14 @@ export function SiteFooter({ lng }: SiteFooterProps) {
             © {currentYear} Memento Academy. All rights reserved.
           </p>
 
+          {/* Updates Link */}
+          <Link
+            href={`/${lng}/updates`}
+            className="text-sm text-slate-400 hover:text-cyan-400 transition-colors hidden md:block"
+          >
+            Updates
+          </Link>
+
           {/* Social Links */}
           <div className="flex items-center gap-4">
             <Link
