@@ -46,26 +46,9 @@ export async function subscribeToNewsletter(formData: FormData) {
   try {
     const supabase = await createClient();
 
-    // Check if email already exists using Supabase
-    const { data: existing, error: findError } = await supabase
-      .from("newsletter_subscribers")
-      .select("id")
-      .eq("email", email)
-      .single();
-
-    if (findError && findError.code !== "PGRST116") {
-      // PGRST116 = no rows found (which is fine)
-      console.error("Error checking existing subscriber:", findError);
-      throw new Error("Error checking subscription status");
-    }
-
-    if (existing) {
-      console.log("Email already exists:", email);
-      return {
-        success: false,
-        message: "This email is already subscribed to our newsletter!",
-      };
-    }
+    // Insert new subscriber using Supabase
+    // We rely on the UNIQUE constraint on email to prevent duplicates
+    // and catch error code 23505 below.
 
     // Insert new subscriber using Supabase
     const insertData: Database["public"]["Tables"]["newsletter_subscribers"]["Insert"] =

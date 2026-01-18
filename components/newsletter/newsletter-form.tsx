@@ -23,7 +23,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { AlertCircle, CheckCircle, ArrowRight, Mail } from "lucide-react";
+import { AlertCircle, CheckCircle, ArrowRight, Mail, Info } from "lucide-react";
 import { subscribeToNewsletter } from "@/actions/newsletter";
 
 // Traducciones para los mensajes del newsletter
@@ -73,6 +73,7 @@ export function NewsletterForm({
   const [response, setResponse] = useState<{
     success: boolean;
     message: string;
+    isInfo?: boolean;
   } | null>(null);
   const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState(false);
@@ -99,8 +100,9 @@ export function NewsletterForm({
       // Translate messageKey to localized message
       const messageKey = result.messageKey as keyof typeof t;
       const message = t[messageKey] || t.error;
+      const isInfo = messageKey === "already_subscribed";
 
-      setResponse({ success: result.success, message });
+      setResponse({ success: result.success, message, isInfo });
 
       if (result.success) {
         setEmail("");
@@ -121,15 +123,21 @@ export function NewsletterForm({
     <div className={`space-y-4 ${className}`}>
       {response && (
         <Alert
-          variant={response.success ? "default" : "destructive"}
+          variant={
+            response.success || response.isInfo ? "default" : "destructive"
+          }
           className={
             response.success
               ? "bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 border-green-200 dark:border-green-900"
-              : undefined
+              : response.isInfo
+                ? "bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-900"
+                : undefined
           }
         >
           {response.success ? (
             <CheckCircle className="h-4 w-4" />
+          ) : response.isInfo ? (
+            <Info className="h-4 w-4 text-blue-800 dark:text-blue-300" />
           ) : (
             <AlertCircle className="h-4 w-4" />
           )}
