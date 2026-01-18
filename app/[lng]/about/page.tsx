@@ -237,6 +237,7 @@ export default async function AboutPage({
               <NewsletterForm
                 variant="modal"
                 buttonText={t("about_page.cta_newsletter")}
+                lng={lng}
               />
             </div>
           </div>

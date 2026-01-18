@@ -103,6 +103,12 @@
     "form": {
       "title": "Join the Global Community",
       "desc": "Become part of the 50,000+ enthusiasts mastering the future of finance."
+    },
+    "messages": {
+      "success": "Welcome to Memento Academy! Check your email for confirmation.",
+      "success_email_delayed": "Subscription successful! Email confirmation may take a few minutes.",
+      "already_subscribed": "This email is already subscribed to our newsletter!",
+      "error": "Failed to subscribe. Please try again."
     }
   },
   "footer": {

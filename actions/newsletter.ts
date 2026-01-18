@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase-server";
+import { Database } from "@/types/supabase";
 import * as brevo from "@getbrevo/brevo";
 
 import { z } from "zod";
@@ -34,6 +35,7 @@ export async function subscribeToNewsletter(formData: FormData) {
   }
 
   const { email, fullName } = validationResult.data;
+  const lng = (formData.get("lng") as string) || "en";
   const web3Basics = formData.get("web3_basics") === "on";
   const cbdcEducation = formData.get("cbdc_education") === "on";
   const freeCourses = formData.get("free_courses") === "on";
@@ -66,9 +68,8 @@ export async function subscribeToNewsletter(formData: FormData) {
     }
 
     // Insert new subscriber using Supabase
-    const { error: insertError } = await supabase
-      .from("newsletter_subscribers")
-      .insert({
+    const insertData: Database["public"]["Tables"]["newsletter_subscribers"]["Insert"] =
+      {
         email,
         full_name: fullName || null,
         subscription_preferences: {
@@ -78,10 +79,22 @@ export async function subscribeToNewsletter(formData: FormData) {
           community_events: communityEvents,
         },
         confirmed_at: new Date().toISOString(),
-      });
+      };
+    const { error: insertError } = await (supabase as any)
+      .from("newsletter_subscribers")
+      .insert(insertData);
 
     if (insertError) {
       console.error("Error inserting subscriber:", insertError);
+
+      // Check for unique constraint violation (email already exists)
+      if (insertError.code === "23505") {
+        return {
+          success: false,
+          messageKey: "already_subscribed",
+        };
+      }
+
       throw new Error("Failed to register subscription");
     }
 
@@ -94,11 +107,55 @@ export async function subscribeToNewsletter(formData: FormData) {
 
     console.log("Attempting to send email via Brevo...");
 
+    // Email content translations
+    const t = {
+      en: {
+        subject: "Welcome to Memento Academy!",
+        title: "Welcome to Memento Academy!",
+        greeting: `Hello ${fullName || "there"},`,
+        intro:
+          "Thank you for subscribing to the Memento Academy newsletter! You're now part of our community of 50,000+ crypto enthusiasts.",
+        expect: "Here's what you can expect:",
+        list: {
+          web3: "Introduction to Web3 and Blockchain",
+          cbdc: "Understanding Digital Currencies (CBDCs)",
+          free: "New free course releases",
+          community: "Community events and live Q&A",
+        },
+        stay_tuned: "Stay tuned for our next update!",
+        cta: "Visit Your Dashboard",
+        footer_rights: "Memento Academy. All rights reserved.",
+        unsubscribe_text: "If you didn't sign up for this newsletter, you can",
+        unsubscribe_link: "unsubscribe here",
+      },
+      es: {
+        subject: "¡Bienvenido a Memento Academy!",
+        title: "¡Bienvenido a Memento Academy!",
+        greeting: `Hola ${fullName || ""},`,
+        intro:
+          "¡Gracias por suscribirte al boletín de Memento Academy! Ahora eres parte de nuestra comunidad de más de 50,000 entusiastas de cripto.",
+        expect: "Esto es lo que puedes esperar:",
+        list: {
+          web3: "Introducción a Web3 y Blockchain",
+          cbdc: "Entendiendo las Monedas Digitales (CBDCs)",
+          free: "Lanzamientos de nuevos cursos gratuitos",
+          community: "Eventos de la comunidad y preguntas y respuestas en vivo",
+        },
+        stay_tuned: "¡Mantente atento a nuestra próxima actualización!",
+        cta: "Visita tu Panel de Control",
+        footer_rights: "Memento Academy. Todos los derechos reservados.",
+        unsubscribe_text: "Si no te registraste para este boletín, puedes",
+        unsubscribe_link: "darte de baja aquí",
+      },
+    };
+
+    const content = t[lng as keyof typeof t] || t.en;
+
     // Send confirmation email with Brevo
     try {
       const sendSmtpEmail = new brevo.SendSmtpEmail();
 
-      sendSmtpEmail.subject = "Welcome to Memento Academy!";
+      sendSmtpEmail.subject = content.subject;
       sendSmtpEmail.sender = {
         name: "Memento Academy",
         email: "posicionadoenlaweb@gmail.com",
@@ -107,26 +164,26 @@ export async function subscribeToNewsletter(formData: FormData) {
       sendSmtpEmail.htmlContent = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background-color: #0e1629; padding: 20px; text-align: center;">
-            <h1 style="color: #ffffff; margin: 0;">Welcome to Memento Academy!</h1>
+            <h1 style="color: #ffffff; margin: 0;">${content.title}</h1>
           </div>
           <div style="padding: 20px; background-color: #ffffff;">
-            <p>Hello ${fullName || "there"},</p>
-            <p>Thank you for subscribing to the Memento Academy newsletter! You're now part of our community of 50,000+ crypto enthusiasts.</p>
-            <p>Here's what you can expect:</p>
+            <p>${content.greeting}</p>
+            <p>${content.intro}</p>
+            <p>${content.expect}</p>
             <ul>
-              ${web3Basics ? "<li>Introduction to Web3 and Blockchain</li>" : ""}
-              ${cbdcEducation ? "<li>Understanding Digital Currencies (CBDCs)</li>" : ""}
-              ${freeCourses ? "<li>New free course releases</li>" : ""}
-              ${communityEvents ? "<li>Community events and live Q&A</li>" : ""}
+              ${web3Basics ? `<li>${content.list.web3}</li>` : ""}
+              ${cbdcEducation ? `<li>${content.list.cbdc}</li>` : ""}
+              ${freeCourses ? `<li>${content.list.free}</li>` : ""}
+              ${communityEvents ? `<li>${content.list.community}</li>` : ""}
             </ul>
-            <p>Stay tuned for our next update!</p>
+            <p>${content.stay_tuned}</p>
             <div style="text-align: center; margin-top: 30px;">
-              <a href="${baseUrl}/dashboard" style="background-color: #06b6d4; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Visit Your Dashboard</a>
+              <a href="${baseUrl}/${lng}/dashboard" style="background-color: #06b6d4; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">${content.cta}</a>
             </div>
           </div>
           <div style="background-color: #f3f4f6; padding: 15px; text-align: center; font-size: 12px; color: #6b7280;">
-            <p>© ${new Date().getFullYear()} Memento Academy. All rights reserved.</p>
-            <p>If you didn't sign up for this newsletter, you can <a href="${baseUrl}/unsubscribe?email=${email}" style="color: #06b6d4;">unsubscribe here</a>.</p>
+            <p>© ${new Date().getFullYear()} ${content.footer_rights}</p>
+            <p>${content.unsubscribe_text} <a href="${baseUrl}/unsubscribe?email=${email}" style="color: #06b6d4;">${content.unsubscribe_link}</a>.</p>
           </div>
         </div>
       `;
@@ -134,10 +191,40 @@ export async function subscribeToNewsletter(formData: FormData) {
       const emailResult = await apiInstance.sendTransacEmail(sendSmtpEmail);
       console.log("Email sent successfully:", emailResult);
 
+      // Send notification to admin
+      try {
+        const adminNotification = new brevo.SendSmtpEmail();
+        adminNotification.subject = `Nueva suscripción: ${email}`;
+        adminNotification.sender = {
+          name: "Memento Academy",
+          email: "posicionadoenlaweb@gmail.com",
+        };
+        adminNotification.to = [{ email: "callejaj@proton.me", name: "Admin" }];
+        adminNotification.htmlContent = `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #06b6d4;">Nueva Suscripción al Newsletter</h2>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Nombre:</strong> ${fullName || "No proporcionado"}</p>
+            <p><strong>Preferencias:</strong></p>
+            <ul>
+              ${web3Basics ? "<li>Web3 Basics</li>" : ""}
+              ${cbdcEducation ? "<li>CBDC Education</li>" : ""}
+              ${freeCourses ? "<li>Free Courses</li>" : ""}
+              ${communityEvents ? "<li>Community Events</li>" : ""}
+            </ul>
+            <p><strong>Fecha:</strong> ${new Date().toLocaleString("es-ES")}</p>
+          </div>
+        `;
+        await apiInstance.sendTransacEmail(adminNotification);
+        console.log("Admin notification sent");
+      } catch (adminEmailError) {
+        console.error("Admin notification failed:", adminEmailError);
+        // Don't fail the subscription if admin notification fails
+      }
+
       return {
         success: true,
-        message:
-          "Welcome to Memento Academy! Check your email for confirmation.",
+        messageKey: "success",
       };
     } catch (emailError: any) {
       console.error("Email sending failed:", emailError);
@@ -145,8 +232,7 @@ export async function subscribeToNewsletter(formData: FormData) {
       // Still return success for database insertion, but mention email issue
       return {
         success: true,
-        message:
-          "✅ Subscription successful! Email confirmation may take a few minutes to arrive.",
+        messageKey: "success_email_delayed",
         emailError: emailError.message,
       };
     }
@@ -154,7 +240,7 @@ export async function subscribeToNewsletter(formData: FormData) {
     console.error("Newsletter subscription error:", error);
     return {
       success: false,
-      message: error.message || "Failed to subscribe. Please try again.",
+      messageKey: "error",
     };
   }
 }

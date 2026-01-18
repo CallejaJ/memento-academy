@@ -1,14 +1,20 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useTransition } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Checkbox } from "@/components/ui/checkbox"
+import { useState, useTransition } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -16,17 +22,36 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { AlertCircle, CheckCircle, ArrowRight, Mail } from "lucide-react"
-import { useAuth } from "@/contexts/auth-context"
-import { subscribeToNewsletter } from "@/actions/newsletter"
+} from "@/components/ui/dialog";
+import { AlertCircle, CheckCircle, ArrowRight, Mail } from "lucide-react";
+import { subscribeToNewsletter } from "@/actions/newsletter";
+
+// Traducciones para los mensajes del newsletter
+const translations = {
+  es: {
+    success:
+      "¡Bienvenido a Memento Academy! Revisa tu email para confirmación.",
+    success_email_delayed:
+      "¡Suscripción completada! El email de confirmación puede tardar unos minutos.",
+    already_subscribed: "¡Este email ya está suscrito a nuestro boletín!",
+    error: "Error al suscribirse. Por favor, inténtalo de nuevo.",
+  },
+  en: {
+    success: "Welcome to Memento Academy! Check your email for confirmation.",
+    success_email_delayed:
+      "Subscription successful! Email confirmation may take a few minutes.",
+    already_subscribed: "This email is already subscribed to our newsletter!",
+    error: "Failed to subscribe. Please try again.",
+  },
+} as const;
 
 interface NewsletterFormProps {
-  variant?: "inline" | "modal" | "hero"
-  buttonText?: string
-  title?: string
-  description?: string
-  className?: string
+  variant?: "inline" | "modal" | "hero";
+  buttonText?: string;
+  title?: string;
+  description?: string;
+  className?: string;
+  lng?: string;
 }
 
 export function NewsletterForm({
@@ -35,48 +60,62 @@ export function NewsletterForm({
   title = "Start Your Web3 Journey",
   description = "Learn the basics of Cryptocurrencies, Blockchain, and CBDCs with our free beginner-friendly courses.",
   className = "",
+  lng = "en",
 }: NewsletterFormProps) {
-  const [email, setEmail] = useState("")
-  const [fullName, setFullName] = useState("")
+  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
   const [preferences, setPreferences] = useState({
     web3_basics: true,
     cbdc_education: true,
     free_courses: true,
     community_events: false,
-  })
-  const [response, setResponse] = useState<{ success: boolean; message: string } | null>(null)
-  const [isPending, startTransition] = useTransition()
-  const [isOpen, setIsOpen] = useState(false)
-  const { user } = useAuth()
+  });
+  const [response, setResponse] = useState<{
+    success: boolean;
+    message: string;
+  } | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Get translations for current language
+  const t = translations[lng as keyof typeof translations] || translations.en;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const formData = new FormData(e.currentTarget)
+    const formData = new FormData(e.currentTarget);
+
+    // Add language to form data for email translation
+    formData.append("lng", lng);
 
     // Add preferences to form data
     Object.entries(preferences).forEach(([key, value]) => {
-      if (value) formData.append(key, "on")
-    })
+      if (value) formData.append(key, "on");
+    });
 
     startTransition(async () => {
-      const result = await subscribeToNewsletter(formData)
-      setResponse(result)
+      const result = await subscribeToNewsletter(formData);
+
+      // Translate messageKey to localized message
+      const messageKey = result.messageKey as keyof typeof t;
+      const message = t[messageKey] || t.error;
+
+      setResponse({ success: result.success, message });
 
       if (result.success) {
-        setEmail("")
-        setFullName("")
+        setEmail("");
+        setFullName("");
 
         // Close modal after success
         if (variant === "modal") {
           setTimeout(() => {
-            setIsOpen(false)
-            setResponse(null)
-          }, 3000)
+            setIsOpen(false);
+            setResponse(null);
+          }, 3000);
         }
       }
-    })
-  }
+    });
+  };
 
   const formContent = (
     <div className={`space-y-4 ${className}`}>
@@ -89,7 +128,11 @@ export function NewsletterForm({
               : undefined
           }
         >
-          {response.success ? <CheckCircle className="h-4 w-4" /> : <AlertCircle className="h-4 w-4" />}
+          {response.success ? (
+            <CheckCircle className="h-4 w-4" />
+          ) : (
+            <AlertCircle className="h-4 w-4" />
+          )}
           <AlertDescription>{response.message}</AlertDescription>
         </Alert>
       )}
@@ -125,14 +168,21 @@ export function NewsletterForm({
           </div>
 
           <div className="space-y-3">
-            <Label className="text-sm font-medium">What interests you? (Optional)</Label>
+            <Label className="text-sm font-medium">
+              What interests you? (Optional)
+            </Label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="web3_basics"
                   name="web3_basics"
                   checked={preferences.web3_basics}
-                  onCheckedChange={(checked) => setPreferences((prev) => ({ ...prev, web3_basics: !!checked }))}
+                  onCheckedChange={(checked) =>
+                    setPreferences((prev) => ({
+                      ...prev,
+                      web3_basics: !!checked,
+                    }))
+                  }
                 />
                 <Label htmlFor="web3_basics" className="text-sm">
                   Web3 Basics
@@ -143,7 +193,12 @@ export function NewsletterForm({
                   id="cbdc_education"
                   name="cbdc_education"
                   checked={preferences.cbdc_education}
-                  onCheckedChange={(checked) => setPreferences((prev) => ({ ...prev, cbdc_education: !!checked }))}
+                  onCheckedChange={(checked) =>
+                    setPreferences((prev) => ({
+                      ...prev,
+                      cbdc_education: !!checked,
+                    }))
+                  }
                 />
                 <Label htmlFor="cbdc_education" className="text-sm">
                   CBDC Education
@@ -155,7 +210,10 @@ export function NewsletterForm({
                   name="free_courses"
                   checked={preferences.free_courses}
                   onCheckedChange={(checked) =>
-                    setPreferences((prev) => ({ ...prev, free_courses: !!checked }))
+                    setPreferences((prev) => ({
+                      ...prev,
+                      free_courses: !!checked,
+                    }))
                   }
                 />
                 <Label htmlFor="free_courses" className="text-sm">
@@ -167,7 +225,12 @@ export function NewsletterForm({
                   id="community_events"
                   name="community_events"
                   checked={preferences.community_events}
-                  onCheckedChange={(checked) => setPreferences((prev) => ({ ...prev, community_events: !!checked }))}
+                  onCheckedChange={(checked) =>
+                    setPreferences((prev) => ({
+                      ...prev,
+                      community_events: !!checked,
+                    }))
+                  }
                 />
                 <Label htmlFor="community_events" className="text-sm">
                   Community Events
@@ -186,12 +249,13 @@ export function NewsletterForm({
           </Button>
 
           <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-            By subscribing, you agree to receive emails from Memento Academy. Unsubscribe anytime.
+            By subscribing, you agree to receive emails from Memento Academy.
+            Unsubscribe anytime.
           </p>
         </form>
       )}
     </div>
-  )
+  );
 
   if (variant === "modal") {
     return (
@@ -213,19 +277,23 @@ export function NewsletterForm({
           {formContent}
         </DialogContent>
       </Dialog>
-    )
+    );
   }
 
   if (variant === "hero") {
     return (
       <div className="bg-white dark:bg-slate-800/50 rounded-2xl p-6 shadow-lg dark:shadow-cyan-500/10 border border-gray-200 dark:border-slate-700">
         <div className="text-center mb-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
-          <p className="text-gray-600 dark:text-slate-300 text-sm">{description}</p>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            {title}
+          </h3>
+          <p className="text-gray-600 dark:text-slate-300 text-sm">
+            {description}
+          </p>
         </div>
         {formContent}
       </div>
-    )
+    );
   }
 
   return (
@@ -237,9 +305,7 @@ export function NewsletterForm({
         </CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
-      <CardContent>
-        {formContent}
-      </CardContent>
+      <CardContent>{formContent}</CardContent>
     </Card>
-  )
+  );
 }

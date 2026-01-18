@@ -106,6 +106,7 @@ export default async function CoursesPage({
               <NewsletterForm
                 variant="modal"
                 buttonText={t("courses_page.subscribe_btn")}
+                lng={lng}
               />
             </div>
           </div>

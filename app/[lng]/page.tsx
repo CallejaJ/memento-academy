@@ -92,6 +92,7 @@ export default async function LandingPage({
                   buttonText={t("hero.start_learning")}
                   title="Begin Your Journey"
                   description="Join our newsletter and get immediate access to our 'Web3 for Beginners' guide."
+                  lng={lng}
                 />
                 <Link href={`/${lng}/courses`}>
                   <Button
@@ -481,6 +482,7 @@ export default async function LandingPage({
                 variant="hero"
                 title={t("newsletter_section.form.title")}
                 description={t("newsletter_section.form.desc")}
+                lng={lng}
               />
             </div>
           </div>
