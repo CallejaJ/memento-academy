@@ -215,7 +215,7 @@ export default function GameLobbyPage() {
     try {
       const [leaderboardRes, statsRes] = await Promise.all([
         fetch("/api/game/leaderboard"),
-        fetch("/api/game/stats"),
+        fetch(`/api/game/stats?userId=${user.id}`),
       ]);
 
       if (leaderboardRes.ok) {

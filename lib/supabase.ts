@@ -34,5 +34,5 @@ export const supabase = (() => {
     supabaseInstance = createSupabaseInstance();
   }
 
-  return supabaseInstance;
+  return supabaseInstance!;
 })();

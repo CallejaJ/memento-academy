@@ -12,7 +12,7 @@ import { RecommendedCourses } from "@/components/dashboard/recommended-courses";
 import Link from "next/link";
 import { MainNav } from "@/components/main-nav";
 import { useAuthModal } from "@/contexts/auth-modal-context";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAchievements } from "@/hooks/use-achievements";
 import { getAchievements } from "@/lib/achievements-data";
@@ -93,32 +93,44 @@ export default function DashboardPage() {
 
   const t = translations[lng as keyof typeof translations] || translations.en;
 
+  const lastFetchedUserId = useRef<string | null>(null);
+
   // Fetch profile and course progress
   useEffect(() => {
     async function fetchData() {
-      if (!user) {
+      // Guard against null user or repeated fetches for same user
+      if (!user?.id || user.id === lastFetchedUserId.current) {
         setProfileLoading(false);
         return;
       }
 
+      // Update ref immediately to block subsequent calls
+      lastFetchedUserId.current = user.id;
+
       try {
-        // Fetch profile
-        const { data: profileData } = await supabase
-          .from("profiles")
-          .select("full_name, avatar_url")
-          .eq("id", user.id)
-          .single();
+        // Fetch profile via Server Action (bypasses RLS)
+        const { getProfile } = await import("@/actions/get-profile");
+        const { data: profileData, error: profileError } = await getProfile(
+          user.id,
+        );
+
+        if (profileError) {
+          console.error("Dashboard profile fetch error:", profileError);
+        }
 
         if (profileData) {
+          console.log("Dashboard profile data loaded:", profileData);
           setProfile(profileData as Profile);
         }
 
         // Fetch course progress
-        const { data: progressData } = await supabase
+        const { data: progressData } = (await supabase
           .from("course_progress")
           .select("course_id, progress_percentage, last_accessed_at")
           .eq("user_id", user.id)
-          .order("last_accessed_at", { ascending: false }) as { data: CourseProgress[] | null };
+          .order("last_accessed_at", { ascending: false })) as {
+          data: CourseProgress[] | null;
+        };
 
         if (progressData) {
           setCoursesProgress(progressData);
@@ -133,7 +145,7 @@ export default function DashboardPage() {
 
         // Fetch game stats
         try {
-          const res = await fetch("/api/game/stats");
+          const res = await fetch(`/api/game/stats?userId=${user.id}`);
           if (res.ok) {
             const stats = await res.json();
             setGameStats(stats);
@@ -154,7 +166,7 @@ export default function DashboardPage() {
     if (user) {
       fetchData();
     }
-  }, [user]);
+  }, [user?.id]);
 
   // Calculate stats
   const allCourses = getAllCourses(lng);

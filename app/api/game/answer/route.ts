@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase-server";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 const MIN_RESPONSE_TIME_MS = 500; // More lenient for very fast readers
 const TIME_PER_QUESTION_MS = 10000; // 10 seconds (aligned with frontend)
@@ -34,16 +34,14 @@ function getStreakMultiplier(streak: number): {
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    // Use admin client to bypass RLS
+    const supabase = supabaseAdmin;
 
-    // Get authenticated user
-    const {
-      data: { user },
-      error: authError,
-    } = await supabase.auth.getUser();
-    if (authError || !user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // Remove legacy auth check - we validate via sessionToken
+    // const {
+    //   data: { user },
+    //   error: authError,
+    // } = await supabase.auth.getUser();
 
     const body = await request.json();
     const {
@@ -61,18 +59,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate session and get option mappings
+    // Validate session and get option mappings (using admin client)
     const { data: session, error: sessionError } = await supabase
       .from("game_sessions")
       .select("*")
       .eq("session_token", sessionToken)
-      .eq("user_id", user.id)
       .is("finished_at", null)
       .single();
 
     // Type assertion for session
     const typedSession = session as {
       id: string;
+      user_id: string;
       expires_at: string;
       score: number;
       reward_signature: string | null;
@@ -85,6 +83,9 @@ export async function POST(request: NextRequest) {
         { status: 403 },
       );
     }
+
+    // Define user based on session
+    const user = { id: typedSession.user_id };
 
     // Check if session expired
     if (new Date(typedSession.expires_at) < new Date()) {

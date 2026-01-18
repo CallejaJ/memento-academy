@@ -64,7 +64,7 @@ interface LeaderboardEntry {
   avgScore: number;
 }
 
-type GameMode = "classic" | "survival";
+type GameMode = "classic" | "survival" | "daily";
 
 export default function LeaderboardPage() {
   const { lng } = useParams<{ lng: string }>();
@@ -155,12 +155,12 @@ export default function LeaderboardPage() {
         </div>
 
         {/* Mode Selector Tabs */}
-        <div className="flex justify-center mb-8">
-          <div className="bg-slate-900/60 backdrop-blur-xl p-1 rounded-xl border border-slate-700/50 inline-flex shadow-[0_0_20px_rgba(0,0,0,0.3)] w-full sm:w-auto">
+        <div className="flex justify-center mb-8 w-full">
+          <div className="bg-slate-900/60 backdrop-blur-xl p-1 rounded-xl border border-slate-700/50 flex shadow-[0_0_20px_rgba(0,0,0,0.3)] w-full sm:w-auto overflow-x-auto max-w-full scrollbar-none">
             <button
               onClick={() => setActiveMode("classic")}
               className={cn(
-                "flex-1 sm:flex-none px-4 sm:px-6 py-2.5 rounded-lg text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300",
+                "flex-1 sm:flex-none px-3 sm:px-6 py-2.5 rounded-lg text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 whitespace-nowrap min-w-fit",
                 activeMode === "classic"
                   ? "bg-gradient-to-r from-cyan-600 to-cyan-500 text-white shadow-lg shadow-cyan-500/20"
                   : "text-slate-400 hover:text-white hover:bg-slate-800/50",
@@ -168,7 +168,7 @@ export default function LeaderboardPage() {
             >
               <Flame
                 className={cn(
-                  "w-4 h-4",
+                  "w-4 h-4 shrink-0",
                   activeMode === "classic" ? "text-white" : "text-slate-500",
                 )}
               />
@@ -177,7 +177,7 @@ export default function LeaderboardPage() {
             <button
               onClick={() => setActiveMode("survival")}
               className={cn(
-                "flex-1 sm:flex-none px-4 sm:px-6 py-2.5 rounded-lg text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300",
+                "flex-1 sm:flex-none px-3 sm:px-6 py-2.5 rounded-lg text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 whitespace-nowrap min-w-fit",
                 activeMode === "survival"
                   ? "bg-gradient-to-r from-purple-600 to-purple-500 text-white shadow-lg shadow-purple-500/20"
                   : "text-slate-400 hover:text-white hover:bg-slate-800/50",
@@ -185,11 +185,28 @@ export default function LeaderboardPage() {
             >
               <InfinityIcon
                 className={cn(
-                  "w-4 h-4",
+                  "w-4 h-4 shrink-0",
                   activeMode === "survival" ? "text-white" : "text-slate-500",
                 )}
               />
               {t.modes.survival}
+            </button>
+            <button
+              onClick={() => setActiveMode("daily")}
+              className={cn(
+                "flex-1 sm:flex-none px-3 sm:px-6 py-2.5 rounded-lg text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 whitespace-nowrap min-w-fit",
+                activeMode === "daily"
+                  ? "bg-gradient-to-r from-yellow-500 to-amber-500 text-black shadow-lg shadow-yellow-500/20"
+                  : "text-slate-400 hover:text-white hover:bg-slate-800/50",
+              )}
+            >
+              <Calendar
+                className={cn(
+                  "w-4 h-4 shrink-0",
+                  activeMode === "daily" ? "text-black" : "text-slate-500",
+                )}
+              />
+              {t.modes.daily}
             </button>
           </div>
         </div>

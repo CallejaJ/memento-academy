@@ -14,7 +14,7 @@ const MEMO_CONTRACT_ADDRESS = process.env
 const publicClient = createPublicClient({
   chain: sepolia,
   transport: http(
-    typeof window !== "undefined" ? undefined : "https://rpc.sepolia.org/"
+    typeof window !== "undefined" ? undefined : "https://rpc.sepolia.org/",
   ),
 });
 
@@ -37,7 +37,7 @@ const translations = {
     totalEarned: "Total Score",
     gamesPlayed: "Games Played",
     bestScore: "Best Score",
-    dailyAttempts: "Daily Attempts",
+    dailyAttempts: "Attempts Left",
     memoEarned: "MEMO Earned",
   },
   es: {
@@ -47,7 +47,7 @@ const translations = {
     totalEarned: "Puntos Totales",
     gamesPlayed: "Partidas",
     bestScore: "Mejor Puntuación",
-    dailyAttempts: "Intentos Diarios",
+    dailyAttempts: "Intentos Restantes",
     memoEarned: "MEMO Ganados",
   },
 };
@@ -110,10 +110,9 @@ export function GamePromo({ stats, walletAddress }: GamePromoProps) {
 
       <div className="relative z-10 grid gap-8 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-7 space-y-6">
-          <div className="inline-flex items-center gap-3 rounded-full border border-purple-400/30 bg-purple-400/10 px-3 py-1 text-xs font-medium text-purple-300">
-            <span>
-              {t.dailyAttempts}: {remainingAttempts ?? "..."}/5
-            </span>
+          <div className="inline-flex items-center gap-2 rounded-full border border-purple-400/50 bg-purple-500/20 px-4 py-1.5 text-sm font-bold text-purple-100 shadow-lg shadow-purple-500/10">
+            <Zap className="h-4 w-4 fill-purple-200 text-purple-200" />
+            <span>{remainingAttempts ?? "..."}</span>
           </div>
 
           <div className="space-y-2">

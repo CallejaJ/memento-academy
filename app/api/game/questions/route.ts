@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase-server";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 interface QuestionResponse {
   id: string;
@@ -56,20 +56,13 @@ function shuffleOptions(options: Array<{ en: string; es: string }>): {
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient();
-
-    // Get authenticated user
-    const {
-      data: { user },
-      error: authError,
-    } = await supabase.auth.getUser();
-    if (authError || !user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // Use admin client to bypass RLS
+    const supabase = supabaseAdmin;
 
     // Get session token from query params
     const { searchParams } = new URL(request.url);
     const sessionToken = searchParams.get("sessionToken");
+    const userId = searchParams.get("userId"); // Optional validation
 
     if (!sessionToken) {
       return NextResponse.json(
@@ -78,12 +71,11 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Validate session
+    // Validate session (using admin client)
     const { data: sessionData, error: sessionError } = await supabase
       .from("game_sessions")
       .select("*")
       .eq("session_token", sessionToken)
-      .eq("user_id", user.id)
       .single();
 
     const session = sessionData as GameSession | null;
@@ -91,6 +83,9 @@ export async function GET(request: NextRequest) {
     if (sessionError || !session) {
       return NextResponse.json({ error: "Invalid session" }, { status: 403 });
     }
+
+    // Mock user object for compatibility with existing logic
+    const user = { id: session.user_id };
 
     // Check if session expired
     if (new Date(session.expires_at) < new Date()) {

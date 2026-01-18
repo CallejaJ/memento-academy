@@ -1,137 +1,140 @@
 "use client";
 
 import type React from "react";
-import { createContext, useContext, useEffect, useState } from "react";
-import type { User, Session } from "@supabase/supabase-js";
+import { createContext, useContext, useEffect, useState, useMemo } from "react";
+import { usePrivy, useWallets } from "@privy-io/react-auth";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
+// Simplified user type for Privy
+interface PrivyUser {
+  id: string;
+  email: string | null;
+  walletAddress: string | null;
+}
+
 type AuthContextType = {
-  user: User | null;
-  session: Session | null;
+  user: PrivyUser | null;
   isLoading: boolean;
-  signUp: (email: string, password: string) => Promise<void>;
-  signIn: (email: string, password: string) => Promise<void>;
-  signInWithProvider: (
-    provider: "google" | "github" | "discord"
-  ) => Promise<void>;
+  isAuthenticated: boolean;
+  walletAddress: string | null;
+  login: () => void;
   signOut: () => Promise<void>;
-  resetPassword: (email: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const {
+    ready,
+    authenticated,
+    user: privyUser,
+    login,
+    logout: privyLogout,
+  } = usePrivy();
+  const { wallets } = useWallets();
   const router = useRouter();
+  const [supabaseUserId, setSupabaseUserId] = useState<string | null>(null);
+  const [syncAttempted, setSyncAttempted] = useState(false);
 
+  // Find the embedded wallet
+  const embeddedWallet = wallets.find(
+    (w) => w.walletClientType === "privy" || w.connectorType === "embedded",
+  );
+
+  // Sync Privy user with Supabase on login
   useEffect(() => {
-    // Get initial session
-    const getInitialSession = async () => {
-      setIsLoading(true);
+    async function syncUserToSupabase() {
+      if (!ready) return; // Wait for Privy to be ready
 
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession();
+      // If we already attempted syncing for this session/user state, don't auto-retry loop.
+      // We only retry if syncAttempted is reset to false (e.g., by manual login action)
+      if (syncAttempted) return;
 
-      if (error) {
-        console.error("Error getting session:", error);
+      if (!authenticated || !privyUser || !embeddedWallet?.address) {
+        // If not authenticated, we mark as attempted so we don't keep spinning
+        // But only if we are truly done checking initial auth.
+        // For now, if not authenticated, we just return. syncAttempted acts as a "done" flag for the *sync process*.
+        // If we log out, we reset it.
+        return;
       }
 
-      setSession(session);
-      setUser(session?.user ?? null);
-      setIsLoading(false);
-    };
-
-    getInitialSession();
-
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setIsLoading(false);
-
-      // Refresh the page to update server components
-      if (_event === "SIGNED_IN" || _event === "SIGNED_OUT") {
-        router.refresh();
+      // If already synced, don't retry (unless user changes, handled by dependency)
+      if (supabaseUserId) {
+        setSyncAttempted(true);
+        return;
       }
-    });
 
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [router]);
+      const email = privyUser.email?.address || null;
+      const walletAddress = embeddedWallet.address;
 
-  const signUp = async (email: string, password: string) => {
-    try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
-        },
-      });
+      try {
+        const { syncUser } = await import("@/actions/sync-user");
+        const result = await syncUser(privyUser.id, email, walletAddress);
 
-      if (error) {
-        console.error("❌ Supabase SignUp Error:", error);
-        throw error;
+        if (result.error) {
+          console.error("[Auth] Sync error:", result.error);
+          // We DO NOT set supabaseUserId here, so user stays null.
+        } else if (result.userId) {
+          setSupabaseUserId(result.userId);
+          console.log("[Auth] User synced:", result.userId);
+        }
+      } catch (error) {
+        console.error("[Auth] Sync call failed:", error);
+      } finally {
+        // Mark as attempted regardless of success/fail to stop loops.
+        // User must manually trigger "login" again to retry if failed.
+        setSyncAttempted(true);
       }
-    } catch (err) {
-      console.error("🔥 Caught Error in signUp:", err);
-      throw err;
     }
+
+    syncUserToSupabase();
+  }, [
+    ready,
+    authenticated,
+    privyUser,
+    embeddedWallet?.address,
+    supabaseUserId,
+    syncAttempted, // Added to dependencies so toggling it triggers effect
+  ]);
+
+  // Build user object for context - ONLY when sync is complete
+  const user: PrivyUser | null = useMemo(() => {
+    return authenticated && privyUser && supabaseUserId
+      ? {
+          id: supabaseUserId, // Strictly use Supabase UUID
+          email: privyUser.email?.address || null,
+          walletAddress: embeddedWallet?.address || null,
+        }
+      : null;
+  }, [authenticated, privyUser, supabaseUserId, embeddedWallet?.address]);
+
+  const handleLogin = () => {
+    // Reset sync state to allow retry if it previously failed
+    setSyncAttempted(false);
+    login();
   };
 
-  const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) throw error;
+  const handleLogout = async () => {
+    await privyLogout();
+    setSupabaseUserId(null);
+    setSyncAttempted(false);
+    router.refresh();
   };
 
-  const signInWithProvider = async (
-    provider: "google" | "github" | "discord"
-  ) => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider,
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    });
+  const isSyncing = authenticated && !syncAttempted;
 
-    if (error) throw error;
-  };
-
-  const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
-  };
-
-  const resetPassword = async (email: string) => {
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/reset-password`,
-    });
-
-    if (error) throw error;
-  };
-
-  const value = {
-    user,
-    session,
-    isLoading,
-    signUp,
-    signIn,
-    signInWithProvider,
-    signOut,
-    resetPassword,
-  };
+  const value = useMemo(
+    () => ({
+      user,
+      isLoading: !ready || isSyncing,
+      isAuthenticated: authenticated,
+      walletAddress: embeddedWallet?.address || null,
+      login: handleLogin,
+      signOut: handleLogout,
+    }),
+    [user, ready, isSyncing, authenticated, embeddedWallet?.address],
+  );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

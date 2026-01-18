@@ -350,6 +350,7 @@ export interface Database {
           id: string;
           user_id: string;
           wallet_address: string;
+          privy_user_id: string | null;
           is_embedded: boolean;
           linked_at: string;
         };
@@ -357,6 +358,7 @@ export interface Database {
           id?: string;
           user_id: string;
           wallet_address: string;
+          privy_user_id?: string | null;
           is_embedded?: boolean;
           linked_at?: string;
         };
@@ -364,6 +366,7 @@ export interface Database {
           id?: string;
           user_id?: string;
           wallet_address?: string;
+          privy_user_id?: string | null;
           is_embedded?: boolean;
           linked_at?: string;
         };
