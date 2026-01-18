@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
 import { randomUUID } from "crypto";
 
-const MAX_DAILY_SESSIONS = 5; // 5 attempts per day
+const MAX_DAILY_SESSIONS = 50; // Temporarily increased for testing
 const SESSION_EXPIRY_MINUTES = 10;
 
 export async function POST(request: NextRequest) {
@@ -36,12 +36,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get game mode from body
+    // Get game mode and category from body
     let gameMode = "classic";
+    let category = "random";
     try {
       const body = await request.json();
       if (body.mode && ["classic", "survival", "daily"].includes(body.mode)) {
         gameMode = body.mode;
+      }
+      if (body.category) {
+        category = body.category;
       }
     } catch {
       // Body parsing failed, default to classic
@@ -70,6 +74,7 @@ export async function POST(request: NextRequest) {
         ip_address: ip,
         total_questions: gameMode === "survival" ? 999 : 10, // Placeholder for infinite
         game_mode: gameMode,
+        category: category,
       })
       .select()
       .single();

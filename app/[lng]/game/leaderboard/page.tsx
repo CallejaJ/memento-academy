@@ -108,7 +108,7 @@ export default function LeaderboardPage() {
 
   return (
     <div
-      className="min-h-screen py-8 px-4 relative overflow-hidden"
+      className="min-h-screen py-8 px-4 sm:px-6 relative overflow-x-hidden"
       style={{
         backgroundImage:
           "linear-gradient(to bottom right, rgba(2, 6, 23, 0.8), rgba(15, 23, 42, 0.8)), url('/images/wallpapers/quiz-bg.png')",
@@ -123,31 +123,31 @@ export default function LeaderboardPage() {
         <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[100px] animate-pulse delay-1000" />
       </div>
 
-      <div className="container mx-auto max-w-4xl relative z-10">
+      <div className="container mx-auto max-w-4xl min-w-0 relative z-10">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
-          <div className="flex items-center gap-4 w-full md:w-auto">
+        <div className="flex flex-col gap-4 mb-8">
+          <div className="flex items-start gap-3">
             <Link href={`/${lng}/game`}>
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-xl"
+                className="text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-xl shrink-0 mt-1"
               >
-                <ArrowLeft className="w-6 h-6" />
+                <ArrowLeft className="w-5 h-5" />
               </Button>
             </Link>
-            <div>
+            <div className="min-w-0">
               <h1
-                className="text-2xl min-[400px]:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-purple-400 flex items-center gap-3 tracking-wider"
+                className="text-2xl sm:text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-purple-400 flex items-center gap-2 tracking-wide"
                 style={{
                   fontFamily: "var(--font-orbitron), sans-serif",
                   textShadow: "0 0 30px rgba(6,182,212,0.3)",
                 }}
               >
-                <Trophy className="w-8 h-8 md:w-10 md:h-10 text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]" />
-                {t.title}
+                <Trophy className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.5)] shrink-0" />
+                <span className="truncate">{t.title}</span>
               </h1>
-              <p className="text-slate-400 mt-1 font-medium tracking-wide">
+              <p className="text-slate-400 mt-1 text-sm sm:text-base font-medium tracking-wide">
                 {t.subtitle}
               </p>
             </div>
@@ -155,12 +155,12 @@ export default function LeaderboardPage() {
         </div>
 
         {/* Mode Selector Tabs */}
-        <div className="flex justify-center mb-10">
-          <div className="bg-slate-900/60 backdrop-blur-xl p-1.5 rounded-2xl border border-slate-700/50 inline-flex shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+        <div className="flex justify-center mb-8">
+          <div className="bg-slate-900/60 backdrop-blur-xl p-1 rounded-xl border border-slate-700/50 inline-flex shadow-[0_0_20px_rgba(0,0,0,0.3)] w-full sm:w-auto">
             <button
               onClick={() => setActiveMode("classic")}
               className={cn(
-                "px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-wider flex items-center gap-2 transition-all duration-300",
+                "flex-1 sm:flex-none px-4 sm:px-6 py-2.5 rounded-lg text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300",
                 activeMode === "classic"
                   ? "bg-gradient-to-r from-cyan-600 to-cyan-500 text-white shadow-lg shadow-cyan-500/20"
                   : "text-slate-400 hover:text-white hover:bg-slate-800/50",
@@ -177,7 +177,7 @@ export default function LeaderboardPage() {
             <button
               onClick={() => setActiveMode("survival")}
               className={cn(
-                "px-6 py-3 rounded-xl text-sm font-bold uppercase tracking-wider flex items-center gap-2 transition-all duration-300",
+                "flex-1 sm:flex-none px-4 sm:px-6 py-2.5 rounded-lg text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300",
                 activeMode === "survival"
                   ? "bg-gradient-to-r from-purple-600 to-purple-500 text-white shadow-lg shadow-purple-500/20"
                   : "text-slate-400 hover:text-white hover:bg-slate-800/50",

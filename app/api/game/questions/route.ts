@@ -236,12 +236,28 @@ export async function GET(request: NextRequest) {
       // Classic Mode: Progressive Difficulty logic
       // 4 easy -> 4 medium -> 2 hard
 
+      // Determine categories based on session.category
+      let categoryFilter: string[] = [];
+      const sessionCategory = session.category || "random";
+
+      if (sessionCategory === "fundamentals") {
+        categoryFilter = ["Web3 Basics", "Crypto 101", "CBDCs"];
+      } else if (sessionCategory === "defi_trading") {
+        categoryFilter = ["DeFi", "Technical Analysis", "Portfolio Management"];
+      } else if (sessionCategory === "nfts") {
+        categoryFilter = ["NFTs"];
+      } else if (sessionCategory === "security") {
+        categoryFilter = ["Security", "Smart Contracts"];
+      }
+      // "random" implies empty filter (all allowed)
+
       // ... existing progressive logic ...
       const questionPromises = (["easy", "medium", "hard"] as const).map(
         async (difficulty) => {
           const count =
             difficulty === "easy" ? 4 : difficulty === "medium" ? 4 : 2;
-          const { data } = await supabase
+
+          let query = supabase
             .from("game_questions")
             .select("id, category, difficulty, question_text, options")
             .eq("is_active", true)
@@ -250,8 +266,14 @@ export async function GET(request: NextRequest) {
               "id",
               "in",
               `(SELECT question_id FROM game_question_history WHERE user_id = '${user.id}')`,
-            )
-            .limit(count * 10);
+            );
+
+          // Apply category filter if not random
+          if (categoryFilter.length > 0) {
+            query = query.in("category", categoryFilter);
+          }
+
+          const { data } = await query.limit(count * 10);
           return (data || []) as RawQuestion[];
         },
       );
@@ -272,11 +294,16 @@ export async function GET(request: NextRequest) {
 
       // Fallback logic if not enough questions
       if (questions.length < 10) {
-        const { data: fallbackQuestions } = await supabase
+        let fallbackQuery = supabase
           .from("game_questions")
           .select("id, category, difficulty, question_text, options")
-          .eq("is_active", true)
-          .limit(50);
+          .eq("is_active", true);
+
+        if (categoryFilter.length > 0) {
+          fallbackQuery = fallbackQuery.in("category", categoryFilter);
+        }
+
+        const { data: fallbackQuestions } = await fallbackQuery.limit(50);
 
         if (fallbackQuestions) {
           const typedFallback = fallbackQuestions as RawQuestion[];

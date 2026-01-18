@@ -86,7 +86,7 @@ export function MainNav({ lng }: { lng: string }) {
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-md",
-          isVisible ? "translate-y-0" : "-translate-y-full"
+          isVisible ? "translate-y-0" : "-translate-y-full",
         )}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -118,7 +118,7 @@ export function MainNav({ lng }: { lng: string }) {
                   href={route.href}
                   className={cn(
                     "text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium",
-                    route.active && "text-cyan-400"
+                    route.active && "text-cyan-400",
                   )}
                 >
                   <span suppressHydrationWarning>{route.label}</span>
@@ -200,7 +200,7 @@ export function MainNav({ lng }: { lng: string }) {
                     href={route.href}
                     className={cn(
                       "text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium px-2 py-1",
-                      route.active && "text-cyan-400"
+                      route.active && "text-cyan-400",
                     )}
                     onClick={() => setMobileMenuOpen(false)}
                   >

@@ -16,6 +16,7 @@ import {
   Calendar,
   Wallet,
   Brain,
+  ChevronDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MainNav } from "@/components/main-nav";
@@ -116,6 +117,7 @@ const translations = {
 interface LeaderboardEntry {
   rank: number;
   email: string;
+  display_name?: string | null;
   totalScore: number;
   bestScore: number;
 }
@@ -136,6 +138,20 @@ export default function GameLobbyPage() {
 
   const [loading, setLoading] = useState(true);
   const [startingMode, setStartingMode] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState("random");
+  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
+
+  const categories = [
+    { id: "random", label: { es: "Aleatorio (Todo)", en: "Random (All)" } },
+    { id: "fundamentals", label: { es: "Fundamentos", en: "Fundamentals" } },
+    {
+      id: "defi_trading",
+      label: { es: "DeFi & Trading", en: "DeFi & Trading" },
+    },
+    { id: "nfts", label: { es: "NFTs", en: "NFTs" } },
+    { id: "security", label: { es: "Seguridad", en: "Security" } },
+  ];
+
   const [remainingAttempts, setRemainingAttempts] = useState<number | null>(
     null,
   );
@@ -232,7 +248,10 @@ export default function GameLobbyPage() {
       const res = await fetch("/api/game/start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mode }),
+        body: JSON.stringify({
+          mode,
+          category: mode === "classic" ? selectedCategory : undefined,
+        }),
       });
       const data = await res.json();
 
@@ -335,12 +354,12 @@ export default function GameLobbyPage() {
         <div className="absolute inset-0 bg-[radial-gradient(transparent_0%,#020617_100%)] opacity-80" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 pt-40 pb-12">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-40 pb-12">
         <div className="flex flex-col gap-16">
           {/* Section 1: Hero & Stats */}
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start w-full">
             {/* Left Column: Game Info */}
-            <div className="w-full lg:col-span-8 space-y-6 lg:space-y-8">
+            <div className="w-full min-w-0 lg:col-span-8 space-y-6 lg:space-y-8">
               <div className="space-y-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-medium mb-4">
                   <Brain className="w-4 h-4" />
@@ -379,7 +398,7 @@ export default function GameLobbyPage() {
                   <div className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">
                     {lng === "es" ? "Rango" : "Rank"}
                   </div>
-                  <div className="text-2xl font-bold text-yellow-400 uppercase">
+                  <div className="text-2xl font-bold text-yellow-400 capitalize">
                     {userStats.rank}
                   </div>
                 </div>
@@ -395,8 +414,8 @@ export default function GameLobbyPage() {
             </div>
 
             {/* Right Column: Leaderboard Preview */}
-            <div className="w-full lg:col-span-4">
-              <div className="bg-gradient-to-b from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-white/5 rounded-3xl p-6 shadow-2xl">
+            <div className="w-full min-w-0 lg:col-span-4">
+              <div className="bg-gradient-to-b from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-white/5 rounded-3xl p-4 sm:p-6 shadow-2xl">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-xl font-bold text-white flex items-center gap-2">
                     <Trophy className="w-5 h-5 text-yellow-500" />
@@ -431,7 +450,7 @@ export default function GameLobbyPage() {
                         {entry.rank}
                       </div>
                       <div className="flex-1 truncate text-sm text-slate-300">
-                        {entry.email.split("@")[0]}
+                        {entry.display_name || entry.email.split("@")[0]}
                       </div>
                       <div className="text-cyan-400 font-mono font-bold text-sm">
                         {entry.totalScore}
@@ -451,9 +470,12 @@ export default function GameLobbyPage() {
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
               {/* Classic Mode - Active */}
-              <div className="group relative flex flex-col bg-slate-900/60 border border-cyan-500/30 rounded-2xl p-6 overflow-hidden hover:border-cyan-500/60 transition-all duration-300">
-                <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <Gamepad2 className="w-24 h-24 text-cyan-400" />
+              <div className="group relative flex flex-col bg-slate-900/60 border border-cyan-500/30 rounded-2xl p-4 sm:p-6 hover:border-cyan-500/60 transition-all duration-300 z-10">
+                {/* Decoration Wrapper - Clipped */}
+                <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+                  <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <Gamepad2 className="w-24 h-24 text-cyan-400" />
+                  </div>
                 </div>
                 <div className="relative z-10 flex flex-col flex-1 space-y-4">
                   <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center">
@@ -463,9 +485,55 @@ export default function GameLobbyPage() {
                     <h3 className="text-xl font-bold text-white mb-1">
                       {t.modeClassic}
                     </h3>
-                    <p className="text-sm text-slate-400">
+                    <p className="text-sm text-slate-400 mb-4">
                       {t.modeClassicDesc}
                     </p>
+
+                    {/* Category Selector */}
+                    <div className="mb-4 relative">
+                      <label className="text-xs text-slate-500 uppercase font-bold tracking-wider mb-2 block">
+                        {lng === "es" ? "Categoría" : "Category"}
+                      </label>
+                      <button
+                        onClick={() =>
+                          setIsCategoryDropdownOpen(!isCategoryDropdownOpen)
+                        }
+                        className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white flex items-center justify-between hover:border-cyan-500/50 transition-colors"
+                        disabled={startingMode !== null}
+                      >
+                        <span className="truncate">
+                          {categories.find((c) => c.id === selectedCategory)
+                            ?.label[lng as "es" | "en"] ||
+                            (lng === "es"
+                              ? "Aleatorio (Todo)"
+                              : "Random (All)")}
+                        </span>
+                        <ChevronDown
+                          className={`w-4 h-4 text-slate-400 transition-transform ${isCategoryDropdownOpen ? "rotate-180" : ""}`}
+                        />
+                      </button>
+
+                      {isCategoryDropdownOpen && (
+                        <div className="absolute z-50 top-full left-0 right-0 mt-1 bg-slate-950 border border-slate-700 rounded-lg shadow-2xl overflow-hidden">
+                          {categories.map((category) => (
+                            <button
+                              key={category.id}
+                              onClick={() => {
+                                setSelectedCategory(category.id);
+                                setIsCategoryDropdownOpen(false);
+                              }}
+                              className={`w-full text-left px-3 py-2 text-sm transition-colors hover:bg-slate-700 ${
+                                selectedCategory === category.id
+                                  ? "text-cyan-400 bg-cyan-900/20"
+                                  : "text-slate-300"
+                              }`}
+                            >
+                              {category.label[lng as "es" | "en"]}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <Button
                     onClick={() => handleStartQuiz("classic")}
@@ -490,7 +558,7 @@ export default function GameLobbyPage() {
               </div>
 
               {/* Survival Mode */}
-              <div className="group relative flex flex-col bg-slate-900/60 border border-purple-500/30 rounded-2xl p-6 overflow-hidden hover:border-purple-500/60 transition-all duration-300">
+              <div className="group relative flex flex-col bg-slate-900/60 border border-purple-500/30 rounded-2xl p-4 sm:p-6 overflow-hidden hover:border-purple-500/60 transition-all duration-300">
                 <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
                   <Zap className="w-24 h-24 text-purple-400" />
                 </div>
@@ -530,7 +598,7 @@ export default function GameLobbyPage() {
 
               {/* Daily Mode - Active if challenge exists */}
               <div
-                className={`relative flex flex-col bg-slate-900/40 border rounded-2xl p-6 overflow-hidden transition-all duration-300 ${
+                className={`relative flex flex-col bg-slate-900/40 border rounded-2xl p-4 sm:p-6 overflow-hidden transition-all duration-300 ${
                   dailyChallenge
                     ? "border-yellow-500/50 hover:border-yellow-400 hover:shadow-[0_0_30px_rgba(234,179,8,0.15)] group"
                     : "border-slate-800 grayscale opacity-75"
@@ -547,7 +615,7 @@ export default function GameLobbyPage() {
                 {dailyChallenge && (
                   <div className="absolute top-0 right-0 p-3">
                     <div className="px-2 py-0.5 rounded-full bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 text-[10px] font-bold uppercase tracking-wider animate-pulse">
-                      2x Rewards
+                      {lng === "es" ? "Recompensas x2" : "2x Rewards"}
                     </div>
                   </div>
                 )}
