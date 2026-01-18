@@ -88,7 +88,7 @@ export default function DashboardPage() {
 
   // Find the embedded wallet
   const embeddedWallet = wallets.find(
-    (w) => w.walletClientType === "privy" || w.connectorType === "embedded"
+    (w) => w.walletClientType === "privy" || w.connectorType === "embedded",
   );
 
   const t = translations[lng as keyof typeof translations] || translations.en;
@@ -118,7 +118,7 @@ export default function DashboardPage() {
           .from("course_progress")
           .select("course_id, progress_percentage, last_accessed_at")
           .eq("user_id", user.id)
-          .order("last_accessed_at", { ascending: false });
+          .order("last_accessed_at", { ascending: false }) as { data: CourseProgress[] | null };
 
         if (progressData) {
           setCoursesProgress(progressData);
@@ -126,7 +126,7 @@ export default function DashboardPage() {
           // Calculate XP (10 points per percent completed across all courses)
           const xp = progressData.reduce(
             (acc, p) => acc + Math.floor(p.progress_percentage * 10),
-            0
+            0,
           );
           setTotalXP(xp);
         }
@@ -159,13 +159,13 @@ export default function DashboardPage() {
   // Calculate stats
   const allCourses = getAllCourses(lng);
   const completedCourses = coursesProgress.filter(
-    (p) => p.progress_percentage >= 100
+    (p) => p.progress_percentage >= 100,
   );
   const completionPercentage =
     coursesProgress.length > 0
       ? Math.round(
           coursesProgress.reduce((acc, p) => acc + p.progress_percentage, 0) /
-            coursesProgress.length
+            coursesProgress.length,
         )
       : 0;
   const level = Math.floor(totalXP / 1000) + 1;
@@ -176,8 +176,8 @@ export default function DashboardPage() {
     ? allCourses.find((c) => c.id === lastCourse.course_id)
     : null;
 
-  // Loading state
-  if (isLoading || profileLoading) {
+  // Auth is still loading
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-slate-950">
         <MainNav lng={lng} />
@@ -202,12 +202,20 @@ export default function DashboardPage() {
     );
   }
 
-  // Not authenticated
+  // Not authenticated - show login prompt
   if (!user) {
     return (
-      <div className="min-h-screen bg-slate-950">
+      <div
+        className="min-h-screen"
+        style={{
+          backgroundImage: "url('/images/wallpapers/quiz-bg.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
+      >
         <MainNav lng={lng} />
-        <div className="container mx-auto px-4 py-16">
+        <div className="container mx-auto px-4 pt-32 pb-16">
           <div className="max-w-md mx-auto text-center">
             <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-teal-500/20 border border-cyan-500/30 mx-auto mb-6 flex items-center justify-center">
               <span className="text-4xl">🔐</span>
@@ -223,6 +231,32 @@ export default function DashboardPage() {
             >
               {t.login_btn}
             </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // User exists but profile data is still loading
+  if (profileLoading) {
+    return (
+      <div className="min-h-screen bg-slate-950">
+        <MainNav lng={lng} />
+        <div className="container mx-auto px-4 py-16">
+          <div className="max-w-6xl mx-auto">
+            <div className="animate-pulse space-y-6">
+              <div className="h-40 bg-slate-800 rounded-2xl"></div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="h-24 bg-slate-800 rounded-xl"></div>
+                <div className="h-24 bg-slate-800 rounded-xl"></div>
+                <div className="h-24 bg-slate-800 rounded-xl"></div>
+                <div className="h-24 bg-slate-800 rounded-xl"></div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="h-64 bg-slate-800 rounded-xl"></div>
+                <div className="h-64 bg-slate-800 rounded-xl"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -294,7 +328,7 @@ export default function DashboardPage() {
               courseTitle={lastCourseData.title}
               courseSlug={lastCourseData.slug}
               currentSection={Math.ceil(
-                (lastCourse.progress_percentage / 100) * 8
+                (lastCourse.progress_percentage / 100) * 8,
               )}
               totalSections={8}
               progressPercentage={lastCourse.progress_percentage}

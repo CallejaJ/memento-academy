@@ -75,7 +75,7 @@ export default function ProfilePage() {
 
   // Find embedded wallet
   const embeddedWallet = wallets.find(
-    (w) => w.walletClientType === "privy" || w.connectorType === "embedded"
+    (w) => w.walletClientType === "privy" || w.connectorType === "embedded",
   );
 
   const copyAddress = async () => {
@@ -112,16 +112,28 @@ export default function ProfilePage() {
   // Not authenticated
   if (!user) {
     return (
-      <div className="min-h-screen bg-slate-950">
+      <div
+        className="min-h-screen"
+        style={{
+          backgroundImage: "url('/images/wallpapers/quiz-bg.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
+      >
         <MainNav lng={lng} />
-        <div className="container mx-auto px-4 py-16">
+        <div className="container mx-auto px-4 pt-32 pb-16">
           <div className="max-w-md mx-auto text-center">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-teal-500/20 border border-cyan-500/30 mx-auto mb-6 flex items-center justify-center">
+              <span className="text-4xl">🔐</span>
+            </div>
             <h1 className="text-3xl font-bold text-white mb-4">
               {t.accessRequired}
             </h1>
             <p className="text-slate-400 mb-8">{t.pleaseLogin}</p>
             <Button
               onClick={openLogin}
+              size="lg"
               className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600"
             >
               {t.login}
