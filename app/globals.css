@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 @layer base {
-  html, body {
+  html,
+  body {
     overflow-x: hidden;
     width: 100%;
     position: relative;
   }
 }
-
 
 @layer utilities {
   .text-balance {
@@ -98,4 +98,10 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Remove default password eye in Edge/IE */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
 }

@@ -10,6 +10,11 @@ import {
   ChevronRight,
   Crown,
   Medal,
+  BookOpen,
+  Swords,
+  Calendar,
+  Wallet,
+  Brain,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MainNav } from "@/components/main-nav";
@@ -18,14 +23,13 @@ import { useAuth } from "@/contexts/auth-context";
 import { useAuthModal } from "@/contexts/auth-modal-context";
 import { Lock, ShieldX } from "lucide-react";
 import { useWalletBlacklistCheck } from "@/lib/use-wallet-blacklist";
-
 import { useWallets } from "@privy-io/react-auth";
 
 const translations = {
   en: {
     title: "Crypto Quiz Challenge",
     subtitle: "Test your Web3 knowledge and earn MEMO tokens!",
-    startQuiz: "Play",
+    startQuiz: "Play Classic Mode",
     attemptsToday: "Attempts",
     nextQuizIn: "Next quiz available in",
     yourStats: "Your Stats",
@@ -41,12 +45,31 @@ const translations = {
     playDailyTtl: "Play Daily!",
     playDailyMsg:
       "Earn MEMO tokens every day to unlock premium courses and exclusive NFTs. Reset happens at midnight UTC.",
-    xpPerQuestion: "Earn 100 Points per correct answer",
+    howToPlay: "How to Play",
+    gameModes: "Game Modes",
+    step1Title: "Connect Wallet",
+    step1Desc: "Connect your wallet or sign in to track your progress.",
+    step2Title: "Answer Quickly",
+    step2Desc: "You have 15 seconds per question. Faster = More Points!",
+    step3Title: "Earn Rewards",
+    step3Desc: "Score 8/10 or higher to earn MEMO tokens.",
+    modeClassic: "Classic",
+    modeClassicDesc:
+      "10 Questions. Progressive Difficulty. The standard challenge.",
+    modeSurvival: "Survival",
+    modeSurvivalDesc: "3 Lives. Unlimited Questions. How far can you go?",
+    modeDaily: "Daily Challenge",
+    modeDailyDesc: "Special theme every day. Double rewards.",
+    comingSoon: "Coming Soon",
+    playNow: "Play Now",
+    locked: "Locked",
+    guideTitle: "Master the Game",
+    guideDesc: "Learn the rules and maximize your earnings.",
   },
   es: {
     title: "Crypto Quiz Challenge",
     subtitle: "¡Pon a prueba tu conocimiento Web3 y gana tokens MEMO!",
-    startQuiz: "Jugar",
+    startQuiz: "Jugar Modo Clásico",
     attemptsToday: "Intentos",
     nextQuizIn: "Próximo quiz disponible en",
     yourStats: "Tus Estadísticas",
@@ -62,7 +85,26 @@ const translations = {
     playDailyTtl: "¡Juega a Diario!",
     playDailyMsg:
       "Gana tokens MEMO cada día para desbloquear cursos premium y NFTs exclusivos. El reinicio es a medianoche UTC.",
-    xpPerQuestion: "Gana 100 Puntos por acierto",
+    howToPlay: "Cómo Jugar",
+    gameModes: "Modos de Juego",
+    step1Title: "Conecta Wallet",
+    step1Desc: "Conecta tu wallet o inicia sesión para guardar tu progreso.",
+    step2Title: "Responde Rápido",
+    step2Desc: "Tienes 15s por pregunta. ¡Más rápido = Más Puntos!",
+    step3Title: "Gana Recompensas",
+    step3Desc: "Acierta 8/10 o más para ganar tokens MEMO.",
+    modeClassic: "Clásico",
+    modeClassicDesc:
+      "10 Preguntas. Dificultad Progresiva. El desafío estándar.",
+    modeSurvival: "Supervivencia",
+    modeSurvivalDesc: "3 Vidas. Preguntas Ilimitadas. ¿Hasta dónde llegarás?",
+    modeDaily: "Desafío Diario",
+    modeDailyDesc: "Tema especial cada día. Recompensas dobles.",
+    comingSoon: "Próximamente",
+    playNow: "Jugar Ahora",
+    locked: "Bloqueado",
+    guideTitle: "Domina el Juego",
+    guideDesc: "Aprende las reglas y maximiza tus ganancias.",
   },
 };
 
@@ -79,11 +121,10 @@ export default function GameLobbyPage() {
   const t = translations[lng as keyof typeof translations] || translations.en;
   const { user, isLoading: authLoading } = useAuth();
   const { openLogin } = useAuthModal();
-  const { wallets } = useWallets(); // Para detectar Smart Wallet
+  const { wallets } = useWallets();
 
-  // Detectar si el usuario tiene una Smart Wallet activa
   const embeddedWallet = wallets.find(
-    (w) => w.walletClientType === "privy" || w.connectorType === "embedded"
+    (w) => w.walletClientType === "privy" || w.connectorType === "embedded",
   );
 
   const { isBlocked, blockReason } = useWalletBlacklistCheck();
@@ -91,8 +132,8 @@ export default function GameLobbyPage() {
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState(false);
   const [remainingAttempts, setRemainingAttempts] = useState<number | null>(
-    null
-  ); // Initialize null to show loading state or wait for fetch
+    null,
+  );
   const [nextResetTime, setNextResetTime] = useState<string | null>(null);
   const [countdown, setCountdown] = useState("");
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
@@ -103,11 +144,9 @@ export default function GameLobbyPage() {
   });
 
   useEffect(() => {
-    // Wait for auth to be ready before fetching data
     if (!authLoading && user) {
       fetchData();
     } else if (!authLoading && !user) {
-      // Not logged in, stop loading
       setLoading(false);
     }
   }, [authLoading, user]);
@@ -118,14 +157,14 @@ export default function GameLobbyPage() {
         const diff = new Date(nextResetTime).getTime() - Date.now();
         if (diff <= 0) {
           setCountdown("");
-          setRemainingAttempts(3);
+          setRemainingAttempts(5);
           setNextResetTime(null);
         } else {
           const hours = Math.floor(diff / (1000 * 60 * 60));
           const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((diff % (1000 * 60)) / 1000);
           setCountdown(
-            `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
+            `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`,
           );
         }
       }, 1000);
@@ -194,7 +233,6 @@ export default function GameLobbyPage() {
     );
   }
 
-  // Check if wallet is blacklisted
   if (isBlocked) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-red-950/30 via-slate-950 to-slate-950 relative overflow-hidden">
@@ -211,14 +249,6 @@ export default function GameLobbyPage() {
               {lng === "es"
                 ? "Esta wallet ha sido bloqueada por actividad sospechosa."
                 : "This wallet has been blocked due to suspicious activity."}
-            </p>
-            {blockReason && (
-              <p className="text-xs text-red-400/70 mb-6">{blockReason}</p>
-            )}
-            <p className="text-xs text-slate-500">
-              {lng === "es"
-                ? "Si crees que esto es un error, contacta con soporte."
-                : "If you believe this is an error, please contact support."}
             </p>
           </div>
         </div>
@@ -271,199 +301,266 @@ export default function GameLobbyPage() {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 pt-40 pb-12">
-        <div className="max-w-6xl mx-auto flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-12 items-start w-full">
-          {/* Left Column: Game Info & Start */}
-          <div className="w-full lg:col-span-6 space-y-6 lg:space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-3xl min-[400px]:text-4xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-slate-400 leading-tight drop-shadow-lg break-words">
-                Crypto Quiz <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">
-                  Challenge
-                </span>
-              </h1>
-              <p className="text-lg sm:text-xl text-slate-300 max-w-lg leading-relaxed mb-8">
-                {t.subtitle}
-              </p>
-            </div>
-
-            <div className="relative group w-full">
-              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-              <Button
-                onClick={handleStartQuiz}
-                disabled={
-                  starting ||
-                  remainingAttempts === 0 ||
-                  remainingAttempts === null ||
-                  !embeddedWallet // CRÍTICO: No permitir jugar sin wallet
-                }
-                className={`relative w-full h-auto min-h-[6rem] py-4 text-2xl font-bold rounded-2xl transition-all duration-300 border-t border-white/10 ${
-                  (remainingAttempts ?? 0) > 0 && embeddedWallet
-                    ? "bg-gradient-to-br from-slate-900 to-slate-950 hover:from-slate-800 hover:to-slate-900 text-white shadow-2xl"
-                    : "bg-slate-900/50 text-slate-500 cursor-not-allowed"
-                }`}
-              >
-                {starting ? (
-                  <div className="flex items-center gap-3">
-                    <div className="w-6 h-6 border-b-2 border-cyan-400 rounded-full animate-spin" />
-                    {t.loading}
-                  </div>
-                ) : remainingAttempts === 0 && countdown ? (
-                  <div className="flex flex-col items-center">
-                    <span className="text-sm font-normal text-slate-400 mb-1">
-                      {t.nextQuizIn}
-                    </span>
-                    <span className="font-mono text-cyan-400">{countdown}</span>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-between w-full px-4 sm:px-8 max-w-full">
-                    <div className="flex items-center gap-4 flex-1 min-w-0">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
-                        <Gamepad2 className="w-7 h-7 text-white" />
-                      </div>
-                      <div className="text-left min-w-0 flex-1">
-                        <div className="text-white font-bold truncate">
-                          {t.startQuiz}
-                        </div>
-                      </div>
-                    </div>
-                    <ChevronRight className="w-8 h-8 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all flex-shrink-0" />
-                  </div>
-                )}
-              </Button>
-              {!embeddedWallet && user && (
-                <div className="mt-3 text-center">
-                  <p className="text-xs text-amber-400 font-medium">
-                    ⚠{" "}
-                    {lng === "es"
-                      ? "Activa tu Smart Wallet para jugar y reclamar recompensas →"
-                      : "Activate Smart Wallet to play and claim rewards →"}
-                  </p>
-                </div>
-              )}
-            </div>
-
-            {/* Quick Stats Row */}
-            <div className="grid grid-cols-2 gap-2 sm:gap-4 w-full">
-              <div className="bg-slate-900/40 border border-slate-800/60 p-2 sm:p-3 rounded-xl backdrop-blur-sm text-center flex flex-col justify-center min-w-0">
-                <div className="text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 truncate">
-                  {t.gamesPlayed}
-                </div>
-                <div className="text-lg sm:text-2xl font-bold text-white truncate">
-                  {userStats.gamesPlayed}
-                </div>
-              </div>
-              <div className="bg-slate-900/40 border border-slate-800/60 p-2 sm:p-3 rounded-xl backdrop-blur-sm text-center flex flex-col justify-center min-w-0">
-                <div className="text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 truncate">
-                  {t.bestScore}
-                </div>
-                <div className="text-lg sm:text-2xl font-bold text-teal-400 truncate">
-                  {userStats.bestScore}/10
-                </div>
-              </div>
-              <div className="bg-slate-900/40 border border-slate-800/60 p-2 sm:p-3 rounded-xl backdrop-blur-sm text-center flex flex-col justify-center min-w-0">
-                <div className="text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 truncate">
-                  {t.totalMemo}
-                </div>
-                <div className="text-lg sm:text-2xl font-bold text-purple-400 truncate">
-                  {userStats.totalScore}
-                </div>
-              </div>
-              <div className="bg-slate-900/40 border border-slate-800/60 p-2 sm:p-3 rounded-xl backdrop-blur-sm text-center flex flex-col justify-center min-w-0">
-                <div className="text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 truncate">
-                  {t.attemptsToday}
-                </div>
-                <div className="text-lg sm:text-2xl font-bold text-yellow-400 truncate">
-                  {remainingAttempts}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Leaderboard */}
-          <div className="w-full lg:col-span-6 space-y-6">
-            {/* Wallet Info Card */}
-            <WalletCard lng={lng} />
-
-            <div className="bg-gradient-to-b from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-white/5 rounded-3xl p-4 sm:p-6 shadow-2xl w-full">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                  <div className="p-2 bg-yellow-500/10 rounded-lg">
-                    <Trophy className="w-5 h-5 text-yellow-500" />
-                  </div>
-                  {t.leaderboard}
-                </h3>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => router.push(`/${lng}/game/leaderboard`)}
-                  className="text-slate-400 hover:text-white"
-                >
-                  {t.viewAll}
-                  <ChevronRight className="w-4 h-4 ml-1" />
-                </Button>
-              </div>
-
+        <div className="flex flex-col gap-16">
+          {/* Section 1: Hero & Stats */}
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start w-full">
+            {/* Left Column: Game Info */}
+            <div className="w-full lg:col-span-8 space-y-6 lg:space-y-8">
               <div className="space-y-4">
-                {leaderboard.length > 0 ? (
-                  leaderboard.map((entry, index) => (
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-medium mb-4">
+                  <Brain className="w-4 h-4" />
+                  <span>Beta 2.0</span>
+                </div>
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-slate-400 leading-tight">
+                  Crypto Quiz <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">
+                    Challenge
+                  </span>
+                </h1>
+                <p className="text-xl text-slate-300 max-w-2xl leading-relaxed">
+                  {t.subtitle}
+                </p>
+              </div>
+
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="bg-slate-900/40 border border-slate-800/60 p-4 rounded-xl backdrop-blur-sm text-center">
+                  <div className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">
+                    {t.gamesPlayed}
+                  </div>
+                  <div className="text-2xl font-bold text-white">
+                    {userStats.gamesPlayed}
+                  </div>
+                </div>
+                <div className="bg-slate-900/40 border border-slate-800/60 p-4 rounded-xl backdrop-blur-sm text-center">
+                  <div className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">
+                    {t.bestScore}
+                  </div>
+                  <div className="text-2xl font-bold text-teal-400">
+                    {userStats.bestScore}/10
+                  </div>
+                </div>
+                <div className="bg-slate-900/40 border border-slate-800/60 p-4 rounded-xl backdrop-blur-sm text-center">
+                  <div className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">
+                    {t.totalMemo}
+                  </div>
+                  <div className="text-2xl font-bold text-purple-400">
+                    {userStats.totalScore}
+                  </div>
+                </div>
+                <div className="bg-slate-900/40 border border-slate-800/60 p-4 rounded-xl backdrop-blur-sm text-center">
+                  <div className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">
+                    {t.attemptsToday}
+                  </div>
+                  <div className="text-2xl font-bold text-yellow-400">
+                    {remainingAttempts}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Leaderboard Preview */}
+            <div className="w-full lg:col-span-4">
+              <div className="bg-gradient-to-b from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-white/5 rounded-3xl p-6 shadow-2xl">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                    <Trophy className="w-5 h-5 text-yellow-500" />
+                    {t.leaderboard}
+                  </h3>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => router.push(`/${lng}/game/leaderboard`)}
+                    className="text-slate-400 hover:text-white"
+                  >
+                    {t.viewAll} <ChevronRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </div>
+                <div className="space-y-3">
+                  {leaderboard.map((entry, index) => (
                     <div
                       key={index}
-                      className="group flex items-center gap-4 p-3 rounded-2xl transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/5 min-w-0"
+                      className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors"
                     >
                       <div
-                        className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg flex-shrink-0 ${
-                          entry.rank === 1
-                            ? "bg-gradient-to-br from-yellow-300 to-yellow-600 text-black shadow-yellow-500/20"
-                            : entry.rank === 2
-                              ? "bg-gradient-to-br from-slate-300 to-slate-500 text-black shadow-slate-500/20"
-                              : entry.rank === 3
-                                ? "bg-gradient-to-br from-orange-300 to-orange-600 text-black shadow-orange-500/20"
-                                : "bg-slate-800 text-slate-400"
+                        className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm ${
+                          index === 0
+                            ? "bg-yellow-500/20 text-yellow-400"
+                            : index === 1
+                              ? "bg-slate-400/20 text-slate-300"
+                              : index === 2
+                                ? "bg-orange-500/20 text-orange-400"
+                                : "bg-slate-800 text-slate-500"
                         }`}
                       >
                         {entry.rank}
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-white font-medium truncate group-hover:text-cyan-400 transition-colors">
-                          {entry.email.split("@")[0]}
-                        </div>
-                        <div className="text-xs text-slate-500">
-                          {entry.bestScore} Points
-                        </div>
+                      <div className="flex-1 truncate text-sm text-slate-300">
+                        {entry.email.split("@")[0]}
                       </div>
-                      <div className="text-right flex-shrink-0">
-                        <div className="text-cyan-400 font-bold font-mono">
-                          {entry.totalScore}
-                        </div>
-                        <div className="text-[10px] text-slate-500 uppercase">
-                          PTS
-                        </div>
+                      <div className="text-cyan-400 font-mono font-bold text-sm">
+                        {entry.totalScore}
                       </div>
                     </div>
-                  ))
-                ) : (
-                  <div className="text-center py-8 text-slate-500">
-                    {t.loading}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Quick Tips or Info */}
-            <div className="bg-indigo-900/20 border border-indigo-500/20 rounded-2xl p-6 w-full">
-              <div className="flex items-start gap-4">
-                <div className="p-2 bg-indigo-500/10 rounded-lg flex-shrink-0">
-                  <Zap className="w-5 h-5 text-indigo-400" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-indigo-100 mb-1">
-                    {t.playDailyTtl}
-                  </h4>
-                  <p className="text-sm text-indigo-200/60">{t.playDailyMsg}</p>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Section 2: Game Modes */}
+          <div>
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+              <Swords className="w-6 h-6 text-cyan-400" />
+              {t.gameModes}
+            </h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* Classic Mode - Active */}
+              <div className="group relative bg-slate-900/60 border border-cyan-500/30 rounded-2xl p-6 overflow-hidden hover:border-cyan-500/60 transition-all duration-300">
+                <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <Gamepad2 className="w-24 h-24 text-cyan-400" />
+                </div>
+                <div className="relative z-10 space-y-4">
+                  <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center">
+                    <Gamepad2 className="w-6 h-6 text-cyan-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-1">
+                      {t.modeClassic}
+                    </h3>
+                    <p className="text-sm text-slate-400">
+                      {t.modeClassicDesc}
+                    </p>
+                  </div>
+                  <Button
+                    onClick={handleStartQuiz}
+                    disabled={
+                      starting || remainingAttempts === 0 || !embeddedWallet
+                    }
+                    className="w-full bg-cyan-600 hover:bg-cyan-500 text-white"
+                  >
+                    {remainingAttempts === 0 && countdown
+                      ? countdown
+                      : t.playNow}
+                  </Button>
+                </div>
+              </div>
+
+              {/* Survival Mode - Coming Soon */}
+              <div className="relative bg-slate-900/40 border border-slate-800 rounded-2xl p-6 overflow-hidden grayscale opacity-75">
+                <div className="absolute inset-0 bg-slate-950/60 z-20 flex items-center justify-center">
+                  <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-bold text-slate-400">
+                    {t.comingSoon}
+                  </span>
+                </div>
+                <div className="space-y-4 opacity-50">
+                  <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
+                    <Zap className="w-6 h-6 text-purple-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-1">
+                      {t.modeSurvival}
+                    </h3>
+                    <p className="text-sm text-slate-400">
+                      {t.modeSurvivalDesc}
+                    </p>
+                  </div>
+                  <Button disabled className="w-full" variant="secondary">
+                    {t.locked}
+                  </Button>
+                </div>
+              </div>
+
+              {/* Daily Mode - Coming Soon */}
+              <div className="relative bg-slate-900/40 border border-slate-800 rounded-2xl p-6 overflow-hidden grayscale opacity-75">
+                <div className="absolute inset-0 bg-slate-950/60 z-20 flex items-center justify-center">
+                  <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-bold text-slate-400">
+                    {t.comingSoon}
+                  </span>
+                </div>
+                <div className="space-y-4 opacity-50">
+                  <div className="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center">
+                    <Calendar className="w-6 h-6 text-yellow-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-1">
+                      {t.modeDaily}
+                    </h3>
+                    <p className="text-sm text-slate-400">{t.modeDailyDesc}</p>
+                  </div>
+                  <Button disabled className="w-full" variant="secondary">
+                    {t.locked}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Section 3: How to Play */}
+          <div className="bg-slate-900/30 border border-slate-800 rounded-3xl p-8 lg:p-12">
+            <div className="text-center mb-10">
+              <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3 flex items-center justify-center gap-3">
+                <BookOpen className="w-8 h-8 text-indigo-400" />
+                {t.guideTitle}
+              </h2>
+              <p className="text-slate-400">{t.guideDesc}</p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8 relative">
+              {/* Connector Line (Desktop) */}
+              <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-slate-700 to-transparent z-0" />
+
+              {/* Step 1 */}
+              <div className="relative z-10 flex flex-col items-center text-center group">
+                <div className="w-24 h-24 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center mb-6 py-4 shadow-xl group-hover:border-indigo-500/50 transition-colors duration-300">
+                  <Wallet className="w-10 h-10 text-indigo-400" />
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">
+                  {t.step1Title}
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed px-4">
+                  {t.step1Desc}
+                </p>
+              </div>
+
+              {/* Step 2 */}
+              <div className="relative z-10 flex flex-col items-center text-center group">
+                <div className="w-24 h-24 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center mb-6 py-4 shadow-xl group-hover:border-cyan-500/50 transition-colors duration-300">
+                  <Clock className="w-10 h-10 text-cyan-400" />
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">
+                  {t.step2Title}
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed px-4">
+                  {t.step2Desc}
+                </p>
+              </div>
+
+              {/* Step 3 */}
+              <div className="relative z-10 flex flex-col items-center text-center group">
+                <div className="w-24 h-24 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center mb-6 py-4 shadow-xl group-hover:border-yellow-500/50 transition-colors duration-300">
+                  <Medal className="w-10 h-10 text-yellow-400" />
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">
+                  {t.step3Title}
+                </h3>
+                <p className="text-sm text-slate-400 leading-relaxed px-4">
+                  {t.step3Desc}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {!embeddedWallet && user && (
+            <div className="text-center">
+              <p className="text-amber-400 font-medium bg-amber-500/10 inline-block px-4 py-2 rounded-full border border-amber-500/20">
+                ⚠{" "}
+                {lng === "es"
+                  ? "Activa tu Smart Wallet para jugar y reclamar recompensas"
+                  : "Activate Smart Wallet to play and claim rewards"}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

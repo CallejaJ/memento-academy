@@ -14,7 +14,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Github, AlertCircle, CheckCircle2, Mail } from "lucide-react";
+import {
+  Github,
+  AlertCircle,
+  CheckCircle2,
+  Mail,
+  Info,
+  Eye,
+  EyeOff,
+} from "lucide-react";
 import { FaDiscord } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
@@ -86,12 +94,29 @@ interface AuthModalProps {
   lng?: string;
 }
 
+// Mapeo de errores de autenticación
+const errorMap = {
+  "Invalid login credentials": {
+    es: "Credenciales incorrectas",
+    en: "Invalid login credentials",
+  },
+  "Email not confirmed": {
+    es: "Por favor confirma tu email antes de iniciar sesión",
+    en: "Please confirm your email before signing in",
+  },
+  "User already registered": {
+    es: "Este usuario ya está registrado",
+    en: "User already registered",
+  },
+};
+
 export function AuthModal({
   isOpen,
   onClose,
   defaultMode = "login",
   lng = "en",
 }: AuthModalProps) {
+  // ... (hooks)
   const [mode, setMode] = useState<AuthMode>(defaultMode);
 
   useEffect(() => {
@@ -105,9 +130,23 @@ export function AuthModal({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [successState, setSuccessState] = useState<SuccessState>("none");
+  const [showPassword, setShowPassword] = useState(false);
   const { signUp, signIn, signInWithProvider, resetPassword } = useAuth();
 
   const t = translations[lng as keyof typeof translations] || translations.en;
+
+  const getErrorMessage = (msg: string) => {
+    if (msg in errorMap) {
+      return (errorMap as any)[msg][lng] || msg;
+    }
+    // Traducciones genéricas
+    if (msg.includes("rate limit")) {
+      return lng === "es"
+        ? "Demasiados intentos. Por favor espera."
+        : "Too many attempts. Please wait.";
+    }
+    return msg;
+  };
 
   const resetForm = () => {
     setEmail("");
@@ -163,7 +202,7 @@ export function AuthModal({
   };
 
   const handleProviderSignIn = async (
-    provider: "google" | "github" | "discord"
+    provider: "google" | "github" | "discord",
   ) => {
     setError(null);
     try {
@@ -173,66 +212,6 @@ export function AuthModal({
       setError(err.message || `Failed to sign in with ${provider}`);
     }
   };
-
-  // Success states
-  if (successState === "signup-success") {
-    return (
-      <Dialog open={isOpen} onOpenChange={handleClose}>
-        <DialogContent className="sm:max-w-md bg-slate-900 border-slate-700">
-          <div className="flex flex-col items-center text-center py-6">
-            <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-full flex items-center justify-center mb-4">
-              <Mail className="w-8 h-8 text-white" />
-            </div>
-            <DialogHeader className="sm:text-center">
-              <DialogTitle className="text-2xl text-white">
-                {t.checkEmail}
-              </DialogTitle>
-              <DialogDescription className="text-slate-400 mt-2">
-                {t.emailSentTo} <span className="text-cyan-400">{email}</span>
-              </DialogDescription>
-            </DialogHeader>
-            <p className="text-slate-400 text-sm mt-4">{t.confirmEmail}</p>
-            <Button
-              variant="link"
-              onClick={() => switchMode("login")}
-              className="mt-6 text-cyan-400 hover:text-cyan-300"
-            >
-              {t.backToLogin}
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
-    );
-  }
-
-  if (successState === "reset-success") {
-    return (
-      <Dialog open={isOpen} onOpenChange={handleClose}>
-        <DialogContent className="sm:max-w-md bg-slate-900 border-slate-700">
-          <div className="flex flex-col items-center text-center py-6">
-            <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-full flex items-center justify-center mb-4">
-              <CheckCircle2 className="w-8 h-8 text-white" />
-            </div>
-            <DialogHeader>
-              <DialogTitle className="text-2xl text-white">
-                {t.emailSent}
-              </DialogTitle>
-              <DialogDescription className="text-slate-400 mt-2">
-                {t.resetSentTo} <span className="text-cyan-400">{email}</span>
-              </DialogDescription>
-            </DialogHeader>
-            <Button
-              variant="link"
-              onClick={() => switchMode("login")}
-              className="mt-6 text-cyan-400 hover:text-cyan-300"
-            >
-              {t.backToLogin}
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
-    );
-  }
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
@@ -258,9 +237,9 @@ export function AuthModal({
         </DialogHeader>
 
         {error && (
-          <div className="mt-4 p-4 rounded-lg bg-red-500/10 border border-red-500/20 flex items-start gap-3 text-red-200 animate-in fade-in slide-in-from-top-2">
-            <AlertCircle className="h-5 w-5 text-red-400 shrink-0 mt-0.5" />
-            <div className="text-sm font-medium">{error}</div>
+          <div className="mt-4 p-4 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-start gap-3 text-blue-200 animate-in fade-in slide-in-from-top-2">
+            <Info className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
+            <div className="text-sm font-medium">{getErrorMessage(error)}</div>
           </div>
         )}
 
@@ -313,15 +292,28 @@ export function AuthModal({
                   </button>
                 )}
               </div>
-              <Input
-                id="auth-password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength={mode === "signup" ? 6 : undefined}
-                className="bg-slate-800 border-slate-600 text-white"
-              />
+              <div className="relative">
+                <Input
+                  id="auth-password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  minLength={mode === "signup" ? 6 : undefined}
+                  className="bg-slate-800 border-slate-600 text-white pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white focus:outline-none"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
               {mode === "signup" && (
                 <p className="text-xs text-slate-500">{t.passwordHint}</p>
               )}
