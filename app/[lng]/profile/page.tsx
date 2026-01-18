@@ -217,11 +217,11 @@ export default function ProfilePage() {
                     </div>
 
                     {/* Import Tokens Helper */}
-                    <div className="pt-4 border-t border-slate-700">
+                    <div className="pt-4 border-t border-slate-700 text-center">
                       <h3 className="text-sm font-medium text-slate-300 mb-3">
-                        📥 {t.importTokens}
+                        {t.importTokens}
                       </h3>
-                      <div className="space-y-2 text-xs text-slate-400">
+                      <div className="space-y-2 text-xs text-slate-400 text-left">
                         <p>{t.importStep1}</p>
                         <p>{t.importStep2}</p>
                         <p>{t.importStep3}</p>
