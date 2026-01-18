@@ -72,6 +72,9 @@ function GamePlayContent() {
   const [score, setScore] = useState(0);
   const [showFeedback, setShowFeedback] = useState(false);
 
+  const [gameMode, setGameMode] = useState<"classic" | "survival">("classic");
+  const [lives, setLives] = useState(3);
+
   // Fetch questions on mount
   useEffect(() => {
     if (!sessionToken) {
@@ -102,12 +105,13 @@ function GamePlayContent() {
   const fetchQuestions = async () => {
     try {
       const res = await fetch(
-        `/api/game/questions?sessionToken=${sessionToken}`
+        `/api/game/questions?sessionToken=${sessionToken}`,
       );
       if (!res.ok) throw new Error("Failed to fetch questions");
 
       const data = await res.json();
       setQuestions(data.questions);
+      if (data.gameMode) setGameMode(data.gameMode);
       setLoading(false);
       setQuestionStartTime(Date.now());
     } catch (error) {
@@ -139,11 +143,18 @@ function GamePlayContent() {
           questionId: questions[currentIndex].id,
           answerIndex,
           responseTimeMs,
-          currentStreak: streak, // Send current streak for multiplier calc
+          currentStreak: streak,
         }),
       });
 
       const data = await res.json();
+
+      // Handle Game Over (Survival)
+      if (res.status === 403 && data.error === "Game over") {
+        router.push(`/${lng}/game/results?session=${sessionToken}`);
+        return;
+      }
+
       setFeedback(data);
       setShowFeedback(true);
 
@@ -159,6 +170,9 @@ function GamePlayContent() {
         });
       } else {
         setStreak(0);
+        if (gameMode === "survival") {
+          setLives((prev) => prev - 1);
+        }
       }
     } catch (error) {
       console.error("Error submitting answer:", error);
@@ -168,8 +182,14 @@ function GamePlayContent() {
   };
 
   const handleNext = () => {
+    // Survival Mode Game Over Check
+    if (gameMode === "survival" && lives <= 0) {
+      router.push(`/${lng}/game/results?session=${sessionToken}`);
+      return;
+    }
+
     if (currentIndex >= questions.length - 1) {
-      // Go to results
+      // Check if survival mode needs more questions? For now 100 limit is plenty.
       router.push(`/${lng}/game/results?session=${sessionToken}`);
     } else {
       setCurrentIndex((prev) => prev + 1);
@@ -207,24 +227,49 @@ function GamePlayContent() {
       }}
     >
       <div className="container mx-auto max-w-2xl">
-        {/* Progress bar */}
+        {/* Progress bar (Classic) or Lives (Survival) */}
         <div className="mb-6">
           <div className="flex items-center justify-between text-sm text-slate-400 mb-2">
-            <span>
-              {t.question} {currentIndex + 1} {t.of} {questions.length}
-            </span>
-            <span className="text-cyan-400 font-bold">
-              {score}/{questions.length}
-            </span>
+            {gameMode === "survival" ? (
+              <div className="flex items-center gap-1">
+                {[...Array(3)].map((_, i) => (
+                  <div
+                    key={i}
+                    className={`w-8 h-8 flex items-center justify-center transition-all ${i < lives ? "text-red-500 scale-110" : "text-slate-700 scale-100"}`}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill={i < lives ? "currentColor" : "none"}
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      className="w-6 h-6"
+                    >
+                      <path d="M19 14c1.49-1.28 3.6-2.34 3.6-5.3 0-3-2.5-5.1-5-5.1-2.9 0-4.9 2.5-5.6 3.6C11.4 6.1 9.4 3.6 6.5 3.6 4 3.6 1.5 5.7 1.5 8.7c0 2.9 2.1 4 3.6 5.3l.1.1.1.1L12 21l6.7-6.9.1-.1.2-.2z"></path>
+                    </svg>
+                  </div>
+                ))}
+                <span className="ml-2 font-bold text-white">LIVE</span>
+              </div>
+            ) : (
+              <span>
+                {t.question} {currentIndex + 1} {t.of} {questions.length}
+              </span>
+            )}
+
+            <span className="text-cyan-400 font-bold text-lg">{score} PTS</span>
           </div>
-          <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-cyan-500 to-teal-500 transition-all duration-300"
-              style={{
-                width: `${((currentIndex + 1) / questions.length) * 100}%`,
-              }}
-            />
-          </div>
+
+          {gameMode === "classic" && (
+            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-cyan-500 to-teal-500 transition-all duration-300"
+                style={{
+                  width: `${((currentIndex + 1) / questions.length) * 100}%`,
+                }}
+              />
+            </div>
+          )}
         </div>
 
         {/* Timer */}

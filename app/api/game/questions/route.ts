@@ -27,6 +27,7 @@ interface GameSession {
   expires_at: string;
   score: number;
   reward_signature: string | null;
+  game_mode?: string;
   [key: string]: unknown;
 }
 
@@ -46,7 +47,7 @@ function shuffleOptions(options: Array<{ en: string; es: string }>): {
 
   // Create shuffled options and mapping
   const shuffledOptions = indices.map(
-    (originalIndex) => options[originalIndex]
+    (originalIndex) => options[originalIndex],
   );
   const indexMap = indices; // indexMap[newIndex] = originalIndex
 
@@ -73,7 +74,7 @@ export async function GET(request: NextRequest) {
     if (!sessionToken) {
       return NextResponse.json(
         { error: "Session token required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -105,78 +106,90 @@ export async function GET(request: NextRequest) {
     if (answersCount && answersCount > 0) {
       return NextResponse.json(
         { error: "Questions already fetched for this session" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    // Get questions with PROGRESSIVE DIFFICULTY
-    // 4 easy -> 4 medium -> 2 hard
+    // Get questions based on Game Mode
+    let questions: RawQuestion[] = [];
 
-    // Fetch questions by difficulty
-    const questionPromises = (["easy", "medium", "hard"] as const).map(
-      async (difficulty) => {
-        const count =
-          difficulty === "easy" ? 4 : difficulty === "medium" ? 4 : 2;
-        const { data } = await supabase
-          .from("game_questions")
-          .select("id, category, difficulty, question_text, options")
-          .eq("is_active", true)
-          .eq("difficulty", difficulty)
-          .not(
-            "id",
-            "in",
-            `(SELECT question_id FROM game_question_history WHERE user_id = '${user.id}')`
-          )
-          // Remove deterministic ordering to let DB return results more naturally,
-          // though typically we'd use a random function.
-          // For now, we fetch a larger batch and shuffle in memory.
-          .limit(count * 10); // INCREASED: Get larger pool for better randomization
-        return (data || []) as RawQuestion[];
-      }
-    );
-
-    const [easyQuestions, mediumQuestions, hardQuestions] =
-      await Promise.all(questionPromises);
-
-    // Shuffle within each difficulty and pick required count
-    const shuffleArray = <T>(arr: T[]): T[] =>
-      arr.sort(() => Math.random() - 0.5);
-
-    const selectedEasy = shuffleArray(easyQuestions).slice(0, 4);
-    const selectedMedium = shuffleArray(mediumQuestions).slice(0, 4);
-    const selectedHard = shuffleArray(hardQuestions).slice(0, 2);
-
-    // Combine in progressive order: easy -> medium -> hard
-    let questions = [...selectedEasy, ...selectedMedium, ...selectedHard];
-
-    // If not enough questions (e.g. exhausted history), fill with ANY available, shuffled.
-    if (questions.length < 10) {
-      const { data: fallbackQuestions } = await supabase
+    if (session.game_mode === "survival") {
+      // Survival: Fetch ALL available questions (or a large batch) and shuffle
+      // Filter out seen only if we have plenty, otherwise re-use but shuffle
+      const { data: allQuestions } = await supabase
         .from("game_questions")
         .select("id, category, difficulty, question_text, options")
         .eq("is_active", true)
-        .limit(100); // INCREASED: Fetch a significantly larger pool to shuffle from
+        .limit(100); // Fetch all (we have ~77)
 
-      if (fallbackQuestions) {
-        const typedFallback = fallbackQuestions as RawQuestion[];
-        // Filter out duplicates (already selected questions)
-        const existingIds = new Set(questions.map((q: RawQuestion) => q.id));
-        const availableFallback = typedFallback.filter(
-          (q: RawQuestion) => !existingIds.has(q.id)
-        );
+      if (!allQuestions || allQuestions.length === 0) {
+        return NextResponse.json({ error: "No questions" }, { status: 404 });
+      }
 
-        // Shuffle the fallback pool heavily
-        const shuffledFallback = shuffleArray(availableFallback);
+      const typedQuestions = allQuestions as RawQuestion[];
+      questions = typedQuestions.sort(() => Math.random() - 0.5); // Shuffle all
+    } else {
+      // Classic Mode: Progressive Difficulty logic
+      // 4 easy -> 4 medium -> 2 hard
 
-        // Fill the remaining spots
-        questions = [...questions, ...shuffledFallback].slice(0, 10);
+      // ... existing progressive logic ...
+      const questionPromises = (["easy", "medium", "hard"] as const).map(
+        async (difficulty) => {
+          const count =
+            difficulty === "easy" ? 4 : difficulty === "medium" ? 4 : 2;
+          const { data } = await supabase
+            .from("game_questions")
+            .select("id, category, difficulty, question_text, options")
+            .eq("is_active", true)
+            .eq("difficulty", difficulty)
+            .not(
+              "id",
+              "in",
+              `(SELECT question_id FROM game_question_history WHERE user_id = '${user.id}')`,
+            )
+            .limit(count * 10);
+          return (data || []) as RawQuestion[];
+        },
+      );
+
+      const [easyQuestions, mediumQuestions, hardQuestions] =
+        await Promise.all(questionPromises);
+
+      // Shuffle within each difficulty and pick required count
+      const shuffleArray = <T>(arr: T[]): T[] =>
+        arr.sort(() => Math.random() - 0.5);
+
+      const selectedEasy = shuffleArray(easyQuestions).slice(0, 4);
+      const selectedMedium = shuffleArray(mediumQuestions).slice(0, 4);
+      const selectedHard = shuffleArray(hardQuestions).slice(0, 2);
+
+      // Combine in progressive order: easy -> medium -> hard
+      questions = [...selectedEasy, ...selectedMedium, ...selectedHard];
+
+      // Fallback logic if not enough questions
+      if (questions.length < 10) {
+        const { data: fallbackQuestions } = await supabase
+          .from("game_questions")
+          .select("id, category, difficulty, question_text, options")
+          .eq("is_active", true)
+          .limit(50);
+
+        if (fallbackQuestions) {
+          const typedFallback = fallbackQuestions as RawQuestion[];
+          const existingIds = new Set(questions.map((q: RawQuestion) => q.id));
+          const availableFallback = typedFallback.filter(
+            (q: RawQuestion) => !existingIds.has(q.id),
+          );
+          const shuffledFallback = shuffleArray(availableFallback);
+          questions = [...questions, ...shuffledFallback].slice(0, 10);
+        }
       }
     }
 
     if (questions.length === 0) {
       return NextResponse.json(
         { error: "No questions available" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -214,12 +227,13 @@ export async function GET(request: NextRequest) {
       questions: safeQuestions,
       totalQuestions: safeQuestions.length,
       timePerQuestion: 10, // seconds
+      gameMode: session.game_mode,
     });
   } catch (error) {
     console.error("Get questions error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -90,7 +90,7 @@ const translations = {
     step1Title: "Conecta Wallet",
     step1Desc: "Conecta tu wallet o inicia sesión para guardar tu progreso.",
     step2Title: "Responde Rápido",
-    step2Desc: "Tienes 15s por pregunta. ¡Más rápido = Más Puntos!",
+    step2Desc: "Tienes 10s por pregunta. ¡Más rápido = Más Puntos!",
     step3Title: "Gana Recompensas",
     step3Desc: "Acierta 8/10 o más para ganar tokens MEMO.",
     modeClassic: "Clásico",
@@ -202,10 +202,14 @@ export default function GameLobbyPage() {
     }
   };
 
-  const handleStartQuiz = async () => {
+  const handleStartQuiz = async (mode = "classic") => {
     setStarting(true);
     try {
-      const res = await fetch("/api/game/start", { method: "POST" });
+      const res = await fetch("/api/game/start", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode }),
+      });
       const data = await res.json();
 
       if (!res.ok) {
@@ -433,7 +437,7 @@ export default function GameLobbyPage() {
                     </p>
                   </div>
                   <Button
-                    onClick={handleStartQuiz}
+                    onClick={() => handleStartQuiz("classic")}
                     disabled={
                       starting || remainingAttempts === 0 || !embeddedWallet
                     }
@@ -446,14 +450,12 @@ export default function GameLobbyPage() {
                 </div>
               </div>
 
-              {/* Survival Mode - Coming Soon */}
-              <div className="relative bg-slate-900/40 border border-slate-800 rounded-2xl p-6 overflow-hidden grayscale opacity-75">
-                <div className="absolute inset-0 bg-slate-950/60 z-20 flex items-center justify-center">
-                  <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-bold text-slate-400">
-                    {t.comingSoon}
-                  </span>
+              {/* Survival Mode */}
+              <div className="group relative bg-slate-900/60 border border-purple-500/30 rounded-2xl p-6 overflow-hidden hover:border-purple-500/60 transition-all duration-300">
+                <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <Zap className="w-24 h-24 text-purple-400" />
                 </div>
-                <div className="space-y-4 opacity-50">
+                <div className="relative z-10 space-y-4">
                   <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
                     <Zap className="w-6 h-6 text-purple-400" />
                   </div>
@@ -465,8 +467,16 @@ export default function GameLobbyPage() {
                       {t.modeSurvivalDesc}
                     </p>
                   </div>
-                  <Button disabled className="w-full" variant="secondary">
-                    {t.locked}
+                  <Button
+                    onClick={() => handleStartQuiz("survival")}
+                    disabled={
+                      starting || remainingAttempts === 0 || !embeddedWallet
+                    }
+                    className="w-full bg-purple-600 hover:bg-purple-500 text-white"
+                  >
+                    {remainingAttempts === 0 && countdown
+                      ? countdown
+                      : t.playNow}
                   </Button>
                 </div>
               </div>

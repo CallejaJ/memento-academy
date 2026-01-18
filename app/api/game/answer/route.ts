@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
 
-const MIN_RESPONSE_TIME_MS = 1000; // Answers faster than 1 second are suspicious
-const TIME_PER_QUESTION_MS = 10000; // 10 seconds
-const FAST_ANSWER_THRESHOLD_MS = 3000; // Under 3s = fast bonus
-const MEDIUM_ANSWER_THRESHOLD_MS = 5000; // Under 5s = medium bonus
+const MIN_RESPONSE_TIME_MS = 500; // More lenient for very fast readers
+const TIME_PER_QUESTION_MS = 10000; // 10 seconds (aligned with frontend)
+const FAST_ANSWER_THRESHOLD_MS = 3000; // Under 3s = fast bonus (50%)
+const MEDIUM_ANSWER_THRESHOLD_MS = 5000; // Under 5s = medium bonus (25%)
 
 // Calculate time bonus points
 function calculateTimeBonus(responseTimeMs: number): {
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     if (!sessionToken || !questionId || answerIndex === undefined) {
       return NextResponse.json(
         { error: "Missing required fields" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -76,12 +76,13 @@ export async function POST(request: NextRequest) {
       expires_at: string;
       score: number;
       reward_signature: string | null;
+      game_mode: string;
     } | null;
 
     if (sessionError || !typedSession) {
       return NextResponse.json(
         { error: "Invalid or completed session" },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -104,7 +105,7 @@ export async function POST(request: NextRequest) {
     // Anti-bot: Check response time
     if (responseTimeMs && responseTimeMs < MIN_RESPONSE_TIME_MS) {
       console.warn(
-        `Suspicious response time: ${responseTimeMs}ms for user ${user.id}`
+        `Suspicious response time: ${responseTimeMs}ms for user ${user.id}`,
       );
       // Don't reject, but log for monitoring
     }
@@ -120,7 +121,7 @@ export async function POST(request: NextRequest) {
     if (existingAnswer) {
       return NextResponse.json(
         { error: "Question already answered" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -140,7 +141,7 @@ export async function POST(request: NextRequest) {
     if (questionError || !question) {
       return NextResponse.json(
         { error: "Question not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -177,7 +178,7 @@ export async function POST(request: NextRequest) {
       console.error("Save answer error:", answerError);
       return NextResponse.json(
         { error: "Failed to save answer" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -197,6 +198,22 @@ export async function POST(request: NextRequest) {
         .from("game_sessions")
         .update({ score: typedSession.score + 1 })
         .eq("id", typedSession.id);
+    } else if (typedSession.game_mode === "survival") {
+      // Check lives in Survival Mode
+      const { count: wrongAnswers } = await supabase
+        .from("game_answers")
+        .select("id", { count: "exact", head: true })
+        .eq("session_id", typedSession.id)
+        .eq("is_correct", false);
+
+      // If this was the 3rd strike (existing wrong + current wrong >= 3)
+      // Note: We just inserted the current wrong answer, so query includes it
+      if ((wrongAnswers || 0) >= 3) {
+        await (supabase as any)
+          .from("game_sessions")
+          .update({ finished_at: new Date().toISOString() })
+          .eq("id", typedSession.id);
+      }
     }
 
     // Calculate shuffled correct index (for UI feedback)
@@ -213,7 +230,7 @@ export async function POST(request: NextRequest) {
       ? calculateTimeBonus(responseTimeMs)
       : { bonus: 0, label: "" };
     const streakInfo = getStreakMultiplier(
-      currentStreak + (isCorrectWithMapping ? 1 : 0)
+      currentStreak + (isCorrectWithMapping ? 1 : 0),
     );
 
     // Return feedback with correct answer and bonus info
@@ -231,7 +248,7 @@ export async function POST(request: NextRequest) {
     console.error("Submit answer error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

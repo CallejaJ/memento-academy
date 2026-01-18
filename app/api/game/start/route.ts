@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Check daily limit
+    // Check daily limit - Survival has separate limit or shared? Shared for now.
     const { count } = await supabase
       .from("game_sessions")
       .select("*", { count: "exact", head: true })
@@ -32,13 +32,26 @@ export async function POST(request: NextRequest) {
           remainingAttempts: 0,
           nextResetAt: getNextMidnight(),
         },
-        { status: 429 }
+        { status: 429 },
       );
+    }
+
+    // Get game mode from body
+    let gameMode = "classic";
+    try {
+      const body = await request.json();
+      if (body.mode && ["classic", "survival", "daily"].includes(body.mode)) {
+        gameMode = body.mode;
+      }
+    } catch {
+      // Body parsing failed, default to classic
     }
 
     // Generate session token
     const sessionToken = randomUUID();
-    const expiresAt = new Date(Date.now() + SESSION_EXPIRY_MINUTES * 60 * 1000);
+    // Survival mode has longer expiry (e.g. 1 hour)
+    const expiryMinutes = gameMode === "survival" ? 60 : SESSION_EXPIRY_MINUTES;
+    const expiresAt = new Date(Date.now() + expiryMinutes * 60 * 1000);
 
     // Get client IP for rate limiting
     const ip =
@@ -55,7 +68,8 @@ export async function POST(request: NextRequest) {
         session_token: sessionToken,
         expires_at: expiresAt.toISOString(),
         ip_address: ip,
-        total_questions: 10,
+        total_questions: gameMode === "survival" ? 999 : 10, // Placeholder for infinite
+        game_mode: gameMode,
       })
       .select()
       .single();
@@ -67,7 +81,7 @@ export async function POST(request: NextRequest) {
       console.error("Session creation error:", sessionError);
       return NextResponse.json(
         { error: "Failed to create session" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -81,7 +95,7 @@ export async function POST(request: NextRequest) {
     console.error("Start game error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
