@@ -6,7 +6,8 @@
     <img src="https://img.shields.io/badge/Prisma-7-2D3748?style=for-the-badge&logo=prisma" alt="Prisma" />
     <img src="https://img.shields.io/badge/Supabase-Database-3ECF8E?style=for-the-badge&logo=supabase" alt="Supabase" />
     <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS" />
-    <img src="https://img.shields.io/badge/Brevo-Email-0077B5?style=for-the-badge" alt="Brevo" />
+    <img src="https://img.shields.io/badge/Ethereum-Sepolia-3C3C3D?style=for-the-badge&logo=ethereum" alt="Ethereum" />
+    <img src="https://img.shields.io/badge/Privy-Auth-6366F1?style=for-the-badge" alt="Privy" />
 </div>
 
 <p align="center">
@@ -74,6 +75,43 @@ There are currently **8 unique badges** available across 4 rarity tiers:
 #### Legendary (Elite)
 
 - 🚀 **Crypto Expert**: Complete 10 courses to prove ultimate mastery.
+
+---
+
+## 🎮 Quiz Gamification
+
+An interactive **Crypto Quiz Challenge** where users test their Web3 knowledge and earn real **MEMO tokens** on the Ethereum Sepolia testnet.
+
+### Game Modes
+
+| Mode                | Description                                                                           |
+| ------------------- | ------------------------------------------------------------------------------------- |
+| **Classic**         | 10 questions with progressive difficulty (Easy → Hard). Category selection available. |
+| **Survival**        | Unlimited questions with 3 lives. How far can you go?                                 |
+| **Daily Challenge** | _(Coming Soon)_ Random category with 2× rewards.                                      |
+
+### Reward System
+
+- **MEMO Token**: ERC-20 token distributed on Sepolia testnet
+- **Earning Criteria**: Score 8/10 or higher to earn tokens
+- **Speed Bonus**: +50% for answers under 3s, +25% under 5s
+- **Streak Multiplier**: 1.5× at 3+ streak, 2× at 5+ streak
+
+### Player Progression
+
+| Rank        | Total Score Required |
+| ----------- | -------------------- |
+| 🌱 Novato   | 0+                   |
+| 📖 Aprendiz | 100+                 |
+| 🎓 Experto  | 500+                 |
+| 🏆 Maestro  | 2,000+               |
+| 👑 Leyenda  | 10,000+              |
+
+### Leaderboard
+
+- **Mode-Specific Rankings**: Separate leaderboards for Classic and Survival modes
+- **Metrics Tracked**: Best score, total score, games played
+- **Top 100**: Public leaderboard showcasing top performers
 
 ---
 
