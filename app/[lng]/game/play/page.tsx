@@ -18,6 +18,7 @@ const translations = {
     timeUp: "Time's up!",
     loading: "Loading questions...",
     error: "Failed to load questions",
+    lives: "LIVES",
   },
   es: {
     question: "Pregunta",
@@ -30,6 +31,7 @@ const translations = {
     timeUp: "¡Se acabó el tiempo!",
     loading: "Cargando preguntas...",
     error: "Error al cargar preguntas",
+    lives: "VIDAS",
   },
 };
 
@@ -81,7 +83,13 @@ function GamePlayContent() {
       router.push(`/${lng}/game`);
       return;
     }
-    fetchQuestions();
+
+    const abortController = new AbortController();
+    fetchQuestions(abortController.signal);
+
+    return () => {
+      abortController.abort();
+    };
   }, [sessionToken]);
 
   // Timer countdown
@@ -102,10 +110,11 @@ function GamePlayContent() {
     return () => clearInterval(timer);
   }, [currentIndex, loading, showFeedback]);
 
-  const fetchQuestions = async () => {
+  const fetchQuestions = async (signal?: AbortSignal) => {
     try {
       const res = await fetch(
         `/api/game/questions?sessionToken=${sessionToken}`,
+        { signal },
       );
       if (!res.ok) throw new Error("Failed to fetch questions");
 
@@ -115,6 +124,7 @@ function GamePlayContent() {
       setLoading(false);
       setQuestionStartTime(Date.now());
     } catch (error) {
+      if ((error as Error).name === "AbortError") return;
       console.error("Error fetching questions:", error);
       router.push(`/${lng}/game`);
     }
@@ -249,7 +259,9 @@ function GamePlayContent() {
                     </svg>
                   </div>
                 ))}
-                <span className="ml-2 font-bold text-white">LIVE</span>
+                <span className="ml-2 font-bold text-white tracking-widest text-xs">
+                  {t.lives}
+                </span>
               </div>
             ) : (
               <span>

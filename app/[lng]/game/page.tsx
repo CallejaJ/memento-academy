@@ -50,7 +50,7 @@ const translations = {
     step1Title: "Connect Wallet",
     step1Desc: "Connect your wallet or sign in to track your progress.",
     step2Title: "Answer Quickly",
-    step2Desc: "You have 15 seconds per question. Faster = More Points!",
+    step2Desc: "You have 10 seconds per question. Faster = More Points!",
     step3Title: "Earn Rewards",
     step3Desc: "Score 8/10 or higher to earn MEMO tokens.",
     modeClassic: "Classic",
