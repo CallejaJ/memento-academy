@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     const { data, error } = await supabase
       .from("game_questions")
       .select("*")
-      .ilike("question_text->>es", "%significa DeFi%");
+      .ilike("question_text->>en", "%What is a dApp%");
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });

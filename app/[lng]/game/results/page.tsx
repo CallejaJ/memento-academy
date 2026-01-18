@@ -80,6 +80,7 @@ function GameResultsContent() {
     rewardDeadline: number | null;
     sessionId: string;
     remainingAttempts?: number;
+    gameMode?: string;
   } | null>(null);
   const [claiming, setClaiming] = useState(false);
   const [claimed, setClaimed] = useState(false);
@@ -495,7 +496,11 @@ function GameResultsContent() {
                       stroke="url(#scoreGradientLoser)"
                       strokeWidth="4"
                       fill="none"
-                      strokeDasharray={`${(results.score / results.totalQuestions) * 264} 264`}
+                      strokeDasharray={`${
+                        results.gameMode === "survival"
+                          ? 264 // Full circle (or maybe 0?) for survival since there's no "total"
+                          : (results.score / results.totalQuestions) * 264
+                      } 264`}
                       strokeLinecap="round"
                       className="transition-all duration-1000"
                       style={{
@@ -521,12 +526,23 @@ function GameResultsContent() {
                       style={{ fontFamily: "var(--font-orbitron), system-ui" }}
                     >
                       {results.score}
-                      <span className="text-slate-500">/</span>
-                      {results.totalQuestions}
+                      {results.gameMode !== "survival" && (
+                        <>
+                          <span className="text-slate-500">/</span>
+                          {results.totalQuestions}
+                        </>
+                      )}
                     </span>
+                    {results.gameMode === "survival" && (
+                      <span className="text-xs text-slate-400 mt-1 uppercase tracking-wider">
+                        {t.score}
+                      </span>
+                    )}
                   </div>
                 </div>
-                <p className="text-sm text-slate-400 mb-2">{t.needMore}</p>
+                {results.gameMode !== "survival" && (
+                  <p className="text-sm text-slate-400 mb-2">{t.needMore}</p>
+                )}
               </div>
             </div>
 

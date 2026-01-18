@@ -19,7 +19,7 @@ export async function GET(request: Request) {
     // DEBUG LOGGING
     console.log(
       "[API/Stats] Cookies found:",
-      cookieStore.getAll().map((c) => c.name)
+      cookieStore.getAll().map((c) => c.name),
     );
 
     const supabase = createServerClient(
@@ -33,7 +33,7 @@ export async function GET(request: Request) {
           setAll(cookiesToSet) {
             try {
               cookiesToSet.forEach(({ name, value, options }) =>
-                cookieStore.set(name, value, options)
+                cookieStore.set(name, value, options),
               );
             } catch {
               // The `setAll` method was called from a Server Component.
@@ -42,7 +42,7 @@ export async function GET(request: Request) {
             }
           },
         },
-      }
+      },
     );
 
     const {
@@ -54,7 +54,7 @@ export async function GET(request: Request) {
       "[API/Stats] Auth User:",
       user?.id,
       "Error:",
-      authError?.message
+      authError?.message,
     );
 
     if (!user) {
@@ -72,7 +72,7 @@ export async function GET(request: Request) {
       console.error("Error fetching user game stats:", error);
       return NextResponse.json(
         { error: "Failed to fetch stats" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -93,12 +93,12 @@ export async function GET(request: Request) {
     const totalScore =
       sessions?.reduce(
         (acc: number, session: any) => acc + (session.score || 0),
-        0
+        0,
       ) || 0;
     const bestScore =
       sessions?.reduce(
         (max: number, session: any) => Math.max(max, session.score || 0),
-        0
+        0,
       ) || 0;
 
     // Average score - avoid division by zero
@@ -110,8 +110,15 @@ export async function GET(request: Request) {
       sessions?.reduce(
         (acc: number, session: any) =>
           (session.score || 0) >= 8 ? acc + (session.score || 0) : acc,
-        0
+        0,
       ) || 0;
+
+    // Calculate Rank based on total score
+    let rank = "Novato";
+    if (totalScore >= 10000) rank = "Leyenda";
+    else if (totalScore >= 2000) rank = "Maestro";
+    else if (totalScore >= 500) rank = "Experto";
+    else if (totalScore >= 100) rank = "Aprendiz";
 
     return NextResponse.json({
       gamesPlayed,
@@ -120,12 +127,13 @@ export async function GET(request: Request) {
       avgScore,
       remainingAttempts,
       earnedTokens, // NEW
+      rank,
     });
   } catch (error) {
     console.error("Error in game stats route:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

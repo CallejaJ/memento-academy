@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
+import Image from "next/image";
 import {
   Trophy,
   Gamepad2,
@@ -87,12 +88,15 @@ const translations = {
       "Gana tokens MEMO cada día para desbloquear cursos premium y NFTs exclusivos. El reinicio es a medianoche UTC.",
     howToPlay: "Cómo Jugar",
     gameModes: "Modos de Juego",
-    step1Title: "Conecta Wallet",
-    step1Desc: "Conecta tu wallet o inicia sesión para guardar tu progreso.",
-    step2Title: "Responde Rápido",
-    step2Desc: "Tienes 10s por pregunta. ¡Más rápido = Más Puntos!",
+    step1Title: "Conecta y Juega",
+    step1Desc:
+      "Tienes 5 vidas diarias que se recargan a medianoche UTC. Tu progreso y estadísticas se guardan en tu cuenta global.",
+    step2Title: "Velocidad y Rachas",
+    step2Desc:
+      "10s por pregunta. Acertar seguido activa multiplicadores (x1.5, x2). ¡En Survival las preguntas son infinitas!",
     step3Title: "Gana Recompensas",
-    step3Desc: "Acierta 8/10 o más para ganar tokens MEMO.",
+    step3Desc:
+      "Consigue 8/10 en Clásico o grandes puntuaciones en Survival para ganar MEMO. Tus 'Puntos' son la suma total de tu carrera.",
     modeClassic: "Clásico",
     modeClassicDesc:
       "10 Preguntas. Dificultad Progresiva. El desafío estándar.",
@@ -104,7 +108,8 @@ const translations = {
     playNow: "Jugar Ahora",
     locked: "Bloqueado",
     guideTitle: "Domina el Juego",
-    guideDesc: "Aprende las reglas y maximiza tus ganancias.",
+    guideDesc:
+      "Reglas clave: 5 Intentos diarios • Estadísticas Globales • Multiplicadores de Racha",
   },
 };
 
@@ -130,7 +135,7 @@ export default function GameLobbyPage() {
   const { isBlocked, blockReason } = useWalletBlacklistCheck();
 
   const [loading, setLoading] = useState(true);
-  const [starting, setStarting] = useState(false);
+  const [startingMode, setStartingMode] = useState<string | null>(null);
   const [remainingAttempts, setRemainingAttempts] = useState<number | null>(
     null,
   );
@@ -141,7 +146,13 @@ export default function GameLobbyPage() {
     gamesPlayed: 0,
     bestScore: 0,
     totalScore: 0,
+    rank: "Novato",
   });
+
+  const [dailyChallenge, setDailyChallenge] = useState<{
+    title: { [key: string]: string };
+    category: string;
+  } | null>(null);
 
   useEffect(() => {
     if (!authLoading && user) {
@@ -150,6 +161,18 @@ export default function GameLobbyPage() {
       setLoading(false);
     }
   }, [authLoading, user]);
+
+  useEffect(() => {
+    // Fetch daily challenge independently of auth
+    fetch("/api/game/daily")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.challenge) {
+          setDailyChallenge(data.challenge);
+        }
+      })
+      .catch((err) => console.error("Failed to fetch daily challenge:", err));
+  }, []);
 
   useEffect(() => {
     if (nextResetTime) {
@@ -190,6 +213,7 @@ export default function GameLobbyPage() {
           gamesPlayed: stats.gamesPlayed || 0,
           bestScore: stats.bestScore || 0,
           totalScore: stats.totalScore || 0,
+          rank: stats.rank || "Novato",
         });
         if (typeof stats.remainingAttempts === "number") {
           setRemainingAttempts(stats.remainingAttempts);
@@ -203,7 +227,7 @@ export default function GameLobbyPage() {
   };
 
   const handleStartQuiz = async (mode = "classic") => {
-    setStarting(true);
+    setStartingMode(mode);
     try {
       const res = await fetch("/api/game/start", {
         method: "POST",
@@ -225,7 +249,7 @@ export default function GameLobbyPage() {
     } catch (error) {
       console.error("Failed to start quiz:", error);
     } finally {
-      setStarting(false);
+      setStartingMode(null);
     }
   };
 
@@ -300,8 +324,15 @@ export default function GameLobbyPage() {
 
       {/* Hero Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-indigo-500/20 blur-[100px] rounded-full" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-500/10 blur-[120px] rounded-full" />
+        <Image
+          src="/images/wallpapers/quiz-bg-dark.png"
+          alt="Crypto Quiz Background"
+          fill
+          className="object-cover"
+          priority
+        />
+        {/* Subtle vignette solely for text readability at edges, centre is clear */}
+        <div className="absolute inset-0 bg-[radial-gradient(transparent_0%,#020617_100%)] opacity-80" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 pt-40 pb-12">
@@ -346,10 +377,10 @@ export default function GameLobbyPage() {
                 </div>
                 <div className="bg-slate-900/40 border border-slate-800/60 p-4 rounded-xl backdrop-blur-sm text-center">
                   <div className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">
-                    {t.totalMemo}
+                    {lng === "es" ? "Rango" : "Rank"}
                   </div>
-                  <div className="text-2xl font-bold text-purple-400">
-                    {userStats.totalScore}
+                  <div className="text-2xl font-bold text-yellow-400 uppercase">
+                    {userStats.rank}
                   </div>
                 </div>
                 <div className="bg-slate-900/40 border border-slate-800/60 p-4 rounded-xl backdrop-blur-sm text-center">
@@ -420,15 +451,15 @@ export default function GameLobbyPage() {
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
               {/* Classic Mode - Active */}
-              <div className="group relative bg-slate-900/60 border border-cyan-500/30 rounded-2xl p-6 overflow-hidden hover:border-cyan-500/60 transition-all duration-300">
+              <div className="group relative flex flex-col bg-slate-900/60 border border-cyan-500/30 rounded-2xl p-6 overflow-hidden hover:border-cyan-500/60 transition-all duration-300">
                 <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
                   <Gamepad2 className="w-24 h-24 text-cyan-400" />
                 </div>
-                <div className="relative z-10 space-y-4">
+                <div className="relative z-10 flex flex-col flex-1 space-y-4">
                   <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center">
                     <Gamepad2 className="w-6 h-6 text-cyan-400" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h3 className="text-xl font-bold text-white mb-1">
                       {t.modeClassic}
                     </h3>
@@ -439,27 +470,35 @@ export default function GameLobbyPage() {
                   <Button
                     onClick={() => handleStartQuiz("classic")}
                     disabled={
-                      starting || remainingAttempts === 0 || !embeddedWallet
+                      startingMode !== null ||
+                      remainingAttempts === 0 ||
+                      !embeddedWallet
                     }
-                    className="w-full bg-cyan-600 hover:bg-cyan-500 text-white"
+                    className={`w-full mt-auto text-white ${
+                      startingMode === "classic"
+                        ? "bg-cyan-700 cursor-wait"
+                        : "bg-cyan-600 hover:bg-cyan-500"
+                    }`}
                   >
                     {remainingAttempts === 0 && countdown
                       ? countdown
-                      : t.playNow}
+                      : startingMode === "classic"
+                        ? t.loading
+                        : t.playNow}
                   </Button>
                 </div>
               </div>
 
               {/* Survival Mode */}
-              <div className="group relative bg-slate-900/60 border border-purple-500/30 rounded-2xl p-6 overflow-hidden hover:border-purple-500/60 transition-all duration-300">
+              <div className="group relative flex flex-col bg-slate-900/60 border border-purple-500/30 rounded-2xl p-6 overflow-hidden hover:border-purple-500/60 transition-all duration-300">
                 <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
                   <Zap className="w-24 h-24 text-purple-400" />
                 </div>
-                <div className="relative z-10 space-y-4">
+                <div className="relative z-10 flex flex-col flex-1 space-y-4">
                   <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
                     <Zap className="w-6 h-6 text-purple-400" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h3 className="text-xl font-bold text-white mb-1">
                       {t.modeSurvival}
                     </h3>
@@ -470,36 +509,92 @@ export default function GameLobbyPage() {
                   <Button
                     onClick={() => handleStartQuiz("survival")}
                     disabled={
-                      starting || remainingAttempts === 0 || !embeddedWallet
+                      startingMode !== null ||
+                      remainingAttempts === 0 ||
+                      !embeddedWallet
                     }
-                    className="w-full bg-purple-600 hover:bg-purple-500 text-white"
+                    className={`w-full mt-auto text-white ${
+                      startingMode === "survival"
+                        ? "bg-purple-700 cursor-wait"
+                        : "bg-purple-600 hover:bg-purple-500"
+                    }`}
                   >
                     {remainingAttempts === 0 && countdown
                       ? countdown
-                      : t.playNow}
+                      : startingMode === "survival"
+                        ? t.loading
+                        : t.playNow}
                   </Button>
                 </div>
               </div>
 
-              {/* Daily Mode - Coming Soon */}
-              <div className="relative bg-slate-900/40 border border-slate-800 rounded-2xl p-6 overflow-hidden grayscale opacity-75">
-                <div className="absolute inset-0 bg-slate-950/60 z-20 flex items-center justify-center">
-                  <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-bold text-slate-400">
-                    {t.comingSoon}
-                  </span>
-                </div>
-                <div className="space-y-4 opacity-50">
+              {/* Daily Mode - Active if challenge exists */}
+              <div
+                className={`relative flex flex-col bg-slate-900/40 border rounded-2xl p-6 overflow-hidden transition-all duration-300 ${
+                  dailyChallenge
+                    ? "border-yellow-500/50 hover:border-yellow-400 hover:shadow-[0_0_30px_rgba(234,179,8,0.15)] group"
+                    : "border-slate-800 grayscale opacity-75"
+                }`}
+              >
+                {!dailyChallenge && (
+                  <div className="absolute inset-0 bg-slate-950/60 z-20 flex items-center justify-center">
+                    <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-bold text-slate-400">
+                      {t.comingSoon}
+                    </span>
+                  </div>
+                )}
+
+                {dailyChallenge && (
+                  <div className="absolute top-0 right-0 p-3">
+                    <div className="px-2 py-0.5 rounded-full bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 text-[10px] font-bold uppercase tracking-wider animate-pulse">
+                      2x Rewards
+                    </div>
+                  </div>
+                )}
+
+                <div
+                  className={`flex flex-col flex-1 space-y-4 ${!dailyChallenge && "opacity-50"}`}
+                >
                   <div className="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center">
                     <Calendar className="w-6 h-6 text-yellow-400" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h3 className="text-xl font-bold text-white mb-1">
                       {t.modeDaily}
                     </h3>
-                    <p className="text-sm text-slate-400">{t.modeDailyDesc}</p>
+                    {dailyChallenge && (
+                      <div className="text-yellow-400 font-medium text-sm mb-1 uppercase tracking-wide">
+                        Tema:{" "}
+                        {dailyChallenge.title[lng] ||
+                          dailyChallenge.title["en"]}
+                      </div>
+                    )}
+                    <p className="text-sm text-slate-400">
+                      {dailyChallenge ? t.modeDailyDesc : t.comingSoon}
+                    </p>
                   </div>
-                  <Button disabled className="w-full" variant="secondary">
-                    {t.locked}
+                  <Button
+                    disabled={
+                      !dailyChallenge ||
+                      (startingMode === "daily" && loading) ||
+                      remainingAttempts === 0
+                    }
+                    onClick={() => handleStartQuiz("daily")}
+                    className={`w-full mt-auto ${
+                      dailyChallenge
+                        ? "bg-yellow-500 hover:bg-yellow-400 text-black font-bold"
+                        : ""
+                    }`}
+                    variant="secondary"
+                  >
+                    {startingMode === "daily" ? (
+                      <span className="flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+                        {t.loading}
+                      </span>
+                    ) : (
+                      t.playNow
+                    )}
                   </Button>
                 </div>
               </div>

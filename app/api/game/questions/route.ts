@@ -97,7 +97,62 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Session expired" }, { status: 410 });
     }
 
-    // Check if session already has questions (prevent re-fetching)
+    // Check if session already has questions via reward_signature (Idempotency check)
+    if (session.reward_signature) {
+      try {
+        const storedMappings: Record<string, number[]> = JSON.parse(
+          session.reward_signature,
+        );
+        const questionIds = Object.keys(storedMappings);
+
+        if (questionIds.length > 0) {
+          // Fetch the specific questions that were previously assigned
+          const { data: existingQuestions } = await supabase
+            .from("game_questions")
+            .select("id, category, difficulty, question_text, options")
+            .in("id", questionIds);
+
+          if (existingQuestions) {
+            const safeReconstructedQuestions: QuestionResponse[] = (
+              existingQuestions as RawQuestion[]
+            ).map((q) => {
+              const options = q.options as Array<{ en: string; es: string }>;
+              const indexMap = storedMappings[q.id];
+
+              // Reconstruct shuffled options using the stored map
+              // indexMap[newIndex] = originalIndex
+              // so shuffled[newIndex] = original[indexMap[newIndex]]
+              const shuffledOptions = indexMap.map(
+                (originalIndex) => options[originalIndex],
+              );
+
+              return {
+                id: q.id,
+                category: q.category,
+                difficulty: q.difficulty,
+                question_text: q.question_text as { en: string; es: string },
+                options: shuffledOptions,
+              };
+            });
+
+            // Return the same questions as before
+            return NextResponse.json({
+              sessionId: session.id,
+              questions: safeReconstructedQuestions,
+              totalQuestions: safeReconstructedQuestions.length,
+              timePerQuestion: 10,
+              gameMode: session.game_mode,
+            });
+          }
+        }
+      } catch (e) {
+        console.error("Error parsing existing reward signature:", e);
+        // Fall through to generate new questions if parsing fails
+      }
+    }
+
+    // Check if session already has answers (block re-fetching if game started)
+    // This is a secondary check; legitimate re-fetches (page refresh) are handled above.
     const { count: answersCount } = await supabase
       .from("game_answers")
       .select("*", { count: "exact", head: true })
@@ -128,6 +183,55 @@ export async function GET(request: NextRequest) {
 
       const typedQuestions = allQuestions as RawQuestion[];
       questions = typedQuestions.sort(() => Math.random() - 0.5); // Shuffle all
+    } else if (session.game_mode === "daily") {
+      // Daily Mode: Fetch current day's category
+      const today = new Date().toISOString().split("T")[0];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: dailyChallenge } = await (supabase as any)
+        .from("daily_challenges")
+        .select("category")
+        .eq("challenge_date", today)
+        .single();
+
+      const category = dailyChallenge?.category || "random"; // Fallback to random if no challenge
+
+      if (category === "random") {
+        // Fallback: mixed questions
+        const { data } = await supabase
+          .from("game_questions")
+          .select("id, category, difficulty, question_text, options")
+          .eq("is_active", true)
+          .limit(20);
+        questions = ((data || []) as RawQuestion[])
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 10);
+      } else {
+        // Fetch questions for specific category
+        const { data } = await supabase
+          .from("game_questions")
+          .select("id, category, difficulty, question_text, options")
+          .eq("is_active", true)
+          .eq("category", category)
+          .limit(20);
+
+        questions = ((data || []) as RawQuestion[])
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 10);
+
+        // If not enough questions in category, fill with randoms
+        if (questions.length < 10) {
+          const { data: filler } = await supabase
+            .from("game_questions")
+            .select("id, category, difficulty, question_text, options")
+            .eq("is_active", true)
+            .neq("category", category)
+            .limit(10 - questions.length);
+
+          if (filler) {
+            questions = [...questions, ...(filler as RawQuestion[])];
+          }
+        }
+      }
     } else {
       // Classic Mode: Progressive Difficulty logic
       // 4 easy -> 4 medium -> 2 hard

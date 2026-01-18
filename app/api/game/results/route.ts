@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     if (!sessionToken) {
       return NextResponse.json(
         { error: "Session token required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -52,6 +52,7 @@ export async function POST(request: NextRequest) {
       rewarded: boolean;
       reward_signature: string | null;
       reward_deadline: number | null;
+      game_mode: string;
     } | null;
 
     if (sessionError || !session) {
@@ -82,6 +83,7 @@ export async function POST(request: NextRequest) {
         rewardDeadline: session.reward_deadline,
         sessionId: session.id,
         remainingAttempts,
+        gameMode: session.game_mode,
       });
     }
 
@@ -101,6 +103,13 @@ export async function POST(request: NextRequest) {
     const score = correctCount || 0;
     const canClaimReward = score >= MIN_SCORE_FOR_REWARD;
 
+    // Apply multiplier for Daily Mode
+    // Users still need 8/10 correct answers to qualify, but get double points/tokens
+    let finalScore = score;
+    if (session.game_mode === "daily") {
+      finalScore = score * 2;
+    }
+
     // Generate signature for blockchain reward if eligible
     let rewardSignature: string | null = null;
     let rewardDeadline: number | null = null;
@@ -112,7 +121,7 @@ export async function POST(request: NextRequest) {
       console.log("[Results API] privateKey exists:", !!privateKey);
       console.log(
         "[Results API] MEMO_CONTRACT_ADDRESS:",
-        MEMO_CONTRACT_ADDRESS
+        MEMO_CONTRACT_ADDRESS,
       );
       console.log("[Results API] walletAddress from request:", walletAddress);
 
@@ -150,12 +159,12 @@ export async function POST(request: NextRequest) {
               [
                 walletAddress as `0x${string}`,
                 sessionIdBytes,
-                BigInt(score),
+                BigInt(finalScore),
                 BigInt(rewardDeadline),
                 BigInt(sepolia.id),
                 MEMO_CONTRACT_ADDRESS as `0x${string}`,
-              ]
-            )
+              ],
+            ),
           );
 
           // Sign the hash (this adds the Ethereum signed message prefix)
@@ -180,7 +189,7 @@ export async function POST(request: NextRequest) {
         }
       } else {
         console.log(
-          "[Results API] Missing privateKey, contract address, or walletAddress"
+          "[Results API] Missing privateKey, contract address, or walletAddress",
         );
       }
     }
@@ -191,7 +200,7 @@ export async function POST(request: NextRequest) {
       .from("game_sessions")
       .update({
         finished_at: new Date().toISOString(),
-        score,
+        score: finalScore,
       })
       .eq("id", session.id);
 
@@ -207,7 +216,7 @@ export async function POST(request: NextRequest) {
     const remainingAttempts = Math.max(0, 5 - (todayAttemptsCount || 0));
 
     return NextResponse.json({
-      score,
+      score: finalScore,
       totalQuestions: answersCount || 10,
       percentage: Math.round((score / (answersCount || 10)) * 100),
       canClaimReward,
@@ -215,12 +224,13 @@ export async function POST(request: NextRequest) {
       rewardDeadline,
       sessionId: session.id,
       remainingAttempts,
+      gameMode: session.game_mode,
     });
   } catch (error) {
     console.error("Results error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
