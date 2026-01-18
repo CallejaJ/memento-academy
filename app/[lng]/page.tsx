@@ -588,6 +588,14 @@ export default async function LandingPage({
                     {t("footer.links.contribute")}
                   </a>
                 </li>
+                <li>
+                  <a
+                    href={`/${lng}/updates`}
+                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
+                  >
+                    {lng === "es" ? "Actualizaciones" : "Updates"}
+                  </a>
+                </li>
               </ul>
             </div>
 
