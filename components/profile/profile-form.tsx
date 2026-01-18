@@ -3,7 +3,7 @@
 import type React from "react";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/types/supabase";
 import { useAuth } from "@/contexts/auth-context";
@@ -20,12 +20,50 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, CheckCircle, Loader2 } from "lucide-react";
 
+const translations = {
+  en: {
+    profileInfo: "Profile Information",
+    updateProfile: "Update your account profile information",
+    email: "Email",
+    emailNote: "Email cannot be changed",
+    fullName: "Full Name",
+    fullNamePlaceholder: "Your full name",
+    avatarUrl: "Avatar URL",
+    avatarPlaceholder: "https://example.com/avatar.jpg",
+    saveChanges: "Save Changes",
+    saving: "Saving...",
+    successMessage: "Profile updated successfully! Redirecting...",
+    noUser: "No user found",
+    failedUpdate: "Failed to update profile",
+    yourName: "Your Name",
+  },
+  es: {
+    profileInfo: "Información de Perfil",
+    updateProfile: "Actualiza la información de tu cuenta",
+    email: "Email",
+    emailNote: "El email no se puede cambiar",
+    fullName: "Nombre Completo",
+    fullNamePlaceholder: "Tu nombre completo",
+    avatarUrl: "URL de Avatar",
+    avatarPlaceholder: "https://ejemplo.com/avatar.jpg",
+    saveChanges: "Guardar Cambios",
+    saving: "Guardando...",
+    successMessage: "¡Perfil actualizado! Redirigiendo...",
+    noUser: "Usuario no encontrado",
+    failedUpdate: "Error al actualizar perfil",
+    yourName: "Tu Nombre",
+  },
+};
+
 interface ProfileFormProps {
   initialProfile?: any;
 }
 
 export function ProfileForm({ initialProfile }: ProfileFormProps) {
   const router = useRouter();
+  const { lng } = useParams<{ lng: string }>();
+  const t = translations[lng as keyof typeof translations] || translations.en;
+
   const [fullName, setFullName] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -74,7 +112,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
     setIsLoading(true);
 
     if (!user?.id) {
-      setError("No user found");
+      setError(t.noUser);
       setIsLoading(false);
       return;
     }
@@ -89,7 +127,6 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
 
       if (existingProfile) {
         // Update existing profile
-        // Type assertion needed due to @supabase/ssr type inference issues
         const updateData: Database["public"]["Tables"]["profiles"]["Update"] = {
           full_name: fullName || null,
           avatar_url: avatarUrl || null,
@@ -116,14 +153,14 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
         if (insertError) throw insertError;
       }
 
-      setSuccess("Profile updated successfully! Redirecting...");
+      setSuccess(t.successMessage);
 
       // Redirect to dashboard after 1.5 seconds
       setTimeout(() => {
-        router.push("/dashboard");
+        router.push(`/${lng}/dashboard`);
       }, 1500);
     } catch (err: any) {
-      setError(err.message || "Failed to update profile");
+      setError(err.message || t.failedUpdate);
     } finally {
       setIsLoading(false);
     }
@@ -142,9 +179,9 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
   return (
     <Card className="bg-slate-800/50 border-slate-700">
       <CardHeader>
-        <CardTitle className="text-white">Profile Information</CardTitle>
+        <CardTitle className="text-white">{t.profileInfo}</CardTitle>
         <CardDescription className="text-slate-400">
-          Update your account profile information
+          {t.updateProfile}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -184,7 +221,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
           </div>
           <div>
             <h3 className="text-lg font-semibold text-white">
-              {fullName || "Your Name"}
+              {fullName || t.yourName}
             </h3>
             <p className="text-sm text-slate-400">{user?.email}</p>
           </div>
@@ -192,7 +229,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t.email}</Label>
             <Input
               id="email"
               type="email"
@@ -201,30 +238,30 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
               className="bg-slate-950/50 border-slate-700 text-slate-400"
             />
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              Email cannot be changed
+              {t.emailNote}
             </p>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="fullName">Full Name</Label>
+            <Label htmlFor="fullName">{t.fullName}</Label>
             <Input
               id="fullName"
               type="text"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              placeholder="Your full name"
+              placeholder={t.fullNamePlaceholder}
               className="bg-slate-950/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:ring-cyan-500/20"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="avatarUrl">Avatar URL</Label>
+            <Label htmlFor="avatarUrl">{t.avatarUrl}</Label>
             <Input
               id="avatarUrl"
               type="url"
               value={avatarUrl}
               onChange={(e) => setAvatarUrl(e.target.value)}
-              placeholder="https://example.com/avatar.jpg"
+              placeholder={t.avatarPlaceholder}
               className="bg-slate-950/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:ring-cyan-500/20"
             />
           </div>
@@ -238,10 +275,10 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Saving...
+                  {t.saving}
                 </>
               ) : (
-                "Save Changes"
+                t.saveChanges
               )}
             </Button>
           </div>

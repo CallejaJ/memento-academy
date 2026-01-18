@@ -17,6 +17,8 @@ import {
 import { usePrivy, useWallets } from "@privy-io/react-auth";
 import { useState } from "react";
 
+const MEMO_CONTRACT = process.env.NEXT_PUBLIC_MEMO_CONTRACT_ADDRESS || "";
+
 const translations = {
   en: {
     title: "Edit Your Profile",
@@ -31,6 +33,12 @@ const translations = {
     accessRequired: "Access Required",
     pleaseLogin: "Please log in to edit your profile.",
     login: "Log In",
+    importTokens: "Import MEMO Tokens in MetaMask",
+    importStep1: "1. Open MetaMask and switch to Sepolia network",
+    importStep2: "2. Click 'Import tokens' at the bottom",
+    importStep3: "3. Paste the contract address:",
+    importStep4: "4. Symbol: MEMO, Decimals: 18",
+    copyContract: "Copy Contract",
   },
   es: {
     title: "Editar Perfil",
@@ -45,6 +53,12 @@ const translations = {
     accessRequired: "Acceso Requerido",
     pleaseLogin: "Inicia sesión para editar tu perfil.",
     login: "Iniciar Sesión",
+    importTokens: "Importar Tokens MEMO en MetaMask",
+    importStep1: "1. Abre MetaMask y cambia a la red Sepolia",
+    importStep2: "2. Click en 'Importar tokens' abajo",
+    importStep3: "3. Pega la dirección del contrato:",
+    importStep4: "4. Symbol: MEMO, Decimals: 18",
+    copyContract: "Copiar Contrato",
   },
 };
 
@@ -55,6 +69,7 @@ export default function ProfilePage() {
   const { exportWallet } = usePrivy();
   const { wallets } = useWallets();
   const [copied, setCopied] = useState(false);
+  const [copiedContract, setCopiedContract] = useState(false);
 
   const t = translations[lng as keyof typeof translations] || translations.en;
 
@@ -69,6 +84,12 @@ export default function ProfilePage() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
+  };
+
+  const copyContract = async () => {
+    await navigator.clipboard.writeText(MEMO_CONTRACT);
+    setCopiedContract(true);
+    setTimeout(() => setCopiedContract(false), 2000);
   };
 
   // Loading state
@@ -193,6 +214,36 @@ export default function ProfilePage() {
                       <p className="text-xs text-yellow-500/70 text-center">
                         ⚠️ {t.exportWarning}
                       </p>
+                    </div>
+
+                    {/* Import Tokens Helper */}
+                    <div className="pt-4 border-t border-slate-700">
+                      <h3 className="text-sm font-medium text-slate-300 mb-3">
+                        📥 {t.importTokens}
+                      </h3>
+                      <div className="space-y-2 text-xs text-slate-400">
+                        <p>{t.importStep1}</p>
+                        <p>{t.importStep2}</p>
+                        <p>{t.importStep3}</p>
+                        <div className="flex items-center gap-2 bg-slate-900/50 rounded-lg p-2">
+                          <code className="text-xs text-cyan-400 font-mono flex-1 truncate">
+                            {MEMO_CONTRACT}
+                          </code>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={copyContract}
+                            className="text-slate-400 hover:text-white h-6 px-2"
+                          >
+                            {copiedContract ? (
+                              <Check className="w-3 h-3 text-green-400" />
+                            ) : (
+                              <Copy className="w-3 h-3" />
+                            )}
+                          </Button>
+                        </div>
+                        <p>{t.importStep4}</p>
+                      </div>
                     </div>
                   </div>
                 ) : (
