@@ -1,60 +1,74 @@
-"use server"
+"use server";
 
-import prisma from "@/lib/prisma"
-import * as brevo from "@getbrevo/brevo"
+import { createClient } from "@/lib/supabase-server";
+import * as brevo from "@getbrevo/brevo";
 
-import { z } from "zod"
+import { z } from "zod";
 
 // Initialize Brevo API
-const apiInstance = new brevo.TransactionalEmailsApi()
-apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY || "")
+const apiInstance = new brevo.TransactionalEmailsApi();
+apiInstance.setApiKey(
+  brevo.TransactionalEmailsApiApiKeys.apiKey,
+  process.env.BREVO_API_KEY || ""
+);
 
 const subscribeSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   fullName: z.string().optional(),
-})
+});
 
 export async function subscribeToNewsletter(formData: FormData) {
   const rawData = {
     email: formData.get("email") as string,
     fullName: (formData.get("fullName") as string) || undefined,
-  }
+  };
 
   // Validate input with Zod
-  const validationResult = subscribeSchema.safeParse(rawData)
+  const validationResult = subscribeSchema.safeParse(rawData);
 
   if (!validationResult.success) {
     return {
       success: false,
       message: validationResult.error.errors[0].message,
-    }
+    };
   }
 
-  const { email, fullName } = validationResult.data
-  const web3Basics = formData.get("web3_basics") === "on"
-  const cbdcEducation = formData.get("cbdc_education") === "on"
-  const freeCourses = formData.get("free_courses") === "on"
-  const communityEvents = formData.get("community_events") === "on"
+  const { email, fullName } = validationResult.data;
+  const web3Basics = formData.get("web3_basics") === "on";
+  const cbdcEducation = formData.get("cbdc_education") === "on";
+  const freeCourses = formData.get("free_courses") === "on";
+  const communityEvents = formData.get("community_events") === "on";
 
-  console.log("Newsletter subscription attempt for:", email)
+  console.log("Newsletter subscription attempt for:", email);
 
   try {
-    // Check if email already exists using Prisma
-    const existing = await prisma.newsletter_subscribers.findUnique({
-      where: { email },
-    })
+    const supabase = await createClient();
+
+    // Check if email already exists using Supabase
+    const { data: existing, error: findError } = await supabase
+      .from("newsletter_subscribers")
+      .select("id")
+      .eq("email", email)
+      .single();
+
+    if (findError && findError.code !== "PGRST116") {
+      // PGRST116 = no rows found (which is fine)
+      console.error("Error checking existing subscriber:", findError);
+      throw new Error("Error checking subscription status");
+    }
 
     if (existing) {
-      console.log("Email already exists:", email)
+      console.log("Email already exists:", email);
       return {
         success: false,
         message: "This email is already subscribed to our newsletter!",
-      }
+      };
     }
 
-    // Insert new subscriber using Prisma
-    await prisma.newsletter_subscribers.create({
-      data: {
+    // Insert new subscriber using Supabase
+    const { error: insertError } = await supabase
+      .from("newsletter_subscribers")
+      .insert({
         email,
         full_name: fullName || null,
         subscription_preferences: {
@@ -63,24 +77,33 @@ export async function subscribeToNewsletter(formData: FormData) {
           free_courses: freeCourses,
           community_events: communityEvents,
         },
-        confirmed_at: new Date(),
-      },
-    })
+        confirmed_at: new Date().toISOString(),
+      });
 
-    console.log("Subscriber added to database successfully")
+    if (insertError) {
+      console.error("Error inserting subscriber:", insertError);
+      throw new Error("Failed to register subscription");
+    }
+
+    console.log("Subscriber added to database successfully");
 
     // Generate base URL for links
-    const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
 
-    console.log("Attempting to send email via Brevo...")
+    console.log("Attempting to send email via Brevo...");
 
     // Send confirmation email with Brevo
     try {
-      const sendSmtpEmail = new brevo.SendSmtpEmail()
-      
-      sendSmtpEmail.subject = "Welcome to Memento Academy!"
-      sendSmtpEmail.sender = { name: "Memento Academy", email: "posicionadoenlaweb@gmail.com" }
-      sendSmtpEmail.to = [{ email: email, name: fullName || "Subscriber" }]
+      const sendSmtpEmail = new brevo.SendSmtpEmail();
+
+      sendSmtpEmail.subject = "Welcome to Memento Academy!";
+      sendSmtpEmail.sender = {
+        name: "Memento Academy",
+        email: "posicionadoenlaweb@gmail.com",
+      };
+      sendSmtpEmail.to = [{ email: email, name: fullName || "Subscriber" }];
       sendSmtpEmail.htmlContent = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background-color: #0e1629; padding: 20px; text-align: center;">
@@ -106,31 +129,32 @@ export async function subscribeToNewsletter(formData: FormData) {
             <p>If you didn't sign up for this newsletter, you can <a href="${baseUrl}/unsubscribe?email=${email}" style="color: #06b6d4;">unsubscribe here</a>.</p>
           </div>
         </div>
-      `
+      `;
 
-      const emailResult = await apiInstance.sendTransacEmail(sendSmtpEmail)
-      console.log("Email sent successfully:", emailResult)
+      const emailResult = await apiInstance.sendTransacEmail(sendSmtpEmail);
+      console.log("Email sent successfully:", emailResult);
 
       return {
         success: true,
-        message: "🎉 Welcome to Memento Academy! Check your email for confirmation.",
-      }
+        message:
+          "Welcome to Memento Academy! Check your email for confirmation.",
+      };
     } catch (emailError: any) {
-      console.error("Email sending failed:", emailError)
+      console.error("Email sending failed:", emailError);
 
       // Still return success for database insertion, but mention email issue
       return {
         success: true,
-        message: "✅ Subscription successful! Email confirmation may take a few minutes to arrive.",
+        message:
+          "✅ Subscription successful! Email confirmation may take a few minutes to arrive.",
         emailError: emailError.message,
-      }
+      };
     }
   } catch (error: any) {
-    console.error("Newsletter subscription error:", error)
+    console.error("Newsletter subscription error:", error);
     return {
       success: false,
       message: error.message || "Failed to subscribe. Please try again.",
-    }
+    };
   }
 }
-

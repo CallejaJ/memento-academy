@@ -42,15 +42,15 @@ export interface Database {
       newsletter_subscribers: {
         Row: {
           id: string;
-          created_at: string;
+          created_at: string | null;
           email: string;
           full_name: string | null;
-          is_active: boolean;
+          confirmed_at: string | null;
           subscription_preferences: {
-            crypto_news?: boolean;
-            nft_updates?: boolean;
-            course_announcements?: boolean;
-            trading_signals?: boolean;
+            web3_basics?: boolean;
+            cbdc_education?: boolean;
+            free_courses?: boolean;
+            community_events?: boolean;
           } | null;
         };
         Insert: {
@@ -58,12 +58,12 @@ export interface Database {
           created_at?: string;
           email: string;
           full_name?: string | null;
-          is_active?: boolean;
+          confirmed_at?: string | null;
           subscription_preferences?: {
-            crypto_news?: boolean;
-            nft_updates?: boolean;
-            course_announcements?: boolean;
-            trading_signals?: boolean;
+            web3_basics?: boolean;
+            cbdc_education?: boolean;
+            free_courses?: boolean;
+            community_events?: boolean;
           } | null;
         };
         Update: {
@@ -71,12 +71,12 @@ export interface Database {
           created_at?: string;
           email?: string;
           full_name?: string | null;
-          is_active?: boolean;
+          confirmed_at?: string | null;
           subscription_preferences?: {
-            crypto_news?: boolean;
-            nft_updates?: boolean;
-            course_announcements?: boolean;
-            trading_signals?: boolean;
+            web3_basics?: boolean;
+            cbdc_education?: boolean;
+            free_courses?: boolean;
+            community_events?: boolean;
           } | null;
         };
         Relationships: [];
