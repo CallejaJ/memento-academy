@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 const translations = {
   en: {
     victory: "VICTORY",
-    defeat: "TRY AGAIN",
+    defeat: "TRY AGAIN!",
     perfectScore: "PERFECT SCORE",
     score: "Score",
     youEarned: "REWARD UNLOCKED",
@@ -31,10 +31,14 @@ const translations = {
     viewOnEtherscan: "View on Etherscan",
     loginRequired: "Login to claim",
     yourBalance: "Your Balance",
+    attemptsLeft: "attempts left today",
+    attemptLeft: "attempt left today",
+    noAttemptsLeft: "No attempts left today",
+    playAgainCta: "PLAY AGAIN",
   },
   es: {
     victory: "¡VICTORIA!",
-    defeat: "INTÉNTALO",
+    defeat: "¡INTÉNTALO DE NUEVO!",
     perfectScore: "PUNTUACIÓN PERFECTA",
     score: "Puntuación",
     youEarned: "RECOMPENSA DESBLOQUEADA",
@@ -51,6 +55,10 @@ const translations = {
     viewOnEtherscan: "Ver en Etherscan",
     loginRequired: "Inicia sesión para reclamar",
     yourBalance: "Tu Saldo",
+    attemptsLeft: "intentos restantes hoy",
+    attemptLeft: "intento restante hoy",
+    noAttemptsLeft: "Sin intentos hoy",
+    playAgainCta: "JUGAR DE NUEVO",
   },
 };
 
@@ -71,6 +79,7 @@ function GameResultsContent() {
     rewardSignature: string | null;
     rewardDeadline: number | null;
     sessionId: string;
+    remainingAttempts?: number;
   } | null>(null);
   const [claiming, setClaiming] = useState(false);
   const [claimed, setClaimed] = useState(false);
@@ -282,7 +291,7 @@ function GameResultsContent() {
       <div className="relative z-10 container mx-auto max-w-2xl pt-8 sm:pt-12 px-4">
         {/* Victory/Defeat Title */}
         <h1
-          className={`text-center text-5xl sm:text-6xl md:text-7xl font-black tracking-widest mb-10 sm:mb-14 ${
+          className={`text-center text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-wider sm:tracking-widest mb-8 sm:mb-14 ${
             isWinner
               ? "bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-400 bg-clip-text text-transparent"
               : "text-slate-400"
@@ -297,198 +306,266 @@ function GameResultsContent() {
           {isWinner ? t.victory : t.defeat}
         </h1>
 
-        {/* Main Content - Side by Side Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-10">
-          {/* Token Reward Card - Larger, more prominent */}
-          <div
-            className={`relative backdrop-blur-xl rounded-2xl p-8 aspect-square flex flex-col items-center justify-center ${
-              isWinner
-                ? "bg-slate-900/70 border-2 border-cyan-500/60 shadow-[0_0_40px_rgba(34,211,238,0.25),inset_0_0_30px_rgba(34,211,238,0.05)]"
-                : "bg-slate-800/40 border border-slate-700/50"
-            }`}
-          >
-            {/* Corner decorations - Larger and brighter */}
-            <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-cyan-400 rounded-tl-xl" />
-            <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-cyan-400 rounded-tr-xl" />
-            <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-cyan-400 rounded-bl-xl" />
-            <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-cyan-400 rounded-br-xl" />
+        {/* Main Content - Different layout for winner vs loser */}
+        {isWinner ? (
+          /* Winner: Show both token and score cards side by side */
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-10">
+            {/* Token Reward Card */}
+            <div className="relative backdrop-blur-xl rounded-2xl p-8 aspect-square flex flex-col items-center justify-center bg-slate-900/70 border-2 border-cyan-500/60 shadow-[0_0_40px_rgba(34,211,238,0.25),inset_0_0_30px_rgba(34,211,238,0.05)]">
+              {/* Corner decorations */}
+              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-cyan-400 rounded-tl-xl" />
+              <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-cyan-400 rounded-tr-xl" />
+              <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-cyan-400 rounded-bl-xl" />
+              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-cyan-400 rounded-br-xl" />
 
-            {/* Token Icon - Larger with glow */}
-            <div className="mb-6">
-              <div
-                className={`w-24 h-24 rounded-2xl flex items-center justify-center ${
-                  isWinner ? "bg-cyan-500/10" : "bg-slate-700/50"
-                }`}
-                style={{
-                  boxShadow: isWinner
-                    ? "0 0 40px rgba(34,211,238,0.3), inset 0 0 20px rgba(34,211,238,0.1)"
-                    : "none",
-                }}
-              >
-                <Image
-                  src="/images/logos/memo-token.png"
-                  alt="MEMO Token"
-                  width={64}
-                  height={64}
-                  className={
-                    isWinner
-                      ? "drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]"
-                      : "opacity-50 grayscale"
-                  }
-                />
-              </div>
-            </div>
-
-            {/* Token Amount */}
-            <div
-              className={`text-3xl sm:text-4xl font-black mb-2 ${isWinner ? "text-white" : "text-slate-500"}`}
-              style={{ fontFamily: "var(--font-orbitron), system-ui" }}
-            >
-              {isWinner ? "10" : "0"} {t.memoTokens}
-            </div>
-            <p
-              className={`text-xs uppercase tracking-[0.2em] ${isWinner ? "text-cyan-400" : "text-slate-600"}`}
-            >
-              {isWinner ? t.youEarned : t.needMore}
-            </p>
-          </div>
-
-          {/* Score Circle Card - Multiple rings like mockup */}
-          <div
-            className={`relative backdrop-blur-xl rounded-2xl p-8 flex flex-col items-center justify-center ${
-              isWinner
-                ? "bg-slate-900/70 border-2 border-purple-500/60 shadow-[0_0_40px_rgba(168,85,247,0.25),inset_0_0_30px_rgba(168,85,247,0.05)]"
-                : "bg-slate-800/40 border border-slate-700/50"
-            }`}
-          >
-            {/* Corner decorations */}
-            <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-purple-400 rounded-tl-xl" />
-            <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-purple-400 rounded-tr-xl" />
-            <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-purple-400 rounded-bl-xl" />
-            <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-purple-400 rounded-br-xl" />
-
-            <div className="flex flex-col items-center justify-center">
-              {/* Circular Progress - Clean design */}
-              <div className="relative w-32 h-32 sm:w-36 sm:h-36 mb-4">
-                {/* Outer glow */}
+              {/* Token Icon */}
+              <div className="mb-6">
                 <div
-                  className="absolute inset-0 rounded-full opacity-50"
+                  className="w-24 h-24 rounded-2xl flex items-center justify-center bg-cyan-500/10"
                   style={{
-                    background: isWinner
-                      ? "radial-gradient(circle, rgba(34,211,238,0.3) 0%, rgba(168,85,247,0.2) 50%, transparent 70%)"
-                      : "none",
-                    filter: "blur(10px)",
+                    boxShadow:
+                      "0 0 40px rgba(34,211,238,0.3), inset 0 0 20px rgba(34,211,238,0.1)",
                   }}
-                />
-
-                {/* SVG Circles */}
-                <svg
-                  className="w-full h-full transform -rotate-90"
-                  viewBox="0 0 100 100"
                 >
-                  {/* Outer decorative ring */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="48"
-                    stroke="url(#outerRingGradient)"
-                    strokeWidth="1"
-                    fill="none"
-                    opacity="0.4"
+                  <Image
+                    src="/images/logos/memo-token.png"
+                    alt="MEMO Token"
+                    width={64}
+                    height={64}
+                    className="drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]"
                   />
-
-                  {/* Background circle */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="42"
-                    stroke="#334155"
-                    strokeWidth="4"
-                    fill="none"
-                    opacity="0.5"
-                  />
-
-                  {/* Progress circle */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="42"
-                    stroke="url(#scoreGradient)"
-                    strokeWidth="4"
-                    fill="none"
-                    strokeDasharray={`${(results.score / results.totalQuestions) * 264} 264`}
-                    strokeLinecap="round"
-                    className="transition-all duration-1000"
-                    style={{
-                      filter: "drop-shadow(0 0 6px rgba(34,211,238,0.8))",
-                    }}
-                  />
-
-                  {/* Inner decorative ring */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="36"
-                    stroke="rgba(168,85,247,0.3)"
-                    strokeWidth="1"
-                    fill="none"
-                  />
-
-                  <defs>
-                    <linearGradient
-                      id="outerRingGradient"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="0%"
-                    >
-                      <stop offset="0%" stopColor="#22d3ee" />
-                      <stop offset="50%" stopColor="#a855f7" />
-                      <stop offset="100%" stopColor="#22d3ee" />
-                    </linearGradient>
-                    <linearGradient
-                      id="scoreGradient"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="0%"
-                    >
-                      <stop offset="0%" stopColor="#22d3ee" />
-                      <stop offset="100%" stopColor="#a855f7" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-
-                {/* Score Text */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span
-                    className="text-2xl sm:text-3xl font-black text-white"
-                    style={{
-                      fontFamily: "var(--font-orbitron), system-ui",
-                      textShadow: "0 0 20px rgba(34,211,238,0.5)",
-                    }}
-                  >
-                    {results.score}
-                    <span className="text-purple-400">/</span>
-                    {results.totalQuestions}
-                  </span>
                 </div>
               </div>
-              <p
-                className={`text-xs uppercase tracking-[0.2em] ${
-                  results.score === results.totalQuestions
-                    ? "text-purple-400"
-                    : "text-slate-500"
-                }`}
+
+              {/* Token Amount */}
+              <div
+                className="text-3xl sm:text-4xl font-black mb-2 text-white"
                 style={{ fontFamily: "var(--font-orbitron), system-ui" }}
               >
-                {results.score === results.totalQuestions
-                  ? t.perfectScore
-                  : t.score}
+                10 {t.memoTokens}
+              </div>
+              <p className="text-xs uppercase tracking-[0.2em] text-cyan-400">
+                {t.youEarned}
               </p>
             </div>
+
+            {/* Score Circle Card */}
+            <div className="relative backdrop-blur-xl rounded-2xl p-8 flex flex-col items-center justify-center bg-slate-900/70 border-2 border-purple-500/60 shadow-[0_0_40px_rgba(168,85,247,0.25),inset_0_0_30px_rgba(168,85,247,0.05)]">
+              {/* Corner decorations */}
+              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-purple-400 rounded-tl-xl" />
+              <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-purple-400 rounded-tr-xl" />
+              <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-purple-400 rounded-bl-xl" />
+              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-purple-400 rounded-br-xl" />
+
+              <div className="flex flex-col items-center justify-center">
+                {/* Circular Progress */}
+                <div className="relative w-32 h-32 sm:w-36 sm:h-36 mb-4">
+                  <div
+                    className="absolute inset-0 rounded-full opacity-50"
+                    style={{
+                      background:
+                        "radial-gradient(circle, rgba(34,211,238,0.3) 0%, rgba(168,85,247,0.2) 50%, transparent 70%)",
+                      filter: "blur(10px)",
+                    }}
+                  />
+                  <svg
+                    className="w-full h-full transform -rotate-90"
+                    viewBox="0 0 100 100"
+                  >
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="48"
+                      stroke="url(#outerRingGradient)"
+                      strokeWidth="1"
+                      fill="none"
+                      opacity="0.4"
+                    />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="42"
+                      stroke="#334155"
+                      strokeWidth="4"
+                      fill="none"
+                      opacity="0.5"
+                    />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="42"
+                      stroke="url(#scoreGradient)"
+                      strokeWidth="4"
+                      fill="none"
+                      strokeDasharray={`${(results.score / results.totalQuestions) * 264} 264`}
+                      strokeLinecap="round"
+                      className="transition-all duration-1000"
+                      style={{
+                        filter: "drop-shadow(0 0 6px rgba(34,211,238,0.8))",
+                      }}
+                    />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="36"
+                      stroke="rgba(168,85,247,0.3)"
+                      strokeWidth="1"
+                      fill="none"
+                    />
+                    <defs>
+                      <linearGradient
+                        id="outerRingGradient"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="0%"
+                      >
+                        <stop offset="0%" stopColor="#22d3ee" />
+                        <stop offset="50%" stopColor="#a855f7" />
+                        <stop offset="100%" stopColor="#22d3ee" />
+                      </linearGradient>
+                      <linearGradient
+                        id="scoreGradient"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="0%"
+                      >
+                        <stop offset="0%" stopColor="#22d3ee" />
+                        <stop offset="100%" stopColor="#a855f7" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <span
+                      className="text-2xl sm:text-3xl font-black text-white"
+                      style={{
+                        fontFamily: "var(--font-orbitron), system-ui",
+                        textShadow: "0 0 20px rgba(34,211,238,0.5)",
+                      }}
+                    >
+                      {results.score}
+                      <span className="text-purple-400">/</span>
+                      {results.totalQuestions}
+                    </span>
+                  </div>
+                </div>
+                <p
+                  className={`text-xs uppercase tracking-[0.2em] ${results.score === results.totalQuestions ? "text-purple-400" : "text-slate-500"}`}
+                  style={{ fontFamily: "var(--font-orbitron), system-ui" }}
+                >
+                  {results.score === results.totalQuestions
+                    ? t.perfectScore
+                    : t.score}
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
+        ) : (
+          /* Loser: Show only score centered, attempts remaining, and play again CTA */
+          <div className="flex flex-col items-center mb-8 sm:mb-10">
+            {/* Score Circle - Larger and centered */}
+            <div className="relative backdrop-blur-xl rounded-2xl p-8 sm:p-10 flex flex-col items-center justify-center bg-slate-800/40 border border-slate-700/50 mb-6">
+              {/* Corner decorations */}
+              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-slate-600 rounded-tl-xl" />
+              <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-slate-600 rounded-tr-xl" />
+              <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-slate-600 rounded-bl-xl" />
+              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-slate-600 rounded-br-xl" />
+
+              <div className="flex flex-col items-center justify-center">
+                {/* Circular Progress - Larger for loser view */}
+                <div className="relative w-40 h-40 sm:w-48 sm:h-48 mb-4">
+                  <svg
+                    className="w-full h-full transform -rotate-90"
+                    viewBox="0 0 100 100"
+                  >
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="42"
+                      stroke="#334155"
+                      strokeWidth="4"
+                      fill="none"
+                      opacity="0.5"
+                    />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="42"
+                      stroke="url(#scoreGradientLoser)"
+                      strokeWidth="4"
+                      fill="none"
+                      strokeDasharray={`${(results.score / results.totalQuestions) * 264} 264`}
+                      strokeLinecap="round"
+                      className="transition-all duration-1000"
+                      style={{
+                        filter: "drop-shadow(0 0 4px rgba(100,116,139,0.5))",
+                      }}
+                    />
+                    <defs>
+                      <linearGradient
+                        id="scoreGradientLoser"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="0%"
+                      >
+                        <stop offset="0%" stopColor="#64748b" />
+                        <stop offset="100%" stopColor="#94a3b8" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <span
+                      className="text-3xl sm:text-4xl font-black text-white"
+                      style={{ fontFamily: "var(--font-orbitron), system-ui" }}
+                    >
+                      {results.score}
+                      <span className="text-slate-500">/</span>
+                      {results.totalQuestions}
+                    </span>
+                  </div>
+                </div>
+                <p className="text-sm text-slate-400 mb-2">{t.needMore}</p>
+              </div>
+            </div>
+
+            {/* Remaining attempts */}
+            {results.remainingAttempts !== undefined && (
+              <p className="text-slate-400 text-sm mb-6">
+                {results.remainingAttempts === 0 ? (
+                  <span className="text-amber-400">{t.noAttemptsLeft}</span>
+                ) : (
+                  <>
+                    <span className="text-cyan-400 font-bold">
+                      {results.remainingAttempts}
+                    </span>{" "}
+                    {results.remainingAttempts === 1
+                      ? t.attemptLeft
+                      : t.attemptsLeft}
+                  </>
+                )}
+              </p>
+            )}
+
+            {/* Play Again CTA Button */}
+            {results.remainingAttempts !== 0 && (
+              <button
+                onClick={() => router.push(`/${lng}/game`)}
+                className="w-full max-w-xs py-4 px-8 text-lg font-black uppercase tracking-wider rounded-xl
+                  bg-gradient-to-r from-cyan-600 to-teal-500
+                  border-2 border-cyan-400/50
+                  shadow-[0_0_20px_rgba(34,211,238,0.3)]
+                  hover:shadow-[0_0_30px_rgba(34,211,238,0.5)]
+                  hover:scale-[1.02]
+                  text-white transition-all duration-300"
+                style={{ fontFamily: "var(--font-orbitron), system-ui" }}
+              >
+                {t.playAgainCta}
+              </button>
+            )}
+          </div>
+        )}
 
         {/* Claim Button - Cyberpunk style like mockup */}
         {isWinner && (

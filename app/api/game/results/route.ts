@@ -60,6 +60,17 @@ export async function POST(request: NextRequest) {
 
     // Check if already finished
     if (session.finished_at) {
+      // Calculate remaining attempts for today
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const { count: todayAttemptsCount } = await supabase
+        .from("game_sessions")
+        .select("*", { count: "exact", head: true })
+        .eq("user_id", user.id)
+        .gte("created_at", today.toISOString());
+
+      const remainingAttempts = Math.max(0, 5 - (todayAttemptsCount || 0));
+
       return NextResponse.json({
         score: session.score,
         totalQuestions: session.total_questions,
@@ -70,6 +81,7 @@ export async function POST(request: NextRequest) {
         rewardSignature: session.reward_signature,
         rewardDeadline: session.reward_deadline,
         sessionId: session.id,
+        remainingAttempts,
       });
     }
 
@@ -183,6 +195,17 @@ export async function POST(request: NextRequest) {
       })
       .eq("id", session.id);
 
+    // Calculate remaining attempts for today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const { count: todayAttemptsCount } = await supabase
+      .from("game_sessions")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .gte("created_at", today.toISOString());
+
+    const remainingAttempts = Math.max(0, 5 - (todayAttemptsCount || 0));
+
     return NextResponse.json({
       score,
       totalQuestions: answersCount || 10,
@@ -191,6 +214,7 @@ export async function POST(request: NextRequest) {
       rewardSignature,
       rewardDeadline,
       sessionId: session.id,
+      remainingAttempts,
     });
   } catch (error) {
     console.error("Results error:", error);
