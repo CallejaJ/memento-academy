@@ -44,6 +44,7 @@ export async function POST(request: NextRequest) {
     // Type assertion for session
     const session = sessionData as {
       id: string;
+      user_id: string;
       finished_at: string | null;
       score: number;
       total_questions: number;

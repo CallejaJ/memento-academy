@@ -212,6 +212,8 @@ export default function GameLobbyPage() {
   }, [nextResetTime]);
 
   const fetchData = async () => {
+    if (!user) return;
+
     try {
       const [leaderboardRes, statsRes] = await Promise.all([
         fetch("/api/game/leaderboard"),
@@ -243,6 +245,7 @@ export default function GameLobbyPage() {
   };
 
   const handleStartQuiz = async (mode = "classic") => {
+    if (!user) return;
     setStartingMode(mode);
     try {
       const res = await fetch("/api/game/start", {
@@ -251,6 +254,7 @@ export default function GameLobbyPage() {
         body: JSON.stringify({
           mode,
           category: mode === "classic" ? selectedCategory : undefined,
+          userId: user.id,
         }),
       });
       const data = await res.json();
