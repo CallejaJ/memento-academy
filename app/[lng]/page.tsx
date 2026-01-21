@@ -120,11 +120,17 @@ export default async function LandingPage({
             <div className="relative">
               <div className="relative z-10">
                 <Image
-                  src="/images/wallpapers/quiz-login-bg.png"
+                  src="/images/wallpapers/quiz-login-bg-transparent.png"
                   alt="Memento Academy - Web3 Onboarding"
                   width={600}
                   height={600}
-                  className="rounded-2xl shadow-2xl shadow-cyan-500/10 transition-all duration-300 mx-auto border border-slate-800 w-full h-auto"
+                  className="transition-all duration-300 mx-auto w-full h-auto"
+                  style={{
+                    maskImage:
+                      "radial-gradient(circle at center, black 80%, transparent 100%)",
+                    WebkitMaskImage:
+                      "radial-gradient(circle at center, black 80%, transparent 100%)",
+                  }}
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-2xl blur-3xl opacity-20 transition-all duration-300"></div>
