@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -1504,7 +1505,19 @@ export function CourseSection({
                               key={i}
                               className="bg-slate-800/50 rounded-lg p-3 text-center border border-slate-700"
                             >
-                              <span className="text-2xl">{country.flag}</span>
+                              {country.flag.startsWith("/") ? (
+                                <Image
+                                  src={country.flag}
+                                  alt={country.name}
+                                  width={32}
+                                  height={32}
+                                  className="mx-auto"
+                                />
+                              ) : (
+                                <span className="text-2xl font-bold">
+                                  {country.flag}
+                                </span>
+                              )}
                               <p className="text-sm font-bold text-white mt-1">
                                 {country.name}
                               </p>

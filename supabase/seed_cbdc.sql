@@ -210,11 +210,11 @@ VALUES
       "global_cbdc_status": {
         "title": "Global CBDC Status",
         "countries": [
-          { "flag": "🇨🇳", "name": "China", "cbdc": "e-CNY", "status": "live", "users": "260M+" },
-          { "flag": "🇧🇸", "name": "Bahamas", "cbdc": "Sand Dollar", "status": "live", "users": "National" },
-          { "flag": "🇧🇷", "name": "Brazil", "cbdc": "Drex", "status": "pilot", "users": "Testing" },
-          { "flag": "��", "name": "EU", "cbdc": "Digital Euro", "status": "development", "users": "2027" },
-          { "flag": "🇺🇸", "name": "USA", "cbdc": "Digital Dollar", "status": "research", "users": "TBD" }
+          { "flag": "CN", "name": "China", "cbdc": "e-CNY", "status": "live", "users": "260M+" },
+          { "flag": "BS", "name": "Bahamas", "cbdc": "Sand Dollar", "status": "live", "users": "National" },
+          { "flag": "BR", "name": "Brazil", "cbdc": "Drex", "status": "pilot", "users": "Testing" },
+          { "flag": "EU", "name": "EU", "cbdc": "Digital Euro", "status": "development", "users": "2027" },
+          { "flag": "US", "name": "USA", "cbdc": "Digital Dollar", "status": "research", "users": "TBD" }
         ]
       }
     },
@@ -223,11 +223,11 @@ VALUES
       "global_cbdc_status": {
         "title": "Estado Global de CBDCs",
         "countries": [
-          { "flag": "🇨🇳", "name": "China", "cbdc": "e-CNY", "status": "live", "users": "260M+" },
-          { "flag": "🇧🇸", "name": "Bahamas", "cbdc": "Sand Dollar", "status": "live", "users": "Nacional" },
-          { "flag": "🇧🇷", "name": "Brasil", "cbdc": "Drex", "status": "pilot", "users": "Pruebas" },
-          { "flag": "🇪🇺", "name": "UE", "cbdc": "Euro Digital", "status": "development", "users": "2027" },
-          { "flag": "🇺🇸", "name": "EE.UU.", "cbdc": "Dólar Digital", "status": "research", "users": "Por definir" }
+          { "flag": "CN", "name": "China", "cbdc": "e-CNY", "status": "live", "users": "260M+" },
+          { "flag": "BS", "name": "Bahamas", "cbdc": "Sand Dollar", "status": "live", "users": "Nacional" },
+          { "flag": "BR", "name": "Brasil", "cbdc": "Drex", "status": "pilot", "users": "Pruebas" },
+          { "flag": "EU", "name": "UE", "cbdc": "Euro Digital", "status": "development", "users": "2027" },
+          { "flag": "US", "name": "EE.UU.", "cbdc": "Dólar Digital", "status": "research", "users": "Por definir" }
         ]
       }
     }
