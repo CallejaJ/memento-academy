@@ -48,6 +48,7 @@ export function CourseSection({
   const [quizOpen, setQuizOpen] = useState(false);
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [loadingQuiz, setLoadingQuiz] = useState(false);
+  const [quizPassed, setQuizPassed] = useState(false);
 
   const { lng } = useParams<{ lng: string }>();
   const lang = (lng as string) || "en";
@@ -164,7 +165,7 @@ export function CourseSection({
                     dangerouslySetInnerHTML={{
                       __html: content.p1.replace(
                         /\*\*(.*?)\*\*/g,
-                        '<strong class="text-white">$1</strong>'
+                        '<strong class="text-white">$1</strong>',
                       ),
                     }}
                   />
@@ -176,7 +177,7 @@ export function CourseSection({
                     dangerouslySetInnerHTML={{
                       __html: content.p2.replace(
                         /\*\*(.*?)\*\*/g,
-                        '<strong class="text-white">$1</strong>'
+                        '<strong class="text-white">$1</strong>',
                       ),
                     }}
                   />
@@ -188,7 +189,7 @@ export function CourseSection({
                     dangerouslySetInnerHTML={{
                       __html: content.p3.replace(
                         /\*\*(.*?)\*\*/g,
-                        '<strong class="text-white">$1</strong>'
+                        '<strong class="text-white">$1</strong>',
                       ),
                     }}
                   />
@@ -200,7 +201,7 @@ export function CourseSection({
                     dangerouslySetInnerHTML={{
                       __html: content.desc.replace(
                         /\*\*(.*?)\*\*/g,
-                        '<strong class="text-white">$1</strong>'
+                        '<strong class="text-white">$1</strong>',
                       ),
                     }}
                   />
@@ -241,7 +242,7 @@ export function CourseSection({
                           dangerouslySetInnerHTML={{
                             __html: item.replace(
                               /\*\*(.*?)\*\*/g,
-                              '<strong class="text-white">$1</strong>'
+                              '<strong class="text-white">$1</strong>',
                             ),
                           }}
                         />
@@ -348,7 +349,7 @@ export function CourseSection({
                               {type.desc}
                             </p>
                           </div>
-                        )
+                        ),
                       )}
                     </div>
                   </div>
@@ -434,7 +435,7 @@ export function CourseSection({
                             {concept.desc}
                           </p>
                         </div>
-                      )
+                      ),
                     )}
                   </div>
                 )}
@@ -476,7 +477,7 @@ export function CourseSection({
                             </ul>
                           )}
                         </div>
-                      )
+                      ),
                     )}
                   </div>
                 )}
@@ -496,7 +497,7 @@ export function CourseSection({
                           {content.tips.research.list?.map(
                             (item: string, i: number) => (
                               <li key={i}>• {item}</li>
-                            )
+                            ),
                           )}
                         </ul>
                       </div>
@@ -510,7 +511,7 @@ export function CourseSection({
                           {content.tips.safe.list?.map(
                             (item: string, i: number) => (
                               <li key={i}>• {item}</li>
-                            )
+                            ),
                           )}
                         </ul>
                       </div>
@@ -570,7 +571,7 @@ export function CourseSection({
                             </ul>
                           )}
                         </div>
-                      )
+                      ),
                     )}
                   </div>
                 )}
@@ -661,7 +662,7 @@ export function CourseSection({
                             {content.copyright.own.list?.map(
                               (item: string, i: number) => (
                                 <li key={i}>✓ {item}</li>
-                              )
+                              ),
                             )}
                           </ul>
                         </div>
@@ -675,7 +676,7 @@ export function CourseSection({
                             {content.copyright.dont.list?.map(
                               (item: string, i: number) => (
                                 <li key={i}>✗ {item}</li>
-                              )
+                              ),
                             )}
                           </ul>
                         </div>
@@ -783,7 +784,7 @@ export function CourseSection({
                             </ul>
                           )}
                         </div>
-                      )
+                      ),
                     )}
                   </div>
                 )}
@@ -817,7 +818,7 @@ export function CourseSection({
                           dangerouslySetInnerHTML={{
                             __html: `• ${item.replace(
                               /\*\*(.*?)\*\*/g,
-                              "<strong>$1</strong>"
+                              "<strong>$1</strong>",
                             )}`,
                           }}
                         />
@@ -919,11 +920,11 @@ export function CourseSection({
                             dangerouslySetInnerHTML={{
                               __html: `• ${item.replace(
                                 /\*\*(.*?)\*\*/g,
-                                "<strong>$1</strong>"
+                                "<strong>$1</strong>",
                               )}`,
                             }}
                           />
-                        )
+                        ),
                       )}
                     </ul>
                   </div>
@@ -988,7 +989,7 @@ export function CourseSection({
                           dangerouslySetInnerHTML={{
                             __html: `• ${item.replace(
                               /\*\*(.*?)\*\*/g,
-                              "<strong>$1</strong>"
+                              "<strong>$1</strong>",
                             )}`,
                           }}
                         />
@@ -1235,7 +1236,7 @@ export function CourseSection({
                                 <td className="py-2">{row.traditional}</td>
                                 <td className="py-2">{row.smart}</td>
                               </tr>
-                            )
+                            ),
                           )}
                         </tbody>
                       </table>
@@ -1250,11 +1251,11 @@ export function CourseSection({
                               dangerouslySetInnerHTML={{
                                 __html: `• ${item.replace(
                                   /\*\*(.*?)\*\*/g,
-                                  "<strong class='text-cyan-400'>$1</strong>"
+                                  "<strong class='text-cyan-400'>$1</strong>",
                                 )}`,
                               }}
                             />
-                          )
+                          ),
                         )}
                       </ul>
                     )}
@@ -1308,7 +1309,7 @@ export function CourseSection({
                               </div>
                             </div>
                           );
-                        }
+                        },
                       )}
                     </div>
                     <div className="flex justify-center mt-6 pt-4 border-t border-slate-800/50">
@@ -1352,7 +1353,7 @@ export function CourseSection({
                               </p>
                             </div>
                           );
-                        }
+                        },
                       )}
                       {/* Core - the protected seed */}
                       {content.security_shield.core && (
@@ -1419,7 +1420,7 @@ export function CourseSection({
                                 </p>
                               </div>
                             );
-                          }
+                          },
                         )}
                       </div>
                     </div>
@@ -1478,7 +1479,7 @@ export function CourseSection({
                               </p>
                             </div>
                           );
-                        }
+                        },
                       )}
                     </div>
                     <div className="flex justify-center mt-6 pt-4 border-t border-slate-800/50">
@@ -1533,7 +1534,7 @@ export function CourseSection({
                               </p>
                             </div>
                           </div>
-                        )
+                        ),
                       )}
                     </div>
                     <div className="flex justify-center mt-6 pt-4 border-t border-slate-800/50">
@@ -1686,13 +1687,20 @@ export function CourseSection({
 
       <QuizModal
         isOpen={quizOpen}
-        onClose={() => setQuizOpen(false)}
+        onClose={() => {
+          setQuizOpen(false);
+          // Only trigger UI refresh if quiz was passed
+          if (quizPassed) {
+            setQuizPassed(false); // Reset for next time
+            onComplete(); // Trigger UI refresh after modal closes
+            setExpanded(false); // Collapse after pass
+          }
+        }}
         sectionId={section.id}
         questions={questions}
         onPassed={async () => {
           await onMarkComplete(); // Save progress via client-side hook
-          onComplete(); // Trigger UI refresh
-          setExpanded(false); // Collapse after pass
+          setQuizPassed(true); // Mark that quiz was passed, don't refresh yet
         }}
         onRetry={loadQuiz}
       />
