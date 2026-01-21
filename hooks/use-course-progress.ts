@@ -8,7 +8,8 @@ import {
   updateCourseProgress,
   getAllUserProgress,
 } from "@/actions/course-progress";
-import { awardAchievementDirect } from "@/actions/course-progress-achievements";
+import { awardAchievementDirect } from "../actions/course-progress-achievements";
+import { ACHIEVEMENTS, UserStats } from "@/lib/achievements-data";
 
 export interface CourseProgress {
   id: string;
@@ -171,7 +172,7 @@ export function useCourseProgress(courseId: string) {
       if (!result.success || !result.data) return;
 
       const allProgress = result.data;
-      const coursesCompleted = allProgress.filter(
+      const coursesCompletedCount = allProgress.filter(
         (p: any) => p.progress_percentage === 100,
       ).length;
       const totalSectionsCompleted = allProgress.reduce(
@@ -179,31 +180,21 @@ export function useCourseProgress(courseId: string) {
         0,
       );
 
-      // Award achievements via server action
+      // Calculate stats for conditions
+      // Note: streak and totalProgress are placeholders for now as they aren't used by current automatic badges
+      const stats = {
+        coursesCompleted: coursesCompletedCount,
+        totalProgress: 0,
+        streak: 0,
+        sectionsCompleted: totalSectionsCompleted,
+      };
 
-      // Award "First Steps" on first section
-      if (totalSectionsCompleted === 1) {
-        await awardAchievementDirect(user.id, "first-steps");
-      }
-
-      // Award "Course Graduate" on first course
-      if (courseCompleted && coursesCompleted === 1) {
-        await awardAchievementDirect(user.id, "first-course");
-      }
-
-      // Award "Dedicated Student" on 5 courses
-      if (coursesCompleted === 5) {
-        await awardAchievementDirect(user.id, "dedicated-student");
-      }
-
-      // Award "Crypto Expert" on 10 courses
-      if (coursesCompleted === 10) {
-        await awardAchievementDirect(user.id, "crypto-expert");
-      }
-
-      // Award "Knowledge Seeker" on 50 sections
-      if (totalSectionsCompleted === 50) {
-        await awardAchievementDirect(user.id, "knowledge-seeker");
+      // Check all achievements
+      for (const achievement of Object.values(ACHIEVEMENTS)) {
+        // Skip achievements that have manual triggers (condition returns false)
+        if (achievement.condition(stats)) {
+          await awardAchievementDirect(user.id, achievement.id);
+        }
       }
     } catch (error) {
       console.error("Error checking achievements:", error);
