@@ -1,4 +1,4 @@
--- Update State Management section with rich content and ALL diagrams (CORRECTED URLS)
+-- Update State Management section with rich content and ALL diagrams (BILINGUAL & SAFE URLS)
 -- Run this SQL in your Supabase SQL Editor
 
 UPDATE course_sections
@@ -10,32 +10,32 @@ SET content = '{
       "items": [
         {
           "title": "State Transition Flow",
-          "src": "/diagrams/state-transition-es.png",
+          "src": "/diagrams/state-transition-en.png",
           "alt": "State Transition Flow Diagram"
         },
         {
           "title": "UTXO vs Account Model",
-          "src": "/diagrams/utxo-vs-account-es.png",
+          "src": "/diagrams/utxo-vs-account-en.png",
           "alt": "UTXO vs Account Model Comparison"
         },
         {
           "title": "World State Structure",
-          "src": "/diagrams/world-state-es.png",
+          "src": "/diagrams/world-state-en.png",
           "alt": "World State Structure Diagram"
         },
         {
           "title": "Patricia Merkle Trie",
-          "src": "/diagrams/patricia-merkle-trie-es.png",
+          "src": "/diagrams/patricia-merkle-trie-en.png",
           "alt": "Patricia Merkle Trie Diagram"
         },
         {
           "title": "Mempool Flow",
-          "src": "/diagrams/mempool-flow-es.png",
+          "src": "/diagrams/mempool-flow-en.png",
           "alt": "Mempool Transaction Flow Diagram"
         },
         {
           "title": "Storage Slots in Solidity",
-          "src": "/diagrams/storage-slots-es.png",
+          "src": "/diagrams/storage-slots-en.png",
           "alt": "Solidity Storage Slots Diagram"
         }
       ]

@@ -369,7 +369,12 @@ export function CourseSection({
                         {content.tech.list.map((item: string, i: number) => (
                           <li
                             key={i}
-                            dangerouslySetInnerHTML={{ __html: item }}
+                            dangerouslySetInnerHTML={{
+                              __html: item.replace(
+                                /\*\*(.*?)\*\*/g,
+                                '<strong class="text-white">$1</strong>',
+                              ),
+                            }}
                           />
                         ))}
                       </ul>
@@ -790,8 +795,9 @@ export function CourseSection({
                 )}
 
                 {/* diagram block (image based) */}
+                {/* diagram block (single) */}
                 {content.diagram && (
-                  <div className="bg-slate-800/40 p-4 rounded-lg border border-slate-700/50">
+                  <div className="bg-slate-800/40 p-4 rounded-lg border border-slate-700/50 mb-4">
                     <h4 className="font-semibold text-white mb-4">
                       {content.diagram.title}
                     </h4>
@@ -799,8 +805,44 @@ export function CourseSection({
                       <img
                         src={content.diagram.src}
                         alt={content.diagram.alt || "Diagram"}
-                        className="w-full h-auto object-cover hover:scale-105 transition-transform duration-500"
+                        className="w-full h-auto object-contain bg-slate-900"
                       />
+                    </div>
+                  </div>
+                )}
+
+                {/* diagrams block (multiple) */}
+                {content.diagrams && (
+                  <div className="space-y-6 mb-6">
+                    <h4 className="font-semibold text-white text-lg">
+                      {content.diagrams.title}
+                    </h4>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      {content.diagrams.items.map((item: any, i: number) => (
+                        <div
+                          key={i}
+                          className="bg-slate-800/40 p-4 rounded-lg border border-slate-700/50 flex flex-col h-full"
+                        >
+                          <h5 className="font-medium text-cyan-400 mb-3 text-sm">
+                            {item.title}
+                          </h5>
+                          <div
+                            className="group flex-1 rounded-xl overflow-hidden border border-slate-700 shadow-lg bg-slate-900 aspect-video flex items-center justify-center cursor-zoom-in relative"
+                            onClick={() => window.open(item.src, "_blank")}
+                          >
+                            <img
+                              src={item.src}
+                              alt={item.alt || item.title}
+                              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 p-2"
+                            />
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center pointer-events-none">
+                              <span className="opacity-0 group-hover:opacity-100 bg-black/60 text-white text-xs px-2 py-1 rounded transition-opacity">
+                                Click para ampliar
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}
