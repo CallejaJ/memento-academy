@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/auth-context";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Image from "next/image";
+import { AlertTriangle } from "lucide-react";
 
 const translations = {
   en: {
@@ -23,6 +24,11 @@ const translations = {
       "Earn MEMO tokens for quiz scores",
       "Get your own Web3 wallet automatically",
     ],
+    browserWarning: {
+      title: "Restrictive browser detected",
+      message:
+        "You appear to be using Tor, Brave Shields, or a browser with strict privacy settings. Authentication may not work correctly. Please try using a standard browser like Chrome, Firefox, or Edge.",
+    },
   },
   es: {
     title: "Bienvenido a Memento Academy",
@@ -33,6 +39,11 @@ const translations = {
       "Gana tokens MEMO por tus puntuaciones",
       "Obtén tu propia wallet Web3 automáticamente",
     ],
+    browserWarning: {
+      title: "Navegador restrictivo detectado",
+      message:
+        "Parece que estás usando Tor, Brave Shields o un navegador con configuraciones de privacidad estrictas. La autenticación puede no funcionar correctamente. Por favor, usa un navegador estándar como Chrome, Firefox o Edge.",
+    },
   },
 };
 
@@ -45,6 +56,57 @@ interface AuthModalProps {
 export function AuthModal({ isOpen, onClose, lng = "en" }: AuthModalProps) {
   const { login, isAuthenticated, user } = useAuth();
   const t = translations[lng as keyof typeof translations] || translations.en;
+  const [isRestrictiveBrowser, setIsRestrictiveBrowser] = useState(false);
+
+  // Detect restrictive browsers (Tor, Brave Shields, etc.)
+  useEffect(() => {
+    const detectRestrictiveBrowser = () => {
+      try {
+        // Check for Tor Browser (usually has screen size fingerprinting protection)
+        const isTor =
+          window.navigator.plugins.length === 0 &&
+          window.screen.width === window.screen.availWidth &&
+          window.screen.height === window.screen.availHeight;
+
+        // Check for Brave browser with shields
+        const isBrave = "brave" in navigator;
+
+        // Check if cookies are disabled
+        const cookiesDisabled = !navigator.cookieEnabled;
+
+        // Check for canvas fingerprinting protection (common in privacy browsers)
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.fillStyle = "rgb(255,0,0)";
+          ctx.fillRect(0, 0, 1, 1);
+          const pixelData = ctx.getImageData(0, 0, 1, 1).data;
+          // If canvas is blocked/modified, colors might be different
+          const canvasBlocked =
+            pixelData[0] !== 255 || pixelData[1] !== 0 || pixelData[2] !== 0;
+
+          if (isTor || (isBrave && canvasBlocked) || cookiesDisabled) {
+            setIsRestrictiveBrowser(true);
+          }
+        }
+
+        // Check for localStorage availability (often blocked in private browsing)
+        try {
+          localStorage.setItem("test", "test");
+          localStorage.removeItem("test");
+        } catch {
+          setIsRestrictiveBrowser(true);
+        }
+      } catch {
+        // If any detection fails, assume restrictive environment
+        setIsRestrictiveBrowser(true);
+      }
+    };
+
+    if (isOpen) {
+      detectRestrictiveBrowser();
+    }
+  }, [isOpen]);
 
   // Auto-close when authenticated AND user is synced
   useEffect(() => {
@@ -73,6 +135,23 @@ export function AuthModal({ isOpen, onClose, lng = "en" }: AuthModalProps) {
             {t.description}
           </DialogDescription>
         </DialogHeader>
+
+        {/* Browser Warning */}
+        {isRestrictiveBrowser && (
+          <div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-amber-400 font-medium text-sm">
+                  {t.browserWarning.title}
+                </p>
+                <p className="text-amber-300/70 text-xs mt-1">
+                  {t.browserWarning.message}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Features List */}
         <div className="mt-6 space-y-3">
