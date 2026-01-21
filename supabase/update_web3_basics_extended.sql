@@ -12,7 +12,7 @@ SET content = '{
     "p2": "**Web 1.0 (1990s)** was the read-only era. Websites were static pages created by a few publishers, and users could only consume content passively. Think of it like a digital newspaper - you could read it, but you couldnt interact or contribute.",
     "p3": "**Web 2.0 (2000s-present)** brought social media, user-generated content, and platforms like Facebook, YouTube, and Twitter. Users became creators, but at a cost: platforms own your data, can censor your content, and monetize your attention. Login with Google is convenient, but it means giving them access to your online identity.",
     "components": {
-      "title": "🔑 The Three Eras Compared",
+      "title": "The Three Eras Compared",
       "items": [
         {"title": "Web 1.0: Read-Only", "desc": "Static pages, limited interaction, content created by publishers only"},
         {"title": "Web 2.0: Read-Write", "desc": "User-generated content, social media, but platforms control everything"},
@@ -21,7 +21,7 @@ SET content = '{
       ]
     },
     "example": {
-      "title": "💡 What Changes in Web 3.0?",
+      "title": "What Changes in Web 3.0?",
       "list": [
         "**Your data belongs to you** - no more data harvesting by platforms",
         "**Censorship-resistant** - content on blockchain cannot be deleted by companies",
@@ -36,7 +36,7 @@ SET content = '{
     "p2": "**Web 1.0 (1990s)** fue la era de solo lectura. Los sitios web eran páginas estáticas creadas por pocos editores, y los usuarios solo podían consumir contenido pasivamente. Piénsalo como un periódico digital - podías leerlo, pero no podías interactuar ni contribuir.",
     "p3": "**Web 2.0 (2000s-presente)** trajo redes sociales, contenido generado por usuarios, y plataformas como Facebook, YouTube y Twitter. Los usuarios se convirtieron en creadores, pero a un costo: las plataformas poseen tus datos, pueden censurar tu contenido, y monetizan tu atención. Login con Google es conveniente, pero significa darles acceso a tu identidad online.",
     "components": {
-      "title": "🔑 Las Tres Eras Comparadas",
+      "title": "Las Tres Eras Comparadas",
       "items": [
         {"title": "Web 1.0: Solo Lectura", "desc": "Páginas estáticas, interacción limitada, contenido solo por editores"},
         {"title": "Web 2.0: Lectura-Escritura", "desc": "Contenido de usuarios, redes sociales, pero plataformas controlan todo"},
@@ -45,7 +45,7 @@ SET content = '{
       ]
     },
     "example": {
-      "title": "💡 ¿Qué Cambia en Web 3.0?",
+      "title": "¿Qué Cambia en Web 3.0?",
       "list": [
         "**Tus datos te pertenecen** - sin más cosecha de datos por plataformas",
         "**Resistente a censura** - contenido en blockchain no puede ser eliminado por empresas",
@@ -66,7 +66,7 @@ SET content = '{
     "p2": "Each block contains transaction data, a timestamp, and a cryptographic hash linking it to the previous block. This chain of blocks creates an immutable record - changing one block would require changing all subsequent blocks, which is computationally impractical. This is why blockchain is called tamper-proof.",
     "p3": "Nodes are the computers that run the blockchain network. They validate transactions through consensus mechanisms like Proof of Work (mining) or Proof of Stake (staking). The decentralized nature means no single entity controls the system - its truly borderless and operates 24/7 without holidays or bank hours.",
     "components": {
-      "title": "🔗 Blockchain Building Blocks",
+      "title": "Blockchain Building Blocks",
       "items": [
         {"title": "Blocks", "desc": "Containers of transaction data with timestamps and cryptographic hashes"},
         {"title": "Nodes", "desc": "Computers that validate, store, and share blockchain data across the network"},
@@ -75,7 +75,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "⚡ Why Blockchain Matters",
+      "title": "Why Blockchain Matters",
       "list": [
         "**Decentralized** - no single point of control or failure",
         "**Immutable** - once written, data cannot be changed or deleted",
@@ -90,7 +90,7 @@ SET content = '{
     "p2": "Cada bloque contiene datos de transacciones, una marca de tiempo, y un hash criptográfico que lo enlaza al bloque anterior. Esta cadena de bloques crea un registro inmutable - cambiar un bloque requeriría cambiar todos los bloques posteriores, lo cual es computacionalmente impracticable. Por eso se le llama a prueba de manipulación.",
     "p3": "Los nodos son las computadoras que ejecutan la red blockchain. Validan transacciones a través de mecanismos de consenso como Proof of Work (minería) o Proof of Stake (staking). La naturaleza descentralizada significa que ninguna entidad controla el sistema - es verdaderamente sin fronteras y opera 24/7 sin feriados ni horarios bancarios.",
     "components": {
-      "title": "🔗 Componentes de Blockchain",
+      "title": "Componentes de Blockchain",
       "items": [
         {"title": "Bloques", "desc": "Contenedores de datos de transacciones con timestamps y hashes criptográficos"},
         {"title": "Nodos", "desc": "Computadoras que validan, almacenan y comparten datos blockchain en la red"},
@@ -99,7 +99,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "⚡ Por Qué Blockchain Importa",
+      "title": "Por Qué Blockchain Importa",
       "list": [
         "**Descentralizado** - sin punto único de control o falla",
         "**Inmutable** - una vez escrito, los datos no pueden cambiarse ni eliminarse",
@@ -120,7 +120,7 @@ SET content = '{
     "p2": "**DeFi** recreates traditional financial services without banks. You can lend, borrow, trade, and earn yield - all through smart contracts that execute automatically. Decentralized Exchanges (DEXs) let you trade directly from your wallet without trusting a centralized company. Stablecoins like USDT and USDC maintain a $1 value, making them perfect for savings and trading.",
     "p3": "**NFTs** are unique digital certificates of ownership. While often associated with art, they can represent tickets, music royalties, real estate, and gaming items. Artists benefit from automatic royalties on every resale. **DAOs** are community-owned organizations governed by code - members vote on proposals using tokens, creating truly democratic decision-making.",
     "components": {
-      "title": "🚀 Web3 Application Categories",
+      "title": "Web3 Application Categories",
       "items": [
         {"title": "DeFi - Decentralized Finance", "desc": "Lending, borrowing, trading, yield farming - no banks required"},
         {"title": "NFTs - Digital Ownership", "desc": "Unique tokens for art, music, tickets, gaming items, with creator royalties"},
@@ -129,7 +129,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "💰 DeFi Concepts Explained",
+      "title": "DeFi Concepts Explained",
       "list": [
         "**Stablecoins** - crypto pegged to $1 (USDT, USDC) for stability",
         "**Yield Farming** - earn rewards by providing liquidity to protocols",
@@ -145,7 +145,7 @@ SET content = '{
     "p2": "**DeFi** recrea servicios financieros tradicionales sin bancos. Puedes prestar, pedir prestado, tradear, y generar rendimiento - todo a través de contratos inteligentes que se ejecutan automáticamente. Los Exchanges Descentralizados (DEXs) te permiten tradear directamente desde tu wallet sin confiar en una empresa centralizada. Stablecoins como USDT y USDC mantienen un valor de $1, haciéndolas perfectas para ahorros y trading.",
     "p3": "**NFTs** son certificados digitales únicos de propiedad. Aunque a menudo se asocian con arte, pueden representar tickets, regalías musicales, bienes raíces, e items de gaming. Los artistas se benefician de regalías automáticas en cada reventa. **DAOs** son organizaciones comunitarias gobernadas por código - los miembros votan propuestas usando tokens, creando toma de decisiones verdaderamente democrática.",
     "components": {
-      "title": "🚀 Categorías de Aplicaciones Web3",
+      "title": "Categorías de Aplicaciones Web3",
       "items": [
         {"title": "DeFi - Finanzas Descentralizadas", "desc": "Préstamos, trading, yield farming - sin bancos requeridos"},
         {"title": "NFTs - Propiedad Digital", "desc": "Tokens únicos para arte, música, tickets, items gaming, con regalías"},
@@ -154,7 +154,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "💰 Conceptos DeFi Explicados",
+      "title": "Conceptos DeFi Explicados",
       "list": [
         "**Stablecoins** - crypto vinculadas a $1 (USDT, USDC) para estabilidad",
         "**Yield Farming** - gana recompensas proveyendo liquidez a protocolos",
@@ -176,7 +176,7 @@ SET content = '{
     "p2": "In 2015, Vitalik Buterin launched Ethereum, introducing programmable smart contracts that could do more than just transfer value. This enabled the explosion of DeFi in 2020 (known as DeFi Summer) and the NFT boom of 2021 when Beeples artwork sold for $69 million at Christies auction.",
     "p3": "The 2017 ICO boom saw thousands of new tokens launched, though many were scams. Institutional adoption accelerated when companies like Tesla, MicroStrategy, and major banks started investing in Bitcoin. Today, Layer 2 solutions are making transactions faster and cheaper, and experts predict Web3 will reach billions of users as technology becomes more user-friendly.",
     "components": {
-      "title": "📅 Timeline of Key Events",
+      "title": "Timeline of Key Events",
       "items": [
         {"title": "2008 - Bitcoin Whitepaper", "desc": "Satoshi Nakamoto publishes the foundation of cryptocurrency"},
         {"title": "2015 - Ethereum Launch", "desc": "Vitalik Buterin brings smart contracts and programmability"},
@@ -185,7 +185,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "📈 Industry Milestones",
+      "title": "Industry Milestones",
       "list": [
         "**January 2009** - First Bitcoin block (genesis block) mined",
         "**2017** - ICO boom launches thousands of new tokens",
@@ -201,7 +201,7 @@ SET content = '{
     "p2": "En 2015, Vitalik Buterin lanzó Ethereum, introduciendo contratos inteligentes programables que podían hacer más que solo transferir valor. Esto habilitó la explosión de DeFi en 2020 (conocido como DeFi Summer) y el boom de NFTs en 2021 cuando la obra de Beeple se vendió por $69 millones en la subasta de Christies.",
     "p3": "El boom de ICOs en 2017 vio miles de nuevos tokens lanzados, aunque muchos eran estafas. La adopción institucional se aceleró cuando empresas como Tesla, MicroStrategy, y grandes bancos empezaron a invertir en Bitcoin. Hoy, las soluciones Layer 2 están haciendo transacciones más rápidas y baratas, y expertos predicen que Web3 alcanzará billones de usuarios conforme la tecnología se vuelva más amigable.",
     "components": {
-      "title": "📅 Línea de Tiempo de Eventos Clave",
+      "title": "Línea de Tiempo de Eventos Clave",
       "items": [
         {"title": "2008 - Whitepaper de Bitcoin", "desc": "Satoshi Nakamoto publica la base de las criptomonedas"},
         {"title": "2015 - Lanzamiento de Ethereum", "desc": "Vitalik Buterin trae contratos inteligentes y programabilidad"},
@@ -210,7 +210,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "📈 Hitos de la Industria",
+      "title": "Hitos de la Industria",
       "list": [
         "**Enero 2009** - Primer bloque de Bitcoin (génesis) minado",
         "**2017** - Boom de ICOs lanza miles de nuevos tokens",
@@ -232,7 +232,7 @@ SET content = '{
     "p2": "**Supply Chain Tracking**: Companies like Walmart use blockchain to trace food products from farm to shelf, preventing counterfeit products and enabling rapid recalls when needed. **Digital Identity**: Self-sovereign identity lets you prove your credentials without revealing all your personal data - refugees can maintain identity even without physical documents.",
     "p3": "**Transparent Charity**: Donors can track exactly where their money goes, eliminating corruption. **Music Industry**: Artists receive royalties directly without record labels taking most of the revenue. **Gaming**: Players truly own in-game items and can trade them across platforms. **Real Estate**: Tokenized property enables fractional ownership - buy a piece of a building for $100.",
     "components": {
-      "title": "🌍 Industry Applications",
+      "title": "Industry Applications",
       "items": [
         {"title": "Supply Chain", "desc": "Track products from origin, prevent counterfeits (Walmart uses blockchain)"},
         {"title": "Healthcare", "desc": "Portable medical records that travel with you securely between providers"},
@@ -241,7 +241,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "💡 More Use Cases",
+      "title": "More Use Cases",
       "list": [
         "**Cross-border payments** - send money internationally in minutes, not days",
         "**Energy Trading** - sell your solar power directly to neighbors",
@@ -257,7 +257,7 @@ SET content = '{
     "p2": "**Rastreo de Cadena de Suministro**: Empresas como Walmart usan blockchain para rastrear productos alimenticios desde la granja hasta el estante, previniendo productos falsificados y habilitando retiros rápidos cuando es necesario. **Identidad Digital**: La identidad auto-soberana te permite probar tus credenciales sin revelar todos tus datos personales - los refugiados pueden mantener identidad incluso sin documentos físicos.",
     "p3": "**Caridad Transparente**: Los donantes pueden rastrear exactamente a dónde va su dinero, eliminando corrupción. **Industria Musical**: Artistas reciben regalías directamente sin que sellos discográficos tomen la mayoría del ingreso. **Gaming**: Jugadores poseen verdaderamente los items del juego y pueden comerciarlos entre plataformas. **Bienes Raíces**: Propiedad tokenizada permite propiedad fraccionada - compra una parte de un edificio por $100.",
     "components": {
-      "title": "🌍 Aplicaciones Industriales",
+      "title": "Aplicaciones Industriales",
       "items": [
         {"title": "Cadena de Suministro", "desc": "Rastrea productos desde origen, previene falsificaciones (Walmart usa blockchain)"},
         {"title": "Salud", "desc": "Registros médicos portables que viajan contigo de forma segura entre proveedores"},
@@ -266,7 +266,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "💡 Más Casos de Uso",
+      "title": "Más Casos de Uso",
       "list": [
         "**Pagos transfronterizos** - envía dinero internacionalmente en minutos, no días",
         "**Comercio de Energía** - vende tu energía solar directamente a vecinos",
@@ -288,7 +288,7 @@ SET content = '{
     "p2": "**Financial Inclusion** is massive: 1.7 billion adults globally lack bank accounts, but anyone with a smartphone can access DeFi. No credit checks, no minimum balances, no geographic restrictions. **Censorship Resistance** means your content on blockchain cannot be removed by platforms - crucial for journalists, activists, and creators.",
     "p3": "The **economic opportunities** are significant. Blockchain developers earn $150,000-$300,000+ annually due to high demand. New careers like DAO community managers, NFT artists, and DeFi analysts didnt exist years ago. For creators, Web3 enables direct monetization without platforms taking 30%+ cuts.",
     "components": {
-      "title": "🎯 Key Benefits",
+      "title": "Key Benefits",
       "items": [
         {"title": "Data Sovereignty", "desc": "You control your data, not corporations - end of data harvesting"},
         {"title": "Financial Inclusion", "desc": "1.7 billion unbanked can access DeFi with just a smartphone"},
@@ -297,7 +297,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "💼 Economic Opportunities",
+      "title": "Economic Opportunities",
       "list": [
         "**Blockchain Developers** - $150K-$300K+ salaries due to talent shortage",
         "**DAO Community Managers** - manage decentralized organization communities",
@@ -314,7 +314,7 @@ SET content = '{
     "p2": "La **Inclusión Financiera** es masiva: 1.7 billones de adultos globalmente carecen de cuentas bancarias, pero cualquiera con un smartphone puede acceder a DeFi. Sin verificaciones de crédito, sin saldos mínimos, sin restricciones geográficas. La **Resistencia a Censura** significa que tu contenido en blockchain no puede ser eliminado por plataformas - crucial para periodistas, activistas, y creadores.",
     "p3": "Las **oportunidades económicas** son significativas. Desarrolladores blockchain ganan $150,000-$300,000+ anualmente debido a alta demanda. Nuevas carreras como community managers de DAOs, artistas de NFT, y analistas de DeFi no existían hace años. Para creadores, Web3 habilita monetización directa sin que plataformas tomen 30%+.",
     "components": {
-      "title": "🎯 Beneficios Clave",
+      "title": "Beneficios Clave",
       "items": [
         {"title": "Soberanía de Datos", "desc": "Tú controlas tus datos, no corporaciones - fin de la cosecha de datos"},
         {"title": "Inclusión Financiera", "desc": "1.7 billones sin banco pueden acceder a DeFi solo con smartphone"},
@@ -323,7 +323,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "💼 Oportunidades Económicas",
+      "title": "Oportunidades Económicas",
       "list": [
         "**Desarrolladores Blockchain** - $150K-$300K+ salarios por escasez de talento",
         "**Community Managers de DAO** - gestionan comunidades de organizaciones descentralizadas",
@@ -346,7 +346,7 @@ SET content = '{
     "p2": "**Tokenization** of real-world assets is predicted to reach $10+ trillion by 2030. Real estate, stocks, art, and commodities will all be represented as blockchain tokens, enabling fractional ownership and 24/7 global trading. This democratizes access to investments previously reserved for the wealthy.",
     "p3": "**Mass adoption barriers** are falling. Account abstraction makes wallets as easy as email login. Invisible blockchain means users wont even know theyre using Web3 - itll just work in the background. Decentralized social networks like Farcaster and Lens Protocol let you own your social connections and content. By 2030, predictions estimate over 1 billion wallet users.",
     "components": {
-      "title": "🔮 Emerging Trends",
+      "title": "Emerging Trends",
       "items": [
         {"title": "AI + Blockchain", "desc": "AI agents with wallets performing autonomous economic activity"},
         {"title": "Tokenized Assets", "desc": "$10+ trillion in real assets as tokens by 2030"},
@@ -355,7 +355,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "🌐 Whats Coming",
+      "title": "Whats Coming",
       "list": [
         "**1 billion+ wallet users** by 2030 (current: ~100 million)",
         "**CBDCs** - Central Bank Digital Currencies from governments",
@@ -371,7 +371,7 @@ SET content = '{
     "p2": "La **Tokenización** de activos del mundo real se predice que alcanzará $10+ billones para 2030. Bienes raíces, acciones, arte, y commodities serán representados como tokens blockchain, habilitando propiedad fraccionada y trading global 24/7. Esto democratiza el acceso a inversiones antes reservadas para los ricos.",
     "p3": "Las **barreras para adopción masiva** están cayendo. La abstracción de cuentas hace wallets tan fáciles como login por email. Blockchain invisible significa que usuarios ni sabrán que están usando Web3 - simplemente funcionará en el fondo. Redes sociales descentralizadas como Farcaster y Lens Protocol te permiten poseer tus conexiones sociales y contenido. Para 2030, las predicciones estiman más de 1 billón de usuarios de wallet.",
     "components": {
-      "title": "🔮 Tendencias Emergentes",
+      "title": "Tendencias Emergentes",
       "items": [
         {"title": "IA + Blockchain", "desc": "Agentes IA con wallets realizando actividad económica autónoma"},
         {"title": "Activos Tokenizados", "desc": "$10+ billones en activos reales como tokens para 2030"},
@@ -380,7 +380,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "🌐 Lo Que Viene",
+      "title": "Lo Que Viene",
       "list": [
         "**1 billón+ usuarios de wallet** para 2030 (actual: ~100 millones)",
         "**CBDCs** - Monedas Digitales de Bancos Centrales de gobiernos",
@@ -401,7 +401,7 @@ SET content = '{
     "p1": "Got questions? Totally normal! Here are the things everyone asks when they first hear about Web3. No judgment, we all started somewhere.",
     "p2": "Quick reminder: **this is not financial advice**. Were just here to help you understand the basics. Any decisions you make are yours!",
     "faqs": {
-      "title": "❓ Your Questions Answered",
+      "title": "Your Questions Answered",
       "items": [
         {"title": "Is Web3 the same as crypto?", "desc": "Not quite! Crypto is the money part of Web3. Web3 is the bigger picture - decentralized apps, owning your data, digital identity, gaming, and more. Crypto is just one piece of the puzzle."},
         {"title": "Do I need to know coding to use Web3?", "desc": "Nope! Using Web3 apps is just like using any regular app. Coding is only needed if you want to BUILD Web3 stuff. As a user, youre totally fine."},
@@ -416,7 +416,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "🔐 Security Reminders",
+      "title": "Security Reminders",
       "list": [
         "**NEVER share your seed phrase** - no legitimate service will ask for it",
         "**Hot wallet** = connected to internet (convenient but less secure)",
@@ -431,7 +431,7 @@ SET content = '{
     "p1": "¿Tienes preguntas? ¡Totalmente normal! Aquí están las cosas que todos preguntan cuando escuchan por primera vez sobre Web3. Sin juicio, todos empezamos en algún lugar.",
     "p2": "Recordatorio rápido: **esto no es asesoría financiera**. Solo estamos aquí para ayudarte a entender los básicos. ¡Cualquier decisión que tomes es tuya!",
     "faqs": {
-      "title": "❓ Tus Preguntas Respondidas",
+      "title": "Tus Preguntas Respondidas",
       "items": [
         {"title": "¿Es Web3 lo mismo que crypto?", "desc": "¡No exactamente! Crypto es la parte del dinero de Web3. Web3 es el panorama más grande - apps descentralizadas, ser dueño de tus datos, identidad digital, gaming, y más. Crypto es solo una pieza del rompecabezas."},
         {"title": "¿Necesito saber programar para usar Web3?", "desc": "¡Nop! Usar apps Web3 es igual que usar cualquier app normal. Programar solo es necesario si quieres CONSTRUIR cosas Web3. Como usuario, estás totalmente bien."},
@@ -446,7 +446,7 @@ SET content = '{
       ]
     },
     "crypto": {
-      "title": "🔐 Recordatorios de Seguridad",
+      "title": "Recordatorios de Seguridad",
       "list": [
         "**NUNCA compartas tu frase semilla** - ningún servicio legítimo la pedirá",
         "**Hot wallet** = conectada a internet (conveniente pero menos segura)",

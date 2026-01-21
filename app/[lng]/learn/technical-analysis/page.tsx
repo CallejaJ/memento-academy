@@ -23,7 +23,7 @@ export default async function TechnicalAnalysisPage({
 
   const translations = {
     en: {
-      badge: "🔒 Premium Course",
+      badge: "Premium Course",
       title_prefix: "Technical",
       title_suffix: "Analysis",
       description:
@@ -52,7 +52,7 @@ export default async function TechnicalAnalysisPage({
       },
     },
     es: {
-      badge: "🔒 Curso Premium",
+      badge: "Curso Premium",
       title_prefix: "Análisis",
       title_suffix: "Técnico",
       description:

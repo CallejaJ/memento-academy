@@ -12,7 +12,7 @@ VALUES
     "en": {
       "p1": "A **blockchain** is a distributed ledger that records transactions across many computers. Understanding its architecture is fundamental to blockchain development.",
       "components": {
-        "title": "🧱 Core Components",
+        "title": "Core Components",
         "items": [
           {"title": "Blocks", "desc": "Container of transactions with timestamp, hash, and previous hash"},
           {"title": "Chain", "desc": "Linked blocks creating immutable history via cryptographic hashes"},
@@ -21,7 +21,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "🔐 Cryptographic Foundations",
+        "title": "Cryptographic Foundations",
         "list": [
           "**SHA-256:** Hashing algorithm for block integrity",
           "**Public/Private Keys:** Asymmetric cryptography for ownership",
@@ -33,7 +33,7 @@ VALUES
     "es": {
       "p1": "Una **blockchain** es un libro mayor distribuido que registra transacciones en muchas computadoras. Entender su arquitectura es fundamental para el desarrollo.",
       "components": {
-        "title": "🧱 Componentes Principales",
+        "title": "Componentes Principales",
         "items": [
           {"title": "Bloques", "desc": "Contenedor de transacciones con marca de tiempo, hash y hash anterior"},
           {"title": "Cadena", "desc": "Bloques enlazados creando historia inmutable vía hashes criptográficos"},
@@ -42,7 +42,7 @@ VALUES
         ]
       },
       "crypto": {
-        "title": "🔐 Fundamentos Criptográficos",
+        "title": "Fundamentos Criptográficos",
         "list": [
           "**SHA-256:** Algoritmo de hash para integridad de bloques",
           "**Claves Pública/Privada:** Criptografía asimétrica para propiedad",

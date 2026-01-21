@@ -71,7 +71,7 @@ export default async function CBDCPage({
 
   const translations = {
     en: {
-      badge: "🏛️ Financial News",
+      badge: "Financial News",
       title_prefix: "What are",
       title_highlight: "CBDCs",
       title_suffix: "?",
@@ -86,7 +86,7 @@ export default async function CBDCPage({
       login_message: "Log in to track your progress and earn badges.",
     },
     es: {
-      badge: "🏛️ Noticias Financieras",
+      badge: "Noticias Financieras",
       title_prefix: "¿Qué son las",
       title_highlight: "CBDCs",
       title_suffix: "?",

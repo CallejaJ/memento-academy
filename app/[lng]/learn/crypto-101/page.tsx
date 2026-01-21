@@ -74,7 +74,7 @@ export default async function Crypto101Page({
   // Translations
   const translations = {
     en: {
-      badge: "💰 Free Course",
+      badge: "Free Course",
       title_prefix: "Crypto",
       title_highlight: "101",
       title_suffix: "",
@@ -94,7 +94,7 @@ export default async function Crypto101Page({
       btn_security: "Security Guide",
     },
     es: {
-      badge: "💰 Curso Gratuito",
+      badge: "Curso Gratuito",
       title_prefix: "Cripto",
       title_highlight: "101",
       title_suffix: "",

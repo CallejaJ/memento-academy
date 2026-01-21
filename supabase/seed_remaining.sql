@@ -11,13 +11,13 @@ VALUES
   '{
     "en": {
       "desc": "Consensus mechanisms allow distributed networks to agree on the state of the blockchain without central authority.",
-      "pow": {"title": "⛏️ Proof of Work (PoW)", "list": ["Used by: Bitcoin", "Pros: Secure", "Cons: Energy intensive"]},
-      "pos": {"title": "🎯 Proof of Stake (PoS)", "list": ["Used by: Ethereum", "Pros: Efficient", "Cons: Plutocracy risk"]}
+      "pow": {"title": "Proof of Work (PoW)", "list": ["Used by: Bitcoin", "Pros: Secure", "Cons: Energy intensive"]},
+      "pos": {"title": "Proof of Stake (PoS)", "list": ["Used by: Ethereum", "Pros: Efficient", "Cons: Plutocracy risk"]}
     },
     "es": {
       "desc": "Los mecanismos de consenso permiten que redes distribuidas acuerden el estado de la blockchain sin autoridad central.",
-      "pow": {"title": "⛏️ Proof of Work (PoW)", "list": ["Usado por: Bitcoin", "Pros: Seguro", "Contra: Energía"]},
-      "pos": {"title": "🎯 Proof of Stake (PoS)", "list": ["Usado por: Ethereum", "Pros: Eficiente", "Contra: Plutocracia"]}
+      "pow": {"title": "Proof of Work (PoW)", "list": ["Usado por: Bitcoin", "Pros: Seguro", "Contra: Energía"]},
+      "pos": {"title": "Proof of Stake (PoS)", "list": ["Usado por: Ethereum", "Pros: Eficiente", "Contra: Plutocracia"]}
     }
   }'
 ),

@@ -23,7 +23,7 @@ export default async function SmartContractsPage({
 
   const translations = {
     en: {
-      badge: "🔒 Premium Course",
+      badge: "Premium Course",
       title_prefix: "Smart",
       title_suffix: "Contracts",
       description:
@@ -50,7 +50,7 @@ export default async function SmartContractsPage({
       },
     },
     es: {
-      badge: "🔒 Curso Premium",
+      badge: "Curso Premium",
       title_prefix: "Contratos",
       title_suffix: "Inteligentes",
       description:

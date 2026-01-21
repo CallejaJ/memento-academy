@@ -21,7 +21,7 @@ export default async function BlockchainDevelopmentPage({
   // Translations (Static for the page shell, dynamic for content)
   const translations = {
     en: {
-      badge: "🔒 Premium Course",
+      badge: "Premium Course",
       title_prefix: "Blockchain",
       title_suffix: "Development",
       description:
@@ -38,7 +38,7 @@ export default async function BlockchainDevelopmentPage({
       },
     },
     es: {
-      badge: "🔒 Curso Premium",
+      badge: "Curso Premium",
       title_prefix: "Desarrollo",
       title_suffix: "Blockchain",
       description:

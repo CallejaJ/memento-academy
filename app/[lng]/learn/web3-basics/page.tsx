@@ -72,7 +72,7 @@ export default async function Web3BasicsPage({
   // Translations
   const translations = {
     en: {
-      badge: "📚 Free Course",
+      badge: "Free Course",
       title_prefix: "What is",
       title_highlight: "Web3",
       title_suffix: "?",
@@ -92,7 +92,7 @@ export default async function Web3BasicsPage({
       },
     },
     es: {
-      badge: "📚 Curso Gratuito",
+      badge: "Curso Gratuito",
       title_prefix: "¿Qué es",
       title_highlight: "Web3",
       title_suffix: "?",

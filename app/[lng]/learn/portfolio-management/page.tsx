@@ -24,7 +24,7 @@ export default async function PortfolioManagementPage({
 
   const translations = {
     en: {
-      badge: "🔒 Premium Course",
+      badge: "Premium Course",
       title_prefix: "Portfolio",
       title_suffix: "Management",
       description:
@@ -52,7 +52,7 @@ export default async function PortfolioManagementPage({
       not_found: "No course content found. Please run the SQL seeds.",
     },
     es: {
-      badge: "🔒 Curso Premium",
+      badge: "Curso Premium",
       title_prefix: "Gestión de",
       title_suffix: "Portafolio",
       description:

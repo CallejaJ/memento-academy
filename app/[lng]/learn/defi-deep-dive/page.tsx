@@ -23,7 +23,7 @@ export default async function DefiDeepDivePage({
 
   const translations = {
     en: {
-      badge: "🔒 Premium Course",
+      badge: "Premium Course",
       title_prefix: "DeFi",
       title_suffix: "Deep Dive",
       description:
@@ -50,7 +50,7 @@ export default async function DefiDeepDivePage({
       },
     },
     es: {
-      badge: "🔒 Curso Premium",
+      badge: "Curso Premium",
       title_prefix: "Inmersión en",
       title_suffix: "DeFi",
       description:

@@ -69,7 +69,7 @@ export default async function SafetyPage({
 
   const translations = {
     en: {
-      badge: "🛡️ Essential Security",
+      badge: "Essential Security",
       title_prefix: "",
       title_highlight: "Security",
       title_suffix: " Guide",
@@ -84,7 +84,7 @@ export default async function SafetyPage({
       login_message: "Log in to track your progress and earn badges.",
     },
     es: {
-      badge: "🛡️ Seguridad Esencial",
+      badge: "Seguridad Esencial",
       title_prefix: "Guía de ",
       title_highlight: "Seguridad",
       title_suffix: "",

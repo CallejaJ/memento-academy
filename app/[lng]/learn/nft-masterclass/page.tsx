@@ -23,7 +23,7 @@ export default async function NFTMasterclassPage({
 
   const translations = {
     en: {
-      badge: "🔒 Premium Course",
+      badge: "Premium Course",
       title_prefix: "NFT",
       title_suffix: "Masterclass",
       description:
@@ -50,7 +50,7 @@ export default async function NFTMasterclassPage({
       },
     },
     es: {
-      badge: "🔒 Curso Premium",
+      badge: "Curso Premium",
       title_prefix: "Masterclass de",
       title_suffix: "NFT",
       description:
