@@ -6,6 +6,7 @@ import { CourseSection as SectionData } from "@/actions/course";
 import { useCourseProgress } from "@/hooks/use-course-progress";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { useAuth } from "@/contexts/auth-context";
 
 interface CourseContentListProps {
   courseId: string;
@@ -17,12 +18,17 @@ interface CourseContentListProps {
 export function CourseContentList({
   courseId,
   initialSections,
-  isLoggedIn = true,
+  isLoggedIn: serverIsLoggedIn = true,
   isPremium = false,
 }: CourseContentListProps) {
   const { progress, loading, markSectionComplete, refresh } =
     useCourseProgress(courseId);
   const router = useRouter();
+  const { isAuthenticated } = useAuth();
+
+  // Pivot to client-side auth if available, otherwise fallback to server prop
+  // This handles the case where server session is missing but client is logged in via Privy
+  const isLoggedIn = isAuthenticated || serverIsLoggedIn;
 
   const completedIds = progress?.completed_sections || [];
 
