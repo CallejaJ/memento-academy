@@ -60,6 +60,14 @@ function parseErrorMessage(error: string, lang: "en" | "es" = "es"): string {
       en: "Request timed out. Please try again.",
       es: "La solicitud tardó demasiado. Intenta de nuevo.",
     },
+    "Invalid score": {
+      en: "Score mismatch. This session may have been created before a recent update. Please play a new game.",
+      es: "El puntaje no coincide. Esta sesión pudo haberse creado antes de una actualización. Por favor juega una nueva partida.",
+    },
+    "already claimed": {
+      en: "This reward has already been claimed.",
+      es: "Esta recompensa ya fue reclamada.",
+    },
   };
 
   for (const [key, messages] of Object.entries(errorMessages)) {

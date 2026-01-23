@@ -243,11 +243,14 @@ function GameResultsContent() {
       // Celebration is via CSS animation (sparkles)
     } catch (error: any) {
       console.error("Claim error:", error);
+      console.error("Score being sent:", results?.score);
+      console.error("GameMode:", results?.gameMode);
       // Show error in modal instead of native alert
       const errorMessage = error.message || "Unknown error";
       const technicalDetails =
         error.details ||
-        (error.cause ? JSON.stringify(error.cause, null, 2) : undefined);
+        (error.cause ? JSON.stringify(error.cause, null, 2) : undefined) ||
+        `Score: ${results?.score}, GameMode: ${results?.gameMode}`;
       setErrorModal({
         open: true,
         message: errorMessage,
