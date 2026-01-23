@@ -80,6 +80,7 @@ export async function POST(request: NextRequest) {
         expires_at: expiresAt.toISOString(),
         ip_address: ip,
         total_questions: gameMode === "survival" ? 999 : 10, // Placeholder for infinite
+        game_mode: gameMode, // Store the game mode for leaderboard filtering
       })
       .select()
       .single();
