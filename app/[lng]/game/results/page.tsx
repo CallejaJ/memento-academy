@@ -73,6 +73,7 @@ function GameResultsContent() {
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState<{
     score: number;
+    correctAnswers?: number; // Original correct answers for UI display
     totalQuestions: number;
     percentage: number;
     canClaimReward: boolean;
@@ -398,7 +399,7 @@ function GameResultsContent() {
                       stroke="url(#scoreGradient)"
                       strokeWidth="4"
                       fill="none"
-                      strokeDasharray={`${(results.score / results.totalQuestions) * 264} 264`}
+                      strokeDasharray={`${((results.correctAnswers ?? results.score) / results.totalQuestions) * 264} 264`}
                       strokeLinecap="round"
                       className="transition-all duration-1000"
                       style={{
@@ -445,17 +446,18 @@ function GameResultsContent() {
                         textShadow: "0 0 20px rgba(34,211,238,0.5)",
                       }}
                     >
-                      {results.score}
+                      {results.correctAnswers ?? results.score}
                       <span className="text-purple-400">/</span>
                       {results.totalQuestions}
                     </span>
                   </div>
                 </div>
                 <p
-                  className={`text-xs uppercase tracking-[0.2em] ${results.score === results.totalQuestions ? "text-purple-400" : "text-slate-500"}`}
+                  className={`text-xs uppercase tracking-[0.2em] ${(results.correctAnswers ?? results.score) === results.totalQuestions ? "text-purple-400" : "text-slate-500"}`}
                   style={{ fontFamily: "var(--font-orbitron), system-ui" }}
                 >
-                  {results.score === results.totalQuestions
+                  {(results.correctAnswers ?? results.score) ===
+                  results.totalQuestions
                     ? t.perfectScore
                     : t.score}
                 </p>
@@ -499,7 +501,9 @@ function GameResultsContent() {
                       strokeDasharray={`${
                         results.gameMode === "survival"
                           ? 264 // Full circle (or maybe 0?) for survival since there's no "total"
-                          : (results.score / results.totalQuestions) * 264
+                          : ((results.correctAnswers ?? results.score) /
+                              results.totalQuestions) *
+                            264
                       } 264`}
                       strokeLinecap="round"
                       className="transition-all duration-1000"
@@ -525,7 +529,7 @@ function GameResultsContent() {
                       className="text-3xl sm:text-4xl font-black text-white"
                       style={{ fontFamily: "var(--font-orbitron), system-ui" }}
                     >
-                      {results.score}
+                      {results.correctAnswers ?? results.score}
                       {results.gameMode !== "survival" && (
                         <>
                           <span className="text-slate-500">/</span>

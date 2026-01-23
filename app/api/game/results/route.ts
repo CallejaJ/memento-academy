@@ -74,13 +74,22 @@ export async function POST(request: NextRequest) {
 
       const remainingAttempts = Math.max(0, 5 - (todayAttemptsCount || 0));
 
+      // For daily mode, score includes 2x multiplier, so calculate original correct answers
+      const isDaily = session.game_mode === "daily";
+      const correctAnswers = isDaily
+        ? Math.floor(session.score / 2)
+        : session.score;
+
       return NextResponse.json({
         score: session.score,
+        correctAnswers, // Original correct answers for UI display
         totalQuestions: session.total_questions,
-        percentage: Math.round((session.score / session.total_questions) * 100),
+        percentage: Math.round(
+          (correctAnswers / session.total_questions) * 100,
+        ),
         alreadyFinished: true,
         canClaimReward:
-          session.score >= MIN_SCORE_FOR_REWARD && !session.rewarded,
+          correctAnswers >= MIN_SCORE_FOR_REWARD && !session.rewarded,
         rewardSignature: session.reward_signature,
         rewardDeadline: session.reward_deadline,
         sessionId: session.id,
@@ -219,6 +228,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       score: finalScore,
+      correctAnswers: score, // Original correct answers for UI display
       totalQuestions: answersCount || 10,
       percentage: Math.round((score / (answersCount || 10)) * 100),
       canClaimReward,
