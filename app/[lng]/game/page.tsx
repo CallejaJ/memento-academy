@@ -395,7 +395,7 @@ export default function GameLobbyPage() {
                     {t.bestScore}
                   </div>
                   <div className="text-2xl font-bold text-teal-400">
-                    {userStats.bestScore}/10
+                    {userStats.bestScore}
                   </div>
                 </div>
                 <div className="bg-slate-900/40 border border-slate-800/60 p-4 rounded-xl backdrop-blur-sm text-center">
