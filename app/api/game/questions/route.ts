@@ -188,9 +188,23 @@ export async function GET(request: NextRequest) {
         .eq("challenge_date", today)
         .single();
 
-      const category = dailyChallenge?.category || "random"; // Fallback to random if no challenge
+      const dailyChallengeCategory = dailyChallenge?.category || "random"; // Fallback to random if no challenge
 
-      if (category === "random") {
+      // Map daily challenge categories (lowercase) to game_questions categories (Title Case)
+      const categoryMappings: Record<string, string[]> = {
+        nfts: ["NFTs"],
+        defi: ["DeFi"],
+        security: ["Security"],
+        trading: ["Technical Analysis", "Portfolio Management", "DeFi"],
+        fundamentals: ["Web3 Basics", "Crypto 101", "CBDCs"],
+      };
+
+      const mappedCategories = categoryMappings[dailyChallengeCategory] || [];
+
+      if (
+        dailyChallengeCategory === "random" ||
+        mappedCategories.length === 0
+      ) {
         // Fallback: mixed questions
         const { data } = await supabase
           .from("game_questions")
@@ -201,12 +215,12 @@ export async function GET(request: NextRequest) {
           .sort(() => Math.random() - 0.5)
           .slice(0, 10);
       } else {
-        // Fetch questions for specific category
+        // Fetch questions for specific mapped categories
         const { data } = await supabase
           .from("game_questions")
           .select("id, category, difficulty, question_text, options")
           .eq("is_active", true)
-          .eq("category", category)
+          .in("category", mappedCategories)
           .limit(20);
 
         questions = ((data || []) as RawQuestion[])
@@ -215,12 +229,20 @@ export async function GET(request: NextRequest) {
 
         // If not enough questions in category, fill with randoms
         if (questions.length < 10) {
-          const { data: filler } = await supabase
+          // Exclude all mapped categories from filler questions
+          let fillerQuery = supabase
             .from("game_questions")
             .select("id, category, difficulty, question_text, options")
-            .eq("is_active", true)
-            .neq("category", category)
-            .limit(10 - questions.length);
+            .eq("is_active", true);
+
+          // Exclude the categories we already queried
+          for (const cat of mappedCategories) {
+            fillerQuery = fillerQuery.neq("category", cat);
+          }
+
+          const { data: filler } = await fillerQuery.limit(
+            10 - questions.length,
+          );
 
           if (filler) {
             questions = [...questions, ...(filler as RawQuestion[])];
