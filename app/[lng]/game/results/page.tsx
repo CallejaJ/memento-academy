@@ -10,6 +10,7 @@ import { sepolia } from "viem/chains";
 import { createGaslessAccount, MEMO_CONTRACT_ADDRESS } from "@/lib/zerodev";
 import { MEMO_QUIZ_REWARDS_ABI } from "@/lib/abi";
 import { Button } from "@/components/ui/button";
+import { ErrorModal } from "@/components/game/error-modal";
 
 const translations = {
   en: {
@@ -35,6 +36,13 @@ const translations = {
     attemptLeft: "attempt left today",
     noAttemptsLeft: "No attempts left today",
     playAgainCta: "PLAY AGAIN",
+    // Error modal translations
+    errorTitle: "Claim Error",
+    errorGeneric: "An error occurred while claiming your reward.",
+    retry: "Try Again",
+    close: "Close",
+    showDetails: "Show technical details",
+    hideDetails: "Hide details",
   },
   es: {
     victory: "¡VICTORIA!",
@@ -59,6 +67,13 @@ const translations = {
     attemptLeft: "intento restante hoy",
     noAttemptsLeft: "Sin intentos hoy",
     playAgainCta: "JUGAR DE NUEVO",
+    // Error modal translations
+    errorTitle: "Error al Reclamar",
+    errorGeneric: "Ocurrió un error al reclamar tu recompensa.",
+    retry: "Reintentar",
+    close: "Cerrar",
+    showDetails: "Ver detalles técnicos",
+    hideDetails: "Ocultar detalles",
   },
 };
 
@@ -87,6 +102,11 @@ function GameResultsContent() {
   const [claimed, setClaimed] = useState(false);
   const [txHash, setTxHash] = useState<string | null>(null);
   const [memoBalance, setMemoBalance] = useState<string | null>(null);
+  const [errorModal, setErrorModal] = useState<{
+    open: boolean;
+    message: string;
+    technicalDetails?: string;
+  }>({ open: false, message: "" });
 
   const { wallets } = useWallets();
 
@@ -223,8 +243,16 @@ function GameResultsContent() {
       // Celebration is via CSS animation (sparkles)
     } catch (error: any) {
       console.error("Claim error:", error);
-      // Show error to user
-      alert("Failed to claim: " + (error.message || "Unknown error"));
+      // Show error in modal instead of native alert
+      const errorMessage = error.message || "Unknown error";
+      const technicalDetails =
+        error.details ||
+        (error.cause ? JSON.stringify(error.cause, null, 2) : undefined);
+      setErrorModal({
+        open: true,
+        message: errorMessage,
+        technicalDetails,
+      });
     } finally {
       setClaiming(false);
     }
@@ -695,6 +723,23 @@ function GameResultsContent() {
           </button>
         </div>
       </div>
+
+      {/* Error Modal */}
+      <ErrorModal
+        open={errorModal.open}
+        onClose={() => setErrorModal({ open: false, message: "" })}
+        onRetry={handleClaimReward}
+        message={errorModal.message}
+        technicalDetails={errorModal.technicalDetails}
+        t={{
+          errorTitle: t.errorTitle,
+          errorGeneric: t.errorGeneric,
+          retry: t.retry,
+          close: t.close,
+          showDetails: t.showDetails,
+          hideDetails: t.hideDetails,
+        }}
+      />
     </div>
   );
 }
