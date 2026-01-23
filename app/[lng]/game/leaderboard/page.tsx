@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 import {
   Crown,
   Medal,
@@ -57,6 +58,7 @@ interface LeaderboardEntry {
   rank: number;
   email: string;
   display_name?: string;
+  avatarUrl?: string | null;
   walletAddress: string | null;
   gamesPlayed: number;
   bestScore: number;
@@ -287,25 +289,46 @@ export default function LeaderboardPage() {
 
                     {/* Player */}
                     <div className="col-span-10 md:col-span-5">
-                      <div className="flex flex-col">
-                        <span
-                          className={cn(
-                            "font-bold text-sm md:text-base truncate",
-                            entry.rank === 1
-                              ? "text-yellow-100"
-                              : "text-slate-200",
+                      <div className="flex items-center gap-3">
+                        {/* Avatar */}
+                        <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-800 border border-slate-700 shrink-0">
+                          {entry.avatarUrl ? (
+                            <Image
+                              src={entry.avatarUrl}
+                              alt={entry.display_name || "Avatar"}
+                              width={40}
+                              height={40}
+                              className="w-full h-full object-cover"
+                              unoptimized
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-slate-500 text-sm font-bold">
+                              {(entry.display_name || entry.email || "A")
+                                .charAt(0)
+                                .toUpperCase()}
+                            </div>
                           )}
-                        >
-                          {entry.display_name ||
-                            entry.email?.split("@")[0] ||
-                            "Anonymous"}
-                        </span>
-                        {entry.walletAddress && (
-                          <div className="flex items-center gap-1.5 mt-0.5 text-xs text-slate-500 font-mono">
-                            <Wallet className="w-3 h-3" />
-                            {entry.walletAddress}
-                          </div>
-                        )}
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span
+                            className={cn(
+                              "font-bold text-sm md:text-base truncate",
+                              entry.rank === 1
+                                ? "text-yellow-100"
+                                : "text-slate-200",
+                            )}
+                          >
+                            {entry.display_name ||
+                              entry.email?.split("@")[0] ||
+                              "Anonymous"}
+                          </span>
+                          {entry.walletAddress && (
+                            <div className="flex items-center gap-1.5 mt-0.5 text-xs text-slate-500 font-mono">
+                              <Wallet className="w-3 h-3" />
+                              {entry.walletAddress}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
 

@@ -39,6 +39,7 @@ export async function GET(request: Request) {
       rank: index + 1,
       email: entry.email || entry.display_name || "Anonymous",
       display_name: entry.display_name,
+      avatarUrl: entry.avatar_url || null,
       walletAddress: entry.wallet_address
         ? `${entry.wallet_address.slice(0, 6)}...${entry.wallet_address.slice(-4)}`
         : null,
