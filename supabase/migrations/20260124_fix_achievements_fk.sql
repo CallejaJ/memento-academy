@@ -5,6 +5,10 @@
 ALTER TABLE user_achievements 
 DROP CONSTRAINT IF EXISTS user_achievements_user_id_fkey;
 
+-- Clean up orphan records (user_ids that don't exist in profiles)
+DELETE FROM user_achievements 
+WHERE user_id NOT IN (SELECT id FROM profiles);
+
 -- Add new foreign key to profiles table (which stores Privy user IDs)
 ALTER TABLE user_achievements
 ADD CONSTRAINT user_achievements_user_id_fkey 
