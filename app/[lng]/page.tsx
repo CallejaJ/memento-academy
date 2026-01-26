@@ -61,7 +61,7 @@ export default async function LandingPage({
 
       {/* Hero Section */}
       <section
-        className="py-20 lg:py-32 transition-colors duration-300 overflow-hidden relative"
+        className="pt-32 pb-20 lg:pt-48 lg:pb-32 transition-colors duration-300 overflow-hidden relative"
         style={{
           backgroundImage: "url('/images/wallpapers/quiz-bg.png')",
           backgroundSize: "cover",
