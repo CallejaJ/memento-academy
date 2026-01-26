@@ -19,7 +19,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Github, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FaDiscord } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 // Mapeo de errores comunes de Supabase
@@ -69,9 +68,7 @@ export function LoginForm({ lng = "en" }: { lng?: string }) {
     }
   };
 
-  const handleProviderSignIn = async (
-    provider: "google" | "github" | "discord",
-  ) => {
+  const handleProviderSignIn = async (provider: "google" | "github") => {
     setError(null);
     try {
       await signInWithProvider(provider);
@@ -148,7 +145,7 @@ export function LoginForm({ lng = "en" }: { lng?: string }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <Button
             variant="outline"
             onClick={() => handleProviderSignIn("google")}
@@ -164,14 +161,6 @@ export function LoginForm({ lng = "en" }: { lng?: string }) {
           >
             <Github className="mr-2 h-4 w-4" />
             GitHub
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() => handleProviderSignIn("discord")}
-            className="w-full"
-          >
-            <FaDiscord className="mr-2 h-4 w-4 text-indigo-500" />
-            Discord
           </Button>
         </div>
       </CardContent>

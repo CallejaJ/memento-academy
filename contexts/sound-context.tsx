@@ -43,7 +43,7 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     return audioContextRef.current;
   }, []);
 
-  const toggleSound = useCallback(() => {
+  const toggleSound = useCallback(() => { 
     setSoundEnabled((prev) => {
       const newValue = !prev;
       localStorage.setItem("sound-enabled", String(newValue));

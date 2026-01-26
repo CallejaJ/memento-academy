@@ -4,7 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Mail, MessageCircle, Github } from "lucide-react";
 import { XIcon } from "@/components/icons/x-icon";
-import { DiscordIcon } from "@/components/icons/discord-icon";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/contact/contact-form";
 import { useTranslation } from "@/app/i18n";
@@ -12,7 +11,7 @@ import { useTranslation } from "@/app/i18n";
 export const metadata: Metadata = {
   title: "Contact Us | Memento Academy",
   description:
-    "Get in touch with the Memento Academy team. Join our Discord community or reach out via email.",
+    "Get in touch with the Memento Academy team. Join our GitHub community or reach out via email.",
   keywords: [
     "contact memento academy",
     "web3 help",
@@ -58,29 +57,29 @@ export default async function ContactPage({
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="grid lg:grid-cols-3 gap-8 mb-12">
-              {/* Discord Card - Takes up 1 column */}
+              {/* Community Card - Takes up 1 column */}
               <Card className="bg-slate-800/50 border-slate-700 h-fit">
                 <CardContent className="pt-6">
                   <div className="text-center space-y-6">
-                    <div className="w-16 h-16 bg-indigo-500/10 rounded-2xl flex items-center justify-center mx-auto border border-indigo-500/20">
-                      <MessageCircle className="w-8 h-8 text-indigo-400" />
+                    <div className="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto border border-cyan-500/20">
+                      <MessageCircle className="w-8 h-8 text-cyan-400" />
                     </div>
                     <div>
                       <h3 className="text-xl font-semibold text-white mb-2">
-                        {t("contact_page.discord.title")}
+                        {t("contact_page.community.title")}
                       </h3>
                       <p className="text-slate-400 text-sm">
-                        {t("contact_page.discord.desc")}
+                        {t("contact_page.community.desc")}
                       </p>
                     </div>
                     <a
-                      href="https://discord.gg/MWfHKfjYS7"
+                      href="https://github.com/orgs/Memento-Academy/discussions"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block"
                     >
-                      <Button className="w-full bg-indigo-600 hover:bg-indigo-700">
-                        {t("contact_page.discord.btn")}
+                      <Button className="w-full bg-cyan-600 hover:bg-cyan-700">
+                        {t("contact_page.community.btn")}
                       </Button>
                     </a>
 
@@ -143,13 +142,13 @@ export default async function ContactPage({
                 <span className="text-white">X</span>
               </a>
               <a
-                href="https://discord.gg/MWfHKfjYS7"
+                href="https://github.com/orgs/Memento-Academy/discussions"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500/30 transition-all"
               >
-                <DiscordIcon className="w-5 h-5 text-indigo-400" />
-                <span className="text-white">Discord</span>
+                <MessageCircle className="w-5 h-5 text-cyan-400" />
+                <span className="text-white">Community</span>
               </a>
               <a
                 href="https://github.com/Memento-Academy"
@@ -184,9 +183,9 @@ export default async function ContactPage({
               <ul className="text-slate-300 space-y-2">
                 <li>
                   <strong className="text-white">
-                    {t("contact_page.response_times.discord")}
+                    {t("contact_page.response_times.community")}
                   </strong>{" "}
-                  {t("contact_page.response_times.discord_time")}
+                  {t("contact_page.response_times.community_time")}
                 </li>
                 <li>
                   <strong className="text-white">

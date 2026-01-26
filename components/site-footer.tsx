@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Github } from "lucide-react";
+import { Github, MessageCircle } from "lucide-react";
 import { XIcon } from "@/components/icons/x-icon";
-import { DiscordIcon } from "@/components/icons/discord-icon";
 
 interface SiteFooterProps {
   lng: string;
@@ -33,7 +32,7 @@ export function SiteFooter({ lng }: SiteFooterProps) {
               <span className="sr-only">X (Twitter)</span>
             </Link>
             <Link
-              href="https://github.com/Memento-Academy"
+              href="https://github.com/CallejaJ/memento-academy"
               target="_blank"
               rel="noreferrer"
               className="text-slate-600 hover:text-cyan-500 transition-colors"
@@ -42,13 +41,14 @@ export function SiteFooter({ lng }: SiteFooterProps) {
               <span className="sr-only">GitHub</span>
             </Link>
             <Link
-              href="https://discord.com/invite/MWfHKfjYS7"
+              href="https://github.com/orgs/Memento-Academy/discussions"
               target="_blank"
               rel="noreferrer"
               className="text-slate-600 hover:text-cyan-500 transition-colors"
+              title="Community Discussions"
             >
-              <DiscordIcon className="w-4 h-4" />
-              <span className="sr-only">Discord</span>
+              <MessageCircle className="w-4 h-4" />
+              <span className="sr-only">Community</span>
             </Link>
           </div>
         </div>

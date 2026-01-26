@@ -71,7 +71,6 @@ export const JsonLd = ({ lng, url, course }: JsonLdProps) => {
       "https://twitter.com/memento_academy",
       "https://github.com/Memento-Academy",
       "https://www.linkedin.com/company/memento-academy/",
-      "https://discord.gg/MWfHKfjYS7",
     ],
     description:
       lng === "es"
