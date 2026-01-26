@@ -18,7 +18,10 @@
     "login": "Log In",
     "signout": "Sign Out",
     "join": "Join Free",
-    "join_academy": "Join Academy Free"
+    "join_academy": "Join Academy Free",
+    "open_menu": "Open navigation menu",
+    "close_menu": "Close navigation menu",
+    "mobile_navigation": "Mobile navigation"
   },
   "mission": {
     "title": "Web3 Education for Everyone",
@@ -37,7 +40,7 @@
     },
     "community": {
       "title": "Supportive Community",
-      "desc": "Join thousands of others starting their journey. Ask questions freely in our beginner-first Discord."
+      "desc": "Join thousands of others starting their journey. Ask questions freely in our community Discussions."
     }
   },
   "community_section": {
@@ -76,7 +79,7 @@
       },
       "support": {
         "title": "Community Support",
-        "desc": "Interactive help from tutors and peers in our Discord server."
+        "desc": "Interactive help from tutors and peers in our GitHub Discussions."
       },
       "security": {
         "title": "Security Guides",
@@ -188,7 +191,7 @@
       "fees": "Hidden Fees"
     },
     "help_title": "Want to Help?",
-    "help_desc": "Memento Academy is a community project. We welcome contributions in many forms: writing guides, translating content, helping newcomers in our Discord, or spreading the word.",
+    "help_desc": "Memento Academy is a community project. We welcome contributions in many forms: writing guides, translating content, helping newcomers in our Discussions, or spreading the word.",
     "help_btn": "Learn How to Contribute",
     "cta_title": "Start Your Journey Today",
     "cta_desc": "Join our community and begin learning for free.",
@@ -239,7 +242,7 @@
       }
     },
     "still_questions_title": "Still Have Questions?",
-    "still_questions_desc": "Can't find what you're looking for? Join our community Discord where our team and fellow learners can help.",
+    "still_questions_desc": "Can't find what you're looking for? Join our community Discussions where our team and fellow learners can help.",
     "contact_btn": "Contact Us",
     "learn_btn": "Start Learning"
   },
@@ -265,7 +268,7 @@
       },
       "community": {
         "title": "Community Support",
-        "desc": "Help newcomers in our Discord, answer questions, and create a welcoming environment.",
+        "desc": "Help newcomers in our Discussions, answer questions, and create a welcoming environment.",
         "req1": "Basic Web3/crypto knowledge",
         "req2": "Patience and empathy",
         "req3": "Available a few hours per week"
@@ -294,8 +297,8 @@
     },
     "requirements_label": "What we're looking for:",
     "how_to_title": "How to Get Started",
-    "step1_title": "Join our Discord",
-    "step1_desc": "Introduce yourself in the #contributors channel and tell us how you'd like to help.",
+    "step1_title": "Join our Discussions",
+    "step1_desc": "Introduce yourself in the 'General' category and tell us how you'd like to help.",
     "step2_title": "Pick a task",
     "step2_desc": "Check our task board for open items or propose something new based on your skills.",
     "step3_title": "Start contributing",
@@ -311,9 +314,9 @@
     "title_end": "Us",
     "subtitle": "Have questions, suggestions, or want to collaborate? We'd love to hear from you.",
     "discord": {
-      "title": "Discord Community",
-      "desc": "Join our Discord for real-time support, discussions, and community events.",
-      "btn": "Join Discord"
+      "title": "Community Discussions",
+      "desc": "Join our GitHub Discussions for real-time support, questions, and community events.",
+      "btn": "Join Community"
     },
     "email": {
       "title": "Direct Email",
@@ -347,11 +350,11 @@
     "follow_us": "Follow Us",
     "response_times": {
       "title": "Response Times",
-      "discord": "Discord:",
-      "discord_time": "Usually within minutes during active hours",
+      "discord": "Discussions:",
+      "discord_time": "Usually within hours",
       "email": "Email:",
       "email_time": "Within 24-48 business hours",
-      "github": "GitHub Issues:",
+      "github": "GitHub Issues (Bugs):",
       "github_time": "Within 1 week for feature requests, faster for bugs"
     }
   },

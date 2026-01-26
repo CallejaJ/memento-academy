@@ -133,11 +133,17 @@ export function MainNav({ lng }: { lng: string }) {
               </div>
 
               {/* Mobile menu button */}
+              {/* Mobile menu button */}
               <Button
                 variant="ghost"
                 size="icon"
-                className="lg:hidden"
+                className="lg:hidden min-h-[44px] min-w-[44px]"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label={
+                  mobileMenuOpen ? t("nav.close_menu") : t("nav.open_menu")
+                }
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-menu"
               >
                 {mobileMenuOpen ? (
                   <X className="w-5 h-5" />
@@ -191,16 +197,23 @@ export function MainNav({ lng }: { lng: string }) {
           </div>
 
           {/* Mobile menu */}
+          {/* Mobile menu */}
           {mobileMenuOpen && (
-            <div className="lg:hidden py-4 border-t border-slate-800">
+            <div
+              id="mobile-menu"
+              role="navigation"
+              aria-label={t("nav.mobile_navigation")}
+              className="lg:hidden absolute top-[73px] left-0 right-0 h-[calc(100vh-73px)] bg-slate-950 border-t border-slate-800 px-4 py-6 overflow-y-auto"
+            >
               <nav className="flex flex-col space-y-4">
                 {routes.map((route) => (
                   <Link
                     key={route.href}
                     href={route.href}
                     className={cn(
-                      "text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium px-2 py-1",
-                      route.active && "text-cyan-400",
+                      "text-slate-300 hover:text-cyan-400 focus-visible:text-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded-md transition-colors duration-300 font-medium px-4 py-3 min-h-[44px] flex items-center text-lg bg-slate-900/50 border border-slate-800/50",
+                      route.active &&
+                        "text-cyan-400 bg-slate-900 border-cyan-500/30",
                     )}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -208,51 +221,51 @@ export function MainNav({ lng }: { lng: string }) {
                   </Link>
                 ))}
 
-                <div className="px-2 py-1 flex justify-start">
+                <div className="py-2 flex justify-start">
                   <LanguageSwitcher lng={lng} />
                 </div>
 
                 {/* Mobile quick access */}
-                <div className="pt-4 border-t border-slate-800 space-y-3">
+                <div className="pt-6 border-t border-slate-800 space-y-4">
                   {isMounted && user ? (
                     <>
                       <Button
                         asChild
                         variant="outline"
-                        className="w-full justify-center border-slate-700 text-slate-300"
+                        className="w-full justify-center border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700 hover:text-white min-h-[48px] text-base shadow-sm"
                       >
                         <Link
                           href="/dashboard"
                           onClick={() => setMobileMenuOpen(false)}
                         >
-                          Dashboard
+                          {t("nav.dashboard")}
                         </Link>
                       </Button>
                       <Button
                         variant="ghost"
-                        className="w-full justify-center text-slate-300"
+                        className="w-full justify-center text-slate-400 hover:text-white hover:bg-slate-800/50 min-h-[48px] text-base"
                         onClick={() => {
                           signOut();
                           setMobileMenuOpen(false);
                         }}
                       >
-                        Sign Out
+                        {t("nav.signout")}
                       </Button>
                     </>
                   ) : (
                     <>
                       <Button
                         variant="outline"
-                        className="w-full justify-center border-slate-700 text-slate-300"
+                        className="w-full justify-center border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700 hover:text-white min-h-[48px] text-base shadow-sm"
                         onClick={handleLoginClick}
                       >
-                        Log In
+                        {t("nav.login")}
                       </Button>
                       <Button
-                        className="w-full justify-center bg-gradient-to-r from-cyan-500 to-teal-500 border-0"
+                        className="w-full justify-center bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0 min-h-[48px] text-base font-semibold shadow-md shadow-cyan-900/20"
                         onClick={handleSignupClick}
                       >
-                        Join Academy Free
+                        {t("nav.join")}
                       </Button>
                     </>
                   )}
@@ -264,7 +277,7 @@ export function MainNav({ lng }: { lng: string }) {
       </header>
 
       {/* Auth Modal */}
-      <AuthModal isOpen={isOpen} onClose={close} defaultMode={mode} lng={lng} />
+      <AuthModal isOpen={isOpen} onClose={close} lng={lng} />
     </>
   );
 }

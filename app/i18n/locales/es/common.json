@@ -18,7 +18,10 @@
     "login": "Iniciar Sesión",
     "signout": "Cerrar Sesión",
     "join": "Únete Gratis",
-    "join_academy": "Únete a la Academia"
+    "join_academy": "Únete a la Academia",
+    "open_menu": "Abrir menú de navegación",
+    "close_menu": "Cerrar menú de navegación",
+    "mobile_navigation": "Navegación móvil"
   },
   "mission": {
     "title": "Educación Web3 para Todos",
@@ -37,7 +40,7 @@
     },
     "community": {
       "title": "Comunidad de Apoyo",
-      "desc": "Únete a miles de personas comenzando su viaje. Pregunta libremente en nuestro Discord para principiantes."
+      "desc": "Únete a miles de personas comenzando su viaje. Pregunta libremente en nuestras Discusiones de comunidad."
     }
   },
   "community_section": {
@@ -76,7 +79,7 @@
       },
       "support": {
         "title": "Soporte Comunitario",
-        "desc": "Ayuda interactiva de tutores y compañeros en nuestro servidor de Discord."
+        "desc": "Ayuda interactiva de tutores y compañeros en nuestras Discusiones de GitHub."
       },
       "security": {
         "title": "Guías de Seguridad",
@@ -188,7 +191,7 @@
       "fees": "Costos Ocultos"
     },
     "help_title": "¿Quieres Ayudar?",
-    "help_desc": "Memento Academy es un proyecto comunitario. Damos la bienvenida a contribuciones de muchas formas: escribir guías, traducir contenido, ayudar a los recién llegados en Discord, o difundir la palabra.",
+    "help_desc": "Memento Academy es un proyecto comunitario. Damos la bienvenida a contribuciones de muchas formas: escribir guías, traducir contenido, ayudar a los recién llegados en Discusiones, o difundir la palabra.",
     "help_btn": "Aprende Cómo Contribuir",
     "cta_title": "Comienza Tu Viaje Hoy",
     "cta_desc": "Únete a nuestra comunidad y empieza a aprender gratis.",
@@ -239,7 +242,7 @@
       }
     },
     "still_questions_title": "¿Aún Tienes Preguntas?",
-    "still_questions_desc": "¿No encuentras lo que buscas? Únete a nuestro Discord comunitario donde nuestro equipo y otros estudiantes pueden ayudarte.",
+    "still_questions_desc": "¿No encuentras lo que buscas? Únete a nuestras Discusiones comunitarias donde nuestro equipo y otros estudiantes pueden ayudarte.",
     "contact_btn": "Contáctanos",
     "learn_btn": "Empezar a Aprender"
   },
@@ -265,7 +268,7 @@
       },
       "community": {
         "title": "Soporte Comunitario",
-        "desc": "Ayuda a los recién llegados en nuestro Discord, responde preguntas y crea un ambiente acogedor.",
+        "desc": "Ayuda a los recién llegados en nuestras Discusiones, responde preguntas y crea un ambiente acogedor.",
         "req1": "Conocimiento básico de Web3/cripto",
         "req2": "Paciencia y empatía",
         "req3": "Disponibilidad de unas horas por semana"
@@ -294,8 +297,8 @@
     },
     "requirements_label": "Lo que buscamos:",
     "how_to_title": "Cómo Empezar",
-    "step1_title": "Únete a nuestro Discord",
-    "step1_desc": "Preséntate en el canal #contributors y cuéntanos cómo te gustaría ayudar.",
+    "step1_title": "Únete a las Discusiones",
+    "step1_desc": "Preséntate en la categoría 'General' y cuéntanos cómo te gustaría ayudar.",
     "step2_title": "Elige una tarea",
     "step2_desc": "Revisa nuestro tablero de tareas para elementos abiertos o propón algo nuevo basado en tus habilidades.",
     "step3_title": "Comienza a contribuir",
@@ -311,9 +314,9 @@
     "title_end": "",
     "subtitle": "¿Tienes preguntas, sugerencias o quieres colaborar? Nos encantaría saber de ti.",
     "discord": {
-      "title": "Comunidad Discord",
-      "desc": "Únete a nuestro Discord para soporte en tiempo real, discusiones y eventos comunitarios.",
-      "btn": "Unirse a Discord"
+      "title": "Discusiones de Comunidad",
+      "desc": "Únete a nuestras Discusiones en GitHub para soporte, preguntas y eventos comunitarios.",
+      "btn": "Unirse a la Comunidad"
     },
     "email": {
       "title": "Email Directo",
@@ -347,11 +350,11 @@
     "follow_us": "Síguenos",
     "response_times": {
       "title": "Tiempos de Respuesta",
-      "discord": "Discord:",
-      "discord_time": "Normalmente en minutos durante horas activas",
+      "discord": "Discusiones:",
+      "discord_time": "Normalmente en horas",
       "email": "Email:",
       "email_time": "Entre 24-48 horas hábiles",
-      "github": "GitHub Issues:",
+      "github": "GitHub Issues (Bugs):",
       "github_time": "Dentro de 1 semana para solicitudes, más rápido para bugs"
     }
   },
