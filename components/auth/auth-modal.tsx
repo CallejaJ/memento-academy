@@ -116,7 +116,12 @@ export function AuthModal({ isOpen, onClose, lng = "en" }: AuthModalProps) {
   }, [user, isOpen, onClose]);
 
   const handleLogin = () => {
-    login();
+    onClose();
+    // Allow a small delay for the modal to close properly before opening Privy
+    // to prevent potential focus race conditions
+    setTimeout(() => {
+      login();
+    }, 100);
   };
 
   return (
