@@ -129,7 +129,10 @@ export function MainNav({ lng }: { lng: string }) {
             {/* Right side buttons */}
             <div className="flex items-center space-x-4">
               <div className="hidden lg:block">
-                <LanguageSwitcher lng={lng} />
+                <LanguageSwitcher
+                  lng={lng}
+                  className="bg-slate-900/50 rounded-full px-2 py-1"
+                />
               </div>
 
               {/* Mobile menu button */}
@@ -221,8 +224,8 @@ export function MainNav({ lng }: { lng: string }) {
                   </Link>
                 ))}
 
-                <div className="py-2 flex justify-start">
-                  <LanguageSwitcher lng={lng} />
+                <div className="py-4 flex justify-center w-full border-t border-slate-800/50 my-2">
+                  <LanguageSwitcher lng={lng} className="scale-110" />
                 </div>
 
                 {/* Mobile quick access */}
