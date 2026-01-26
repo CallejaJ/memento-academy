@@ -33,6 +33,10 @@ Have an idea? Start a [Discussion](https://github.com/orgs/Memento-Academy/discu
 
 ### 4. Contribute Code
 
+### 4. Contribute Code
+
+**Important**: This repository is **private**. To contribute code, you must first request access and be added as a collaborator.
+
 Before starting work on a major feature:
 
 1. Check existing Issues and Discussions
@@ -45,6 +49,7 @@ Before starting work on a major feature:
 
 ### Prerequisites
 
+- **Access to the repository** (The project is private, you must be added as a collaborator)
 - Node.js 18+
 - npm or pnpm
 - Supabase account (for database)
@@ -52,9 +57,10 @@ Before starting work on a major feature:
 ### Quick Start
 
 ```bash
-# Clone the repository
+# Clone the repository (requires access)
 git clone https://github.com/CallejaJ/memento-academy.git
 cd memento-academy
+
 
 # Install dependencies
 npm install
