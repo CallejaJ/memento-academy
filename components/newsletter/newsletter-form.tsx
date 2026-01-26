@@ -249,7 +249,7 @@ export function NewsletterForm({
 
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white shadow-lg dark:shadow-cyan-500/25 transition-all duration-300"
+            className="w-full bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white font-semibold shadow-lg dark:shadow-cyan-500/25 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 transition-all duration-300 min-h-[44px]"
             disabled={isPending}
           >
             {isPending ? "Joining..." : buttonText}
@@ -269,7 +269,10 @@ export function NewsletterForm({
     return (
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white shadow-lg dark:shadow-cyan-500/25 transition-all duration-300">
+          <Button
+            size="lg"
+            className="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white font-semibold shadow-lg dark:shadow-cyan-500/25 focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 transition-all duration-300 min-h-[44px]"
+          >
             {buttonText}
             <ArrowRight className="ml-2 w-4 h-4" />
           </Button>

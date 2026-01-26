@@ -86,7 +86,7 @@ export default async function LandingPage({
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col gap-4 sm:flex-row sm:gap-4">
                 <NewsletterForm
                   variant="modal"
                   buttonText={t("hero.start_learning")}
@@ -94,11 +94,11 @@ export default async function LandingPage({
                   description="Join our newsletter and get immediate access to our 'Web3 for Beginners' guide."
                   lng={lng}
                 />
-                <Link href={`/${lng}/courses`}>
+                <Link href={`/${lng}/courses`} className="w-full sm:w-auto">
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white transition-colors duration-300"
+                    className="w-full sm:w-auto border-cyan-500/50 text-slate-200 hover:bg-slate-800 hover:text-white hover:border-cyan-400 focus-visible:ring-cyan-400 focus-visible:ring-offset-slate-950 transition-all duration-300 min-h-[44px]"
                   >
                     {t("hero.explore_courses")}
                   </Button>
@@ -612,12 +612,12 @@ export default async function LandingPage({
               <ul className="space-y-3">
                 <li>
                   <a
-                    href="https://discord.gg/MWfHKfjYS7"
+                    href="https://github.com/orgs/Memento-Academy/discussions"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
                   >
-                    Discord
+                    Community
                   </a>
                 </li>
                 <li>
