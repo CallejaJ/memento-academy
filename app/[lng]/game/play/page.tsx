@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { Clock, CheckCircle, XCircle, Flame, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useSound } from "@/contexts/sound-context";
 import confetti from "canvas-confetti";
 
 const translations = {
@@ -59,6 +60,7 @@ function GamePlayContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const t = translations[lng as keyof typeof translations] || translations.en;
+  const { playSound } = useSound();
 
   const sessionToken = searchParams.get("session");
 
@@ -103,12 +105,14 @@ function GamePlayContent() {
           handleTimeUp();
           return 0;
         }
+        // Play tick sound every second
+        playSound("tick");
         return prev - 1;
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [currentIndex, loading, showFeedback]);
+  }, [currentIndex, loading, showFeedback, playSound]);
 
   const fetchQuestions = async (signal?: AbortSignal) => {
     try {
@@ -171,6 +175,8 @@ function GamePlayContent() {
       if (data.isCorrect) {
         setStreak(data.newStreak ?? streak + 1);
         setScore((prev) => prev + 1);
+        // Play correct sound
+        playSound("correct");
         // Mini confetti for correct answer
         confetti({
           particleCount: 30,
@@ -180,6 +186,8 @@ function GamePlayContent() {
         });
       } else {
         setStreak(0);
+        // Play wrong sound
+        playSound("wrong");
         if (gameMode === "survival") {
           setLives((prev) => prev - 1);
         }

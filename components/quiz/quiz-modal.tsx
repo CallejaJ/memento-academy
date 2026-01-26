@@ -17,6 +17,7 @@ import { verifyQuizAnswers, QuizQuestion } from "@/actions/course";
 import confetti from "canvas-confetti";
 import { useToast } from "@/hooks/use-toast";
 import { useParams } from "next/navigation";
+import { useSound } from "@/contexts/sound-context";
 
 interface QuizModalProps {
   isOpen: boolean;
@@ -51,6 +52,7 @@ export function QuizModal({
   } | null>(null);
 
   const { toast } = useToast();
+  const { playSound } = useSound();
 
   const handleSelect = (questionId: string, index: number) => {
     setAnswers((prev) => ({ ...prev, [questionId]: index }));
@@ -72,6 +74,8 @@ export function QuizModal({
       setResult(resp);
 
       if (resp.success) {
+        // Play success sound
+        playSound("correct");
         confetti({
           particleCount: 150,
           spread: 70,
@@ -79,6 +83,9 @@ export function QuizModal({
         });
         // Remove auto-close. Let user click Continue.
         onPassed();
+      } else {
+        // Play fail sound
+        playSound("wrong");
       }
     } catch (err) {
       console.error(err);
@@ -230,7 +237,7 @@ export function QuizModal({
                             </Label>
                           </div>
                         );
-                      }
+                      },
                     )
                   }
                 </RadioGroup>

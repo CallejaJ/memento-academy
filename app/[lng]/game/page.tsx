@@ -17,6 +17,8 @@ import {
   Wallet,
   Brain,
   ChevronDown,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MainNav } from "@/components/main-nav";
@@ -26,6 +28,7 @@ import { useAuthModal } from "@/contexts/auth-modal-context";
 import { Lock, ShieldX } from "lucide-react";
 import { useWalletBlacklistCheck } from "@/lib/use-wallet-blacklist";
 import { useWallets } from "@privy-io/react-auth";
+import { useSound } from "@/contexts/sound-context";
 
 const translations = {
   en: {
@@ -135,6 +138,7 @@ export default function GameLobbyPage() {
   );
 
   const { isBlocked, blockReason } = useWalletBlacklistCheck();
+  const { soundEnabled, toggleSound } = useSound();
 
   const [loading, setLoading] = useState(true);
   const [startingMode, setStartingMode] = useState<string | null>(null);
@@ -369,6 +373,18 @@ export default function GameLobbyPage() {
                   <Brain className="w-4 h-4" />
                   <span>Beta 2.0</span>
                 </div>
+                {/* Sound Toggle */}
+                <button
+                  onClick={toggleSound}
+                  className="ml-4 p-2 rounded-full bg-slate-800/50 border border-slate-700 hover:border-cyan-500/50 transition-colors"
+                  title={soundEnabled ? "Mute sounds" : "Enable sounds"}
+                >
+                  {soundEnabled ? (
+                    <Volume2 className="w-5 h-5 text-cyan-400" />
+                  ) : (
+                    <VolumeX className="w-5 h-5 text-slate-500" />
+                  )}
+                </button>
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-slate-400 leading-tight">
                   Crypto Quiz <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">

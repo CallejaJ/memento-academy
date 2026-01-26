@@ -5,6 +5,7 @@ import { Inter, Orbitron } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/contexts/auth-context";
 import { AuthModalProvider } from "@/contexts/auth-modal-context";
+import { SoundProvider } from "@/contexts/sound-context";
 import { PrivyProvider } from "@/lib/privy";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -184,11 +185,13 @@ export default async function RootLayout({
           <PrivyProvider>
             <AuthProvider>
               <AuthModalProvider>
-                <div className="flex-grow">{children}</div>
-                <SpeedInsights />
-                <Toaster />
-                <CookieConsent lng={lng} />
-                <GoogleAnalytics />
+                <SoundProvider>
+                  <div className="flex-grow">{children}</div>
+                  <SpeedInsights />
+                  <Toaster />
+                  <CookieConsent lng={lng} />
+                  <GoogleAnalytics />
+                </SoundProvider>
               </AuthModalProvider>
             </AuthProvider>
           </PrivyProvider>
