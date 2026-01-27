@@ -133,13 +133,9 @@ export default async function Web3BasicsPage({
       <MainNav lng={lng} />
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/30">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <Badge className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20 mb-6">
-              {t.badge}
-            </Badge>
-
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
               {t.title_prefix}{" "}
               <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">

@@ -62,13 +62,9 @@ export default async function BlockchainDevelopmentPage({
     <div className="min-h-screen bg-slate-950">
       <MainNav lng={lng} />
 
-      <section className="py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20">
-              {t.badge}
-            </Badge>
-
             <h1 className="text-4xl md:text-6xl font-bold">
               <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 bg-clip-text text-transparent">
                 {t.title_prefix}

@@ -120,12 +120,9 @@ export default async function SafetyPage({
       <MainNav lng={lng} />
 
       {/* Hero */}
-      <section className="py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <Badge className="bg-red-500/10 text-red-400 border-red-500/20">
-              {t.badge}
-            </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
               {t.title_prefix}
               <span className="bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">

@@ -135,12 +135,9 @@ export default async function Crypto101Page({
       <MainNav lng={lng} />
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <Badge className="bg-teal-500/10 text-teal-400 border-teal-500/20">
-              {t.badge}
-            </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
               <span className="text-white">{t.title_prefix}</span>{" "}
               <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">

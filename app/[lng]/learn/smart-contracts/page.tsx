@@ -84,15 +84,9 @@ export default async function SmartContractsPage({
     <div className="min-h-screen bg-slate-950">
       <MainNav lng={lng} />
 
-      <section className="py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <Badge
-              variant="secondary"
-              className="bg-blue-500/10 text-blue-400 dark:border dark:border-blue-500/20 transition-colors duration-300"
-            >
-              {t.badge}
-            </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 {t.title_prefix}
