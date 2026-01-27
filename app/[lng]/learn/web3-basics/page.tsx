@@ -135,8 +135,8 @@ export default async function Web3BasicsPage({
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
               {t.title_prefix}{" "}
               <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
                 {t.title_highlight}
@@ -144,12 +144,12 @@ export default async function Web3BasicsPage({
               {t.title_suffix}
             </h1>
 
-            <p className="text-xl text-slate-300 mb-8 max-w-2xl">
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
               {t.description}
             </p>
 
             {/* Stats */}
-            <div className="flex flex-wrap gap-6 text-sm">
+            <div className="flex flex-wrap gap-6 text-sm justify-center">
               <div className="flex items-center gap-2">
                 <span className="text-slate-400">{t.sections}:</span>
                 <span className="text-white font-medium">
