@@ -111,8 +111,16 @@ function LoadingCard() {
 
 export default function UnsubscribePage() {
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-8 text-center">
+    <div
+      className="min-h-screen w-full flex flex-col items-center justify-center px-4 py-16"
+      style={{
+        backgroundImage: "url('/images/wallpapers/quiz-bg-dark.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <h1 className="text-3xl font-bold mb-8 text-center text-white drop-shadow-lg">
         Unsubscribe from Newsletter
       </h1>
 
