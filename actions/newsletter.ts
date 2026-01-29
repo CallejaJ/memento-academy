@@ -153,13 +153,13 @@ export async function subscribeToNewsletter(formData: FormData) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="margin: 0; padding: 0; background-color: #0f172a; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0f172a; padding: 40px 20px;">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #0f172a;">
     <tr>
-      <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 16px; border: 1px solid #334155; overflow: hidden;">
+      <td align="center" style="padding: 40px 20px;">
+        <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #1e293b; border-radius: 16px; border: 1px solid #334155;">
           <!-- Header with Logo -->
           <tr>
-            <td style="padding: 40px 40px 20px; text-align: center;">
+            <td style="padding: 40px 40px 20px; text-align: center; background-color: #1e293b; border-radius: 16px 16px 0 0;">
               <img src="https://memento-academy.com/memento-academy-logo.png" alt="Memento Academy" width="40" height="40" style="vertical-align: middle; margin-right: 10px;">
               <span style="font-size: 28px; font-weight: 700; color: #14b8a6; font-family: Georgia, serif; vertical-align: middle;">
                 Memento Academy
@@ -168,7 +168,7 @@ export async function subscribeToNewsletter(formData: FormData) {
           </tr>
           <!-- Main Content -->
           <tr>
-            <td style="padding: 20px 40px 40px;">
+            <td style="padding: 20px 40px 40px; background-color: #1e293b;">
               <h2 style="margin: 0 0 16px; color: #f1f5f9; font-size: 24px; font-weight: 600;">
                 ${content.title}
               </h2>
@@ -191,9 +191,9 @@ export async function subscribeToNewsletter(formData: FormData) {
                 ${content.stay_tuned}
               </p>
               <!-- CTA Button -->
-              <table cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+              <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
                 <tr>
-                  <td style="background: linear-gradient(90deg, #06b6d4, #14b8a6); border-radius: 8px;">
+                  <td align="center" style="background-color: #14b8a6; border-radius: 8px;">
                     <a href="${baseUrl}/${lng}/courses" style="display: inline-block; padding: 16px 32px; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 600;">
                       ${content.cta}
                     </a>
@@ -204,7 +204,7 @@ export async function subscribeToNewsletter(formData: FormData) {
           </tr>
           <!-- Footer -->
           <tr>
-            <td style="padding: 24px 40px; background-color: #1e293b; border-top: 1px solid #334155;">
+            <td style="padding: 24px 40px; background-color: #0f172a; border-top: 1px solid #334155; border-radius: 0 0 16px 16px;">
               <p style="margin: 0 0 8px; color: #64748b; font-size: 12px; text-align: center;">
                 © ${new Date().getFullYear()} ${content.footer_rights}
               </p>
