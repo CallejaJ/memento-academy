@@ -191,12 +191,18 @@ export async function subscribeToNewsletter(formData: FormData) {
                 ${content.stay_tuned}
               </p>
               <!-- CTA Button -->
-              <table cellpadding="0" cellspacing="0" border="0">
+              <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
-                  <td align="center" style="background-color: #14b8a6; border-radius: 6px;">
-                    <a href="${baseUrl}/${lng}/courses" style="display: inline-block; padding: 14px 28px; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 600;">
-                      ${content.cta}
-                    </a>
+                  <td align="center">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td align="center" style="background-color: #14b8a6; border-radius: 6px;">
+                          <a href="${baseUrl}/${lng}/courses" style="display: inline-block; padding: 14px 28px; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 600;">
+                            ${content.cta}
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
               </table>
