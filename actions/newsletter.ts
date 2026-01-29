@@ -306,7 +306,10 @@ export async function unsubscribeFromNewsletter(email: string) {
     // Update the subscriber to inactive
     const { error: updateError } = await supabaseAdmin
       .from("newsletter_subscribers")
-      .update({ is_active: false })
+      .update({
+        is_active: false,
+        unsubscribed_at: new Date().toISOString(),
+      })
       .eq("id", subscriber.id);
 
     if (updateError) {
