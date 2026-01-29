@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle, AlertCircle, Loader2 } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { unsubscribeFromNewsletter } from "@/actions/newsletter";
 
 function UnsubscribeForm() {
   const searchParams = useSearchParams();
@@ -38,40 +38,10 @@ function UnsubscribeForm() {
     e.preventDefault();
 
     startTransition(async () => {
-      try {
-        // Find the subscriber
-        const { data: subscriber, error: findError } = await supabase
-          .from("newsletter_subscribers")
-          .select("id")
-          .eq("email", email)
-          .single();
-
-        if (findError || !subscriber) {
-          setResponse({
-            success: false,
-            message: "Email not found in our subscription list.",
-          });
-          return;
-        }
-
-        // Update the subscriber to inactive
-        const { error: updateError } = await supabase
-          .from("newsletter_subscribers")
-          .update({ is_active: false })
-          .eq("id", subscriber.id);
-
-        if (updateError) throw updateError;
-
-        setResponse({
-          success: true,
-          message: "You've been successfully unsubscribed from our newsletter.",
-        });
+      const result = await unsubscribeFromNewsletter(email);
+      setResponse(result);
+      if (result.success) {
         setEmail("");
-      } catch (error: any) {
-        setResponse({
-          success: false,
-          message: error.message || "Failed to unsubscribe. Please try again.",
-        });
       }
     });
   };

@@ -152,15 +152,15 @@ export async function subscribeToNewsletter(formData: FormData) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="margin: 0; padding: 0; background-color: #0f172a; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #0f172a;">
+<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: Arial, Helvetica, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff;">
     <tr>
       <td align="center" style="padding: 40px 20px;">
-        <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #1e293b; border-radius: 16px; border: 1px solid #334155;">
+        <table width="600" cellpadding="0" cellspacing="0" border="0">
           <!-- Header with Logo -->
           <tr>
-            <td style="padding: 40px 40px 20px; text-align: center; background-color: #1e293b; border-radius: 16px 16px 0 0;">
-              <img src="https://memento-academy.com/memento-academy-logo.png" alt="Memento Academy" width="40" height="40" style="vertical-align: middle; margin-right: 10px;">
+            <td style="padding: 0 0 30px; text-align: center;">
+              <img src="https://memento-academy.com/memento-academy-logo.png" alt="Memento Academy" width="50" height="50" style="vertical-align: middle; margin-right: 12px;">
               <span style="font-size: 28px; font-weight: 700; color: #14b8a6; font-family: Georgia, serif; vertical-align: middle;">
                 Memento Academy
               </span>
@@ -168,33 +168,33 @@ export async function subscribeToNewsletter(formData: FormData) {
           </tr>
           <!-- Main Content -->
           <tr>
-            <td style="padding: 20px 40px 40px; background-color: #1e293b;">
-              <h2 style="margin: 0 0 16px; color: #f1f5f9; font-size: 24px; font-weight: 600;">
+            <td style="padding: 0;">
+              <h1 style="margin: 0 0 20px; color: #1f2937; font-size: 26px; font-weight: 700;">
                 ${content.title}
-              </h2>
-              <p style="margin: 0 0 16px; color: #94a3b8; font-size: 16px; line-height: 1.6;">
+              </h1>
+              <p style="margin: 0 0 16px; color: #374151; font-size: 16px; line-height: 1.6;">
                 ${content.greeting}
               </p>
-              <p style="margin: 0 0 24px; color: #94a3b8; font-size: 16px; line-height: 1.6;">
+              <p style="margin: 0 0 24px; color: #374151; font-size: 16px; line-height: 1.6;">
                 ${content.intro}
               </p>
-              <p style="margin: 0 0 16px; color: #f1f5f9; font-size: 16px; font-weight: 600;">
+              <p style="margin: 0 0 12px; color: #1f2937; font-size: 16px; font-weight: 600;">
                 ${content.expect}
               </p>
-              <ul style="margin: 0 0 24px; padding-left: 20px; color: #94a3b8; font-size: 15px; line-height: 1.8;">
-                ${web3Basics ? `<li style="margin-bottom: 8px;">${content.list.web3}</li>` : ""}
-                ${cbdcEducation ? `<li style="margin-bottom: 8px;">${content.list.cbdc}</li>` : ""}
-                ${freeCourses ? `<li style="margin-bottom: 8px;">${content.list.free}</li>` : ""}
-                ${communityEvents ? `<li style="margin-bottom: 8px;">${content.list.community}</li>` : ""}
+              <ul style="margin: 0 0 24px; padding-left: 20px; color: #4b5563; font-size: 15px; line-height: 1.8;">
+                ${web3Basics ? `<li style="margin-bottom: 6px;">${content.list.web3}</li>` : ""}
+                ${cbdcEducation ? `<li style="margin-bottom: 6px;">${content.list.cbdc}</li>` : ""}
+                ${freeCourses ? `<li style="margin-bottom: 6px;">${content.list.free}</li>` : ""}
+                ${communityEvents ? `<li style="margin-bottom: 6px;">${content.list.community}</li>` : ""}
               </ul>
-              <p style="margin: 0 0 32px; color: #94a3b8; font-size: 16px; line-height: 1.6;">
+              <p style="margin: 0 0 30px; color: #374151; font-size: 16px; line-height: 1.6;">
                 ${content.stay_tuned}
               </p>
               <!-- CTA Button -->
-              <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
+              <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td align="center" style="background-color: #14b8a6; border-radius: 8px;">
-                    <a href="${baseUrl}/${lng}/courses" style="display: inline-block; padding: 16px 32px; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 600;">
+                  <td align="center" style="background-color: #14b8a6; border-radius: 6px;">
+                    <a href="${baseUrl}/${lng}/courses" style="display: inline-block; padding: 14px 28px; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 600;">
                       ${content.cta}
                     </a>
                   </td>
@@ -204,11 +204,11 @@ export async function subscribeToNewsletter(formData: FormData) {
           </tr>
           <!-- Footer -->
           <tr>
-            <td style="padding: 24px 40px; background-color: #0f172a; border-top: 1px solid #334155; border-radius: 0 0 16px 16px;">
-              <p style="margin: 0 0 8px; color: #64748b; font-size: 12px; text-align: center;">
+            <td style="padding: 40px 0 0; border-top: 1px solid #e5e7eb; margin-top: 40px;">
+              <p style="margin: 20px 0 8px; color: #9ca3af; font-size: 12px;">
                 © ${new Date().getFullYear()} ${content.footer_rights}
               </p>
-              <p style="margin: 0; color: #64748b; font-size: 12px; text-align: center;">
+              <p style="margin: 0; color: #9ca3af; font-size: 12px;">
                 ${content.unsubscribe_text} <a href="${baseUrl}/unsubscribe?email=${email}" style="color: #14b8a6;">${content.unsubscribe_link}</a>.
               </p>
             </td>
@@ -274,6 +274,49 @@ export async function subscribeToNewsletter(formData: FormData) {
     return {
       success: false,
       messageKey: "error",
+    };
+  }
+}
+
+export async function unsubscribeFromNewsletter(email: string) {
+  try {
+    const supabase = await createClient();
+
+    // Find the subscriber
+    const { data: subscriber, error: findError } = await supabase
+      .from("newsletter_subscribers")
+      .select("id")
+      .eq("email", email.toLowerCase().trim())
+      .single();
+
+    if (findError || !subscriber) {
+      console.error("Subscriber not found:", email, findError);
+      return {
+        success: false,
+        message: "Email not found in our subscription list.",
+      };
+    }
+
+    // Update the subscriber to inactive
+    const { error: updateError } = await supabase
+      .from("newsletter_subscribers")
+      .update({ is_active: false })
+      .eq("id", subscriber.id);
+
+    if (updateError) {
+      console.error("Error updating subscriber:", updateError);
+      throw updateError;
+    }
+
+    return {
+      success: true,
+      message: "You've been successfully unsubscribed from our newsletter.",
+    };
+  } catch (error: any) {
+    console.error("Unsubscribe error:", error);
+    return {
+      success: false,
+      message: error.message || "Failed to unsubscribe. Please try again.",
     };
   }
 }
