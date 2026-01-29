@@ -114,7 +114,7 @@ export default function UnsubscribePage() {
     <div
       className="min-h-screen w-full flex flex-col items-center justify-center px-4 py-16"
       style={{
-        backgroundImage: "url('/images/wallpapers/quiz-bg-dark.png')",
+        backgroundImage: "url('/images/wallpapers/unsubscribe-bg.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
