@@ -10,7 +10,7 @@ import { z } from "zod";
 const apiInstance = new brevo.TransactionalEmailsApi();
 apiInstance.setApiKey(
   brevo.TransactionalEmailsApiApiKeys.apiKey,
-  process.env.BREVO_API_KEY || ""
+  process.env.BREVO_API_KEY || "",
 );
 
 const subscribeSchema = z.object({
@@ -83,10 +83,11 @@ export async function subscribeToNewsletter(formData: FormData) {
 
     console.log("Subscriber added to database successfully");
 
-    // Generate base URL for links
-    const baseUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000";
+    // Generate base URL for links - always use production domain
+    const baseUrl =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://memento-academy.com";
 
     console.log("Attempting to send email via Brevo...");
 
@@ -106,7 +107,7 @@ export async function subscribeToNewsletter(formData: FormData) {
           community: "Community events and live Q&A",
         },
         stay_tuned: "Stay tuned for our next update!",
-        cta: "Visit Your Dashboard",
+        cta: "Explore Our Courses",
         footer_rights: "Memento Academy. All rights reserved.",
         unsubscribe_text: "If you didn't sign up for this newsletter, you can",
         unsubscribe_link: "unsubscribe here",
@@ -125,7 +126,7 @@ export async function subscribeToNewsletter(formData: FormData) {
           community: "Eventos de la comunidad y preguntas y respuestas en vivo",
         },
         stay_tuned: "¡Mantente atento a nuestra próxima actualización!",
-        cta: "Visita tu Panel de Control",
+        cta: "Explora Nuestros Cursos",
         footer_rights: "Memento Academy. Todos los derechos reservados.",
         unsubscribe_text: "Si no te registraste para este boletín, puedes",
         unsubscribe_link: "darte de baja aquí",
@@ -145,30 +146,79 @@ export async function subscribeToNewsletter(formData: FormData) {
       };
       sendSmtpEmail.to = [{ email: email, name: fullName || "Subscriber" }];
       sendSmtpEmail.htmlContent = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <div style="background-color: #0e1629; padding: 20px; text-align: center;">
-            <h1 style="color: #ffffff; margin: 0;">${content.title}</h1>
-          </div>
-          <div style="padding: 20px; background-color: #ffffff;">
-            <p>${content.greeting}</p>
-            <p>${content.intro}</p>
-            <p>${content.expect}</p>
-            <ul>
-              ${web3Basics ? `<li>${content.list.web3}</li>` : ""}
-              ${cbdcEducation ? `<li>${content.list.cbdc}</li>` : ""}
-              ${freeCourses ? `<li>${content.list.free}</li>` : ""}
-              ${communityEvents ? `<li>${content.list.community}</li>` : ""}
-            </ul>
-            <p>${content.stay_tuned}</p>
-            <div style="text-align: center; margin-top: 30px;">
-              <a href="${baseUrl}/${lng}/dashboard" style="background-color: #06b6d4; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">${content.cta}</a>
-            </div>
-          </div>
-          <div style="background-color: #f3f4f6; padding: 15px; text-align: center; font-size: 12px; color: #6b7280;">
-            <p>© ${new Date().getFullYear()} ${content.footer_rights}</p>
-            <p>${content.unsubscribe_text} <a href="${baseUrl}/unsubscribe?email=${email}" style="color: #06b6d4;">${content.unsubscribe_link}</a>.</p>
-          </div>
-        </div>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #0f172a; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0f172a; padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 16px; border: 1px solid #334155; overflow: hidden;">
+          <!-- Header with Logo -->
+          <tr>
+            <td style="padding: 40px 40px 20px; text-align: center;">
+              <img src="https://memento-academy.com/memento-academy-logo.png" alt="Memento Academy" width="40" height="40" style="vertical-align: middle; margin-right: 10px;">
+              <span style="font-size: 28px; font-weight: 700; color: #14b8a6; font-family: Georgia, serif; vertical-align: middle;">
+                Memento Academy
+              </span>
+            </td>
+          </tr>
+          <!-- Main Content -->
+          <tr>
+            <td style="padding: 20px 40px 40px;">
+              <h2 style="margin: 0 0 16px; color: #f1f5f9; font-size: 24px; font-weight: 600;">
+                ${content.title}
+              </h2>
+              <p style="margin: 0 0 16px; color: #94a3b8; font-size: 16px; line-height: 1.6;">
+                ${content.greeting}
+              </p>
+              <p style="margin: 0 0 24px; color: #94a3b8; font-size: 16px; line-height: 1.6;">
+                ${content.intro}
+              </p>
+              <p style="margin: 0 0 16px; color: #f1f5f9; font-size: 16px; font-weight: 600;">
+                ${content.expect}
+              </p>
+              <ul style="margin: 0 0 24px; padding-left: 20px; color: #94a3b8; font-size: 15px; line-height: 1.8;">
+                ${web3Basics ? `<li style="margin-bottom: 8px;">${content.list.web3}</li>` : ""}
+                ${cbdcEducation ? `<li style="margin-bottom: 8px;">${content.list.cbdc}</li>` : ""}
+                ${freeCourses ? `<li style="margin-bottom: 8px;">${content.list.free}</li>` : ""}
+                ${communityEvents ? `<li style="margin-bottom: 8px;">${content.list.community}</li>` : ""}
+              </ul>
+              <p style="margin: 0 0 32px; color: #94a3b8; font-size: 16px; line-height: 1.6;">
+                ${content.stay_tuned}
+              </p>
+              <!-- CTA Button -->
+              <table cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+                <tr>
+                  <td style="background: linear-gradient(90deg, #06b6d4, #14b8a6); border-radius: 8px;">
+                    <a href="${baseUrl}/${lng}/courses" style="display: inline-block; padding: 16px 32px; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 600;">
+                      ${content.cta}
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <!-- Footer -->
+          <tr>
+            <td style="padding: 24px 40px; background-color: #1e293b; border-top: 1px solid #334155;">
+              <p style="margin: 0 0 8px; color: #64748b; font-size: 12px; text-align: center;">
+                © ${new Date().getFullYear()} ${content.footer_rights}
+              </p>
+              <p style="margin: 0; color: #64748b; font-size: 12px; text-align: center;">
+                ${content.unsubscribe_text} <a href="${baseUrl}/unsubscribe?email=${email}" style="color: #14b8a6;">${content.unsubscribe_link}</a>.
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
       `;
 
       const emailResult = await apiInstance.sendTransacEmail(sendSmtpEmail);
