@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase-server";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import { Database } from "@/types/supabase";
 import * as brevo from "@getbrevo/brevo";
 
@@ -286,10 +287,9 @@ export async function subscribeToNewsletter(formData: FormData) {
 
 export async function unsubscribeFromNewsletter(email: string) {
   try {
-    const supabase = await createClient();
-
+    // Use admin client to bypass RLS
     // Find the subscriber
-    const { data: subscriber, error: findError } = await supabase
+    const { data: subscriber, error: findError } = await supabaseAdmin
       .from("newsletter_subscribers")
       .select("id")
       .eq("email", email.toLowerCase().trim())
@@ -304,7 +304,7 @@ export async function unsubscribeFromNewsletter(email: string) {
     }
 
     // Update the subscriber to inactive
-    const { error: updateError } = await supabase
+    const { error: updateError } = await supabaseAdmin
       .from("newsletter_subscribers")
       .update({ is_active: false })
       .eq("id", subscriber.id);
