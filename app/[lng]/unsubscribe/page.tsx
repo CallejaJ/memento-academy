@@ -111,22 +111,29 @@ function LoadingCard() {
 
 export default function UnsubscribePage() {
   return (
-    <div
-      className="min-h-screen w-full flex flex-col items-center justify-center px-4 py-16"
-      style={{
-        backgroundImage: "url('/images/wallpapers/unsubscribe-bg.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      <h1 className="text-3xl font-bold mb-8 text-center text-white drop-shadow-lg">
-        Unsubscribe from Newsletter
-      </h1>
+    <div className="relative min-h-screen w-full flex flex-col items-center justify-center px-4 py-16 overflow-hidden bg-black">
+      {/* Background Image with adjustment */}
+      <div
+        className="absolute inset-0 z-0 opacity-80"
+        style={{
+          backgroundImage: "url('/images/wallpapers/unsubscribe-bg.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          filter: "brightness(1.2) contrast(1.1)", // Brighten the image to remove 'dark filter' look
+        }}
+      />
 
-      <Suspense fallback={<LoadingCard />}>
-        <UnsubscribeForm />
-      </Suspense>
+      {/* Content Overlay */}
+      <div className="relative z-10 w-full flex flex-col items-center max-w-md">
+        <h1 className="text-3xl font-bold mb-8 text-center text-white drop-shadow-lg">
+          Unsubscribe from Newsletter
+        </h1>
+
+        <Suspense fallback={<LoadingCard />}>
+          <UnsubscribeForm />
+        </Suspense>
+      </div>
     </div>
   );
 }
