@@ -46,6 +46,7 @@ export interface Database {
           email: string;
           full_name: string | null;
           confirmed_at: string | null;
+          is_active: boolean;
           subscription_preferences: {
             web3_basics?: boolean;
             cbdc_education?: boolean;
@@ -59,6 +60,7 @@ export interface Database {
           email: string;
           full_name?: string | null;
           confirmed_at?: string | null;
+          is_active?: boolean;
           subscription_preferences?: {
             web3_basics?: boolean;
             cbdc_education?: boolean;
@@ -72,6 +74,7 @@ export interface Database {
           email?: string;
           full_name?: string | null;
           confirmed_at?: string | null;
+          is_active?: boolean;
           subscription_preferences?: {
             web3_basics?: boolean;
             cbdc_education?: boolean;
