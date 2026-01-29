@@ -127,7 +127,7 @@ export function AuthModal({ isOpen, onClose, lng = "en" }: AuthModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md bg-slate-900 border-slate-700">
-        <DialogHeader className="flex flex-col items-center text-center">
+        <DialogHeader className="flex flex-col items-start text-left">
           <Image
             src="/memento-academy-logo.png"
             alt="Memento Academy"
