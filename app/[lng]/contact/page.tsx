@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { MainNav } from "@/components/main-nav";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+
 import { Mail, MessageCircle, Github } from "lucide-react";
 import { XIcon } from "@/components/icons/x-icon";
 import { Button } from "@/components/ui/button";
@@ -36,9 +36,6 @@ export default async function ContactPage({
       <section className="py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <Badge className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20">
-              {t("contact_page.badge")}
-            </Badge>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
               <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
                 {t("contact_page.title")}

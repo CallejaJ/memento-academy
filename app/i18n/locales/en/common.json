@@ -313,7 +313,7 @@
     "title": "Contact",
     "title_end": "Us",
     "subtitle": "Have questions, suggestions, or want to collaborate? We'd love to hear from you.",
-    "discord": {
+    "community": {
       "title": "Community Discussions",
       "desc": "Join our GitHub Discussions for real-time support, questions, and community events.",
       "btn": "Join Community"
@@ -350,8 +350,8 @@
     "follow_us": "Follow Us",
     "response_times": {
       "title": "Response Times",
-      "discord": "Discussions:",
-      "discord_time": "Usually within hours",
+      "community": "Discussions:",
+      "community_time": "Usually within hours",
       "email": "Email:",
       "email_time": "Within 24-48 business hours",
       "github": "GitHub Issues (Bugs):",
