@@ -32,7 +32,7 @@ export function SiteFooter({ lng }: SiteFooterProps) {
               <span className="sr-only">X (Twitter)</span>
             </Link>
             <Link
-              href="https://github.com/CallejaJ/memento-academy"
+              href="https://github.com/Memento-Academy"
               target="_blank"
               rel="noreferrer"
               className="text-slate-600 hover:text-cyan-500 transition-colors"
