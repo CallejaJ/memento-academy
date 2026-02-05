@@ -25,7 +25,7 @@ export function PrivyProvider({ children }: { children: React.ReactNode }) {
         defaultChain: sepolia,
         supportedChains: [sepolia],
         // Login methods
-        loginMethods: ["email"],
+        loginMethods: ["email", "google"],
         // Appearance
         appearance: {
           theme: "dark",
