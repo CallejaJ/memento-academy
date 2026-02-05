@@ -17,6 +17,12 @@ import {
   GraduationCap,
   LayoutPanelLeft,
   ShieldCheck,
+  Twitter,
+  Github,
+  Linkedin,
+  MessageCircle,
+  Mail,
+  ExternalLink,
 } from "lucide-react";
 import Image from "next/image";
 import { NewsletterForm } from "@/components/newsletter/newsletter-form";
@@ -56,7 +62,10 @@ export default async function LandingPage({
   const { t } = await useTranslation(lng, "common");
 
   return (
-    <div className="min-h-screen bg-slate-950 transition-colors duration-300">
+    <div className="min-h-screen animated-bg transition-colors duration-300 relative">
+      {/* Mesh overlay for depth */}
+      <div className="fixed inset-0 mesh-overlay pointer-events-none" />
+
       <MainNav lng={lng} />
 
       {/* Hero Section */}
@@ -139,7 +148,10 @@ export default async function LandingPage({
         </div>
       </section>
 
-      <section className="py-10 bg-slate-900/60 border-y border-slate-800/50">
+      <section
+        className="py-10 relative z-10"
+        style={{ backgroundColor: "#0a1628" }}
+      >
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-6 text-center md:text-left">
           <div className="space-y-1">
             <h3 className="text-xl font-bold text-white">
@@ -167,7 +179,8 @@ export default async function LandingPage({
       {/* Mission Section */}
       <section
         id="features"
-        className="py-20 bg-slate-900/50 transition-colors duration-300"
+        className="py-20 transition-colors duration-300 relative z-10"
+        style={{ backgroundColor: "#0a1628" }}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
@@ -180,7 +193,7 @@ export default async function LandingPage({
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-slate-800 bg-slate-900/50 shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 hover:border-cyan-500/30">
+            <Card className="glass-card glass-card-hover border-glow rounded-xl">
               <CardHeader>
                 <div className="w-12 h-12 bg-cyan-500/10 rounded-lg flex items-center justify-center mb-4 border border-cyan-500/20 transition-colors duration-300">
                   <BookOpen className="w-6 h-6 text-cyan-400" />
@@ -194,7 +207,7 @@ export default async function LandingPage({
               </CardHeader>
             </Card>
 
-            <Card className="border-slate-800 bg-slate-900/50 shadow-lg hover:shadow-teal-500/10 transition-all duration-300 hover:border-teal-500/30">
+            <Card className="glass-card glass-card-hover border-glow rounded-xl">
               <CardHeader>
                 <div className="w-12 h-12 bg-teal-500/10 rounded-lg flex items-center justify-center mb-4 border border-teal-500/20 transition-colors duration-300">
                   <Globe className="w-6 h-6 text-teal-400" />
@@ -208,7 +221,7 @@ export default async function LandingPage({
               </CardHeader>
             </Card>
 
-            <Card className="border-slate-800 bg-slate-900/50 shadow-lg hover:shadow-emerald-500/10 transition-all duration-300 hover:border-emerald-500/30">
+            <Card className="glass-card glass-card-hover border-glow rounded-xl">
               <CardHeader>
                 <div className="w-12 h-12 bg-emerald-500/10 rounded-lg flex items-center justify-center mb-4 border border-emerald-500/20 transition-colors duration-300">
                   <ShieldCheck className="w-6 h-6 text-emerald-400" />
@@ -222,7 +235,7 @@ export default async function LandingPage({
               </CardHeader>
             </Card>
 
-            <Card className="border-slate-800 bg-slate-900/50 shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 hover:border-cyan-500/30">
+            <Card className="glass-card glass-card-hover border-glow rounded-xl">
               <CardHeader>
                 <div className="w-12 h-12 bg-cyan-500/10 rounded-lg flex items-center justify-center mb-4 border border-cyan-500/20 transition-colors duration-300">
                   <Users className="w-6 h-6 text-cyan-400" />
@@ -242,7 +255,8 @@ export default async function LandingPage({
       {/* Community Proof */}
       <section
         id="community"
-        className="py-20 bg-slate-950 transition-colors duration-300"
+        className="py-20 transition-colors duration-300 relative z-10"
+        style={{ backgroundColor: "#0a1628" }}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
@@ -255,7 +269,7 @@ export default async function LandingPage({
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-slate-800 bg-slate-900/50 shadow-lg transition-colors duration-300">
+            <Card className="glass-card glass-card-hover rounded-xl glow-cyan">
               <CardContent className="p-8">
                 <div className="flex mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -284,7 +298,7 @@ export default async function LandingPage({
               </CardContent>
             </Card>
 
-            <Card className="border-slate-800 bg-slate-900/50 shadow-lg transition-colors duration-300">
+            <Card className="glass-card glass-card-hover rounded-xl glow-teal">
               <CardContent className="p-8">
                 <div className="flex mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -313,7 +327,7 @@ export default async function LandingPage({
               </CardContent>
             </Card>
 
-            <Card className="border-slate-800 bg-slate-900/50 shadow-lg transition-colors duration-300">
+            <Card className="glass-card glass-card-hover rounded-xl glow-cyan">
               <CardContent className="p-8">
                 <div className="flex mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -357,7 +371,7 @@ export default async function LandingPage({
         }}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center space-y-8 bg-slate-900/50 border border-slate-800 p-8 rounded-3xl">
+          <div className="max-w-4xl mx-auto text-center space-y-8 glass-card border-glow p-8 rounded-3xl">
             <div className="space-y-4">
               <div className="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto border border-cyan-500/20">
                 <GraduationCap className="w-8 h-8 text-cyan-400" />
@@ -371,7 +385,7 @@ export default async function LandingPage({
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 text-left max-w-5xl mx-auto mt-12">
-              <div className="space-y-3 p-6 rounded-2xl bg-slate-800/30 border border-slate-800 hover:border-cyan-500/30 transition-colors">
+              <div className="space-y-3 p-6 rounded-2xl glass-card glass-card-hover">
                 <CheckCircle className="w-6 h-6 text-teal-400" />
                 <h3 className="font-semibold text-white">
                   {t("access.cards.library.title")}
@@ -380,7 +394,7 @@ export default async function LandingPage({
                   {t("access.cards.library.desc")}
                 </p>
               </div>
-              <div className="space-y-3 p-6 rounded-2xl bg-slate-800/30 border border-slate-800 hover:border-cyan-500/30 transition-colors">
+              <div className="space-y-3 p-6 rounded-2xl glass-card glass-card-hover">
                 <CheckCircle className="w-6 h-6 text-teal-400" />
                 <h3 className="font-semibold text-white">
                   {t("access.cards.newsletter.title")}
@@ -389,7 +403,7 @@ export default async function LandingPage({
                   {t("access.cards.newsletter.desc")}
                 </p>
               </div>
-              <div className="space-y-3 p-6 rounded-2xl bg-slate-800/30 border border-slate-800 hover:border-cyan-500/30 transition-colors">
+              <div className="space-y-3 p-6 rounded-2xl glass-card glass-card-hover">
                 <CheckCircle className="w-6 h-6 text-teal-400" />
                 <h3 className="font-semibold text-white">
                   {t("access.cards.cbdc.title")}
@@ -398,7 +412,7 @@ export default async function LandingPage({
                   {t("access.cards.cbdc.desc")}
                 </p>
               </div>
-              <div className="space-y-3 p-6 rounded-2xl bg-slate-800/30 border border-slate-800 hover:border-cyan-500/30 transition-colors">
+              <div className="space-y-3 p-6 rounded-2xl glass-card glass-card-hover">
                 <CheckCircle className="w-6 h-6 text-teal-400" />
                 <h3 className="font-semibold text-white">
                   {t("access.cards.support.title")}
@@ -407,7 +421,7 @@ export default async function LandingPage({
                   {t("access.cards.support.desc")}
                 </p>
               </div>
-              <div className="space-y-3 p-6 rounded-2xl bg-slate-800/30 border border-slate-800 hover:border-cyan-500/30 transition-colors">
+              <div className="space-y-3 p-6 rounded-2xl glass-card glass-card-hover">
                 <CheckCircle className="w-6 h-6 text-teal-400" />
                 <h3 className="font-semibold text-white">
                   {t("access.cards.security.title")}
@@ -416,7 +430,7 @@ export default async function LandingPage({
                   {t("access.cards.security.desc")}
                 </p>
               </div>
-              <div className="space-y-3 p-6 rounded-2xl bg-slate-800/30 border border-slate-800 hover:border-cyan-500/30 transition-colors">
+              <div className="space-y-3 p-6 rounded-2xl glass-card glass-card-hover">
                 <CheckCircle className="w-6 h-6 text-teal-400" />
                 <h3 className="font-semibold text-white">
                   {t("access.cards.open.title")}
@@ -431,7 +445,10 @@ export default async function LandingPage({
       </section>
 
       {/* Dedicated Newsletter Section */}
-      <section className="py-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border-t border-slate-900">
+      <section
+        className="py-20 border-t border-cyan-500/10 relative z-10"
+        style={{ backgroundColor: "#0a1628" }}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center space-y-4 mb-12">
@@ -446,13 +463,13 @@ export default async function LandingPage({
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-4 text-center shadow-lg">
+                  <div className="glass-card rounded-lg p-4 text-center glow-cyan">
                     <div className="text-2xl font-bold text-cyan-400">50K+</div>
                     <div className="text-sm text-slate-400">
                       {t("newsletter_section.stats.learners")}
                     </div>
                   </div>
-                  <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-4 text-center shadow-lg">
+                  <div className="glass-card rounded-lg p-4 text-center glow-teal">
                     <div className="text-2xl font-bold text-teal-400">
                       Weekly
                     </div>
@@ -498,187 +515,214 @@ export default async function LandingPage({
       {/* Footer */}
       <footer
         id="contact"
-        className="bg-slate-950 text-white py-16 transition-colors duration-300 border-t border-slate-900"
+        className="relative z-10 border-t border-cyan-500/20"
       >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 lg:grid-cols-6 gap-8">
-            <div className="space-y-4 lg:col-span-3">
-              <div className="flex items-center space-x-3">
-                <Image
-                  src="/memento-academy-logo.png"
-                  alt="Memento Academy"
-                  width={40}
-                  height={40}
-                />
-                <span className="text-xl font-bold">Memento Academy</span>
+        {/* Main Footer Content */}
+        <div className="glass-card py-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-4 lg:grid-cols-6 gap-8 lg:gap-12">
+              {/* Brand Section */}
+              <div className="space-y-6 lg:col-span-3">
+                <div className="flex items-center space-x-3 group">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-cyan-500/30 blur-xl rounded-full group-hover:bg-cyan-400/40 transition-all duration-300" />
+                    <Image
+                      src="/memento-academy-logo.png"
+                      alt="Memento Academy"
+                      width={48}
+                      height={48}
+                      className="relative z-10"
+                    />
+                  </div>
+                  <span className="text-xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+                    Memento Academy
+                  </span>
+                </div>
+                <p className="text-slate-400 leading-relaxed max-w-sm">
+                  {t("footer.desc")}
+                </p>
               </div>
-              <p className="text-slate-400 transition-colors duration-300 max-w-sm">
-                {t("footer.desc")}
-              </p>
-            </div>
 
-            <div>
-              <h3 className="font-semibold text-lg mb-4">
-                {t("footer.cols.learn")}
-              </h3>
-              <ul className="space-y-3">
-                <li>
-                  <a
-                    href={`/${lng}/learn/web3-basics`}
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    {t("footer.links.web3")}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`/${lng}/learn/crypto-101`}
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    {t("footer.links.crypto")}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`/${lng}/learn/cbdc`}
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    {t("footer.links.cbdc")}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`/${lng}/learn/safety`}
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    {t("footer.links.safety")}
-                  </a>
-                </li>
-              </ul>
-            </div>
+              {/* Learn Column */}
+              <div className="space-y-4">
+                <h3 className="font-semibold text-lg text-white">
+                  {t("footer.cols.learn")}
+                </h3>
+                <ul className="space-y-3">
+                  <li>
+                    <a
+                      href={`/${lng}/learn/web3-basics`}
+                      className="text-slate-400 hover:text-cyan-400 transition-colors duration-300 flex items-center group"
+                    >
+                      <span>{t("footer.links.web3")}</span>
+                      <ExternalLink className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`/${lng}/learn/crypto-101`}
+                      className="text-slate-400 hover:text-cyan-400 transition-colors duration-300 flex items-center group"
+                    >
+                      <span>{t("footer.links.crypto")}</span>
+                      <ExternalLink className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`/${lng}/learn/cbdc`}
+                      className="text-slate-400 hover:text-cyan-400 transition-colors duration-300 flex items-center group"
+                    >
+                      <span>{t("footer.links.cbdc")}</span>
+                      <ExternalLink className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`/${lng}/learn/safety`}
+                      className="text-slate-400 hover:text-cyan-400 transition-colors duration-300 flex items-center group"
+                    >
+                      <span>{t("footer.links.safety")}</span>
+                      <ExternalLink className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
 
-            <div>
-              <h3 className="font-semibold text-lg mb-4">
-                {t("footer.cols.academy")}
-              </h3>
-              <ul className="space-y-3">
-                <li>
-                  <a
-                    href={`/${lng}/about`}
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    {t("footer.links.mission")}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`/${lng}/courses`}
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    {t("footer.links.courses")}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`/${lng}/knowledge-base`}
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    {t("footer.links.kb")}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`/${lng}/contribute`}
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    {t("footer.links.contribute")}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`/${lng}/updates`}
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    {lng === "es" ? "Actualizaciones" : "Updates"}
-                  </a>
-                </li>
-              </ul>
-            </div>
+              {/* Academy Column */}
+              <div className="space-y-4">
+                <h3 className="font-semibold text-lg text-white">
+                  {t("footer.cols.academy")}
+                </h3>
+                <ul className="space-y-3">
+                  <li>
+                    <a
+                      href={`/${lng}/about`}
+                      className="text-slate-400 hover:text-teal-400 transition-colors duration-300"
+                    >
+                      {t("footer.links.mission")}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`/${lng}/courses`}
+                      className="text-slate-400 hover:text-teal-400 transition-colors duration-300"
+                    >
+                      {t("footer.links.courses")}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`/${lng}/faqs`}
+                      className="text-slate-400 hover:text-teal-400 transition-colors duration-300"
+                    >
+                      {t("footer.links.kb")}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`/${lng}/contribute`}
+                      className="text-slate-400 hover:text-teal-400 transition-colors duration-300"
+                    >
+                      {t("footer.links.contribute")}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`/${lng}/updates`}
+                      className="text-slate-400 hover:text-teal-400 transition-colors duration-300"
+                    >
+                      {lng === "es" ? "Actualizaciones" : "Updates"}
+                    </a>
+                  </li>
+                </ul>
+              </div>
 
-            <div>
-              <h3 className="font-semibold text-lg mb-4">
-                {t("footer.cols.connect")}
-              </h3>
-              <ul className="space-y-3">
-                <li>
-                  <a
-                    href="https://github.com/orgs/Memento-Academy/discussions"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    Community
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://twitter.com/memento_academy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    X (Twitter)
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.linkedin.com/company/memento-academy/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    LinkedIn
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://github.com/Memento-Academy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    GitHub
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`/${lng}/contact`}
-                    className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-                  >
-                    {t("footer.links.contact")}
-                  </a>
-                </li>
-              </ul>
+              {/* Connect Column */}
+              <div className="space-y-4">
+                <h3 className="font-semibold text-lg text-white">
+                  {t("footer.cols.connect")}
+                </h3>
+                <ul className="space-y-3">
+                  <li>
+                    <a
+                      href="https://github.com/orgs/Memento-Academy/discussions"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-emerald-400 transition-colors duration-300 flex items-center"
+                    >
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      Community
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://twitter.com/memento_academy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-emerald-400 transition-colors duration-300 flex items-center"
+                    >
+                      <Twitter className="w-4 h-4 mr-2" />X (Twitter)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.linkedin.com/company/memento-academy/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-emerald-400 transition-colors duration-300 flex items-center"
+                    >
+                      <Linkedin className="w-4 h-4 mr-2" />
+                      LinkedIn
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/Memento-Academy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-emerald-400 transition-colors duration-300 flex items-center"
+                    >
+                      <Github className="w-4 h-4 mr-2" />
+                      GitHub
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`/${lng}/contact`}
+                      className="text-slate-400 hover:text-emerald-400 transition-colors duration-300 flex items-center"
+                    >
+                      <Mail className="w-4 h-4 mr-2" />
+                      {t("footer.links.contact")}
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div className="border-t border-slate-900 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-slate-400">
-              {t("footer.copyright", { year: new Date().getFullYear() })}
-            </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a
-                href={`/${lng}/privacy`}
-                className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-              >
-                {t("footer.privacy")}
-              </a>
-              <a
-                href={`/${lng}/terms`}
-                className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-              >
-                {t("footer.terms")}
-              </a>
+        {/* Bottom Bar */}
+        <div className="bg-slate-950/80 backdrop-blur-sm border-t border-cyan-500/10">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <p className="text-sm text-slate-500">
+                {t("footer.copyright", { year: new Date().getFullYear() })}
+              </p>
+              <div className="flex items-center space-x-6">
+                <a
+                  href={`/${lng}/privacy`}
+                  className="text-sm text-slate-500 hover:text-cyan-400 transition-colors duration-300"
+                >
+                  {t("footer.privacy")}
+                </a>
+                <span className="text-slate-700">•</span>
+                <a
+                  href={`/${lng}/terms`}
+                  className="text-sm text-slate-500 hover:text-cyan-400 transition-colors duration-300"
+                >
+                  {t("footer.terms")}
+                </a>
+              </div>
             </div>
           </div>
         </div>

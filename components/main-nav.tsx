@@ -33,9 +33,14 @@ export function MainNav({ lng }: { lng: string }) {
       active: false,
     },
     {
-      href: `/${lng}#community`,
-      label: t("nav.community"),
-      active: false,
+      href: `/${lng}/faqs`,
+      label: t("nav.faqs"),
+      active: pathname === `/${lng}/faqs`,
+    },
+    {
+      href: `/${lng}/game`,
+      label: t("nav.quiz"),
+      active: pathname === `/${lng}/game`,
     },
     {
       href: `/${lng}/courses`,
@@ -181,13 +186,6 @@ export function MainNav({ lng }: { lng: string }) {
                 ) : (
                   <>
                     <Button
-                      variant="ghost"
-                      className="text-slate-300 hover:text-white"
-                      onClick={handleLoginClick}
-                    >
-                      <span suppressHydrationWarning>{t("nav.login")}</span>
-                    </Button>
-                    <Button
                       className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0 shadow-lg shadow-cyan-500/20"
                       onClick={handleSignupClick}
                     >
@@ -257,13 +255,6 @@ export function MainNav({ lng }: { lng: string }) {
                     </>
                   ) : (
                     <>
-                      <Button
-                        variant="outline"
-                        className="w-full justify-center border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700 hover:text-white min-h-[48px] text-base shadow-sm"
-                        onClick={handleLoginClick}
-                      >
-                        {t("nav.login")}
-                      </Button>
                       <Button
                         className="w-full justify-center bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white border-0 min-h-[48px] text-base font-semibold shadow-md shadow-cyan-900/20"
                         onClick={handleSignupClick}

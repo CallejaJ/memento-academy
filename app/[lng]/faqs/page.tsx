@@ -24,8 +24,8 @@ export async function generateMetadata({
   return {
     title:
       lng === "es"
-        ? "Base de Conocimiento | FAQ | Memento Academy"
-        : "Knowledge Base | FAQ | Memento Academy",
+        ? "FAQs | Preguntas Frecuentes | Memento Academy"
+        : "FAQs | Frequently Asked Questions | Memento Academy",
     description:
       lng === "es"
         ? "Encuentra respuestas a preguntas comunes sobre Web3, blockchain, criptomonedas y CBDCs. Centro de ayuda y FAQ completo."
@@ -63,7 +63,7 @@ const categoryColors = {
   security: "red",
 };
 
-export default async function KnowledgeBasePage({
+export default async function FAQsPage({
   params,
 }: {
   params: Promise<{ lng: string }>;

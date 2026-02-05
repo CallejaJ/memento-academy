@@ -21,7 +21,9 @@
     "join_academy": "Únete a la Academia",
     "open_menu": "Abrir menú de navegación",
     "close_menu": "Cerrar menú de navegación",
-    "mobile_navigation": "Navegación móvil"
+    "mobile_navigation": "Navegación móvil",
+    "faqs": "FAQs",
+    "quiz": "Quiz Diario"
   },
   "mission": {
     "title": "Educación Web3 para Todos",
@@ -124,13 +126,13 @@
     "links": {
       "web3": "Fundamentos Web3",
       "crypto": "Cripto 101",
-      "cbdc": "Entendiendo CBDCs",
+      "cbdc": "CBDCs",
       "safety": "Guía de Seguridad",
       "mission": "Nuestra Misión",
       "courses": "Cursos Gratis",
-      "kb": "Base de Conocimiento",
+      "kb": "FAQs",
       "contribute": "Contribuir",
-      "contact": "Contactar Soporte"
+      "contact": "Soporte"
     },
     "copyright": "© {{year}} Memento Academy. Todo el conocimiento es libre de uso.",
     "privacy": "Privacidad",
