@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { cdnUrl } from "@/lib/cdn";
 import { Crown, Wallet, ExternalLink, CheckCircle, Home } from "lucide-react";
 import { useWallets } from "@privy-io/react-auth";
 import { createWalletClient, custom } from "viem";
@@ -361,7 +362,7 @@ function GameResultsContent() {
                   }}
                 >
                   <Image
-                    src="/images/logos/memo-token.png"
+                    src={cdnUrl("/images/logos/memo-token.png")}
                     alt="MEMO Token"
                     width={64}
                     height={64}

@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { cdnUrl } from "@/lib/cdn";
 import { useAuthModal } from "@/contexts/auth-modal-context";
 import { useAuth } from "@/contexts/auth-context";
 import { AuthModal } from "@/components/auth/auth-modal";
@@ -101,7 +102,7 @@ export function MainNav({ lng }: { lng: string }) {
               <Link href={`/${lng}`} className="flex items-center space-x-3">
                 <div className="relative">
                   <Image
-                    src="/memento-academy-logo.png"
+                    src={cdnUrl("/memento-academy-logo.png")}
                     alt="Memento Academy"
                     width={40}
                     height={40}

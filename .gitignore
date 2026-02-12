@@ -27,6 +27,9 @@ yarn-error.log*
 next-env.d.ts
 /lib/generated/prisma
 
-/lib/generated/prisma
-
-/lib/generated/prisma
+# terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+infrastructure/terraform/environments/prod.tfvars

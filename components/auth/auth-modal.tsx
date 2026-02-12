@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import Image from "next/image";
 import { AlertTriangle } from "lucide-react";
+import { cdnUrl } from "@/lib/cdn";
 
 const translations = {
   en: {
@@ -129,7 +130,7 @@ export function AuthModal({ isOpen, onClose, lng = "en" }: AuthModalProps) {
       <DialogContent className="sm:max-w-md bg-slate-900 border-slate-700">
         <DialogHeader className="flex flex-col items-start text-left">
           <Image
-            src="/memento-academy-logo.png"
+            src={cdnUrl("/memento-academy-logo.png")}
             alt="Memento Academy"
             width={64}
             height={64}

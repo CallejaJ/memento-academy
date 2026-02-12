@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
+import { cdnUrl } from "@/lib/cdn";
 import {
   Trophy,
   Gamepad2,
@@ -352,7 +353,7 @@ export default function GameLobbyPage() {
       {/* Hero Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <Image
-          src="/images/wallpapers/quiz-bg-dark.png"
+          src={cdnUrl("/images/wallpapers/quiz-bg-dark.png")}
           alt="Crypto Quiz Background"
           fill
           className="object-cover"

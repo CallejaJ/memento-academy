@@ -25,6 +25,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import Image from "next/image";
+import { cdnUrl } from "@/lib/cdn";
 import { NewsletterForm } from "@/components/newsletter/newsletter-form";
 import { MainNav } from "@/components/main-nav";
 import { ArrowRight } from "lucide-react";
@@ -129,7 +130,7 @@ export default async function LandingPage({
             <div className="relative">
               <div className="relative z-10">
                 <Image
-                  src="/images/wallpapers/quiz-login-bg-transparent.png"
+                  src={cdnUrl("/images/wallpapers/quiz-login-bg-transparent.png")}
                   alt="Memento Academy - Web3 Onboarding"
                   width={600}
                   height={600}
@@ -527,7 +528,7 @@ export default async function LandingPage({
                   <div className="relative">
                     <div className="absolute inset-0 bg-cyan-500/30 blur-xl rounded-full group-hover:bg-cyan-400/40 transition-all duration-300" />
                     <Image
-                      src="/memento-academy-logo.png"
+                      src={cdnUrl("/memento-academy-logo.png")}
                       alt="Memento Academy"
                       width={48}
                       height={48}

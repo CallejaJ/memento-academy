@@ -308,4 +308,51 @@ npm run dev
 
 ---
 
+## AWS Infrastructure (Free Tier)
+
+This project includes a production-grade AWS infrastructure layer managed with **Terraform**, complementing the primary Vercel deployment.
+
+### AWS Services
+
+| Service | Purpose |
+|---------|---------|
+| **S3 + CloudFront** | Global CDN for static assets (images, diagrams, sounds) |
+| **CloudWatch** | Monitoring dashboard with operational alarms |
+| **SNS** | Email alert notifications for infrastructure events |
+| **SES** | Transactional email (contact form, newsletters) |
+| **IAM (OIDC)** | Keyless GitHub Actions authentication |
+
+### Key Features
+
+- **Infrastructure as Code**: All AWS resources defined in `infrastructure/terraform/`
+- **OIDC Authentication**: GitHub Actions uses IAM roles via OIDC federation (no static credentials)
+- **Least-Privilege IAM**: Minimal permissions scoped to specific resources
+- **Automated CI/CD**: Terraform plan on PRs, auto-deploy on merge to main
+- **Monitoring**: CloudWatch dashboard with CloudFront, S3, and SES metrics
+- **Security**: S3 blocked from public access, assets served via CloudFront OAC only
+
+### Quick Start (AWS)
+
+```bash
+# 1. Bootstrap Terraform state (run once)
+bash infrastructure/scripts/bootstrap.sh
+
+# 2. Configure variables
+cp infrastructure/terraform/environments/prod.tfvars.example \
+   infrastructure/terraform/environments/prod.tfvars
+
+# 3. Deploy infrastructure
+cd infrastructure/terraform
+terraform init
+terraform apply -var-file=environments/prod.tfvars
+
+# 4. Sync static assets
+ENVIRONMENT=prod CLOUDFRONT_DISTRIBUTION_ID=<id> \
+  bash infrastructure/scripts/sync-assets.sh
+```
+
+See [docs/aws-architecture.md](docs/aws-architecture.md) for full architecture documentation.
+
+---
+
 Built with precision for **Memento Academy**.

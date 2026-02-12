@@ -1,12 +1,13 @@
-name: Supabase Keep-Alive
+name: Platform Health Check
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs every day at midnight
+    - cron: "0 0 * * *" # Runs every day at midnight
   workflow_dispatch: # Allows manual trigger
 
 jobs:
-  ping:
+  supabase-ping:
+    name: Supabase Health Check
     runs-on: ubuntu-latest
     steps:
       - name: Ping Supabase Database
@@ -14,3 +15,30 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
           psql "$DATABASE_URL" -c "SELECT 1;"
+
+  aws-health:
+    name: AWS Health Check
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Check S3 Bucket
+        run: |
+          echo "Checking S3 bucket..."
+          aws s3 ls s3://memento-academy-assets-prod/ --summarize | tail -2
+
+      - name: Check CloudFront Distribution
+        env:
+          CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: |
+          echo "Checking CloudFront distribution..."
+          STATUS=$(aws cloudfront get-distribution --id "${CLOUDFRONT_DISTRIBUTION_ID}" --query 'Distribution.Status' --output text)
+          echo "CloudFront Status: ${STATUS}"
+          [ "${STATUS}" = "Deployed" ] || exit 1
