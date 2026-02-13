@@ -4,6 +4,8 @@
     <img src="https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js" alt="Next.js" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
     <img src="https://img.shields.io/badge/Supabase-Database-3ECF8E?style=for-the-badge&logo=supabase" alt="Supabase" />
+    <img src="https://img.shields.io/badge/AWS-Free_Tier-FF9900?style=for-the-badge&logo=amazon-web-services" alt="AWS" />
+    <img src="https://img.shields.io/badge/Terraform-IaC-7B42BC?style=for-the-badge&logo=terraform" alt="Terraform" />
     <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS" />
     <img src="https://img.shields.io/badge/Ethereum-Sepolia-3C3C3D?style=for-the-badge&logo=ethereum" alt="Ethereum" />
     <img src="https://img.shields.io/badge/Privy-Auth-6366F1?style=for-the-badge" alt="Privy" />
@@ -47,7 +49,7 @@ Advanced content with strict progression.
 
 ---
 
-## 🏆 Achievements & Badges
+## Achievements & Badges
 
 The platform features a gamified progression system to encourage consistent learning. Badges are displayed on the User Dashboard.
 
@@ -57,27 +59,27 @@ There are currently **8 unique badges** available across 4 rarity tiers:
 
 #### Common (Entry Level)
 
-- 🎓 **First Steps**: Complete your very first course section.
-- 🏆 **Course Graduate**: Complete any full course (100%).
+- **First Steps**: Complete your very first course section.
+- **Course Graduate**: Complete any full course (100%).
 
 #### Rare (Consistent Effort)
 
-- ⚡ **Speed Learner**: Complete a full course in under 24 hours.
-- 📚 **Dedicated Student**: Complete 5 different courses.
+- **Speed Learner**: Complete a full course in under 24 hours.
+- **Dedicated Student**: Complete 5 different courses.
 
 #### Epic (Mastery)
 
-- 💎 **DeFi Master**: Complete all DeFi-related courses.
-- ✨ **Perfect Score**: Achieve 100% on a course final assessment.
-- 🧠 **Knowledge Seeker**: Complete a total of 50 sections across the platform.
+- **DeFi Master**: Complete all DeFi-related courses.
+- **Perfect Score**: Achieve 100% on a course final assessment.
+- **Knowledge Seeker**: Complete a total of 50 sections across the platform.
 
 #### Legendary (Elite)
 
-- 🚀 **Crypto Expert**: Complete 10 courses to prove ultimate mastery.
+- **Crypto Expert**: Complete 10 courses to prove ultimate mastery.
 
 ---
 
-## 🎮 Quiz Gamification
+## Quiz Gamification
 
 An interactive **Crypto Quiz Challenge** where users test their Web3 knowledge and earn real **MEMO tokens** on the Ethereum Sepolia testnet.
 
@@ -85,26 +87,26 @@ An interactive **Crypto Quiz Challenge** where users test their Web3 knowledge a
 
 | Mode                | Description                                                                           |
 | ------------------- | ------------------------------------------------------------------------------------- |
-| **Classic**         | 10 questions with progressive difficulty (Easy → Hard). Category selection available. |
+| **Classic**         | 10 questions with progressive difficulty (Easy > Hard). Category selection available. |
 | **Survival**        | Unlimited questions with 3 lives. How far can you go?                                 |
-| **Daily Challenge** | _(Coming Soon)_ Random category with 2× rewards.                                      |
+| **Daily Challenge** | _(Coming Soon)_ Random category with 2x rewards.                                      |
 
 ### Reward System
 
 - **MEMO Token**: ERC-20 token distributed on Sepolia testnet
 - **Earning Criteria**: Score 8/10 or higher to earn tokens
 - **Speed Bonus**: +50% for answers under 3s, +25% under 5s
-- **Streak Multiplier**: 1.5× at 3+ streak, 2× at 5+ streak
+- **Streak Multiplier**: 1.5x at 3+ streak, 2x at 5+ streak
 
 ### Player Progression
 
-| Rank        | Total Score Required |
-| ----------- | -------------------- |
-| 🌱 Novato   | 0+                   |
-| 📖 Aprendiz | 100+                 |
-| 🎓 Experto  | 500+                 |
-| 🏆 Maestro  | 2,000+               |
-| 👑 Leyenda  | 10,000+              |
+| Rank       | Total Score Required |
+| ---------- | -------------------- |
+| Novato     | 0+                   |
+| Aprendiz   | 100+                 |
+| Experto    | 500+                 |
+| Maestro    | 2,000+               |
+| Leyenda    | 10,000+              |
 
 ### Leaderboard
 
@@ -114,29 +116,29 @@ An interactive **Crypto Quiz Challenge** where users test their Web3 knowledge a
 
 ---
 
-## 📊 User Dashboard
+## User Dashboard
 
 The dashboard provides a personalized learning hub with gamification elements to encourage consistent learning.
 
 ### Dashboard Components
 
 ```
-┌─────────────────────────────────────────────────────┐
-│  HERO: Continue Learning (Last accessed course)    │
-│  [Progress: Section 3/8 - 42%] [Continue Button]   │
-└─────────────────────────────────────────────────────┘
++-----------------------------------------------------+
+|  HERO: Continue Learning (Last accessed course)      |
+|  [Progress: Section 3/8 - 42%] [Continue Button]    |
++-----------------------------------------------------+
 
-┌───────────────┬───────────────┬───────────────┬───────────────┐
-│  📊 XP        │  🔥 Streak    │  📈 Level     │  ✅ Completed │
-│  1340         │  3 Days       │  2 (Learner)  │  34%          │
-└───────────────┴───────────────┴───────────────┴───────────────┘
++---------------+---------------+---------------+---------------+
+|  XP           |  Streak       |  Level        |  Completed    |
+|  1340         |  3 Days       |  2 (Learner)  |  34%          |
++---------------+---------------+---------------+---------------+
 ```
 
 ### Gamification System
 
 #### XP (Experience Points)
 
-- **Calculation**: `progress_percentage × 10` per course
+- **Calculation**: `progress_percentage x 10` per course
 - **Example**: A course at 50% = 500 XP, completed course (100%) = 1000 XP
 - Total XP is the sum across all enrolled courses
 
@@ -160,45 +162,68 @@ The dashboard provides a personalized learning hub with gamification elements to
 - **Formula**: `(sum of all course progress) / (number of enrolled courses)`
 - Shows overall learning progress across enrolled courses only
 
+---
+
 ## System Architecture
 
-The application follows a modern serverless architecture with a focus on type safety and automated background processes.
+The application follows a hybrid cloud architecture: **Vercel** handles the Next.js frontend and API routes (optimal for SSR/ISR), while **AWS** provides the infrastructure layer for CDN, email, and monitoring. All AWS resources are managed as Infrastructure as Code with **Terraform**.
 
 ```mermaid
 graph TD
     User([User])
-    NextJS[Next.js App Router]
-    AuthContext[Auth Context]
+    Vercel[Vercel - Next.js 15 App Router]
+    AuthContext[Auth Context - Privy / Supabase SSR]
     ServerAction[Server Actions]
-    Prisma[Prisma ORM 7]
     Supabase[(Supabase PostgreSQL)]
-    Brevo[Brevo Email API]
-    GHA[GitHub Actions]
+    CloudFront[AWS CloudFront CDN]
+    S3[AWS S3 - Static Assets]
+    SES[AWS SES - Transactional Email]
+    Brevo[Brevo Email API - Fallback]
+    CloudWatch[AWS CloudWatch - Monitoring]
+    SNS[AWS SNS - Alert Notifications]
+    GHA[GitHub Actions CI/CD]
+    Terraform[Terraform IaC]
+    IAM[AWS IAM - OIDC Federation]
 
-    User -- "Authenticates" --> NextJS
-    NextJS -- "Manages State" --> AuthContext
+    User -- "HTTPS Requests" --> Vercel
+    User -- "Static Assets" --> CloudFront
+    CloudFront -- "Origin Access Control" --> S3
+    Vercel -- "Manages State" --> AuthContext
     AuthContext -- "SSR Cookies" --> Supabase
-    NextJS -- "Process Data" --> ServerAction
-    ServerAction -- "Persistence" --> Prisma
-    Prisma -- "Query/Update" --> Supabase
-    ServerAction -- "Trigger Email" --> Brevo
-    Brevo -- "Welcome Email" --> User
-    GHA -- "Daily Ping (Keep-Alive)" --> Supabase
+    Vercel -- "Process Data" --> ServerAction
+    ServerAction -- "Query/Update" --> Supabase
+    ServerAction -- "Primary Email" --> SES
+    ServerAction -- "Fallback Email" --> Brevo
+    SES -- "Welcome/Contact Email" --> User
+    CloudWatch -- "Alarm Triggers" --> SNS
+    SNS -- "Alert Notifications" --> User
+    GHA -- "OIDC Auth" --> IAM
+    GHA -- "Deploy Infra" --> Terraform
+    Terraform -- "Provision" --> S3
+    Terraform -- "Provision" --> CloudFront
+    Terraform -- "Provision" --> SES
+    Terraform -- "Provision" --> CloudWatch
+    GHA -- "Daily Ping" --> Supabase
 ```
 
 ## Technology Stack
 
 - **Frontend**: [Next.js 15](https://nextjs.org/) (App Router), [React 19](https://react.dev/), [Tailwind CSS](https://tailwindcss.com/)
 - **Interactions**: [Radix UI](https://www.radix-ui.com/), [Lucide React](https://lucide.dev/), [Framer Motion](https://www.framer.com/motion/)
-- **Data & Persistence**: [Supabase](https://supabase.com/) (PostgreSQL), [Prisma 7](https://www.prisma.io/)
-- **Communications**: [Brevo](https://www.brevo.com/) (Email API)
-- **DevOps**: [GitHub Actions](https://github.com/features/actions) for DB health maintenance
+- **Database**: [Supabase](https://supabase.com/) (PostgreSQL) with direct SQL and Server Actions
+- **Authentication**: [Privy](https://www.privy.io/) (Web3 + Social Login), [Supabase SSR](https://supabase.com/docs/guides/auth/server-side) (Session Management)
+- **Cloud Infrastructure**: [AWS Free Tier](https://aws.amazon.com/free/) (S3, CloudFront, SES, CloudWatch, SNS, IAM)
+- **Infrastructure as Code**: [Terraform](https://www.terraform.io/) with remote state (S3 + DynamoDB)
+- **CI/CD**: [GitHub Actions](https://github.com/features/actions) with OIDC authentication (keyless AWS access)
+- **Communications**: [AWS SES](https://aws.amazon.com/ses/) (primary), [Brevo](https://www.brevo.com/) (fallback)
+- **Web3**: [Ethers.js](https://ethers.org/), MEMO Token (ERC-20 on Sepolia)
 
 ## Key Features
 
 ### 1. Robust Authentication
 
 - **Hybrid System**: Uses `@supabase/ssr` with **httpOnly cookies** for secure Server-Side Rendering (SSR) in Next.js 15.
+- **Web3 Login**: Privy integration supporting wallet connection and social login.
 - **Client Sync**: `createBrowserClient` ensures the client-side state stays in sync with server sessions.
 - **Middleware**: Automatic session refreshing to prevent stale tokens.
 
@@ -208,23 +233,36 @@ graph TD
 - **Localization**: Native JSON support for `en` and `es` content within the same database row.
 - **Performance**: Fetched via Server Components for optimal LCP.
 
-### 3. High-Performance Newsletter System
+### 3. AWS Infrastructure (Free Tier)
+
+Production-grade cloud infrastructure managed entirely with Terraform.
+
+- **S3 + CloudFront**: Global CDN for static assets with Origin Access Control (no public bucket access).
+- **SES**: Transactional email with DKIM domain verification and HTML templates.
+- **CloudWatch**: Monitoring dashboard with alarms for 5xx errors, S3 storage, and SES bounce rates.
+- **SNS**: Email notifications triggered by CloudWatch alarms.
+- **IAM with OIDC**: GitHub Actions authenticates to AWS via federation, eliminating static credentials.
+- **Security**: Least-privilege IAM policies, encrypted state, versioned buckets, blocked public access.
+
+### 4. High-Performance Newsletter System
 
 Built with **Next.js Server Actions** for secure, low-latency processing.
 
 - **Data Validation**: Real-time email validation and duplicate checking.
 - **Preference Engine**: Personalized content delivery based on user interests.
 
-### 4. Premium Design System
+### 5. Premium Design System
 
 Fully responsive interface designed with a focus on dark-mode aesthetics.
 
 - **Adaptive Theming**: Seamless switching between Dark and Light modes.
 - **Glassmorphism**: Modern UI elements with blurred backdrops.
 
-### 5. Automated Database Health
+### 6. Automated Infrastructure & Database Health
 
-Custom **GitHub Actions** workflows ensure the Supabase tier remains active.
+- **Terraform CI/CD**: Infrastructure plan on PRs, auto-deploy on merge to main.
+- **Keep-Alive Workflows**: GitHub Actions ensuring Supabase free tier stays active.
+- **AWS Health Checks**: Automated monitoring of CloudFront, S3, and SES services.
 
 ## Testing Strategy
 
@@ -245,7 +283,7 @@ The project implements a robust automated testing strategy using **Jest** and **
 ### Security & Validation
 
 - **Zod**: Strict input validation for all forms and APIs.
-- **SQL Injection**: Prevented via ORM and parameterized queries.
+- **SQL Injection**: Prevented via parameterized queries and ORM.
 - **XSS**: Automatic escaping in React components.
 
 Run the full suite with:
@@ -254,7 +292,7 @@ Run the full suite with:
 npm run test
 ```
 
-## 🌍 Localization Workflow
+## Localization Workflow
 
 The platform supports full internationalization (i18n) for **English** and **Spanish**, using a hybrid approach of static dictionaries and dynamic routing.
 
@@ -280,7 +318,7 @@ The platform supports full internationalization (i18n) for **English** and **Spa
 Create a `.env.local` file with the following parameters:
 
 ```env
-# Database Connection (Prisma 7 Style)
+# Database Connection
 DATABASE_URL="your_supabase_pooler_url"
 DIRECT_URL="your_supabase_direct_url"
 
@@ -288,6 +326,9 @@ DIRECT_URL="your_supabase_direct_url"
 BREVO_API_KEY="xkeysib-..."
 NEXT_PUBLIC_SUPABASE_URL="https://..."
 NEXT_PUBLIC_SUPABASE_ANON_KEY="..."
+
+# AWS (optional - set via aws configure)
+NEXT_PUBLIC_CDN_URL="https://your-cloudfront-domain.cloudfront.net"
 ```
 
 ### Essential Commands
@@ -296,59 +337,32 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY="..."
 # Install dependencies
 npm install
 
-# Generate Prisma Client (Required for type safety)
-npx prisma generate
-
-# Sync schema with database
-npx prisma db pull
-
 # Start development server
 npm run dev
+
+# Run tests
+npm run test
 ```
 
----
-
-## AWS Infrastructure (Free Tier)
-
-This project includes a production-grade AWS infrastructure layer managed with **Terraform**, complementing the primary Vercel deployment.
-
-### AWS Services
-
-| Service | Purpose |
-|---------|---------|
-| **S3 + CloudFront** | Global CDN for static assets (images, diagrams, sounds) |
-| **CloudWatch** | Monitoring dashboard with operational alarms |
-| **SNS** | Email alert notifications for infrastructure events |
-| **SES** | Transactional email (contact form, newsletters) |
-| **IAM (OIDC)** | Keyless GitHub Actions authentication |
-
-### Key Features
-
-- **Infrastructure as Code**: All AWS resources defined in `infrastructure/terraform/`
-- **OIDC Authentication**: GitHub Actions uses IAM roles via OIDC federation (no static credentials)
-- **Least-Privilege IAM**: Minimal permissions scoped to specific resources
-- **Automated CI/CD**: Terraform plan on PRs, auto-deploy on merge to main
-- **Monitoring**: CloudWatch dashboard with CloudFront, S3, and SES metrics
-- **Security**: S3 blocked from public access, assets served via CloudFront OAC only
-
-### Quick Start (AWS)
+### AWS Infrastructure Setup
 
 ```bash
-# 1. Bootstrap Terraform state (run once)
-bash infrastructure/scripts/bootstrap.sh
+# 1. Configure AWS CLI
+aws configure
 
-# 2. Configure variables
+# 2. Bootstrap Terraform state (run once)
+# Windows: run commands from infrastructure/scripts/bootstrap.sh manually
+# Linux/Mac: bash infrastructure/scripts/bootstrap.sh
+
+# 3. Configure variables
 cp infrastructure/terraform/environments/prod.tfvars.example \
    infrastructure/terraform/environments/prod.tfvars
+# Edit prod.tfvars with your values
 
-# 3. Deploy infrastructure
+# 4. Deploy infrastructure
 cd infrastructure/terraform
 terraform init
 terraform apply -var-file=environments/prod.tfvars
-
-# 4. Sync static assets
-ENVIRONMENT=prod CLOUDFRONT_DISTRIBUTION_ID=<id> \
-  bash infrastructure/scripts/sync-assets.sh
 ```
 
 See [docs/aws-architecture.md](docs/aws-architecture.md) for full architecture documentation.
