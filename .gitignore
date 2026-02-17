@@ -32,4 +32,3 @@ next-env.d.ts
 *.tfstate.backup
 .terraform/
 .terraform.lock.hcl
-infrastructure/terraform/environments/prod.tfvars
