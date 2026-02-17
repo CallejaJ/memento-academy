@@ -103,3 +103,41 @@ resource "aws_iam_role_policy" "ses_sending" {
     ]
   })
 }
+
+# Policy: Terraform State and Lock management
+resource "aws_iam_role_policy" "terraform_backend" {
+  name = "terraform-backend-management"
+  role = aws_iam_role.github_actions.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "TerraformStateAccess"
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket",
+          "s3:GetObject",
+          "s3:PutObject"
+        ]
+        Resource = [
+          "arn:aws:s3:::memento-academy-terraform-state",
+          "arn:aws:s3:::memento-academy-terraform-state/*"
+        ]
+      },
+      {
+        Sid    = "TerraformLockAccess"
+        Effect = "Allow"
+        Action = [
+          "dynamodb:DescribeTable",
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:DeleteItem"
+        ]
+        Resource = [
+          "arn:aws:dynamodb:*:*:table/memento-academy-terraform-locks"
+        ]
+      }
+    ]
+  })
+}
