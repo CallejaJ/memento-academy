@@ -141,3 +141,92 @@ resource "aws_iam_role_policy" "terraform_backend" {
     ]
   })
 }
+
+# Policy: Infrastructure Management (Allow Terraform Plan/Apply)
+resource "aws_iam_role_policy" "infra_management" {
+  name = "infrastructure-management"
+  role = aws_iam_role.github_actions.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "CloudFrontManagement"
+        Effect = "Allow"
+        Action = [
+          "cloudfront:Get*",
+          "cloudfront:List*",
+          "cloudfront:UpdateDistribution",
+          "cloudfront:CreateDistribution",
+          "cloudfront:DeleteDistribution"
+        ]
+        Resource = ["*"]
+      },
+      {
+        Sid    = "IAMManagement"
+        Effect = "Allow"
+        Action = [
+          "iam:Get*",
+          "iam:List*",
+          "iam:UpdateOpenIDConnectProviderThumbprint"
+        ]
+        Resource = ["*"]
+      },
+      {
+        Sid    = "SESSettings"
+        Effect = "Allow"
+        Action = [
+          "ses:Get*",
+          "ses:List*",
+          "ses:VerifyDomainIdentity",
+          "ses:VerifyDomainDkim",
+          "ses:CreateTemplate",
+          "ses:UpdateTemplate",
+          "ses:DeleteTemplate"
+        ]
+        Resource = ["*"]
+      },
+      {
+        Sid    = "SNSManagement"
+        Effect = "Allow"
+        Action = [
+          "sns:Get*",
+          "sns:List*",
+          "sns:CreateTopic",
+          "sns:Subscribe",
+          "sns:SetTopicAttributes"
+        ]
+        Resource = ["*"]
+      },
+      {
+        Sid    = "S3BucketManagement"
+        Effect = "Allow"
+        Action = [
+          "s3:Get*",
+          "s3:List*",
+          "s3:CreateBucket",
+          "s3:PutBucketPolicy",
+          "s3:PutBucketVersioning",
+          "s3:PutLifecycleConfiguration",
+          "s3:PutBucketCors",
+          "s3:PutEncryptionConfiguration",
+          "s3:PutBucketPublicAccessBlock"
+        ]
+        Resource = ["*"]
+      },
+      {
+        Sid    = "CloudWatchManagement"
+        Effect = "Allow"
+        Action = [
+          "cloudwatch:Get*",
+          "cloudwatch:List*",
+          "cloudwatch:PutMetricAlarm",
+          "cloudwatch:DeleteAlarms",
+          "cloudwatch:PutDashboard",
+          "cloudwatch:DeleteDashboards"
+        ]
+        Resource = ["*"]
+      }
+    ]
+  })
+}
