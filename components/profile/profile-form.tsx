@@ -30,6 +30,9 @@ const translations = {
     fullNamePlaceholder: "Your full name",
     avatarUrl: "Avatar URL",
     avatarPlaceholder: "https://example.com/avatar.jpg",
+    telegramUsername: "Telegram Username",
+    telegramPlaceholder: "your_username (without @)",
+    telegramNote: "Used to identify you in our Telegram community",
     saveChanges: "Save Changes",
     saving: "Saving...",
     successMessage: "Profile updated successfully! Redirecting...",
@@ -46,6 +49,9 @@ const translations = {
     fullNamePlaceholder: "Tu nombre completo",
     avatarUrl: "URL de Avatar",
     avatarPlaceholder: "https://ejemplo.com/avatar.jpg",
+    telegramUsername: "Usuario de Telegram",
+    telegramPlaceholder: "tu_usuario (sin @)",
+    telegramNote: "Se usa para identificarte en nuestra comunidad de Telegram",
     saveChanges: "Guardar Cambios",
     saving: "Guardando...",
     successMessage: "¡Perfil actualizado! Redirigiendo...",
@@ -66,6 +72,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
 
   const [fullName, setFullName] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
+  const [telegramUsername, setTelegramUsername] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -91,6 +98,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
         if (data) {
           setFullName((data as any).full_name || "");
           setAvatarUrl((data as any).avatar_url || "");
+          setTelegramUsername((data as any).telegram_username || "");
           console.log("Profile loaded for editing:", data);
         }
       } catch (err) {
@@ -122,6 +130,7 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
       const result = await updateProfile(user.id, {
         full_name: fullName || null,
         avatar_url: avatarUrl || null,
+        telegram_username: telegramUsername.replace(/^@/, "") || null,
       });
 
       if (result.error) {
@@ -243,6 +252,22 @@ export function ProfileForm({ initialProfile }: ProfileFormProps) {
               placeholder={t.avatarPlaceholder}
               className="bg-slate-950/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:ring-cyan-500/20 w-full"
             />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="telegramUsername">{t.telegramUsername}</Label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 select-none">@</span>
+              <Input
+                id="telegramUsername"
+                type="text"
+                value={telegramUsername}
+                onChange={(e) => setTelegramUsername(e.target.value.replace(/^@/, ""))}
+                placeholder={t.telegramPlaceholder}
+                className="bg-slate-950/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:ring-cyan-500/20 w-full pl-7"
+              />
+            </div>
+            <p className="text-xs text-slate-500">{t.telegramNote}</p>
           </div>
 
           <div className="pt-4">

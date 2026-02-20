@@ -8,6 +8,7 @@ export async function updateProfile(
   data: {
     full_name: string | null;
     avatar_url: string | null;
+    telegram_username: string | null;
   },
 ) {
   try {

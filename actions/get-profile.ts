@@ -8,7 +8,7 @@ export async function getProfile(userId: string) {
   try {
     const { data, error } = await supabaseAdmin
       .from("profiles")
-      .select("full_name, avatar_url, email, membership_tier")
+      .select("full_name, avatar_url, email, membership_tier, telegram_username")
       .eq("id", userId)
       .single();
 
