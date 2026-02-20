@@ -1,0 +1,13 @@
+{
+    "DkimAttributes": {
+        "memento-academy.com": {
+            "DkimEnabled": true,
+            "DkimVerificationStatus": "Failed",
+            "DkimTokens": [
+                "zrmsy5ndmqmbi4tqdhxt3wbnwqgqmvdd",
+                "wzwvdppn3iycjfbu3myw5wmbfwoulubz",
+                "3blmfp3ex5zhignduplac6dpzl466c3m"
+            ]
+        }
+    }
+}

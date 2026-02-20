@@ -28,6 +28,8 @@ import Image from "next/image";
 import { cdnUrl } from "@/lib/cdn";
 import { NewsletterForm } from "@/components/newsletter/newsletter-form";
 import { MainNav } from "@/components/main-nav";
+import { TelegramIcon } from "@/components/icons/telegram-icon";
+import { YoutubeIcon } from "@/components/icons/youtube-icon";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "@/app/i18n";
 import { Metadata } from "next";
@@ -357,6 +359,95 @@ export default async function LandingPage({
               </CardContent>
             </Card>
           </div>
+
+          {/* Community Channels */}
+          <div className="mt-16">
+            <h3 className="text-2xl font-bold text-white text-center mb-3">
+              {t("community_section.channels_title")}
+            </h3>
+            <p className="text-slate-400 text-center mb-10">
+              {t("community_section.channels_subtitle")}
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <a
+                href="https://www.youtube.com/@mementoacademy/community"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card glass-card-hover rounded-xl p-4 flex items-center gap-3 group"
+              >
+                <YoutubeIcon className="w-5 h-5 text-red-500 flex-shrink-0" />
+                <span className="text-slate-300 group-hover:text-white transition-colors duration-300 font-medium">
+                  YouTube Community
+                </span>
+              </a>
+              <a
+                href="https://t.me/memento_academy/1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card glass-card-hover rounded-xl p-4 flex items-center gap-3 group"
+              >
+                <TelegramIcon className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+                <span className="text-slate-300 group-hover:text-white transition-colors duration-300 font-medium">
+                  General
+                </span>
+              </a>
+              <a
+                href="https://t.me/memento_academy/4"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card glass-card-hover rounded-xl p-4 flex items-center gap-3 group"
+              >
+                <TelegramIcon className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+                <span className="text-slate-300 group-hover:text-white transition-colors duration-300 font-medium">
+                  Novedades
+                </span>
+              </a>
+              <a
+                href="https://t.me/memento_academy/7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card glass-card-hover rounded-xl p-4 flex items-center gap-3 group"
+              >
+                <TelegramIcon className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+                <span className="text-slate-300 group-hover:text-white transition-colors duration-300 font-medium">
+                  Quiz y Retos
+                </span>
+              </a>
+              <a
+                href="https://t.me/memento_academy/5"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card glass-card-hover rounded-xl p-4 flex items-center gap-3 group"
+              >
+                <TelegramIcon className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+                <span className="text-slate-300 group-hover:text-white transition-colors duration-300 font-medium">
+                  Español
+                </span>
+              </a>
+              <a
+                href="https://t.me/memento_academy/6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card glass-card-hover rounded-xl p-4 flex items-center gap-3 group"
+              >
+                <TelegramIcon className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+                <span className="text-slate-300 group-hover:text-white transition-colors duration-300 font-medium">
+                  Inglés
+                </span>
+              </a>
+              <a
+                href="https://t.me/memento_academy/8"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card glass-card-hover rounded-xl p-4 flex items-center gap-3 group"
+              >
+                <TelegramIcon className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+                <span className="text-slate-300 group-hover:text-white transition-colors duration-300 font-medium">
+                  Memo Token
+                </span>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -644,6 +735,28 @@ export default async function LandingPage({
                   {t("footer.cols.connect")}
                 </h3>
                 <ul className="space-y-3">
+                  <li>
+                    <a
+                      href="https://t.me/memento_academy/1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-emerald-400 transition-colors duration-300 flex items-center"
+                    >
+                      <TelegramIcon className="w-4 h-4 mr-2" />
+                      Telegram
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.youtube.com/@mementoacademy/community"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-emerald-400 transition-colors duration-300 flex items-center"
+                    >
+                      <YoutubeIcon className="w-4 h-4 mr-2" />
+                      YouTube Community
+                    </a>
+                  </li>
                   <li>
                     <a
                       href="https://github.com/orgs/Memento-Academy/discussions"

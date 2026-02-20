@@ -1,0 +1,39 @@
+{
+  "github_actions_role_arn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:iam::493245399353:role/memento-academy-github-actions-prod"
+  },
+  "s3_bucket_arn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:s3:::memento-academy-assets-prod"
+  },
+  "s3_bucket_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "memento-academy-assets-prod"
+  },
+  "ses_dkim_tokens": {
+    "sensitive": false,
+    "type": [
+      "list",
+      "string"
+    ],
+    "value": [
+      "zrmsy5ndmqmbi4tqdhxt3wbnwqgqmvdd",
+      "wzwvdppn3iycjfbu3myw5wmbfwoulubz",
+      "3blmfp3ex5zhignduplac6dpzl466c3m"
+    ]
+  },
+  "ses_verification_token": {
+    "sensitive": false,
+    "type": "string",
+    "value": "LYSy6wYJlqSdx7NVfcdVAQZh9C1Atlr++bb/VF0boL0="
+  },
+  "sns_alerts_topic_arn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:sns:us-east-1:493245399353:memento-academy-alerts-prod"
+  }
+}

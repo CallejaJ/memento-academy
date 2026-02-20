@@ -1,0 +1,8 @@
+{
+    "PolicyNames": [
+        "infrastructure-management",
+        "s3-assets-management",
+        "ses-email-sending",
+        "terraform-backend-management"
+    ]
+}

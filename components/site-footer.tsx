@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { Github, MessageCircle } from "lucide-react";
 import { XIcon } from "@/components/icons/x-icon";
+import { TelegramIcon } from "@/components/icons/telegram-icon";
+import { YoutubeIcon } from "@/components/icons/youtube-icon";
 
 interface SiteFooterProps {
   lng: string;
@@ -39,6 +41,26 @@ export function SiteFooter({ lng }: SiteFooterProps) {
             >
               <Github className="w-4 h-4" />
               <span className="sr-only">GitHub</span>
+            </Link>
+            <Link
+              href="https://t.me/memento_academy/1"
+              target="_blank"
+              rel="noreferrer"
+              className="text-slate-600 hover:text-cyan-500 transition-colors"
+              title="Telegram"
+            >
+              <TelegramIcon className="w-4 h-4" />
+              <span className="sr-only">Telegram</span>
+            </Link>
+            <Link
+              href="https://www.youtube.com/@mementoacademy/community"
+              target="_blank"
+              rel="noreferrer"
+              className="text-slate-600 hover:text-cyan-500 transition-colors"
+              title="YouTube Community"
+            >
+              <YoutubeIcon className="w-4 h-4" />
+              <span className="sr-only">YouTube Community</span>
             </Link>
             <Link
               href="https://github.com/orgs/Memento-Academy/discussions"

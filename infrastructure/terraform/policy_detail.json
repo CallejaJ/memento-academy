@@ -1,0 +1,98 @@
+{
+    "RoleName": "memento-academy-github-actions-prod",
+    "PolicyName": "infrastructure-management",
+    "PolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Action": [
+                    "cloudfront:Get*",
+                    "cloudfront:List*",
+                    "cloudfront:UpdateDistribution",
+                    "cloudfront:CreateDistribution",
+                    "cloudfront:DeleteDistribution"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                    "*"
+                ],
+                "Sid": "CloudFrontManagement"
+            },
+            {
+                "Action": [
+                    "iam:Get*",
+                    "iam:List*",
+                    "iam:UpdateOpenIDConnectProviderThumbprint"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                    "*"
+                ],
+                "Sid": "IAMManagement"
+            },
+            {
+                "Action": [
+                    "ses:Get*",
+                    "ses:List*",
+                    "ses:VerifyDomainIdentity",
+                    "ses:VerifyDomainDkim",
+                    "ses:CreateTemplate",
+                    "ses:UpdateTemplate",
+                    "ses:DeleteTemplate"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                    "*"
+                ],
+                "Sid": "SESSettings"
+            },
+            {
+                "Action": [
+                    "sns:Get*",
+                    "sns:List*",
+                    "sns:CreateTopic",
+                    "sns:Subscribe",
+                    "sns:SetTopicAttributes"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                    "*"
+                ],
+                "Sid": "SNSManagement"
+            },
+            {
+                "Action": [
+                    "s3:Get*",
+                    "s3:List*",
+                    "s3:CreateBucket",
+                    "s3:PutBucketPolicy",
+                    "s3:PutBucketVersioning",
+                    "s3:PutLifecycleConfiguration",
+                    "s3:PutBucketCors",
+                    "s3:PutEncryptionConfiguration",
+                    "s3:PutBucketPublicAccessBlock"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                    "*"
+                ],
+                "Sid": "S3BucketManagement"
+            },
+            {
+                "Action": [
+                    "cloudwatch:Get*",
+                    "cloudwatch:List*",
+                    "cloudwatch:PutMetricAlarm",
+                    "cloudwatch:DeleteAlarms",
+                    "cloudwatch:PutDashboard",
+                    "cloudwatch:DeleteDashboards"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                    "*"
+                ],
+                "Sid": "CloudWatchManagement"
+            }
+        ]
+    }
+}
