@@ -4,6 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 
 import { Mail, MessageCircle, Github } from "lucide-react";
 import { XIcon } from "@/components/icons/x-icon";
+import { TelegramIcon } from "@/components/icons/telegram-icon";
+import { YoutubeIcon } from "@/components/icons/youtube-icon";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/contact/contact-form";
 import { useTranslation } from "@/app/i18n";
@@ -128,7 +130,25 @@ export default async function ContactPage({
               {t("contact_page.follow_us")}
             </h2>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+              <a
+                href="https://t.me/memento_academy/1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500/30 transition-all"
+              >
+                <TelegramIcon className="w-5 h-5 text-cyan-400" />
+                <span className="text-white">Telegram</span>
+              </a>
+              <a
+                href="https://www.youtube.com/@mementoacademy/community"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500/30 transition-all"
+              >
+                <YoutubeIcon className="w-5 h-5 text-red-500" />
+                <span className="text-white">YouTube</span>
+              </a>
               <a
                 href="https://x.com/memento_academy"
                 target="_blank"
