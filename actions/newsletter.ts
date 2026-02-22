@@ -99,7 +99,7 @@ export async function subscribeToNewsletter(formData: FormData) {
         title: "Welcome to Memento Academy!",
         greeting: `Hello ${fullName || "there"},`,
         intro:
-          "Thank you for subscribing to the Memento Academy newsletter! You're now part of our community of 50,000+ crypto enthusiasts.",
+          "Welcome! Memento Academy is your friendly guide to Web3, AI and blockchain — the technologies reshaping our world. No jargon, no prior experience needed. Just clear, honest content to help you navigate this new era with confidence.",
         expect: "Here's what you can expect:",
         list: {
           web3: "Introduction to Web3 and Blockchain",
@@ -120,7 +120,7 @@ export async function subscribeToNewsletter(formData: FormData) {
         title: "¡Bienvenido a Memento Academy!",
         greeting: `Hola ${fullName || ""},`,
         intro:
-          "¡Gracias por suscribirte al boletín de Memento Academy! Ahora eres parte de nuestra comunidad de más de 50,000 entusiastas de cripto.",
+          "¡Bienvenido! Memento Academy es tu guía cercana al mundo Web3, la IA y el blockchain — las tecnologías que están redefiniendo nuestra era. Sin tecnicismos, sin experiencia previa. Solo contenido claro y honesto para que te familiarices con esta nueva revolución industrial a tu propio ritmo.",
         expect: "Esto es lo que puedes esperar:",
         list: {
           web3: "Introducción a Web3 y Blockchain",
