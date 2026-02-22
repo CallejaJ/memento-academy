@@ -6,6 +6,7 @@ import { Mail, MessageCircle, Github } from "lucide-react";
 import { XIcon } from "@/components/icons/x-icon";
 import { TelegramIcon } from "@/components/icons/telegram-icon";
 import { YoutubeIcon } from "@/components/icons/youtube-icon";
+import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/contact/contact-form";
 import { useTranslation } from "@/app/i18n";
@@ -148,6 +149,15 @@ export default async function ContactPage({
               >
                 <YoutubeIcon className="w-5 h-5 text-red-500" />
                 <span className="text-white">YouTube</span>
+              </a>
+              <a
+                href="https://whatsapp.com/channel/0029VbBWnRTIt5s1NUgz9V1J"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-green-500/30 transition-all"
+              >
+                <WhatsAppIcon className="w-5 h-5 text-green-400" />
+                <span className="text-white">WhatsApp</span>
               </a>
               <a
                 href="https://x.com/memento_academy"

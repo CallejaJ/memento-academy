@@ -30,6 +30,7 @@ import { NewsletterForm } from "@/components/newsletter/newsletter-form";
 import { MainNav } from "@/components/main-nav";
 import { TelegramIcon } from "@/components/icons/telegram-icon";
 import { YoutubeIcon } from "@/components/icons/youtube-icon";
+import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "@/app/i18n";
 import { Metadata } from "next";
@@ -446,6 +447,17 @@ export default async function LandingPage({
                   Memo Token
                 </span>
               </a>
+              <a
+                href="https://whatsapp.com/channel/0029VbBWnRTIt5s1NUgz9V1J"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card glass-card-hover rounded-xl p-4 flex items-center gap-3 group"
+              >
+                <WhatsAppIcon className="w-5 h-5 text-green-400 flex-shrink-0" />
+                <span className="text-slate-300 group-hover:text-white transition-colors duration-300 font-medium">
+                  WhatsApp
+                </span>
+              </a>
             </div>
           </div>
         </div>
@@ -755,6 +767,17 @@ export default async function LandingPage({
                     >
                       <YoutubeIcon className="w-4 h-4 mr-2" />
                       YouTube Community
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://whatsapp.com/channel/0029VbBWnRTIt5s1NUgz9V1J"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-green-400 transition-colors duration-300 flex items-center"
+                    >
+                      <WhatsAppIcon className="w-4 h-4 mr-2" />
+                      WhatsApp
                     </a>
                   </li>
                   <li>
