@@ -47,8 +47,8 @@ export async function generateMetadata({
   const title = lng === "es" ? "Inicio" : "Home";
   const description =
     lng === "es"
-      ? "La forma más sencilla de entrar en Web3 y Blockchain. 100% Gratis."
-      : "The simplest onboarding to Web3 and Blockchain. 100% Free.";
+      ? "Tu guía cercana al mundo Web3, la IA y el blockchain. Sin tecnicismos, sin experiencia previa. 100% Gratis."
+      : "Your friendly guide to Web3, AI and blockchain. No jargon, no experience needed. 100% Free.";
 
   return {
     title,

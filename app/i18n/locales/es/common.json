@@ -3,7 +3,7 @@
   "hero": {
     "title_start": "Desbloquea el",
     "title_end": "Futuro Digital",
-    "description": "La forma más sencilla de entrar en Web3 y Blockchain. Desglosamos conceptos complejos como CBDCs y Cripto para principiantes absolutos. ¿Lo mejor? Es 100% gratis.",
+    "description": "Tu guía cercana al mundo Web3, la IA y el blockchain — las tecnologías que están redefiniendo nuestra era. Sin tecnicismos, sin experiencia previa. Contenido claro y honesto para navegar esta nueva revolución industrial. 100% gratis.",
     "new_badge": "🚀 Nuevo: Guía de CBDC y Futuro Digital",
     "start_learning": "Empieza Gratis",
     "explore_courses": "Explorar Cursos",
@@ -27,7 +27,7 @@
   },
   "mission": {
     "title": "Educación Web3 para Todos",
-    "subtitle": "¿Empezando desde cero? Estás en el lugar correcto. Nuestra misión es democratizar el conocimiento blockchain.",
+    "subtitle": "¿Empezando desde cero? Perfecto. Entender la revolución digital no debería requerir formación técnica ni costar nada.",
     "foundations": {
       "title": "Fundamentos Web3",
       "desc": "Aprende qué es blockchain y por qué importa, explicado en español sencillo. Sin tecnicismos."
@@ -47,7 +47,7 @@
   },
   "community_section": {
     "title": "Una Comunidad Global Creciente",
-    "subtitle": "Miles están aprendiendo a navegar la era digital con nosotros.",
+    "subtitle": "Personas de todos los ámbitos aprendiendo juntas a navegar el Web3, la IA y el blockchain.",
     "testimonials": {
       "1": {
         "quote": "\"Me aterraba perder dinero o ser estafado. Memento Academy explicó todo tan simplemente que finalmente me siento confiado usando mi primera wallet.\"",
@@ -109,7 +109,7 @@
     },
     "form": {
       "title": "Únete a la Comunidad Global",
-      "desc": "Sé parte de los mas de 50,000 entusiastas dominando el futuro de las finanzas."
+      "desc": "Únete a una comunidad creciente de mentes curiosas explorando la nueva era digital."
     },
     "messages": {
       "success": "¡Bienvenido a Memento Academy! Revisa tu email para confirmación.",
@@ -119,7 +119,7 @@
     }
   },
   "footer": {
-    "desc": "Empoderando a los recién llegados para navegar el paisaje financiero digital a través de educación gratuita y accesible.",
+    "desc": "Tu guía cercana al mundo Web3, la IA y el blockchain. Educación gratuita y honesta para todos.",
     "cols": {
       "learn": "Aprender",
       "academy": "Academia",

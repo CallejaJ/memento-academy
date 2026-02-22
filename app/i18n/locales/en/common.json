@@ -3,7 +3,7 @@
   "hero": {
     "title_start": "Unlock the",
     "title_end": "Digital Future",
-    "description": "The simplest onboarding to Web3 and Blockchain. We break down complex concepts like CBDCs and Cripto for absolute beginners. Best of all? It's 100% free.",
+    "description": "Your friendly guide to Web3, AI and blockchain — the technologies redefining our era. No jargon, no experience needed. Clear, honest content to navigate this new industrial revolution. 100% free.",
     "new_badge": "🚀 New: CBDC & Digital Future Guide",
     "start_learning": "Start Learning Free",
     "explore_courses": "Explore Courses",
@@ -27,7 +27,7 @@
   },
   "mission": {
     "title": "Web3 Education for Everyone",
-    "subtitle": "Starting from zero? You're in the right place. Our mission is to democratize blockchain knowledge.",
+    "subtitle": "Starting from zero? Perfect. Understanding the digital revolution shouldn't require a tech background — or cost a thing.",
     "foundations": {
       "title": "Web3 Foundations",
       "desc": "Learn what blockchain is and why it matters, explained in plain English. No technical background required."
@@ -47,7 +47,7 @@
   },
   "community_section": {
     "title": "A Growing Global Community",
-    "subtitle": "Thousands are learning to navigate the digital era with us.",
+    "subtitle": "People from all walks of life learning to navigate Web3, AI and blockchain together.",
     "testimonials": {
       "1": {
         "quote": "\"I was terrified of losing money or getting scammed. Memento Academy explained everything so simply that I finally feel confident using my first wallet.\"",
@@ -109,7 +109,7 @@
     },
     "form": {
       "title": "Join the Global Community",
-      "desc": "Become part of the 50,000+ enthusiasts mastering the future of finance."
+      "desc": "Join a growing community of curious minds exploring the new digital era."
     },
     "messages": {
       "success": "Welcome to Memento Academy! Check your email for confirmation.",
@@ -119,7 +119,7 @@
     }
   },
   "footer": {
-    "desc": "Empowering newcomers to navigate the digital financial landscape through free, accessible education.",
+    "desc": "Your friendly guide to Web3, AI and blockchain. Free, honest education for everyone.",
     "cols": {
       "learn": "Learn",
       "academy": "Academy",
