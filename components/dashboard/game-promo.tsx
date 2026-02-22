@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Gamepad2, Trophy, Coins, ArrowRight, Zap } from "lucide-react";
 import Link from "next/link";
+import { TelegramIcon } from "@/components/icons/telegram-icon";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { createPublicClient, http, formatUnits } from "viem";
@@ -39,6 +40,7 @@ const translations = {
     bestScore: "Best Score",
     dailyAttempts: "Attempts Left",
     memoEarned: "MEMO Earned",
+    joinCommunity: "Join Quiz Community",
   },
   es: {
     title: "Crypto Quiz Challenge",
@@ -49,6 +51,7 @@ const translations = {
     bestScore: "Mejor Puntuación",
     dailyAttempts: "Intentos Restantes",
     memoEarned: "MEMO Ganados",
+    joinCommunity: "Únete a la Comunidad",
   },
 };
 
@@ -179,6 +182,15 @@ export function GamePromo({ stats, walletAddress }: GamePromoProps) {
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
+          <a
+            href="https://t.me/memento_academy/7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full h-9 rounded-lg border border-cyan-500/40 bg-cyan-500/10 text-cyan-300 text-sm font-medium transition-all hover:bg-cyan-500/20 hover:border-cyan-400/60"
+          >
+            <TelegramIcon className="w-4 h-4" />
+            {t.joinCommunity}
+          </a>
         </div>
       </div>
     </div>

@@ -21,7 +21,9 @@ import { getAllCourses } from "@/lib/courses-data";
 import { Settings } from "lucide-react";
 import { AchievementsPreview } from "@/components/dashboard/achievements-preview";
 import { GamePromo } from "@/components/dashboard/game-promo";
+import { ReferralCard } from "@/components/dashboard/referral-card";
 import { useWallets } from "@privy-io/react-auth";
+import type { ReferralData } from "@/actions/get-referral";
 
 interface Profile {
   full_name: string | null;
@@ -83,6 +85,7 @@ export default function DashboardPage() {
     bestScore: number;
     remainingAttempts?: number;
   } | null>(null);
+  const [referralData, setReferralData] = useState<ReferralData | null>(null);
 
   const { wallets } = useWallets(); // Get wallets from Privy
 
@@ -152,6 +155,15 @@ export default function DashboardPage() {
           }
         } catch (e) {
           console.error("Failed to fetch game stats", e);
+        }
+
+        // Fetch referral data
+        try {
+          const { getReferralData } = await import("@/actions/get-referral");
+          const refData = await getReferralData(user.id);
+          setReferralData(refData);
+        } catch (e) {
+          console.error("Failed to fetch referral data", e);
         }
 
         // TODO: Calculate streak from activity log (for now, mock it)
@@ -332,6 +344,14 @@ export default function DashboardPage() {
             stats={gameStats || undefined}
             walletAddress={embeddedWallet?.address}
           />
+
+          {/* Referral */}
+          {referralData && (
+            <ReferralCard
+              referralData={referralData}
+              walletAddress={embeddedWallet?.address}
+            />
+          )}
 
           {/* Hero: Continue Learning */}
           {lastCourseData ? (

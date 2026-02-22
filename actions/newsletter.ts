@@ -109,6 +109,8 @@ export async function subscribeToNewsletter(formData: FormData) {
         },
         stay_tuned: "Stay tuned for our next update!",
         cta: "Explore Our Courses",
+        telegram_cta: "Join our Telegram community",
+        telegram_link_text: "Join Telegram →",
         footer_rights: "Memento Academy. All rights reserved.",
         unsubscribe_text: "If you didn't sign up for this newsletter, you can",
         unsubscribe_link: "unsubscribe here",
@@ -128,6 +130,8 @@ export async function subscribeToNewsletter(formData: FormData) {
         },
         stay_tuned: "¡Mantente atento a nuestra próxima actualización!",
         cta: "Explora Nuestros Cursos",
+        telegram_cta: "Únete a nuestra comunidad de Telegram",
+        telegram_link_text: "Unirse a Telegram →",
         footer_rights: "Memento Academy. Todos los derechos reservados.",
         unsubscribe_text: "Si no te registraste para este boletín, puedes",
         unsubscribe_link: "darte de baja aquí",
@@ -158,13 +162,10 @@ export async function subscribeToNewsletter(formData: FormData) {
     <tr>
       <td align="center" style="padding: 40px 20px;">
         <table width="600" cellpadding="0" cellspacing="0" border="0">
-          <!-- Header with Logo -->
+          <!-- Header with Logo only -->
           <tr>
             <td style="padding: 0 0 30px; text-align: center;">
-              <img src="https://memento-academy.com/memento-academy-logo.png" alt="Memento Academy" width="50" height="50" style="vertical-align: middle; margin-right: 12px;">
-              <span style="font-size: 28px; font-weight: 700; color: #14b8a6; font-family: Georgia, serif; vertical-align: middle;">
-                Memento Academy
-              </span>
+              <img src="https://memento-academy.com/linkedin_profile_circular_transp.png" alt="Memento Academy" width="90" height="90" style="display: block; margin: 0 auto;">
             </td>
           </tr>
           <!-- Main Content -->
@@ -191,14 +192,14 @@ export async function subscribeToNewsletter(formData: FormData) {
               <p style="margin: 0 0 30px; color: #374151; font-size: 16px; line-height: 1.6;">
                 ${content.stay_tuned}
               </p>
-              <!-- CTA Button -->
+              <!-- CTA Button (outlined, pill) -->
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                   <td align="center">
                     <table cellpadding="0" cellspacing="0" border="0">
                       <tr>
-                        <td align="center" style="background-color: #14b8a6; border-radius: 6px;">
-                          <a href="${baseUrl}/${lng}/courses" style="display: inline-block; padding: 14px 28px; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 600;">
+                        <td align="center" style="border: 2px solid #14b8a6; border-radius: 50px;">
+                          <a href="${baseUrl}/${lng}/courses" style="display: inline-block; padding: 16px 48px; color: #14b8a6; text-decoration: none; font-size: 15px; font-weight: 600; letter-spacing: 0.02em;">
                             ${content.cta}
                           </a>
                         </td>
@@ -209,15 +210,38 @@ export async function subscribeToNewsletter(formData: FormData) {
               </table>
             </td>
           </tr>
+          <!-- Telegram Community -->
+          <tr>
+            <td style="padding: 36px 0 0; text-align: center;">
+              <p style="margin: 0 0 16px; color: #1f2937; font-size: 15px; font-weight: 600;">
+                ${content.telegram_cta}
+              </p>
+              <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
+                <tr>
+                  <td align="center" style="border: 2px solid #0088cc; border-radius: 50px;">
+                    <a href="https://t.me/memento_academy/1" style="display: inline-block; padding: 16px 48px; color: #0088cc; text-decoration: none; font-size: 14px; font-weight: 600; letter-spacing: 0.02em;">
+                      ${content.telegram_link_text}
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
           <!-- Footer -->
           <tr>
-            <td style="padding: 40px 0 0; border-top: 1px solid #e5e7eb; margin-top: 40px;">
-              <p style="margin: 20px 0 8px; color: #9ca3af; font-size: 12px;">
-                © ${new Date().getFullYear()} ${content.footer_rights}
-              </p>
-              <p style="margin: 0; color: #9ca3af; font-size: 12px;">
-                ${content.unsubscribe_text} <a href="${baseUrl}/unsubscribe?email=${email}" style="color: #14b8a6;">${content.unsubscribe_link}</a>.
-              </p>
+            <td style="padding: 48px 0 0;">
+              <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  <td style="border-top: 1px solid #e5e7eb; padding-top: 20px;">
+                    <p style="margin: 0 0 4px; color: #9ca3af; font-size: 12px;">
+                      © ${new Date().getFullYear()} ${content.footer_rights}
+                    </p>
+                    <p style="margin: 0; color: #9ca3af; font-size: 12px;">
+                      ${content.unsubscribe_text} <a href="${baseUrl}/unsubscribe?email=${email}" style="color: #14b8a6;">${content.unsubscribe_link}</a>.
+                    </p>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
         </table>

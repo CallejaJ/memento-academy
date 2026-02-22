@@ -1,6 +1,7 @@
 "use server";
 
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { cookies } from "next/headers";
 
 export async function syncUser(
   privyUserId: string,
@@ -61,6 +62,39 @@ export async function syncUser(
     console.log(
       `[Sync] Created new user ${userId} for wallet ${normalizedWallet}`,
     );
+
+    // Process referral if a referral code cookie is present
+    try {
+      const cookieStore = await cookies();
+      const refCode = cookieStore.get("memento_ref")?.value;
+
+      if (refCode) {
+        // Look up the referrer by code
+        const { data: referrer } = await supabaseAdmin
+          .from("profiles")
+          .select("id")
+          .eq("referral_code", refCode)
+          .single();
+
+        if (referrer && referrer.id !== userId) {
+          await supabaseAdmin.from("referrals").insert({
+            referrer_user_id: referrer.id,
+            referred_user_id: userId,
+            status: "completed",
+            completed_at: new Date().toISOString(),
+          });
+          console.log(
+            `[Sync] Referral recorded: ${referrer.id} referred ${userId}`,
+          );
+        }
+
+        cookieStore.delete("memento_ref");
+      }
+    } catch (refError) {
+      // Referral processing failure should not block user creation
+      console.error("[Sync] Referral processing error:", refError);
+    }
+
     return { userId };
   } catch (error: any) {
     console.error("SyncUser Error:", error);

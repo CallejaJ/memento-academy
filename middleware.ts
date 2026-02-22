@@ -74,5 +74,15 @@ export async function middleware(req: NextRequest) {
     if (lngInReferer) response.cookies.set(cookieName, lngInReferer);
   }
 
+  // Capture referral code from ?ref= query param and store in cookie (7 days)
+  const refCode = req.nextUrl.searchParams.get("ref");
+  if (refCode && /^[A-Z0-9]{6,12}$/i.test(refCode)) {
+    response.cookies.set("memento_ref", refCode.toUpperCase(), {
+      maxAge: 60 * 60 * 24 * 7,
+      path: "/",
+      sameSite: "lax",
+    });
+  }
+
   return response;
 }
