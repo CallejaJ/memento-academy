@@ -56,7 +56,8 @@ const translations = {
     step1Title: "Connect Wallet",
     step1Desc: "Connect your wallet or sign in to track your progress.",
     step2Title: "Answer Quickly",
-    step2Desc: "You have 10 seconds per question. Faster = More Points!",
+    step2Desc:
+      "You have 10 seconds per question. Faster = More Points! Stay focused: switching tabs will penalize you.",
     step3Title: "Earn Rewards",
     step3Desc: "Score 8/10 or higher to earn MEMO tokens.",
     modeClassic: "Classic",
@@ -98,7 +99,7 @@ const translations = {
       "Tienes 5 vidas diarias que se recargan a medianoche UTC. Tu progreso y estadísticas se guardan en tu cuenta global.",
     step2Title: "Velocidad y Rachas",
     step2Desc:
-      "10s por pregunta. Acertar seguido activa multiplicadores (x1.5, x2). ¡En Survival las preguntas son infinitas!",
+      "10s por pregunta. Acertar seguido activa multiplicadores. ¡No cambies de pestaña! Se penalizará si sales del juego.",
     step3Title: "Gana Recompensas",
     step3Desc:
       "Consigue 8/10 en Clásico o grandes puntuaciones en Survival para ganar MEMO. Tus 'Puntos' son la suma total de tu carrera.",

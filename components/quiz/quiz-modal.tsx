@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,7 +12,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Loader2, CheckCircle, XCircle, AlertCircle } from "lucide-react";
+import {
+  Loader2,
+  CheckCircle,
+  XCircle,
+  AlertCircle,
+  Brain,
+} from "lucide-react";
 import { verifyQuizAnswers, QuizQuestion } from "@/actions/course";
 import confetti from "canvas-confetti";
 import { useToast } from "@/hooks/use-toast";
@@ -43,6 +49,8 @@ export function QuizModal({
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitting, setSubmitting] = useState(false);
   const [retrying, setRetrying] = useState(false);
+  const [switchesCount, setSwitchesCount] = useState(0);
+  const [penaltyModalOpen, setPenaltyModalOpen] = useState(false);
   const [result, setResult] = useState<{
     success: boolean;
     feedback?: Record<
@@ -112,6 +120,7 @@ export function QuizModal({
     }
     setResult(null);
     setAnswers({});
+    setSwitchesCount(0);
   };
 
   // Helper to safely get localized string
@@ -138,6 +147,14 @@ export function QuizModal({
       errorDesc: "Failed to submit quiz. Please try again.",
       answerAllTitle: "Answer all questions",
       answerAllDesc: "Please select an answer for every question.",
+      tabSwitchWarning:
+        "Warning: Please stay on this tab to complete the quiz!",
+      antiCheatLegend:
+        "⚠️ Stay focused: Switching tabs may invalidate your progress.",
+      penaltyModalTitle: "Focus Required",
+      penaltyModalDesc:
+        "Tab switching is not allowed during examinations. Please resume your quiz.",
+      resumeGame: "Resume Quiz",
     },
     es: {
       passedTitle: "🎉 ¡Quiz Aprobado!",
@@ -154,10 +171,46 @@ export function QuizModal({
       errorDesc: "Error al enviar el quiz. Por favor intenta de nuevo.",
       answerAllTitle: "Responde todas las preguntas",
       answerAllDesc: "Por favor selecciona una respuesta para cada pregunta.",
+      tabSwitchWarning:
+        "Aviso: ¡Por favor permanece en esta pestaña para completar el examen!",
+      antiCheatLegend:
+        "⚠️ Mantén el foco: Cambiar de pestaña puede invalidar tu progreso.",
+      penaltyModalTitle: "Foco Requerido",
+      penaltyModalDesc:
+        "No se permite cambiar de pestaña durante los exámenes. Por favor, resume tu quiz.",
+      resumeGame: "Reanudar Quiz",
     },
   };
 
   const t = uiText[lang as keyof typeof uiText] || uiText.en;
+
+  // Tab switch detection
+  useEffect(() => {
+    if (!isOpen || result || penaltyModalOpen) return;
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        setSwitchesCount((prev) => prev + 1);
+        setPenaltyModalOpen(true);
+        playSound("wrong");
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [isOpen, result, playSound, penaltyModalOpen]);
+
+  // Show toast when modal opens to fix render cycle error
+  useEffect(() => {
+    if (penaltyModalOpen) {
+      toast({
+        title: t.tabSwitchWarning,
+        variant: "destructive",
+      });
+    }
+  }, [penaltyModalOpen, t.tabSwitchWarning, toast]);
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -169,7 +222,37 @@ export function QuizModal({
           <DialogDescription className="text-slate-400">
             {result?.success ? t.passedDesc : t.checkDesc(questions.length)}
           </DialogDescription>
+          {!result && (
+            <div className="mt-2 py-1 px-3 rounded-md bg-amber-500/10 border border-amber-500/20 text-[10px] text-amber-500 font-medium">
+              {t.antiCheatLegend}
+            </div>
+          )}
         </DialogHeader>
+
+        {/* Softened Overlay inside Dialog */}
+        {penaltyModalOpen && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center p-6 bg-slate-950/95 backdrop-blur-md rounded-lg animate-in fade-in duration-300">
+            <div className="text-center space-y-6 max-w-xs">
+              <div className="w-16 h-16 bg-cyan-500/10 rounded-xl flex items-center justify-center mx-auto border border-cyan-500/20">
+                <Brain className="w-8 h-8 text-cyan-400/80" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-xl font-bold text-white tracking-tight uppercase">
+                  {t.penaltyModalTitle.replace("⚠️ ", "")}
+                </h3>
+                <p className="text-slate-400 text-xs leading-relaxed">
+                  {t.penaltyModalDesc}
+                </p>
+              </div>
+              <Button
+                onClick={() => setPenaltyModalOpen(false)}
+                className="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl shadow-md shadow-cyan-900/10"
+              >
+                {t.resumeGame}
+              </Button>
+            </div>
+          </div>
+        )}
 
         <div className="space-y-8 py-4">
           {questions.map((q, idx) => {

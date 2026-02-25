@@ -2,8 +2,16 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
-import { Clock, CheckCircle, XCircle, Flame, ArrowRight } from "lucide-react";
+import {
+  Clock,
+  CheckCircle,
+  XCircle,
+  Flame,
+  ArrowRight,
+  Brain,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import { useSound } from "@/contexts/sound-context";
 import confetti from "canvas-confetti";
 
@@ -20,6 +28,14 @@ const translations = {
     loading: "Loading questions...",
     error: "Failed to load questions",
     lives: "LIVES",
+    penaltyPoints: "Penalty: -100 points",
+    penaltyLife: "Penalty: Life lost",
+    penaltyTime: "Penalty: -5 seconds",
+    tabSwitchWarning: "Warning: Switching tabs is not allowed!",
+    penaltyModalTitle: "⚠️ Tab Switch Detected!",
+    penaltyModalDesc:
+      "Changing focus during a quiz is against the rules. A penalty has been applied to your session.",
+    resumeGame: "I Understand, Resume",
   },
   es: {
     question: "Pregunta",
@@ -33,6 +49,14 @@ const translations = {
     loading: "Cargando preguntas...",
     error: "Error al cargar preguntas",
     lives: "VIDAS",
+    penaltyPoints: "Penalización: -100 puntos",
+    penaltyLife: "Penalización: Vida perdida",
+    penaltyTime: "Penalización: -5 segundos",
+    tabSwitchWarning: "Aviso: ¡No se permite cambiar de pestaña!",
+    penaltyModalTitle: "⚠️ ¡Cambio de Pestaña Detectado!",
+    penaltyModalDesc:
+      "Cambiar el foco durante el quiz va en contra de las reglas. Se ha aplicado una penalización a tu partida.",
+    resumeGame: "Entendido, Continuar",
   },
 };
 
@@ -60,6 +84,7 @@ function GamePlayContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const t = translations[lng as keyof typeof translations] || translations.en;
+  const { toast } = useToast();
   const { playSound } = useSound();
 
   const sessionToken = searchParams.get("session");
@@ -78,6 +103,8 @@ function GamePlayContent() {
 
   const [gameMode, setGameMode] = useState<"classic" | "survival">("classic");
   const [lives, setLives] = useState(3);
+  const [switchesCount, setSwitchesCount] = useState(0);
+  const [penaltyModalOpen, setPenaltyModalOpen] = useState(false);
 
   // Fetch questions on mount
   useEffect(() => {
@@ -94,9 +121,53 @@ function GamePlayContent() {
     };
   }, [sessionToken]);
 
+  // Tab switch detection
+  useEffect(() => {
+    if (loading || showFeedback || penaltyModalOpen) return;
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        setSwitchesCount((prev) => {
+          const newCount = prev + 1;
+          // We apply the penalty logic here but avoid triggering sub-renders if possible
+          // Better: set modal open and let an effect or the modal handle the penalty side-effects
+          setPenaltyModalOpen(true);
+          return newCount;
+        });
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [loading, showFeedback, gameMode, penaltyModalOpen]);
+
+  // Apply penalty side-effects when modal opens
+  useEffect(() => {
+    if (penaltyModalOpen) {
+      applyPenalty(switchesCount);
+    }
+  }, [penaltyModalOpen]);
+
+  const applyPenalty = (count: number) => {
+    if (count === 1) {
+      // We no longer show toast here to avoid duplication if modal is open
+    } else if (count === 2) {
+      setTimeLeft((prev) => Math.max(0, prev - 5));
+    } else if (count >= 3) {
+      if (gameMode === "survival") {
+        setLives((prev) => Math.max(0, prev - 1));
+      } else {
+        setScore((prev) => Math.max(0, prev - 100));
+      }
+    }
+    playSound("wrong");
+  };
+
   // Timer countdown
   useEffect(() => {
-    if (loading || showFeedback) return;
+    if (loading || showFeedback || penaltyModalOpen) return;
 
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
@@ -112,7 +183,7 @@ function GamePlayContent() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [currentIndex, loading, showFeedback, playSound]);
+  }, [currentIndex, loading, showFeedback, playSound, penaltyModalOpen]);
 
   const fetchQuestions = async (signal?: AbortSignal) => {
     try {
@@ -479,6 +550,45 @@ function GamePlayContent() {
           </div>
         )}
       </div>
+
+      {/* Softened Penalty Modal */}
+      {penaltyModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md animate-in fade-in duration-300">
+          <div className="max-w-md w-full bg-slate-900 border border-cyan-500/20 rounded-3xl p-8 shadow-[0_0_50px_rgba(34,211,238,0.05)] text-center space-y-6 transform animate-in zoom-in-95 duration-300">
+            <div className="w-20 h-20 bg-cyan-500/5 rounded-2xl flex items-center justify-center mx-auto mb-2 border border-cyan-500/10">
+              <Brain className="w-10 h-10 text-cyan-400" />
+            </div>
+
+            <div className="space-y-2">
+              <h2 className="text-2xl font-black text-white italic tracking-tight uppercase">
+                {t.penaltyModalTitle.replace("⚠️ ", "")}
+              </h2>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                {t.penaltyModalDesc}
+              </p>
+            </div>
+
+            <div className="py-4 px-6 bg-cyan-500/5 border border-cyan-500/10 rounded-2xl">
+              <span className="text-sm font-bold text-cyan-400 uppercase tracking-widest">
+                {switchesCount === 1
+                  ? t.tabSwitchWarning
+                  : switchesCount === 2
+                    ? t.penaltyTime
+                    : gameMode === "survival"
+                      ? t.penaltyLife
+                      : t.penaltyPoints}
+              </span>
+            </div>
+
+            <Button
+              onClick={() => setPenaltyModalOpen(false)}
+              className="w-full py-6 text-lg font-bold rounded-2xl bg-cyan-600 hover:bg-cyan-500 shadow-md shadow-cyan-900/10 transition-all active:scale-[0.98]"
+            >
+              {t.resumeGame}
+            </Button>
+          </div>
+        </div>
+      )}
 
       {/* Shake animation */}
       <style jsx global>{`

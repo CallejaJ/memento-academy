@@ -20,9 +20,55 @@ export async function GET() {
       );
     }
 
-    // No challenge for today
+    // No challenge for today: implement a rotating fallback
     if (!challenge) {
-      return NextResponse.json({ challenge: null });
+      const dayOfWeek = new Date().getDay(); // 0 is Sunday
+      const fallbacks = [
+        {
+          id: "fb-sun",
+          category: "fundamentals",
+          title: { en: "Sunday Fundaments", es: "Fundamentos de Domingo" },
+          reward_multiplier: 1.5,
+        },
+        {
+          id: "fb-mon",
+          category: "fundamentals",
+          title: { en: "Monday Mastery", es: "Maestría de Lunes" },
+          reward_multiplier: 1.5,
+        },
+        {
+          id: "fb-tue",
+          category: "defi_trading",
+          title: { en: "DeFi Tuesday", es: "Martes de DeFi" },
+          reward_multiplier: 1.5,
+        },
+        {
+          id: "fb-wed",
+          category: "nfts",
+          title: { en: "NFT Wednesday", es: "Miércoles de NFTs" },
+          reward_multiplier: 1.5,
+        },
+        {
+          id: "fb-thu",
+          category: "security",
+          title: { en: "Security Thursday", es: "Jueves de Seguridad" },
+          reward_multiplier: 1.5,
+        },
+        {
+          id: "fb-fri",
+          category: "fundamentals",
+          title: { en: "Future Friday", es: "Viernes de Futuro" },
+          reward_multiplier: 1.5,
+        },
+        {
+          id: "fb-sat",
+          category: "defi_trading",
+          title: { en: "Trading Saturday", es: "Sábado de Trading" },
+          reward_multiplier: 2.0,
+        },
+      ];
+
+      return NextResponse.json({ challenge: fallbacks[dayOfWeek] });
     }
 
     return NextResponse.json({ challenge });

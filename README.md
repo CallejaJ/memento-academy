@@ -100,19 +100,20 @@ An interactive **Crypto Quiz Challenge** where users test their Web3 knowledge a
 
 ### Player Progression
 
-| Rank       | Total Score Required |
-| ---------- | -------------------- |
-| Novato     | 0+                   |
-| Aprendiz   | 100+                 |
-| Experto    | 500+                 |
-| Maestro    | 2,000+               |
-| Leyenda    | 10,000+              |
+| Rank     | Total Score Required |
+| -------- | -------------------- |
+| Novato   | 0+                   |
+| Aprendiz | 100+                 |
+| Experto  | 500+                 |
+| Maestro  | 2,000+               |
+| Leyenda  | 10,000+              |
 
 ### Leaderboard
 
 - **Mode-Specific Rankings**: Separate leaderboards for Classic and Survival modes
 - **Metrics Tracked**: Best score, total score, games played
 - **Top 100**: Public leaderboard showcasing top performers
+- **Anti-Cheat System**: Integrated tab-switch detection (Page Visibility API) to prevent lookups, with progressive penalties (time deduction, life/point loss).
 
 ---
 
