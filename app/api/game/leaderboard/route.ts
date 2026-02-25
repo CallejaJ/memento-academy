@@ -7,9 +7,7 @@ export async function GET(request: Request) {
     const mode = searchParams.get("mode") || "classic";
     const supabase = supabaseAdmin;
 
-    // Get leaderboard from the new mode-specific view
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: leaderboard, error } = await (supabase as any)
+    const { data: leaderboard, error } = await supabase
       .from("game_leaderboard_modes")
       .select("*")
       .eq("game_mode", mode)

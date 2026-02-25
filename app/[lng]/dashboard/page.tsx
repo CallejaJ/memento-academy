@@ -168,14 +168,11 @@ export default function DashboardPage() {
           setProfile(profileData as Profile);
         }
 
-        // Fetch course progress
-        const { data: progressData } = (await supabase
+        const { data: progressData } = await supabase
           .from("course_progress")
           .select("course_id, progress_percentage, last_accessed_at")
           .eq("user_id", user.id)
-          .order("last_accessed_at", { ascending: false })) as {
-          data: CourseProgress[] | null;
-        };
+          .order("last_accessed_at", { ascending: false });
 
         if (progressData) {
           setCoursesProgress(progressData);

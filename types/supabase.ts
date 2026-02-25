@@ -9,6 +9,47 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      course_progress: {
+        Row: {
+          id: string;
+          user_id: string;
+          course_id: string;
+          progress_percentage: number;
+          completed_sections: Json | null;
+          completed_at: string | null;
+          last_accessed_at: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          course_id: string;
+          progress_percentage?: number;
+          completed_sections?: Json | null;
+          completed_at?: string | null;
+          last_accessed_at?: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          course_id?: string;
+          progress_percentage?: number;
+          completed_sections?: Json | null;
+          completed_at?: string | null;
+          last_accessed_at?: string;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "course_progress_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       daily_challenges: {
         Row: {
           id: string;
@@ -43,6 +84,7 @@ export interface Database {
           question_id: string;
           answer_index: number;
           is_correct: boolean;
+          response_time_ms: number | null;
           created_at: string;
         };
         Insert: {
@@ -51,6 +93,7 @@ export interface Database {
           question_id: string;
           answer_index: number;
           is_correct: boolean;
+          response_time_ms?: number | null;
           created_at?: string;
         };
         Update: {
@@ -59,6 +102,7 @@ export interface Database {
           question_id?: string;
           answer_index?: number;
           is_correct?: boolean;
+          response_time_ms?: number | null;
           created_at?: string;
         };
         Relationships: [
@@ -78,6 +122,42 @@ export interface Database {
           },
         ];
       };
+      game_question_history: {
+        Row: {
+          user_id: string;
+          question_id: string;
+          was_correct: boolean;
+          seen_at: string;
+        };
+        Insert: {
+          user_id: string;
+          question_id: string;
+          was_correct: boolean;
+          seen_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          question_id?: string;
+          was_correct?: boolean;
+          seen_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "game_question_history_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "game_question_history_question_id_fkey";
+            columns: ["question_id"];
+            isOneToOne: false;
+            referencedRelation: "game_questions";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       game_questions: {
         Row: {
           id: string;
@@ -86,6 +166,7 @@ export interface Database {
           question_text: Json;
           options: Json;
           correct_index: number;
+          explanation: Json | null;
           is_active: boolean;
           created_at: string;
         };
@@ -96,6 +177,7 @@ export interface Database {
           question_text: Json;
           options: Json;
           correct_index: number;
+          explanation?: Json | null;
           is_active?: boolean;
           created_at?: string;
         };
@@ -106,6 +188,7 @@ export interface Database {
           question_text?: Json;
           options?: Json;
           correct_index?: number;
+          explanation?: Json | null;
           is_active?: boolean;
           created_at?: string;
         };
@@ -309,7 +392,21 @@ export interface Database {
       };
     };
     Views: {
-      [_ in never]: never;
+      game_leaderboard_modes: {
+        Row: {
+          user_id: string;
+          game_mode: string;
+          total_score: number | null;
+          best_score: number | null;
+          avg_score: number | null;
+          games_played: number | null;
+          email: string | null;
+          display_name: string | null;
+          avatar_url: string | null;
+          wallet_address: string | null;
+        };
+        Relationships: [];
+      };
     };
     Functions: {
       [_ in never]: never;

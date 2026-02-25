@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Update status to 'rewarded' in the database
+    console.log(`Confirming referral ${referralId} with tx ${txHash}`);
     const { error } = await supabaseAdmin
       .from("referrals")
       .update({ status: "rewarded" })
@@ -27,6 +28,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    console.log(`Referral ${referralId} successfully marked as rewarded`);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Referral confirm error:", error);

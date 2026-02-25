@@ -4,7 +4,7 @@ import { createWalletClient, http, encodePacked, keccak256 } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { sepolia } from "viem/chains";
 
-const REFERRAL_REWARD = 10; // MEMO tokens per successful referral (must be >= 8 for contract)
+const REFERRAL_REWARD = 10; // Explicitly 10 MEMOs
 const SIGNATURE_EXPIRY_SECONDS = 3600; // 1 hour
 
 const MEMO_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_MEMO_CONTRACT_ADDRESS as
@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
       rewardSignature,
       rewardDeadline,
       referralId,
-      score: REFERRAL_REWARD,
+      score: 10,
     });
   } catch (error) {
     console.error("Referral claim error:", error);

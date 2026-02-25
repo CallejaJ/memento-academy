@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { unstable_noStore as noStore } from "next/cache";
 
 export async function GET(request: Request) {
+  noStore();
   try {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get("userId");

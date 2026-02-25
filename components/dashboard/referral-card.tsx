@@ -10,7 +10,7 @@ import { MEMO_QUIZ_REWARDS_ABI } from "@/lib/abi";
 import { Users, Copy, Check, Gift, ExternalLink } from "lucide-react";
 import type { ClaimableReferral, ReferralData } from "@/actions/get-referral";
 
-const REFERRAL_REWARD = 10;
+const REFERRAL_REWARD = 10; // Explicitly 10 MEMOs
 
 const translations = {
   en: {
@@ -126,6 +126,14 @@ export function ReferralCard({
       const referralIdBytes =
         `0x${referral.id.replace(/-/g, "").padEnd(64, "0")}` as `0x${string}`;
 
+      console.log("Claiming reward with args:", {
+        recipient: wallet.address,
+        sessionId: referralIdBytes,
+        score: 10,
+        deadline: rewardDeadline,
+        signature: rewardSignature,
+      });
+
       const hash = await kernelClient.writeContract({
         address: MEMO_CONTRACT_ADDRESS as `0x${string}`,
         abi: MEMO_QUIZ_REWARDS_ABI,
@@ -133,11 +141,13 @@ export function ReferralCard({
         args: [
           wallet.address as `0x${string}`,
           referralIdBytes,
-          BigInt(score),
+          BigInt(10),
           BigInt(rewardDeadline),
           rewardSignature as `0x${string}`,
         ],
       });
+
+      console.log("Claim transaction hash:", hash);
 
       setTxHashes((prev) => ({ ...prev, [referral.id]: hash }));
       setClaimedIds((prev) => new Set(prev).add(referral.id));

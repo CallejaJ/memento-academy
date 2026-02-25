@@ -1,6 +1,7 @@
 "use server";
 
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { unstable_noStore as noStore } from "next/cache";
 
 export interface ClaimableReferral {
   id: string;
@@ -17,6 +18,7 @@ export interface ReferralData {
 }
 
 export async function getReferralData(userId: string): Promise<ReferralData> {
+  noStore();
   // 1. Get user's referral code
   const { data: profile } = await supabaseAdmin
     .from("profiles")
