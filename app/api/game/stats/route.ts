@@ -66,13 +66,22 @@ export async function GET(request: Request) {
     const avgScore =
       gamesPlayed > 0 ? Number((totalScore / gamesPlayed).toFixed(1)) : 0;
 
-    // Calculate earned tokens (sum of scores where score >= 8, Classic mode only)
+    // 2. NEW: Count rewarded referrals (10 MEMO each)
+    const { data: rewardedReferrals } = await supabaseAdmin
+      .from("referrals")
+      .select("id")
+      .eq("referrer_user_id", userId)
+      .eq("status", "rewarded");
+
+    const referralTokens = (rewardedReferrals?.length || 0) * 10;
+
+    // Calculate earned tokens (sum of scores where score >= 8, Classic mode only + referral rewards)
     const earnedTokens =
-      classicSessions?.reduce(
+      (classicSessions?.reduce(
         (acc: number, session: any) =>
           (session.score || 0) >= 8 ? acc + (session.score || 0) : acc,
         0,
-      ) || 0;
+      ) || 0) + referralTokens;
 
     // Calculate Rank based on total score
     let rank = "Novato";
