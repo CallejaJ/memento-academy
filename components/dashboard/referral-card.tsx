@@ -162,16 +162,34 @@ export function ReferralCard({
       // Notify parent to refresh stats (balance)
       if (onClaimSuccess) onClaimSuccess();
     } catch (err: any) {
-      // Stringify the ENTIRE error object to search for revert reasons
-      // The RPC returns hex-encoded ABI data, not plain text
-      const fullError = JSON.stringify(err).toLowerCase();
+      // viem errors have non-enumerable properties, so JSON.stringify misses them.
+      // Manually collect all error text to search for revert reasons.
+      const errorParts = [
+        err.message,
+        err.shortMessage,
+        err.details,
+        err.cause?.message,
+        err.cause?.shortMessage,
+        err.cause?.details,
+        err.cause?.cause?.message,
+        err.cause?.cause?.details,
+        String(err),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
 
       // "Reward already claimed" hex = 52657761726420616c726561647920636c61696d6564
       const isAlreadyClaimed =
-        fullError.includes("already claimed") ||
-        fullError.includes("52657761726420616c726561647920636c61696d6564");
+        errorParts.includes("already claimed") ||
+        errorParts.includes("52657761726420616c726561647920636c61696d6564");
 
-      console.log("Claim error detected. Already claimed?", isAlreadyClaimed);
+      console.log(
+        "Claim error. Already claimed?",
+        isAlreadyClaimed,
+        "Error parts:",
+        errorParts.substring(0, 500),
+      );
 
       if (isAlreadyClaimed) {
         // Blockchain has the reward, but DB is out of sync. Fix it now.
