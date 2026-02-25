@@ -139,6 +139,16 @@ export function ReferralCard({
 
       setTxHashes((prev) => ({ ...prev, [referral.id]: hash }));
       setClaimedIds((prev) => new Set(prev).add(referral.id));
+
+      // 5. NEW: Confirm in database to update status to 'rewarded'
+      await fetch("/api/referral/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ referralId: referral.id, txHash: hash }),
+      });
+
+      // Optionally reload the page or stats to show updated balance
+      // window.location.reload();
     } catch (err: any) {
       setErrors((prev) => ({
         ...prev,
