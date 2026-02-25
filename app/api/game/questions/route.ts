@@ -182,7 +182,7 @@ export async function GET(request: NextRequest) {
       // Daily Mode: Fetch current day's category
       const today = new Date().toISOString().split("T")[0];
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { data: dailyChallenge } = await (supabase as any)
+      const { data: dailyChallenge } = await supabase
         .from("daily_challenges")
         .select("category")
         .eq("challenge_date", today)
@@ -363,7 +363,7 @@ export async function GET(request: NextRequest) {
     // Store option mappings in session for answer verification
     // Using reward_signature temporarily (will be overwritten when rewarded)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    await (supabase as any)
+    await supabase
       .from("game_sessions")
       .update({
         reward_signature: JSON.stringify(optionMappings),

@@ -114,6 +114,32 @@ export default function DashboardPage() {
 
   const lastFetchedUserId = useRef<string | null>(null);
 
+  // Function to refresh ONLY game stats (balance)
+  const refreshStats = async () => {
+    if (!user?.id) return;
+    try {
+      const res = await fetch(`/api/game/stats?userId=${user.id}`);
+      if (res.ok) {
+        const stats = await res.json();
+        setGameStats(stats);
+      }
+    } catch (e) {
+      console.error("Failed to fetch game stats", e);
+    }
+  };
+
+  // Function to refresh ONLY referral data
+  const refreshReferrals = async () => {
+    if (!user?.id) return;
+    try {
+      const { getReferralData } = await import("@/actions/get-referral");
+      const refData = await getReferralData(user.id);
+      setReferralData(refData);
+    } catch (e) {
+      console.error("Failed to fetch referral data", e);
+    }
+  };
+
   // Fetch profile and course progress
   useEffect(() => {
     async function fetchData() {
@@ -162,18 +188,9 @@ export default function DashboardPage() {
           setTotalXP(xp);
         }
 
-        // Fetch game stats
-        try {
-          const res = await fetch(`/api/game/stats?userId=${user.id}`);
-          if (res.ok) {
-            const stats = await res.json();
-            setGameStats(stats);
-          }
-        } catch (e) {
-          console.error("Failed to fetch game stats", e);
-        }
+        // Fetch game stats and referrals
+        refreshStats();
 
-        // Fetch referral data
         try {
           const { getReferralData } = await import("@/actions/get-referral");
           const refData = await getReferralData(user.id);
@@ -410,6 +427,10 @@ export default function DashboardPage() {
             <ReferralCard
               referralData={referralData}
               walletAddress={embeddedWallet?.address}
+              onClaimSuccess={() => {
+                refreshStats();
+                refreshReferrals();
+              }}
             />
           )}
 

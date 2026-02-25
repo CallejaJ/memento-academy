@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
 
     // Create session
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: sessionData, error: sessionError } = await (supabase as any)
+    const { data: sessionData, error: sessionError } = await supabase
       .from("game_sessions")
       .insert({
         user_id: user.id,

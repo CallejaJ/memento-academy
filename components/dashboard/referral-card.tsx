@@ -50,11 +50,13 @@ const translations = {
 interface ReferralCardProps {
   referralData: ReferralData;
   walletAddress?: string;
+  onClaimSuccess?: () => void;
 }
 
 export function ReferralCard({
   referralData,
   walletAddress,
+  onClaimSuccess,
 }: ReferralCardProps) {
   const { lng } = useParams<{ lng: string }>();
   const t = translations[lng as keyof typeof translations] || translations.en;
@@ -147,8 +149,8 @@ export function ReferralCard({
         body: JSON.stringify({ referralId: referral.id, txHash: hash }),
       });
 
-      // Optionally reload the page or stats to show updated balance
-      // window.location.reload();
+      // Notify parent to refresh stats (balance)
+      if (onClaimSuccess) onClaimSuccess();
     } catch (err: any) {
       setErrors((prev) => ({
         ...prev,

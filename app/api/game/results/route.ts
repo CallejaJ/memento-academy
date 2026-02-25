@@ -187,7 +187,7 @@ export async function POST(request: NextRequest) {
 
           // Save signature and deadline to session
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          await (supabase as any)
+          await supabase
             .from("game_sessions")
             .update({
               reward_signature: rewardSignature,
@@ -207,7 +207,7 @@ export async function POST(request: NextRequest) {
 
     // Mark session as finished
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    await (supabase as any)
+    await supabase
       .from("game_sessions")
       .update({
         finished_at: new Date().toISOString(),
