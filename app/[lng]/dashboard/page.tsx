@@ -8,6 +8,13 @@ import {
   ContinueLearning,
   ContinueLearningEmpty,
 } from "@/components/dashboard/continue-learning";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { RecommendedCourses } from "@/components/dashboard/recommended-courses";
 import Link from "next/link";
 import { MainNav } from "@/components/main-nav";
@@ -51,6 +58,9 @@ const translations = {
     unlocked: "Unlocked",
     locked: "Locked",
     edit_profile: "Edit Profile",
+    welcome_title: "Welcome to Memento Academy!",
+    welcome_desc: "We're glad to have you here. You were invited by {{name}}.",
+    start_learning: "Start Learning",
   },
   es: {
     loading: "Cargando...",
@@ -66,6 +76,10 @@ const translations = {
     unlocked: "Desbloqueados",
     locked: "Bloqueado",
     edit_profile: "Editar Perfil",
+    welcome_title: "¡Bienviendo a Memento Academy!",
+    welcome_desc:
+      "Estamos encantados de tenerte aquí. Te ha invitado {{name}}.",
+    start_learning: "Empezar a Aprender",
   },
 };
 
@@ -86,6 +100,8 @@ export default function DashboardPage() {
     remainingAttempts?: number;
   } | null>(null);
   const [referralData, setReferralData] = useState<ReferralData | null>(null);
+  const [referrerName, setReferrerName] = useState<string | null>(null);
+  const [showWelcome, setShowWelcome] = useState(false);
 
   const { wallets } = useWallets(); // Get wallets from Privy
 
@@ -162,6 +178,24 @@ export default function DashboardPage() {
           const { getReferralData } = await import("@/actions/get-referral");
           const refData = await getReferralData(user.id);
           setReferralData(refData);
+
+          // Check for intro/welcome (Opción 3)
+          if (refData.completedCount === 0 && refData.rewardedCount === 0) {
+            const { getReferrerInfo } =
+              await import("@/actions/get-referrer-info");
+            const referrer = await getReferrerInfo(user.id);
+            if (referrer) {
+              setReferrerName(referrer.name);
+              // Only show if not seen before in this session
+              const hasSeenWelcome = sessionStorage.getItem(
+                "memento_welcome_seen",
+              );
+              if (!hasSeenWelcome) {
+                setShowWelcome(true);
+                sessionStorage.setItem("memento_welcome_seen", "true");
+              }
+            }
+          }
         } catch (e) {
           console.error("Failed to fetch referral data", e);
         }
@@ -295,6 +329,32 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-slate-950">
       <MainNav lng={lng} />
+
+      {/* Welcome Modal (Opción 3) */}
+      <Dialog open={showWelcome} onOpenChange={setShowWelcome}>
+        <DialogContent className="max-w-md bg-slate-900 border-cyan-500/20 rounded-3xl p-8">
+          <DialogHeader className="text-center space-y-4">
+            <div className="w-20 h-20 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto border border-cyan-500/20">
+              <span className="text-4xl">👋</span>
+            </div>
+            <DialogTitle className="text-2xl font-bold text-white tracking-tight">
+              {t.welcome_title}
+            </DialogTitle>
+            <DialogDescription className="text-slate-400 text-sm leading-relaxed">
+              {t.welcome_desc.replace("{{name}}", referrerName || "")}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mt-6">
+            <Button
+              onClick={() => setShowWelcome(false)}
+              className="w-full py-6 text-lg font-bold rounded-2xl bg-cyan-600 hover:bg-cyan-500 shadow-md shadow-cyan-900/10 transition-all font-outfit"
+            >
+              {t.start_learning}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       <div className="container mx-auto px-4 pt-24 pb-12">
         <div className="max-w-6xl mx-auto space-y-8">
           {/* Welcome Header */}

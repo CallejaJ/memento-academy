@@ -10,7 +10,7 @@ import { MEMO_QUIZ_REWARDS_ABI } from "@/lib/abi";
 import { Users, Copy, Check, Gift, ExternalLink } from "lucide-react";
 import type { ClaimableReferral, ReferralData } from "@/actions/get-referral";
 
-const REFERRAL_REWARD = 5;
+const REFERRAL_REWARD = 10;
 
 const translations = {
   en: {
@@ -52,7 +52,10 @@ interface ReferralCardProps {
   walletAddress?: string;
 }
 
-export function ReferralCard({ referralData, walletAddress }: ReferralCardProps) {
+export function ReferralCard({
+  referralData,
+  walletAddress,
+}: ReferralCardProps) {
   const { lng } = useParams<{ lng: string }>();
   const t = translations[lng as keyof typeof translations] || translations.en;
   const { wallets } = useWallets();
@@ -78,7 +81,8 @@ export function ReferralCard({ referralData, walletAddress }: ReferralCardProps)
   const handleClaim = async (referral: ClaimableReferral) => {
     if (claimingId || claimedIds.has(referral.id)) return;
 
-    const wallet = wallets.find((w) => w.walletClientType === "privy") ?? wallets[0];
+    const wallet =
+      wallets.find((w) => w.walletClientType === "privy") ?? wallets[0];
     if (!wallet) return;
 
     setClaimingId(referral.id);
@@ -89,7 +93,10 @@ export function ReferralCard({ referralData, walletAddress }: ReferralCardProps)
       const res = await fetch("/api/referral/claim", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ referralId: referral.id, walletAddress: wallet.address }),
+        body: JSON.stringify({
+          referralId: referral.id,
+          walletAddress: wallet.address,
+        }),
       });
 
       if (!res.ok) {
@@ -262,9 +269,10 @@ export function ReferralCard({ referralData, walletAddress }: ReferralCardProps)
         )}
 
         {/* Empty state */}
-        {referralData.completedCount === 0 && referralData.rewardedCount === 0 && (
-          <p className="text-sm text-slate-500 italic">{t.invitePrompt}</p>
-        )}
+        {referralData.completedCount === 0 &&
+          referralData.rewardedCount === 0 && (
+            <p className="text-sm text-slate-500 italic">{t.invitePrompt}</p>
+          )}
       </div>
     </div>
   );

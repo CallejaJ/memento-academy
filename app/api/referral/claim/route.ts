@@ -4,7 +4,7 @@ import { createWalletClient, http, encodePacked, keccak256 } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { sepolia } from "viem/chains";
 
-const REFERRAL_REWARD = 5; // MEMO tokens per successful referral
+const REFERRAL_REWARD = 10; // MEMO tokens per successful referral (must be >= 8 for contract)
 const SIGNATURE_EXPIRY_SECONDS = 3600; // 1 hour
 
 const MEMO_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_MEMO_CONTRACT_ADDRESS as
@@ -31,7 +31,10 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (referralError || !referral) {
-      return NextResponse.json({ error: "Referral not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Referral not found" },
+        { status: 404 },
+      );
     }
 
     if (referral.status === "rewarded") {
@@ -107,7 +110,10 @@ export async function POST(request: NextRequest) {
     // 4. Persist signature + deadline on the referral record
     await supabaseAdmin
       .from("referrals")
-      .update({ reward_signature: rewardSignature, reward_deadline: rewardDeadline })
+      .update({
+        reward_signature: rewardSignature,
+        reward_deadline: rewardDeadline,
+      })
       .eq("id", referralId);
 
     return NextResponse.json({
