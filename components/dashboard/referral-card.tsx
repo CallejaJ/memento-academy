@@ -162,9 +162,40 @@ export function ReferralCard({
       // Notify parent to refresh stats (balance)
       if (onClaimSuccess) onClaimSuccess();
     } catch (err: any) {
+      // Stringify the ENTIRE error object to search for revert reasons
+      // The RPC returns hex-encoded ABI data, not plain text
+      const fullError = JSON.stringify(err).toLowerCase();
+
+      // "Reward already claimed" hex = 52657761726420616c726561647920636c61696d6564
+      const isAlreadyClaimed =
+        fullError.includes("already claimed") ||
+        fullError.includes("52657761726420616c726561647920636c61696d6564");
+
+      console.log("Claim error detected. Already claimed?", isAlreadyClaimed);
+
+      if (isAlreadyClaimed) {
+        // Blockchain has the reward, but DB is out of sync. Fix it now.
+        try {
+          await fetch("/api/referral/confirm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              referralId: referral.id,
+              txHash: "SYNC_ALREADY_CLAIMED",
+            }),
+          });
+
+          setClaimedIds((prev) => new Set(prev).add(referral.id));
+          if (onClaimSuccess) onClaimSuccess();
+          return;
+        } catch (syncErr) {
+          console.error("Failed to sync already claimed referral:", syncErr);
+        }
+      }
+
       setErrors((prev) => ({
         ...prev,
-        [referral.id]: err.message || "Claim failed",
+        [referral.id]: err.shortMessage || err.message || "Claim failed",
       }));
     } finally {
       setClaimingId(null);
