@@ -97,10 +97,10 @@ export async function generateMetadata({
       type: "website",
       images: [
         {
-          url: `${baseUrl}/memento-academy-logo.png`,
-          width: 512,
-          height: 512,
-          alt: "Memento Academy Logo",
+          url: `${baseUrl}/images/og/learn-to-earn.png`,
+          width: 1200,
+          height: 630,
+          alt: "Memento Academy",
         },
       ],
     },
@@ -112,7 +112,7 @@ export async function generateMetadata({
       creator: "@memento_academy",
       title,
       description,
-      images: [`${baseUrl}/memento-academy-logo.png`],
+      images: [`${baseUrl}/images/og/learn-to-earn.png`],
     },
 
     // Icons
