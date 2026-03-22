@@ -112,7 +112,6 @@ export async function generateMetadata({
       creator: "@memento_academy",
       title,
       description,
-      images: [`${baseUrl}/images/og/learn-to-earn.png`],
     },
 
     // Icons
