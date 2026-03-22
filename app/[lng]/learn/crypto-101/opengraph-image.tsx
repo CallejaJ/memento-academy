@@ -52,7 +52,7 @@ export default async function Image({
           <div
             style={{
               color: "#22d3ee",
-              fontSize: 18,
+              fontSize: 26,
               fontWeight: 700,
               letterSpacing: 4,
               textTransform: "uppercase",
@@ -63,7 +63,7 @@ export default async function Image({
           <div
             style={{
               color: "#ffffff",
-              fontSize: 72,
+              fontSize: 82,
               fontWeight: 800,
               lineHeight: 1.1,
             }}
@@ -73,7 +73,7 @@ export default async function Image({
           <div
             style={{
               color: "#94a3b8",
-              fontSize: 24,
+              fontSize: 32,
               lineHeight: 1.5,
               maxWidth: 800,
             }}
